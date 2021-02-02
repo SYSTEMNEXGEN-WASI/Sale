@@ -1,0 +1,462 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Reversal</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                    </div>
+                </header>
+
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Reversal</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <input type="text" class="form-control" id="txtReversalNo" readonly>
+                                @*@Html.DropDownList("ddlEvent", new SelectList((IEnumerable<SelectListItem>)ViewBag.Event, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlEvent" })*@
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Reversal Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtReversalDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Transaction</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalActCode" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                <input type="text" required class="form-control" id="txtTransaction" readonly onblur="ChangeColor(this)">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>                       
+
+                        <div class="col-md-4">
+                            <label class="form-label">Reference</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+                                <input type="text" class="form-control" id="txtReference" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Sales Person</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                <input type="text" class="form-control" id="txtSalePerson" readonly  />
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Model</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                <input type="text" class="form-control" id="txtModel" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Chassis</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                                <input type="text" class="form-control" id="txtChassis" readonly />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Engine</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-cab"></i></span>
+                                <input type="text" class="form-control" id="txtEngine" name="Engine" readonly />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Customer</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                                <input type="text" class="form-control" id="txtCustomerCode" name="Customer" readonly style="width:30%; padding-left: 0; padding-right: 0;" />
+                                <input type="text" class="form-control" id="txtCustomer" name="Customer" readonly style="width:70%" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Credit</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                <input type="text" class="form-control" id="txtCredit" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div> 
+                        
+                        <div class="col-md-4">
+                            <label class="form-label">Debit</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                <input type="text" class="form-control" id="txtDebit" onblur="ChangeColor(this)" onkeypress="return isNumberKey(event)" maxlength="6">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>        
+                        
+                        <div class="col-md-4">
+                            <label class="form-label">Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" class="form-control" id="txtInvType" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>               
+                       
+                        <div class="col-md-4">
+                            <label class="form-label">Remarks</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+                                <input type="text" class="form-control" id="txtRemarks" maxlength="50">
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="pull-left">
+
+                            </div>
+                            <div class="pull-right">
+                                <button type="reset" class="btn btn-default" id="btnCancel" style="margin-top:25px;">Clear</button>
+                                <button type="button" class="btn btn-primary" id="btnSave" style="margin-top:25px;">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveEnquiry()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    @*Account Transaction Modal*@
+    <div class="modal" tabindex="-1" id="POModalActCode" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Account Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-left:10px">
+                        <div class="table-responsive table-Scroll" style="height:280px">
+                            <table id="AccountTableSO" class="table color-table info-table">
+                                <thead>
+                                    <tr>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Transaction Code</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Transaction Date</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Customer</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Receipt No</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+                                    @if (ViewBag.AccountTrans != null)
+                                    {
+                                        foreach (var item in ViewBag.AccountTrans)
+                                        {
+                                            <tr style="text-align: left" onclick="ClickAccount('@item.TransactionCode','@item.TransactionDate','@item.CusCode','@item.CusDesc','@item.InvType','@item.Reference','@item.EmpDesc','@item.ProdDesc','@item.EngineNo','@item.ChasisNo','@item.Credit')">
+                                                <td class="tdDiv">
+                                                    @item.TransactionCode
+                                                </td>
+                                                <td class="tdDiv">
+                                                    @item.TransactionDate
+                                                </td>
+                                                <td class="tdDiv">
+                                                    @item.CusCode
+                                                </td>
+                                                <td class="tdDiv">
+                                                    @item.Reference
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    @*Account Transaction Modal*@
+</section>
+
+@*<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />*@
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+@*<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script>*@
+@*<script src="../assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>*@
+
+<script>
+
+    $(document).ready(function () {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $(".datepicker").val(today);
+    })
+
+    function ChangeColor(value) {
+
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+    ClickAccount = function (TransactionCode, TransactionDate, CusCode, CusDesc,InvType, Reference, EmpDesc, ProdDes, EngineNo, ChasisNo, Credit) {
+
+        document.getElementById('txtTransaction').value = TransactionCode;
+        document.getElementById('txtReference').value = Reference;
+        document.getElementById('txtSalePerson').value = EmpDesc;
+        document.getElementById('txtEngine').value = EngineNo;
+        document.getElementById('txtChassis').value = ChasisNo;
+        document.getElementById('txtCustomerCode').value = CusCode;
+        document.getElementById('txtCustomer').value = CusDesc;
+        document.getElementById('txtModel').value = ProdDes;
+        document.getElementById('txtCredit').value = Credit;
+        document.getElementById('txtInvType').value = InvType;
+        $("#POModalActCode").modal("hide");
+    }
+
+    $("#btnSave").click(function () {
+
+        var count = 0;
+
+        var transaction = $("#txtTransaction").val();
+        var debit = $("#txtDebit").val();
+        var credit = $("#txtCredit").val();
+        var reversaldate = $("#txtReversalDate").val();
+
+        if (transaction == "" || transaction == null) {
+            $("#txtTransaction").css("border-color", "red");
+            count++;
+        }
+        if (debit == "" || debit == null) {
+            $("#txtDebit").css("border-color", "red");
+            count++;
+        }
+        if (reversaldate == "" || reversaldate == null) {
+            $("#txtReversalDate").css("border-color", "red");
+            count++;
+        }
+
+        debugger
+
+
+
+        if (count == 0) {
+            if (Math.round(credit) != debit) {
+                $("#lblMessage").html("Debit and Credit Amount Should be equal");
+                $("#section-message").modal("show");
+                $("#txtDebit").focus();
+            } else {
+                $("#section-confirm").modal("show");
+            }
+
+        } else {
+            $("#lblMessage").html("Please fill the Required feilds");
+            $("#section-message").modal("show");
+        }
+
+    })
+
+    function SaveEnquiry() {
+
+        var dto = {};
+        debugger
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.ReversalID = $("#txtReversalNo").val();
+        dto.ReversalDate = $("#txtReversalDate").val();
+        dto.TransactionNo = $("#txtTransaction").val();
+        dto.TrType = 'R';
+        dto.TransactionAmount = $("#txtDebit").val();
+        dto.Remarks = $("#txtRemarks").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Reversal/Insert_Reversal")',
+            data: dto,
+            success: function (data) {
+                debugger
+                if (data) {
+                    if (data.Success == true) {
+                        saveAccTrans();
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+    }
+    
+        function saveAccTrans() {
+
+            var dto = {};
+
+            dto.DealerCode = "@Session["DealerCode"].ToString()";
+            dto.TransactionDate = $("#txtReversalDate").val();
+            dto.CusCode = $("#txtCustomerCode").val();
+            dto.InvType = $('#txtInvType').val();
+            dto.TrType = 'R';
+            dto.Debit = $('#txtDebit').val();
+            dto.Narration = "This is the reverse entry of " + $("#txtReference").val();
+            dto.Reference = $("#txtReference").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/Reversal/Insert_ReversalAccountTrans")',
+            data: dto,
+            success: function (data) {
+
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide')
+                        }, 4000);
+                    }
+                }
+                else {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+
+                }
+            },
+            complete: function () {
+
+                location.reload();
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+
+    }
+
+</script>

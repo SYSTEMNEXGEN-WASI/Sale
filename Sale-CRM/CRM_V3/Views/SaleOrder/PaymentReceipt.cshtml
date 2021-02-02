@@ -1,0 +1,917 @@
+﻿@{
+    ViewBag.Title = "VehicleSalesInvoice";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+
+<section class="wrapper main-wrapper row">
+    
+          
+                <form  method="post" >
+
+                    <div class="col-md-12">
+                        <section class="box">
+                            <header class="panel_header">
+                                <h2 class="title pull-left">Payment Receipt</h2>
+                                <div class="actions panel_actions pull-right">
+                                    <a class="box_toggle fa fa-chevron-down"></a>
+                                    @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                                </div>
+                            </header>
+                        <div class="content-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-group row">
+                                        <div class="input-group col-md-12">
+                                            <div class="col-md-12">
+                                                <div class="white-box" style="border: 1px solid #e0e0e0;padding:2px 5px 2px 20px">
+                                                    <div class="radio-list">
+                                                        <div class="input-group row">
+                                                            <label class="radio-inline p-0 col-sm-3">
+                                                                <div class="radio">
+                                                                    <input type="radio" name="ReceiptType" id="radio1" value="ARC">
+                                                                    <label for="radio1"> Advance Receipts From Customer </label>
+                                                                </div>
+                                                            </label>
+                                                            <label class="radio-inline p-0 col-sm-3">
+                                                                <div class="radio radio-info">
+                                                                    <input type="radio" name="ReceiptType"  id="radio2" value="IRC">
+                                                                    <label for="radio2"> Invoice Receipts From Customer </label>
+                                                                </div>
+                                                            </label>
+                                                            <label class="radio-inline p-0 col-sm-3">
+                                                                <div class="radio radio-info">
+                                                                    <input type="radio" name="ReceiptType" checked id="radio2" value="CAO">
+                                                                    <label for="radio2"> Commission Amount From OEM </label>
+                                                                </div>
+                                                            </label>
+                                                            <label class="radio-inline col-sm-3">
+                                                                <div class="radio radio-info">
+                                                                    <input type="radio" name="ReceiptType" id="radio3" value="RCWOI">
+                                                                    <label for="radio3"> Receipts From Customer W/O Invoice</label>
+                                                                </div>
+                                                            </label>
+                                                            <label class="radio-inline col-sm-3">
+                                                                <div class="radio radio-info">
+                                                                    <input type="radio" name="ReceiptType" id="radio3" value="RAPV">
+                                                                    <label for="radio3"> Refund Payment From Vendor</label>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*<div id="InvBtn" class="input-group col-md-2">
+                            <div class="radio-list">
+                                <label class="radio-inline p-0">
+                                    <div class="radio radio-info">
+                                        <input type="radio" name="InvoiceType" checked id="radio1" value="I">
+                                        <label for="radio1"> Item </label>
+                                    </div>
+                                </label>
+                                <label class="radio-inline">
+                                    <div class="radio radio-info">
+                                        <input type="radio" name="InvoiceType" id="radio2" value="M">
+                                        <label for="radio2"> Service </label>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>*@
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <label class="form-label">Receipt No</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><a data-toggle="modal" data-target="#CustomerModal" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                            <input type="text" class="form-control" id="txtSoDate" readonly>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <label class="form-label">Receipt Date</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input type="text" class="form-control" id="txtSoDate" placeholder="dd/mm/yyyy">
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-3">
+                                        <label class="form-label">Customer</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><a data-toggle="modal" data-target="#VenderModel" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Code" maxlength="5" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label class="form-label">Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Name">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label class="form-label">Cost Center</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><a data-toggle="modal" data-target="#CostCenterModel" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Code" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label class="form-label">Cost Center</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Name">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">Remarks</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-comment"></i></span>
+                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Remarks">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row pull-right">
+                                        <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px; width:150px; border-radius:0px;">Voucher</button>
+
+                                        <button type="reset" class="btn btn-default" id="btnClear" style="margin-top:27px; width:150px; border-radius:0px;">Pending Invoices</button>
+
+                                        <button type="button" class="btn btn-success" id="btnPayment" style="margin-top:27px; width:150px; border-radius:0px;">Payments</button>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <ul class="nav nav-tabs primary" style="border-radius:0px; ">
+                                        <li class="active">
+                                            <a href="#tabInvoices" data-toggle="tab" style="border-radius:0px;">
+                                                <i class="fa fa-car"></i>Invoices
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tabPayment" data-toggle="tab" style="border-radius:0px;">
+                                                <i class="fa fa-car"></i>Payment
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tabTaxHead" data-toggle="tab" style="border-radius:0px;">
+                                                <i class="fa fa-car"></i>Tax Head
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content primary">
+                                        <div class="tab-pane fade in active" id="tabInvoices">
+                                            <div class="form-group row">
+
+
+
+
+
+
+                                                <div style="margin-top:30px">
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Invoice No</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><a data-toggle="modal" data-target="#InvoicesModel" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Invoice No">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Invoice Date</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Invoice Date">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Inv. Amt.</label>
+                                                        <div class="input-group">
+
+                                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Invoice Amount">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Outstanding</label>
+                                                        <div class="input-group">
+
+                                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Outstanding">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Adjustment</label>
+                                                        <div class="input-group">
+
+                                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Adjustment">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Total Amt</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+                                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Adv. Amount">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <button type="reset" class="btn btn-warning" id="btnCancel" style="margin-top: 2.4rem; width: 50px">Add</button>
+                                                        <button type="reset" class="btn btn-warning" id="btnCancel" style="margin-top: 2.4rem; width: 70px">Remove</button>
+                                                        <button type="reset" class="btn btn-warning" id="btnCancel" style="margin-top: 2.4rem; width: 65px">Clear</button>
+                                                    </div>
+
+
+                                                    <div class="col-md-12" style="margin-top:15px">
+                                                        <div class="table-respon table-bordered">
+                                                            <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                                                <thead class="">
+                                                                    <tr>
+                                                                        <th>Sr#</th>
+                                                                        <th>Invoice No</th>
+                                                                        <th>Invoice Date</th>
+                                                                        <th>Invoice Amount</th>
+                                                                        <th style="text-align : center">Outstanding</th>
+                                                                        <th style="text-align : center">Adjustment</th>
+                                                                        <th style="text-align : right">Remaining</th>
+                                                                        <th style="text-align : right">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>001</td>
+                                                                        <td>11</td>
+                                                                        <td>test1</td>
+                                                                        <td>test22</td>
+                                                                        <td style="text-align : center">good</td>
+                                                                        <td style="text-align : center">good</td>
+                                                                        <td style="text-align : right">good</td>
+                                                                        <td style="text-align:right"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" style="color:blue"><i class="fa fa-trash"></i></a></td>
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-md-2 col-md-offset-6" style="margin-top:10px">
+                                                        <label class="form-label">Outstandings</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Outstandings" readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-2" style="margin-top:10px">
+                                                        <label class="form-label">Adjustments</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Adjustments" readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-2" style="margin-top:10px">
+                                                        <label class="form-label">Ttl Invoices</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="txtSoDate" placeholder="Total Invoices" readonly>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="tabPayment">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label class="form-label">Receipt Account</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><a data-toggle="modal" data-target="#CashBankModel" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="Code" readonly>
+                                                        <span class="input-group-addon"><a href="@Url.Action("AccountSetup","Definition")"><i class="fa fa-plus"></i></a></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <label class="form-label">Inc Adv</label>
+                                                    <div class="input-group">
+                                                        <input type="checkbox" class="checkbox-inline" id="txtSoDate">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Inc Adv</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="__/____">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Advance</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="Advance">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Pay Mode</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><a data-toggle="modal" data-target="#PaymentModeModel" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                                        @Html.DropDownList("ddlPayMode", new SelectList((IEnumerable<SelectListItem>)ViewBag.PayMode, "Value", "Text", "C"), new { @class = "form-control", @id = "ddlPayMode", @onchange = "ChangeColor(this)" })
+                                                        <span class="input-group-addon"><a href="@Url.Action("AccountSetup","Definition")"><i class="fa fa-plus"></i></a></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Advance Adjusted Amount</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="Name">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Inst Date</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" class="form-control datepicker" id="txtInsDate" data-format="D, dd MM yyyy">
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Bank</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><a data-toggle="modal" data-target="#BankModel" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                                        @Html.DropDownList("ddlBank", new SelectList((IEnumerable<SelectListItem>)ViewBag.Bank, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlBank", @onchange = "ChangeColor(this)" })
+                                                        <span class="input-group-addon"><a href="@Url.Action("AccountSetup","Definition")"><i class="fa fa-plus"></i></a></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label class="form-label">Branch</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="Code" readonly>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label class="form-label">Instrument No</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="Instrument No">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label class="form-label">Amount</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="Amount">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="reset" class="btn btn-warning" id="btnCancel" style="margin-top: 2.4rem; width: 150px">Auto Adjust(FIFO)</button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="tabTaxHead">
+                                            <div class="form-group row">
+
+                                                <div class="col-md-3">
+                                                    <label class="form-label">Receipt Head</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><a data-toggle="modal" data-target="#ReceiptHeadModel" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                                        <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                                            <option value="Mr">Mr.</option>
+                                                            <option value="Ms">Ms.</option>
+                                                        </select>
+                                                        <span class="input-group-addon"><a href="@Url.Action("AccountSetup","Definition")"><i class="fa fa-plus"></i></a></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-5">
+                                                    <label class="form-label">Percentage</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="Percentage">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="form-label">Amount</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="Amount">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="reset" class="btn btn-warning" id="btnCancel" style="margin-top: 2.4rem; width: 50px">Add</button>
+                                                    <button type="reset" class="btn btn-warning" id="btnCancel" style="margin-top: 2.4rem; width: 70px">Remove</button>
+                                                    <button type="reset" class="btn btn-warning" id="btnCancel" style="margin-top: 2.4rem; width: 65px">Clear</button>
+                                                </div>
+
+
+                                                <div class="col-md-12" style="margin-top:15px">
+                                                    <div class="table-respon table-bordered">
+                                                        <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                                            <thead class="">
+                                                                <tr>
+                                                                    <th>Sr#</th>
+                                                                    <th>Reaceipt Head</th>
+                                                                    <th>Description</th>
+                                                                    <th>Amount</th>
+                                                                    <th style="text-align : right">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>001</td>
+                                                                    <td>11</td>
+                                                                    <td>test1</td>
+                                                                    <td>test22</td>
+                                                                    <td style="text-align:center"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" style="color:blue"><i class="fa fa-trash"></i></a></td>
+
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3 pull-right">
+                                                    <label class="form-label">Total Taxes</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        <input type="text" class="form-control" id="txtSoDate" placeholder="Total Taxes">
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="pull-right">
+
+                                        <button type="button" class="btn btn-info" id="btnSave" style="margin-top:27px; width:100px; border-radius:0px;">Save</button>
+
+                                        <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px; width:100px; border-radius:0px;">Delete</button>
+
+                                        <button type="reset" class="btn btn-default" id="btnClear" style="margin-top:27px; width:100px; border-radius:0px;">Clear</button>
+
+                                        <button type="button" class="btn btn-success" id="btnPrint" style="margin-top:27px; width:100px; border-radius:0px;">Print</button>
+
+                                        <button type="button" class="btn btn-warning" id="btnVoucher" style="margin-top: 27px; width: 100px; border-radius:0px;">Voucher</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                          
+                        </section>
+                       
+
+                        
+                     </div>
+                </form>
+    
+</section>
+
+@*Incoming Payment Model*@
+<div class="modal fade" id="CustomerModal" tabindex="-1" role="dialog" aria-labelledby="CustomerModalLabel" aria-hidden="true" style="display: none; margin-top:50px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="CustomerModalLabel">Incoming PaymentModel List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="CustomerSearch" class="form-control" aria-controls="Customer" placeholder="Search . . . ">
+                    </div>
+                </div>
+
+                <div class="form-group row container-fluid">
+                    <div class="col-md-12">
+                        <div class="table-respon">
+                            <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Receipt No</th>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Invoice No</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>2020-09-16</td>
+                                        <td>Abdus Saboor</td>
+                                        <td>2000001</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*Vender List Model*@
+<div class="modal fade" id="VenderModel" tabindex="-1" role="dialog" aria-labelledby="CustomerModalLabel" aria-hidden="true" style="display: none; margin-top:50px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="CustomerModalLabel">Customer List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="CustomerSearch" class="form-control" aria-controls="Customer" placeholder="Search . . . ">
+                    </div>
+                </div>
+
+                <div class="form-group row container-fluid">
+                    <div class="col-md-12">
+                        <div class="table-respon">
+                            <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>KIA Motors</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*Cost Center List*@
+<div class="modal fade" id="CostCenterModel" tabindex="-1" role="dialog" aria-labelledby="CustomerModalLabel" aria-hidden="true" style="display: none; margin-top:50px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="CustomerModalLabel">Cost Center List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="CustomerSearch" class="form-control" aria-controls="Customer" placeholder="Search . . . ">
+                    </div>
+                </div>
+
+                <div class="form-group row container-fluid">
+                    <div class="col-md-12">
+                        <div class="table-respon">
+                            <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>CS.Code</th>
+                                        <th>CS.Name</th>
+                                        <th>Active</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>aaaa</td>
+                                        <td>Y</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*CashBank List*@
+<div class="modal fade" id="CashBankModel" tabindex="-1" role="dialog" aria-labelledby="CustomerModalLabel" aria-hidden="true" style="display: none; margin-top:50px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="CustomerModalLabel">Cash Bank List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="CustomerSearch" class="form-control" aria-controls="Customer" placeholder="Search . . . ">
+                    </div>
+                </div>
+
+                <div class="form-group row container-fluid">
+                    <div class="col-md-12">
+                        <div class="table-respon">
+                            <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>HBL</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*PaymentMode list*@
+<div class="modal fade" id="PaymentModeModel" tabindex="-1" role="dialog" aria-labelledby="CustomerModalLabel" aria-hidden="true" style="display: none; margin-top:50px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="CustomerModalLabel">Payment Mode List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="CustomerSearch" class="form-control" aria-controls="Customer" placeholder="Search . . . ">
+                    </div>
+                </div>
+
+                <div class="form-group row container-fluid">
+                    <div class="col-md-12">
+                        <div class="table-respon">
+                            <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>B</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*Bank List*@
+<div class="modal fade" id="BankModel" tabindex="-1" role="dialog" aria-labelledby="CustomerModalLabel" aria-hidden="true" style="display: none; margin-top:50px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="CustomerModalLabel">Bank List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="CustomerSearch" class="form-control" aria-controls="Customer" placeholder="Search . . . ">
+                    </div>
+                </div>
+
+                <div class="form-group row container-fluid">
+                    <div class="col-md-12">
+                        <div class="table-respon">
+                            <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Bank Code</th>
+                                        <th>Bank Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>Habib Bank Ltd</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*Invoices List*@
+<div class="modal fade" id="ReceiptHeadModel" tabindex="-1" role="dialog" aria-labelledby="CustomerModalLabel" aria-hidden="true" style="display: none; margin-top:50px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="InvoicesModel">Invoces List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="CustomerSearch" class="form-control" aria-controls="Customer" placeholder="Search . . . ">
+                    </div>
+                </div>
+
+                <div class="form-group row container-fluid">
+                    <div class="col-md-12">
+                        <div class="table-respon">
+                            <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Invoice/Payment No</th>
+                                        <th>Date</th>
+                                        <th>Cus/Ven Name</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>2020-09-16</td>
+                                        <td>Abdus Saboor</td>
+                                        <td>1914000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+@*Receipt Head List*@
+<div class="modal fade" id="ReceiptHeadModel" tabindex="-1" role="dialog" aria-labelledby="CustomerModalLabel" aria-hidden="true" style="display: none; margin-top:50px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="CustomerModalLabel">Receipt Head List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="CustomerSearch" class="form-control" aria-controls="Customer" placeholder="Search . . . ">
+                    </div>
+                </div>
+
+                <div class="form-group row container-fluid">
+                    <div class="col-md-12">
+                        <div class="table-respon">
+                            <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>11</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+
+<script>
+      $("#btnPrint").click(function () {
+
+                    var baseurl = '@Url.Action("PRExport")';
+                    var url = baseurl + '?EnquiryId=' + $('#txtReceiptNo').val() + '&DealerCode=@Session["DealerCode"].ToString()';
+                    //window.location.href = url;
+                    window.open(url, '_blank');
+
+                })
+</script>

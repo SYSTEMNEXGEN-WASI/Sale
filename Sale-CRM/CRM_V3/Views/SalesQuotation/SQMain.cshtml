@@ -1,0 +1,1702 @@
+﻿
+@{
+    ViewBag.Title = "SQMain";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+    /*.makespace {
+        margin-bottom: 20px;
+    }*/
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+
+</style>
+
+<link href="../assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/animate.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+
+<link href="../assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen" />
+
+<!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
+<!-- CORE CSS TEMPLATE - START -->
+<link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/responsive.css" rel="stylesheet" type="text/css" />
+<!-- CORE CSS TEMPLATE - END -->
+
+    <!-- START CONTENT -->
+
+    <section class="wrapper main-wrapper row" style=''>
+
+        <div class='col-xs-12'>
+
+        </div>
+        <div class="clearfix"></div>
+        <!-- MAIN CONTENT AREA STARTS -->
+        <form id="icon_validate" action="javascript:;" novalidate="novalidate">
+            <div class="col-lg-12">
+                <section class="box ">
+                    <header class="panel_header">
+                        <h2 class="title pull-left">Sales Quotation</h2>
+                        <div class="actions panel_actions pull-right">
+                            <a class="box_toggle fa fa-chevron-down"></a>
+                        </div>
+                    </header>
+                    <div class="content-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Quotation Ref No</label>
+                                    <div class="input-group">
+
+                                        <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('SaleQuotqaionNo')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                        <input type="text" class="form-control" id="txtSQNo" readonly />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Quotation Date</label>
+                                    <div class="input-group controls">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id="txtSQDate" readonly format />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Reference Letter No</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                        <input type="text" class="form-control" id="txtRefLetNo" maxlength="25" onblur="ChangeColor(this)" name="formfield1" />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Validity Days</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                        @*<input type="text" class="form-control" id="" maxlength="3" onblur="" name="formfield1" onkeypress="return isNumberKey(event)" />*@
+                                        <select class="form-control m-bot15" id="ddlValidDays" onchange="ChangeColor(this)">
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Customer</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Customer')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                        <input type="text" class="form-control" readonly id="txtCustomer" maxlength="25" onblur="ChangeColor(this)" name="formfield1" />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4 hidden">
+                                    <label class="form-label">Cell No</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i cla4ss="fa fa-car"></i></span>
+                                        <input type="text" class="form-control" id="txtCellNo" readonly name="formfield1" />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4" style="display: none;     ">
+                                    <label class="form-label">Customer Type</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                        @Html.DropDownList("ddlCusType", new SelectList((IEnumerable<SelectListItem>)ViewBag.CusType, "Value", "Text", "001"), new { @class = "form-control m-bot15", @id = "ddlCusType", @disabled = "disabled" })
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4" style="display: none">
+                                    <label class="form-label">Customer Tax Type</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                        <select class="form-control m-bot15" id="ddlCusTaxType">
+                                            <option value="0">Select</option>
+                                            <option value="Filer" selected="selected">Filer</option>
+                                            <option value="Non Filer">Non Filer</option>
+                                        </select>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-6 hidden">
+                                    <label class="form-label">Customer Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                        <input type="text" id="txtCustAddress" readonly cols="3" class="form-control" />
+                                        @*<textarea class="form-control autogrow" readonly cols="5" id="txtCustAddress" ></textarea>*@
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                @*<div class="col-md-6">
+                                    <label class="form-label">Customer Address</label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtCustAddress" readonly cols="3" />
+                                        @*<textarea class="form-control autogrow" readonly cols="5" id="txtCustAddress" ></textarea>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>*@
+                                <div class="col-md-8">
+                                    <label class="form-label">Remarks</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                        <input type="text" id="txtSubject" cols="3" class="form-control" />
+                                        @*<textarea class="form-control autogrow" cols="5" id="txtSubject" onblur="ChangeColor(this)" ></textarea>*@
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="margin-top:20px;">
+
+                                        <ul class="nav nav-tabs primary" style="border-radius:0px; border-bottom: 0px;">
+                                            <li class="active">
+                                                <a href="#home-7" data-toggle="tab" style="border-radius:0px;">
+                                                    <i class="fa fa-car"></i> Vehicle Details
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#profile-7" data-toggle="tab" style="border-radius:0px;">
+                                                    <i class="fa fa-car"></i> Terms And Conditions
+                                                </a>
+                                            </li>
+                                            @*<li>
+                                                <a href="#messages-7" data-toggle="tab">
+                                                    <i class="fa fa-event"></i> Document Check List
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#settings-7" data-toggle="tab">
+                                                    <i class="fa fa-car"></i> Vehicle Location
+                                                </a>
+                                            </li>*@
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="home-7">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Brand</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                                    @Html.DropDownList("ddlBrandCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.BrandCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlBrandCode", @onchange = "ChangeColor(this)" })
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Product Code<span class="mandatory">*</span></label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Product')" style="color:blue;cursor:pointer"><i class="fa fa-search"></i></a></span>
+                                                                    @*@Html.DropDownList("ddlProdCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ProdCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlProdCode", @onchange = "ChangeColor(this)" })*@
+                                                                    <input type="text" class="form-control" id="ddlProdCode" readonly />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Version</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-tags"></i></span>
+                                                                    @Html.DropDownList("txtVersionCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ddlVersion, "Value", "Text", "0"), new { @class = "form-control m-bot15", style = "border-radius:0px;disabled", @id = "txtVersionCode" })
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            @*<div class="col-md-2">
+                                                                <label class="form-label">Version</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                                    <input type="text" class="form-control" id="txtVersionCode" readonly />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>*@
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Product Description</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                                    <input type="text" class="form-control" id="txtProdDesc" readonly />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Color</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                                                    @Html.DropDownList("ddlColor", new SelectList((IEnumerable<SelectListItem>)ViewBag.Color, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlColor", @onchange = "ChangeColor(this)" })
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">VIN / Chassis</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                                    @Html.DropDownList("ddlChassisNo", new SelectList((IEnumerable<SelectListItem>)ViewBag.ChassisNo, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlChassisNo" })
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Engine</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                                    <input type="text" class="form-control" id="txtEngineNo" maxlength="25" />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Warranty Duration</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                                    <select class="form-control m-bot15" id="ddlWarranty">
+                                                                        <option value="1 Year">1 Year</option>
+                                                                        <option value="2 Year">2 Year</option>
+                                                                        <option value="3 Year">3 Year</option>
+                                                                        <option value="4 Year">4 Year</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Unit Price</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <span class="arrow"></span>
+                                                                        <i class="fa fa-file"></i>
+                                                                    </span>
+                                                                    <input type="text" class="form-control" id="txtFactoryPrice" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)" />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Quantity</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                                    <input type="text" class="form-control" id="txtQty" onblur="ChangeColor(this)" value="1" onkeypress="return isNumberKey(event)" />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Freight Charges</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <span class="arrow"></span>
+                                                                        <i class="fa fa-file"></i>
+                                                                    </span>
+                                                                    <input type="text" class="form-control" id="txtFreightCharges" onkeypress="return isNumberKey(event)" name="formfield1" onblur="ChangeColor(this)" />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                           
+
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Discount</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <span class="arrow"></span>
+                                                                        <i class="fa fa-file"></i>
+                                                                    </span>
+                                                                    <input type="text" class="form-control" id="txtDiscount" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)" />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Total Price</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <span class="arrow"></span>
+                                                                        <i class="fa fa-file"></i>
+                                                                    </span>
+                                                                    <input type="text" required class="form-control" id="txtTotalPrice" name="formfield1" readonly onblur="ChangeColor(this)" />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                <div class="input-group">
+                                                                    <button type="button" class="btn btn-success" id="btnAddVehicle" onclick="AddProduct(this)" style="margin-top:23px; border-radius:0px; width:100px;">Add</button>
+                                                                   
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            @*<div class="col-md-1">
+                                                                <div class="input-group">
+                                                                    <button type="button" class="btn" id="btnVehEmpty" style="margin-top:23px; border-radius:0px; width:100%">Clear</button>
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>*@
+
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="table-responsive" style="margin-top:20px;">
+                                                                    <table class="table table-bordered table-striped" id="VehicleDetail" style="white-space: nowrap; font-weight: 400;">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>#</th>
+                                                                                <th>Brand </th>
+                                                                                <th>Product</th>
+                                                                                <th>Model</th>
+                                                                                <th>Chassis No</th>
+                                                                                <th>Engine No</th>
+                                                                                <th>Color</th>
+                                                                                <th>Quantity</th>
+                                                                                <th>Unit Price</th>
+                                                                                <th>Discount</th>
+                                                                                <th>Total Price</th>
+                                                                                <th>Freight Charges</th>
+                                                                                <th>Warranty</th>
+                                                                                <th>Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody></tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="margin-top: 15px;">
+                                                            <div class="col-md-2">
+                                                                <label>Total Quantity</label>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <span class="arrow"></span>
+                                                                        <i class="fa fa-file"></i>
+                                                                    </span>
+                                                                    <input type="text" required class="form-control" id="txtTotalQty" value="0" readonly />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <label>Final Amount</label>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <span class="arrow"></span>
+                                                                        <i class="fa fa-file"></i>
+                                                                    </span>
+                                                                    <input type="text" required class="form-control" id="txtFinalAmount" readonly />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="profile-7">
+
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Warranty</label>
+                                                            <div class="controls">
+                                                                <textarea class="form-control autogrow" cols="5" id="txtWarranty" style="overflow: hidden; word-wrap: break-word; resize: none; height: 50px;"></textarea>
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Payment Terms</label>
+                                                            <div class="controls">
+                                                                <textarea class="form-control autogrow" cols="5" id="txtPaymentTerms" style="overflow: hidden; word-wrap: break-word; resize: none; height: 50px;"></textarea>
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Exemption</label>
+                                                            <div class="controls">
+                                                                <textarea class="form-control autogrow" cols="5" id="txtExemption" style="overflow: hidden; word-wrap: break-word; resize: none; height: 50px;"></textarea>
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Force Majeure</label>
+                                                            <div class="controls">
+                                                                <textarea class="form-control autogrow" cols="5" id="txtForceMajeure" style="overflow: hidden; word-wrap: break-word; resize: none; height: 50px;"></textarea>
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Document Attachment</label>
+                                                            <div class="controls">
+                                                                <ul class="list-inline" style="display:inline;">
+                                                                    <li class="col-md-4">
+                                                                        <input type="checkbox" id="chkGST" name="GST" class="icheckbox_flat" checked>
+                                                                        <label class="icheck-label form-label" for="chkGST">GST</label>
+                                                                    </li>
+                                                                    <li class="col-md-4">
+                                                                        <input type="checkbox" id="chkNTN" class="icheckbox_flat" checked>
+                                                                        <label class="icheck-label form-label" for="chkNTN">NTN</label>
+                                                                    </li>
+                                                                    <li class="col-md-4">
+                                                                        <input type="checkbox" id="chkBroucher" class="icheckbox_flat" checked>
+                                                                        <label class="icheck-label form-label" for="chkBroucher">Broucher</label>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="messages-7">
+
+
+
+                                            </div>
+                                            <div class="tab-pane fade" id="settings-7">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button type="reset" class="btn btn-default" id="btnCancel" style="margin-top:25px;">Clear</button>
+                                            <button type="submit" class="btn btn-primary" id="btnSave" style="margin-top:25px;">Save</button>
+                                            @*<button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:25px;" disabled>Delete</button>*@
+                                            <a class="btn btn-primary" id="btnPrint" style="margin-top:25px;" href="#">Print</a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+
+        </form>
+                </section>
+         
+        <!-- Customer Modal Start -->
+        <div class="modal" tabindex="-1" id="CustomerModal" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="margin-top:60px;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="modal123Label">Customers</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="exampleInputuname" class="col-md-2">Search :</label>
+                            <div class="col-md-10">
+                                <input type="text" id="IssueNoSearch" class="form-control" aria-controls="CustomerTable" placeholder="Search . . . ">
+                            </div>
+                           
+                        </div>                        
+                        <div class="form-group row">
+                            <div class="table-responsive" style="height:300px;">
+                                <table id="CustomerTable" class="table table-striped table-hover responsive" >
+                                    <thead >
+                                        <tr>
+                                            <th>Sr</th>
+                                            <th>Customer ID</th>
+                                            <th>Customer Name</th>
+                                            <th>CNIC</th>
+                                            @*<th>Address</th>*@
+                                            <th>Phone</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        
+                        @*<button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>*@
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- Customer Modal End -->
+ <!-- Product Modal Start -->
+<div class="modal" tabindex="-1" id="ProductModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top:60px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Product</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="ProdSearch" class="form-control" aria-controls="ProductTable" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="table-responsive" style="height:350px;">
+                        <table id="ProductTable" class="table table-striped table-hover responsive">
+                            <thead>
+                                <tr>
+                                    <th>Sr</th>
+                                    <th>Product Code</th>
+                                    <th>Version</th>
+                                    <th>Product Description</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- Product Modal End -->
+        <!-- Book Ref No Modal Start -->
+        <div class="modal" tabindex="-1" id="SaleQuotationNoModal" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="margin-top:60px;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="modal123Label">Sale Quotation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="exampleInputuname" class="col-md-2">Search :</label>
+                            <div class="col-md-10">
+                                <input type="text" id="SaleQuotSearch" class="form-control" aria-controls="SaleQuotTable" placeholder="Search . . . ">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="table-responsive" style="height:300px;">
+                                <table id="SaleQuotTable" class="table table-striped table-hover responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr</th>
+                                            <th>Sale Quot No</th>
+                                            <th>Sale Quot Date</th>
+                                            <th>Customer</th>
+                                            <th>Address</th>
+                                            <th>Phone</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">                        
+                        @*<button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>*@
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- Book Ref No Modal End -->
+
+        <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog animated bounceInDown">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Confirm</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5>Are you sure want to save ?</h5>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                        <button class="btn btn-success" type="button" onclick="SaveMasterEnquiry()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup box modal start -->
+        <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog animated bounceInDown">
+                <div class="modal-content">
+                    <div class="modal-header" id="modalMessage">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Success</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5 id="lblMessage"></h5>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal end -->
+<div class="modal" id="section-Grid" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red">
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Please Add the Grid Data</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-danger" onclick="scrollWin(0, 50)" id="btnGrid" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- MAIN CONTENT AREA ENDS -->
+    </section>
+
+@*<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />*@
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/icheck/icheck.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/jquery-ui/base/jquery-ui.min.js")'></script>
+
+<script>
+
+    var totalQty = 0;
+    var finalPrice = 0;
+    ///Search Modal Start 
+    $(document).ready(function () {
+        $("#ProdSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#ProductTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+
+    //Search Model End 
+    $(document).ready(function () {
+
+        Get_SaleQuotModalData();
+        Get_CustomerModalData();
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtSQDate").val(today);
+        //$('#CustomerTable').paging({ limit: 5 });
+
+
+    });
+
+
+    $("#txtDiscount").change(function () {
+
+
+        var dis = $('#txtDiscount').val();
+
+        var amt = $('#txtFactoryPrice').val();
+
+        var qty = $('#txtQty').val();
+
+        var total = (parseFloat(amt) * parseFloat(qty) - parseFloat(dis));
+
+        $('#txtTotalPrice').val(total);
+    })
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+    function ShowModal(type) {
+        if (type == 'Customer') {
+            $('#CustomerModal').modal("show");
+        } else if (type == 'SaleQuotqaionNo') {
+                $('#SaleQuotationNoModal').modal("show");
+        }
+        else {
+            $('#ProductModal').modal("show");
+        }
+    }
+    ProductSelect = function (value) {
+        debugger
+        var prodCode = $(value).closest('tr').find("#hdnProdCode").val();
+        var prodDesc = $(value).closest('tr').find('#lblProdDesc').text();
+        var version = $(value).closest('tr').find('#lblVersionCode').text();
+
+        document.getElementById("ddlProdCode").value = prodCode;
+        $("#ddlProdCode").css("border-color", "#e1e1e1");
+        document.getElementById("txtProdDesc").value = prodDesc;
+        document.getElementById("txtVersionCode").value = version;
+
+        $("#ProductModal").modal("hide");
+    }
+    function ChangeColor(value) {
+
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    $("#btnSave").click(function () {
+
+        if (!PageValidation()) {
+            return false;
+        }
+
+        $("#section-confirm").modal("show");
+
+    })
+
+    $("#btnPrint").click(function () {
+
+        var baseurl = '@Url.Action("Export")';
+        var url = baseurl + '?EnquiryId=' + $('#txtSQNo').val() + '&DealerCode=@Session["DealerCode"].ToString()';
+        //window.location.href = url;
+        window.open(url, '_blank');
+
+    })
+
+    $("#IssueNoSearch").on("keyup", function () {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+
+        $("#CustomerTable tbody tr").each(function () {
+
+            $row = $(this);
+            var id = $(this).closest('tr').find('#hdnCusCode').val();
+            var desc = $(this).closest('tr').find('#lblCusDesc').text();
+            var nic = $(this).closest('tr').find('#lblNIC').text();
+            var phone = $(this).closest('tr').find('#lblPhone').text();
+
+            if (id.indexOf(value) !== 0 && desc.indexOf(value) !== 0 && nic.indexOf(value) !== 0 && phone.indexOf(value) !== 0) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+
+    $("#SaleQuotSearch").on("keyup", function () {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#SaleQuotTable tbody tr").each(function () {
+
+            $row = $(this);
+            var id = $(this).closest('tr').find('#lblSaleQuotNo').text();
+            var desc = $(this).closest('tr').find('#lblCustomer').text();
+            var nic = $(this).closest('tr').find('#lblAddress').text();
+            var phone = $(this).closest('tr').find('#lblPhone').text();
+
+            if (id.indexOf(value) !== 0 && desc.indexOf(value) !== 0 && nic.indexOf(value) !== 0 && phone.indexOf(value) !== 0) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+
+
+    function Get_CustomerModalData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/SalesQuotation/Select_CustomerDetailModal")',
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#CustomerTable tbody tr").remove()
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="IssueFunc(this)">' +
+                                '<td>' + SNo++ + '</td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCusCode">' + item.CusCode + '</label><input type="hidden" id="hdnCusCode" value="' + item.CusCode + '"/></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCusDesc">' + item.CusDesc + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblNIC">' + (item.NIC == null ? ' ':item.NIC)  + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto; display:none;"><label id="lblAddress">' + (item.Address1 == null ? ' ' : item.Address1) + '</label><input type="hidden" id="hdnCusTypeCode" value="' + item.CusTypeCode + '"/></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblPhone">' + (item.Phone1 == null ? ' ' : item.Phone1) + '</label></td>' +
+                            '</tr>';
+
+                            $("#CustomerTable tbody").append(temp);
+
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+
+    IssueFunc = function (value) {
+
+
+        var lblCusCode = $(value).closest('tr').find("#hdnCusCode").val();
+        var cusDesc = $(value).closest('tr').find("#lblCusDesc").text();
+        var lblCustypeCode = $(value).closest('tr').find("#hdnCusTypeCode").val();
+        var cellNo = $(value).closest('tr').find("#lblPhone").text();
+        var address = $(value).closest('tr').find("#lblAddress").text();
+
+        document.getElementById("txtCustomer").value = lblCusCode + ' | ' + cusDesc;
+        document.getElementById("ddlCusType").value = lblCustypeCode;
+        document.getElementById("txtCellNo").value = cellNo;
+        document.getElementById("txtCustAddress").value = address;
+
+
+        $("#txtCustomer").css("border-color", "#e1e1e1");
+
+        $("#CustomerModal").modal("hide");
+    }
+
+    SaleQuoation = function (value) {
+
+
+        var SaleQuotNo = $(value).closest('tr').find("#lblSaleQuotNo").text();
+
+
+        document.getElementById("txtSQNo").value = SaleQuotNo;
+
+        getData(SaleQuotNo);
+
+        $("#SaleQuotationNoModal").modal("hide");
+    }
+
+    function Get_SaleQuotModalData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/SalesQuotation/Select_SaleQuotModal")',
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#SaleQuotTable tbody tr").remove()
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="SaleQuoation(this)">' +
+                                '<td>' + SNo++ + '</td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblSaleQuotNo">' + item.SaleQuotCode + '</label><input type="hidden" id="hdnSaleQuot" value="' + item.RefLetterNo + '"/></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblSaleQuotDate">' + item.SaleQuotDate + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCustomer">' + item.CusDesc + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto;"><label id="lblAddress">' + item.Address1 + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblPhone">' + item.PhoneNo + '</label></td>' +
+                            '</tr>';
+
+                            $("#SaleQuotTable tbody").append(temp);
+
+
+                        });
+
+
+
+                    }
+                }
+
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+    $("#ddlBrandCode").change(function () {
+        debugger;
+        var brandCode = $("#ddlBrandCode").val();
+        if (brandCode == "0") {
+            location.reload();
+        } else {
+            debugger
+            getProduct(brandCode);
+
+        }
+    });
+
+
+
+    function getProduct(id) {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+
+        var leadId = id;
+        var dealerCode = "@Session["DealerCode"].ToString()";
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/VehicleReceipt/Select_BrandProduct")',
+                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        $("#ProductTable tbody tr").remove()
+                        if (data.Response.length > 0) {
+
+                            $.each(data.Response, function (value, data) {
+
+                                var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="ProductSelect(this)">' +
+                                    '<td>' + SNo++ + '</td>' +
+                              '<td class="tdDiv" style="overflow:auto"><label id="lblProdCode">' + data.ProdCode + '</label><input type="hidden" id="hdnProdCode" value="' + data.ProdCode + '"/></td>' +
+                              '<td class="tdDiv" style="overflow:auto"><label id="lblVersionCode">' + data.VersionCode + '</label></td>' +
+                              '<td class="tdDiv" style="overflow:auto"><label id="lblProdDesc">' + data.ProdDesc + '</label></td>' +
+                                '</tr>';
+
+                                $("#ProductTable tbody").append(temp);
+
+
+                            });
+
+
+                        }
+                    }
+                },
+                complete: function () {
+                    //
+                    //$("#ddlProdCode").val(prodcode);
+                },
+            });
+        }
+    }
+
+    $("#ddlProdCode").change(function () {
+
+        var skillsSelect = document.getElementById("ddlProdCode");
+        var selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
+
+        var prodCode = $("#ddlProdCode").val();
+
+        var version = selectedText.split('| ', selectedText.length);
+
+        $("#txtVersionCode").val(version[1].trim());
+
+    });
+    $("#ddlChassisNo").change(function () {
+        debugger;
+        var ChassisNo = document.getElementById("ddlChassisNo").value;
+
+        getChassisDetail(ChassisNo);
+    });
+
+    $("#ddlColor").change(function () {
+
+        var chassisNo = $("#ddlStkType").val();
+        if (chassisNo != "Open") {
+            var Color = $("#ddlColor").val();
+            if (Color != "0") {
+                getFactoryPriceFromColor(Color);
+
+            }
+        }
+    });
+    function getChassisDetail(id) {
+        debugger;
+        var leadId = id;
+        var prod = $("#ddlProdCode").val();
+        var version = $("#txtVersionCode").val();
+        var brand = $("#ddlBrandCode").val();
+        var dealerCode = "@Session["DealerCode"].ToString()";
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/SalesQuotation/Get_ChassisDetail")',
+                data: { 'ChassisNo': leadId, 'Brand': brand, 'Product': prod, 'Version': version, 'DealerCode': dealerCode },
+                success: function (data) {
+                    debugger
+                    if (data.Response != "[]") {
+                        var item = JSON.parse(data.Response)
+                        $("#txtEngineNo").val(item[0].EngineNo);
+                        $("#ddlColor").val(item[0].ColorCode1);
+                        $("#txtFactoryPrice").val(item[0].Amount);
+
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function getFactoryPriceFromColor(id) {
+        var leadId = id;
+
+        var brand = $("#ddlBrandCode").val();
+        var prod = $("#ddlProdCode").val();
+        var version = $("#txtVersionCode").val();
+        var dealerCode = "@Session["DealerCode"].ToString()";
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Get_FactoryPrice")',
+                data: { 'Color': leadId, 'Brand': brand, 'Product': prod, 'Version': version, 'DealerCode': dealerCode },
+                success: function (data) {
+                    debugger
+                    if (data.Response != "[]") {
+                        var item = JSON.parse(data.Response)
+                        if (item[0].SalePrice != null || item[0].SalePrice != '')
+                        $("#txtFactoryPrice").val(item[0].SalePrice);
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function PageValidation() {
+
+        debugger;
+        var count = 0;
+
+        //if ($("#txtRefLetNo").val().trim() == '' || $("#txtRefLetNo").val() == null) {
+        //    $("#txtRefLetNo").css("border-color", "red");
+        //    $("#txtRefLetNo").focus();
+        //    count++;
+        //}
+        if ($("#ddlValidDays").val().trim() == '' || $("#ddlValidDays").val() == null) {
+            $("#ddlValidDays").css("border-color", "red");
+            $("#ddlValidDays").focus();
+            count++;
+        }
+        if ($("#txtCustomer").val().trim() == '' || $("#txtCustomer").val() == null) {
+            $("#txtCustomer").css("border-color", "red");
+            $("#txtCustomer").focus();
+            count++;
+        }
+        
+        if ($("#ddlCusTaxType").val() == '0' || $("#ddlCusTaxType").val() == null) {
+            $("#ddlCusTaxType").css("border-color", "red");
+            $("#ddlCusTaxType").focus();
+            count++;
+        }
+        if ($("#txtRefLetNo").val() == "" || $("#txtRefLetNo").val() == null) {
+            $("#txtRefLetNo").css("border-color", "red");
+            $("#txtRefLetNo").focus();
+            count++;
+        }
+        if ($("#txtSubject").val().trim() == '' || $("#txtSubject").val() == null) {
+            $("#txtSubject").css("border-color", "red");
+            $("#txtSubject").focus();
+            count++;
+        }
+
+        if ($('#VehicleDetail >tbody  >tr').length == 0) {
+            $("#lblMessage").html("Please Add 1 vehicle <br>");
+            $("#VehicleDetail").css("border-color", "red");
+            $("#ddlBrandCode").focus();
+            count++
+        }
+
+        if (count > 0) {
+
+            $("#lblMessage").append().html("Please fill the Required feilds");
+            $("#section-message").modal("show");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+
+    function SaveMasterEnquiry() {
+
+        var dto = {};
+
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.SaleQuotCode = $("#txtSQNo").val();
+        dto.SaleQuotDate = $("#txtSQDate").val();
+        dto.RefLetterNo = $("#txtRefLetNo").val();
+        dto.ValidDays = $("#ddlValidDays").val();
+        dto.CustomerCode = $("#txtCustomer").val();
+        dto.Subject = $("#txtSubject").val();
+        dto.PaymentTerms = $("#txtPaymentTerms").val();
+        dto.Exemption = $("#txtExemption").val();
+        dto.ForceJajeure = $("#txtForceMajeure").val();
+        dto.Warranty = $("#txtWarranty").val();
+
+        var GST = $("#chkGST").is(":checked");
+        var NTN = $("#chkNTN").is(":checked");
+        var Broucher = $("#chkBroucher").is(":checked");
+
+        if (GST) {
+            dto.DocGST = "Y";
+        } else {
+            dto.DocGST = "N";
+        }
+
+        if (NTN) {
+            dto.DocNTN = "Y";
+        } else {
+            dto.DocNTN = "N";
+        }
+
+        if (Broucher) {
+            dto.DocBrocher = "Y";
+        } else {
+            dto.DocBrocher = "N";
+        }
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/SalesQuotation/Insert_SQMaster")',
+            data: dto,
+            success: function (data) {
+
+                if (data) {
+                    if (data.Success == true) {
+                        saveVehicleDetail();
+
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+    }
+
+    function insertRecord() {
+        var obj = [];
+
+        $("#VehicleDetail tbody tr").each(function () {
+            var dto = {};
+
+            dto.BrandCode = $(this).closest('tr').find('#hdnBrandCode').val();
+            dto.ProdCode = $(this).closest('tr').find('#hdnProdCode').val();
+            dto.VersionCode = $(this).closest('tr').find('#hdnVersionCode').val();
+            dto.ChasisNo = $(this).closest('tr').find('#lblChassisNo').text().trim();
+            dto.EngineNo = $(this).closest('tr').find('#lblEngineNo').text().trim();
+            dto.ColorCode1 = $(this).closest('tr').find('#hdnColorCode').val();
+            dto.ReqQty = $(this).closest('tr').find('#lblQty').text();
+            dto.ExFactPrice = $(this).closest('tr').find('#lblFactPrice').text().trim();
+            dto.SpecialDiscount = $(this).closest('tr').find('#lblDiscount').text().trim();
+            dto.TotalAmt = $(this).closest('tr').find('#lblTotPrice').text().trim();
+            dto.Warranty = $(this).closest('tr').find('#lblWarranty').text().trim();
+            dto.FreightCharges = $(this).closest('tr').find('#lblfreightChar').text().trim();
+
+            dto.SaleQuotCode = $("#txtSQNo").val();
+            obj.push(dto);
+        });
+
+        return obj;
+    }
+
+    function saveVehicleDetail() {
+
+        var objects = [];
+
+        objects = JSON.stringify({ 'objects': insertRecord() });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            //async: true,
+            type: 'POST',
+            url: '@Url.Content("~/SalesQuotation/Insert_SQDetail")',
+            data: objects,
+            success: function (data) {
+
+                if (data.Success == true) {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#64c344");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                    setTimeout(function () {
+                        $('#section-message').modal('hide')
+                    }, 4000);
+                    location.reload();
+                }
+                else {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+    }
+
+    function ValidateVehicleDetail() {
+
+        var count = 0;
+
+        var brandCode = $("#ddlBrandCode").val();
+        var prodCode = $("#ddlProdCode").val();
+        var color = $("#ddlColor").val();
+        var chassisNo = $("#ddlChassisNo").val();
+        var engineNo = $("#txtEngineNo").val();
+        var factoryPrice = $("#txtFactoryPrice").val();
+        var discount = $("#txtDiscount").val();
+        var qty = $("#txtQty").val();
+
+        if (brandCode == "0") {
+            $("#ddlBrandCode").css("border-color", "red");
+            count++;
+        }
+
+        if (prodCode == "0" || prodCode == null) {
+            $("#ddlProdCode").css("border-color", "red");
+            count++;
+        }
+
+        if (color == "0") {
+            $("#ddlColor").css("border-color", "red");
+            count++;
+        }
+
+        if (factoryPrice == "" || factoryPrice == undefined) {
+            $("#txtFactoryPrice").css("border-color", "red");
+            count++;
+        }
+
+        if (discount == "" || discount == undefined) {
+            $("#txtDiscount").css("border-color", "red");
+            count++;
+        }
+
+        if (qty == "" || qty == undefined) {
+            $("#txtQty").css("border-color", "red");
+            count++;
+        }
+
+        if (count == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function AddProduct(value) {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+
+
+        var check = ValidateVehicleDetail();
+        //var check = true;
+
+        if (check == true) {
+
+            var brandCode = $("#ddlBrandCode").val();
+            var brandDesc = $("#ddlBrandCode :selected").text();
+            var colorCode = $("#ddlColor").val();
+            var colorDesc = $("#ddlColor :selected").text();
+            var prodCode = $("#ddlProdCode").val();
+            var prodDesc = $("#txtProdDesc").val();
+            var version = $("#txtVersionCode").val();
+            var versiondesc = $("#txtVersionCode :selected").text();
+            if ($("#ddlChassisNo").val() == "0") {
+                var chassisNo = "";
+            } else {
+                var chassisNo = $("#ddlChassisNo").val();
+            }
+            $("#ddlChassisNo").css("border-color", "#ccc");
+            var engineNo = $("#txtEngineNo").val(); $("#txtEngineNo").css("border-color", "#ccc");
+
+            var qty = $("#txtQty").val();
+            var factPrice = $("#txtFactoryPrice").val();
+            var discount = $("#txtDiscount").val();
+            var totalPrice = $("#txtTotalPrice").val();
+            var freightCharges = $("#txtFreightCharges").val();
+            var warranty = $("#ddlWarranty").val();
+
+            finalPrice = parseInt(finalPrice) + parseInt(totalPrice);
+            totalQty = parseInt(totalQty) + parseInt(qty);
+
+            var row = $(value).parent().parent().html();
+            var dt = $("#VehicleDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblBrandCode">' + brandDesc + ' </label><input type="hidden" id="hdnBrandCode" value="' + brandCode + '"/></td>' +
+                                                        '<td> <label id="lblProdCode">' + prodDesc + ' </label><input type="hidden" id="hdnProdCode" value="' + prodCode + '"/></td>' +
+                                                        '<td> <label id="lblProdCode">' + versiondesc + ' </label><input type="hidden" id="hdnVersionCode" value="' + version + '"/></td>' +
+                                                        '<td> <label id="lblChassisNo">' + chassisNo + ' </label></td>' +
+                                                        '<td> <label id="lblEngineNo">' + engineNo + ' </label></td>' +
+                                                        '<td> <label id="lblColor">' + colorDesc + ' </label><input type="hidden" id="hdnColorCode" value="' + colorCode + '"/></td>' +
+                                                        '<td> <label id="lblQty">' + qty + ' </label></td>' +
+                                                        '<td> <label id="lblFactPrice">' + factPrice + ' </label></td>' +
+                                                        '<td> <label id="lblDiscount">' + discount + ' </label></td>' +
+                                                        '<td> <label id="lblTotPrice">' + totalPrice + ' </label></td>' +
+                                                        '<td> <label id="lblfreightChar">' + freightCharges + ' </label></td>' +
+                                                        '<td> <label id="lblWarranty">' + warranty + ' </label></td>' +
+                                                        '<td style="text-align:center;">' +
+                                                         '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+
+                                                        '</tr>');
+
+            $('#ddlChassisNo').find('option:selected').remove().end();
+            $("#txtFinalAmount").val(finalPrice);
+            $("#txtTotalQty").val(totalQty);
+
+            $("#VehicleDetail").css("border-color", "#ccc");
+            clearVehilceFeilds();
+
+        }
+        else {
+
+        }
+    }
+    $("table#VehicleDetail").on('click', '.deleteItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        $(this).closest('tr').remove();
+
+    });
+    $("#btnDelete").click(function () {
+        $("#section-confirm-Delete").modal("show");
+    })
+
+    $("#btnVehEmpty").click(function () {
+        clearVehilceFeilds();
+    })
+
+    function clearVehilceFeilds() {
+
+        $("#ddlBrandCode").val("0");
+        $("#ddlColor").val("0");
+        $("#ddlProdCode").val("0");
+        $("#txtVersionCode").val("");
+        $("#ddlChassisNo").val("0");
+        $("#txtEngineNo").val("");
+        $("#txtFactoryPrice").val("");
+        $("#txtDiscount").val("");
+        $("#txtTotalPrice").val("");
+        $("#txtFreightCharges").val("");
+        $("#txtQty").val("0");
+
+    }
+
+
+    function getData(id) {
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/SalesQuotation/Select_SaleQuotMaster")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        //Event Information
+                        $("#txtSQNo").val(item[0].SaleQuotCode);
+                        $("#txtSQDate").val(item[0].SaleQuotDate);
+                        $("#txtRefLetNo").val(item[0].RefLetterNo);
+                        $("#ddlValidDays").val(item[0].ValidDays.trim());
+                        $("#txtCustomer").val(item[0].CusDesc);
+                        $("#txtCellNo").val(item[0].PhoneNo);
+                        $("#txtCustAddress").val(item[0].Address1);
+                        $("#ddlCusType").val(item[0].CusType);
+                        $("#txtWarranty").val(item[0].Warranty);
+                        $("#txtPaymentTerms").val(item[0].PaymentTerms);
+                        $("#txtExemption").val(item[0].Exemption);
+                        $("#txtForceMajeure").val(item[0].ForceJajeure);
+                        $("#txtSubject").val(item[0].Subject);
+
+
+
+
+                        if (item[0].DocGST == 'Y') {
+
+                            $('#chkGST').prop('checked', true);
+                        } else {
+                            $('#chkGST').prop('checked', false);
+                        }
+
+                        if (item[0].DocNTN == 'Y') {
+
+                            $('#chkNTN').prop('checked', true);
+                        }else {
+                            $('#chkNTN').prop('checked', false);
+                        }
+                        if (item[0].DocBrocher == 'Y') {
+
+                            $('#chkBroucher').prop('checked', true);
+                        } else {
+                            $('#chkBroucher').prop('checked', false);
+                        }
+
+                        getVehicleData(id);
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function getVehicleData(id) {
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/SalesQuotation/Select_SaleQuotDetail")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        var i = 0;
+                        $("#VehicleDetail tbody tr").remove();
+                        //ProductDetail
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+
+                                $("#VehicleDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblBrandCode">' + item.BrandDesc + ' </label><input type="hidden" id="hdnBrandCode" value="' + item.BrandCode + '"/></td>' +
+                                                        '<td> <label id="lblProdCode">' + item.ProdDesc + ' </label><input type="hidden" id="hdnProdCode" value="' + item.ProdCode + '"/></td>' +
+                                                        '<td> <label id="lblVersion">' + item.VersionDesc + ' </label><input type="hidden" id="hdnVersionCode" value="' + item.VersionCode + '"/></td>' +
+                                                        '<td> <label id="lblChassisNo">' + item.ChasisNo + ' </label></td>' +
+                                                        '<td> <label id="lblEngineNo">' + item.EngineNo + ' </label></td>' +
+                                                        '<td> <label id="lblColor">' + item.ColorDesc + ' </label><input type="hidden" id="hdnColorCode" value="' + item.ColorCode1 + '"/></td>' +
+                                                        '<td> <label id="lblQty">' + item.ReqQty + ' </label></td>' +
+                                                        '<td> <label id="lblFactPrice">' + item.ExFactPrice + ' </label></td>' +
+                                                        '<td> <label id="lblDiscount">' + item.SpecialDiscount + ' </label></td>' +
+                                                        '<td> <label id="lblTotPrice">' + item.TotalAmt + ' </label></td>' +
+                                                        '<td> <label id="lblfreightChar">' + item.FreightCharges + ' </label></td>' +
+                                                        '<td> <label id="lblWarranty">' + item.Warranty + ' </label>' +
+                                                        '<td style="text-align:center;">' +
+                                                         '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+
+                                                        '</tr>');
+
+
+                            });
+                            debugger
+                            finalPrice = parseInt(finalPrice) + parseInt(item[i].TotalAmt) + parseInt(item[i].FreightCharges);
+                            totalQty = parseInt(0) + parseInt(item[i].ReqQty);
+                            i++;
+                        }
+
+                        $("#txtFinalAmount").val(finalPrice);
+                        $("#txtTotalQty").val(totalQty);
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+    $("table#VehicleDetail").on('click', '.selectItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        debugger
+
+        var hdnBrandCode = $(rIndex).closest('tr').find("#hdnBrandCode").val();
+
+        var lblBrandCode = $(rIndex).closest('tr').find("#lblBrandCode").text();
+        var lblProdCode = $(rIndex).closest('tr').find("#lblProdCode").text();
+        var lblVersion = $(rIndex).closest('tr').find("#lblVersion").text();
+        var lblChassisNo = $(rIndex).closest('tr').find("#lblChassisNo").text();
+        var lblEngineNo = $(rIndex).closest('tr').find("#lblEngineNo").text();
+        var lblColor = $(rIndex).closest('tr').find("#lblColor").text();
+        var lblQty = $(rIndex).closest('tr').find("#lblQty").text();
+        var lblFactPrice = $(rIndex).closest('tr').find("#lblFactPrice").text();
+        var lblDiscount = $(rIndex).closest('tr').find("#lblDiscount").text();
+        var lblTotPrice = $(rIndex).closest('tr').find("#lblTotPrice").text();
+        var lblfreightChar = $(rIndex).closest('tr').find("#lblfreightChar").text();
+        var lblWarranty = $(rIndex).closest('tr').find("#lblWarranty").text();
+
+        var hdnProdCode = $(rIndex).closest('tr').find("#hdnProdCode").val();
+        var hdnColorCode = $(rIndex).closest('tr').find("#hdnColorCode").val();
+
+
+      //  var TotalQty = $("#txtTotal").val();
+
+      //  TotalQty = TotalQty - Amount;
+
+        $('#ddlBrandCode').val(hdnBrandCode);
+        getProduct(hdnBrandCode)
+        $('#ddlProdCode').valueOf(hdnProdCode);
+        $('#ddlProdCode').text(lblProdCode);
+        $('#txtVersionCode').val(lblVersion);
+        $('#ddlChassisNo').valueOf(lblChassisNo);
+        $('#ddlColor').val(hdnColorCode);
+        $('#txtEngineNo').val(lblEngineNo);
+        $('#ddlWarranty').valueOf(lblWarranty);
+        $('#txtFactoryPrice').val(lblFactPrice);
+        $('#txtQty').val(lblQty);
+        $('#txtFreightCharges').val(lblfreightChar);
+        $('#txtDiscount').val(lblDiscount);
+        $('#txtTotalPrice').val(lblTotPrice);
+       // $('#ddlBrandCode').text(lblBrandCode).trim();
+      //  $('#ddlProdCode').text(hdnProdCode).trim();
+
+        $('#txtTotalPrice').value = lblTotPrice;
+
+        $(this).closest('tr').remove();
+
+    });
+
+
+    function removeRow(value) {
+
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        var deleteQty = $(value).closest('tr').find("#lblQty").text();
+        var deleteAmt = $(value).closest('tr').find("#lblTotPrice").text();
+
+        totalQty = $("#txtTotalQty").val();
+        finalPrice = $("#txtFinalAmount").val();
+
+        totalQty = totalQty - deleteQty;
+        finalPrice = finalPrice - deleteAmt;
+
+
+        $("#txtTotalQty").val(totalQty);
+        $("#txtFinalAmount").val(finalPrice);
+
+        $("#" + tempRow).find('.remove').show();
+        $(value).parent().parent().remove();
+
+        dataCount--;
+        rowCount--;
+        SNo--;
+
+    }
+
+</script>

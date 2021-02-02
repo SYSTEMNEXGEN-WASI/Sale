@@ -1,0 +1,292 @@
+﻿
+@{
+    ViewBag.Title = "Exchange";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+<section class="wrapper main-wrapper row">
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align:center"><strong><span class=""></span>Existing Vehicle</strong></div>
+                    <div class="panel-body">
+
+                        <div class="row" style="margin-bottom:1rem">
+                            <div class="form-group row container-fluid">
+
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Exchange Code</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                        <input type="text" class="form-control" id="txtExchangeCode" readonly>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Exchange Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id="txtExchangeDate" placeholder="dd/mm/yyyy">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Vehicle Stock Type</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                        <select class="form-control m-bot15" id="ddlVehicleStockStore" name="VehicleStockStore" required>
+                                            <option value="Mr">Mr.</option>
+                                            <option value="Ms">Ms.</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Registration No</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalIPlan" style="color:blue"><span><i class="fa fa-search"></i></span></a></div>
+                                        <input type="text" class="form-control" id="txtRegistrationNo" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Chassis No</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                        <input type="text" class="form-control" id="txtChassisNo" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Engine No</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                        <input type="text" class="form-control" id="txtEngineNo" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Color</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                                        <input type="text" class="form-control" id="txtColor" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Invoice Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-cab"></i></span>
+                                        <input type="text" class="form-control" id="txtInvoiceDate" name="txtInvoiceDate" readonly />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Existing Vehicle</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                                        <input type="text" class="form-control" id="txtExistingVehicle" name="txtExistingVehicle" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Vehicle Description</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-adjust"></i></span>
+                                        <input type="text" class="form-control" id="txtVehicleDescription" name="txtVehicleDescription" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 pull-left">
+                                    <label class="form-label">Customer</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalIPlan" style="color:blue"><span><i class="fa fa-search"></i></span></a></div>
+                                        <input type="text" class="form-control" id="txtCustomer" name="txtCustomer" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Phone No</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input type="text" class="form-control" id="txtPhoneNo" name="txtPhoneNo" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input type="text" class="form-control" id="txtAddress" name="txtAddress" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Bying Cost</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input type="text" class="form-control" id="txtByingCost" name="txtByingCost" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">KM</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input type="text" class="form-control" id="txtKM" name="txtKM" />
+                                    </div>
+                                </div>
+
+                              
+                            </div>
+                        </div>
+
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                        Replaced Vehicle
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="row container-fluid" style="margin-bottom:1rem;">
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Vehicle Type</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        <select class="form-control m-bot15" id="ddlVehicleType" name="ddlVehicleType">
+                                                            <option value="Mr">Mr.</option>
+                                                            <option value="Ms">Ms.</option>
+                                                        </select>
+                                                        
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">New Vehicle</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        <select class="form-control m-bot15" id="ddlVehicle" name="ddlVehicle">
+                                                            <option value="Mr">Mr.</option>
+                                                            <option value="Ms">Ms.</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Vehicle Delivery Date</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="date" class="form-control" id="txtVehicleDeliveryDate" name="txtVehicleDeliveryDate" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Description</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" class="form-control" id="txtDescription" name="txtDescription" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Registration No</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                        <input type="text" class="form-control" id="txtRegistrationNo" name="txtRegistrationNo" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Chassis No</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+                                                        <input type="text" class="form-control" id="txtChassisNo" name="txtChassisNo" />
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Engine No</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                        <input type="text" class="form-control" id="txtEngineNo" name="txtEngineNo" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Color</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>
+                                                        <input type="text" class="form-control" id="txtColor" name="txtColor" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">KM</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>
+                                                        <input type="text" class="form-control" id="txtKM" name="txtKM" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="pull-right">
+
+                                    <button type="submit" class="btn btn-info" id="btnCancel" style="margin-top:27px; width:100px">Save</button>
+
+                                    <button type="submit" class="btn btn-danger" id="btnCancel" style="margin-top:27px; width:100px">Delete</button>
+
+                                    <button type="submit" class="btn btn-default" id="btnCancel" style="margin-top:27px; width:100px">Clear</button>
+
+                                    <button type="submit" class="btn btn-success" id="btnCancel" style="margin-top:27px; width:100px">Print</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+        <style>
+            .border-for {
+                border: 1px solid blue;
+            }
+
+            .label-heading {
+                margin: 0.5rem;
+            }
+
+            .divider {
+                width: 5px;
+                height: auto;
+                display: inline-block;
+            }
+        </style>
+
+    </form>
+</section>

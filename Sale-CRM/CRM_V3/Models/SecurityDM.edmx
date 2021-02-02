@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CompanyApplication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ApplicationCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="150" />
+          <Property Name="ActiveFlag" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="SecurityUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserCode" Type="char" MaxLength="5" />
+          <Property Name="CompCode" Type="char" MaxLength="5" />
+          <Property Name="LoginName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployeeCode" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="50" />
+          <Property Name="Remarks" Type="varchar" MaxLength="100" />
+          <Property Name="ActiveFlag" Type="char" MaxLength="1" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SecurityUserAccess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserCode" Type="char" MaxLength="5" />
+          <Property Name="ApplicationCode" Type="char" MaxLength="3" />
+          <Property Name="FormCode" Type="char" MaxLength="4" />
+          <Property Name="FormActionCode" Type="char" MaxLength="3" />
+          <Property Name="ActionValue" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="SecurityUserApplication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserCode" Type="char" MaxLength="5" />
+          <Property Name="ApplicationCode" Type="char" MaxLength="3" />
+          <Property Name="AllowFlag" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="CompanyApplication" EntityType="Self.CompanyApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecurityUser" EntityType="Self.SecurityUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecurityUserAccess" EntityType="Self.SecurityUserAccess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecurityUserApplication" EntityType="Self.SecurityUserApplication" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="SecurityUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="CompCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ActiveFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SecurityUserAccess">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ApplicationCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="FormCode" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="FormActionCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="ActionValue" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="SDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SecurityUsers" EntityType="Self.SecurityUser" />
+          <EntitySet Name="SecurityUserAccesses" EntityType="Self.SecurityUserAccess" />
+          <EntitySet Name="CompanyApplications" EntityType="Models.CompanyApplication" />
+          <EntitySet Name="SecurityUserApplications" EntityType="Models.SecurityUserApplication" />
+        </EntityContainer>
+        <EntityType Name="CompanyApplication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ApplicationCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SecurityUserApplication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ApplicationCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="AllowFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="SDBContext">
+          <EntitySetMapping Name="SecurityUsers">
+            <EntityTypeMapping TypeName="Models.SecurityUser">
+              <MappingFragment StoreEntitySet="SecurityUser">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ActiveFlag" ColumnName="ActiveFlag" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityUserAccesses">
+            <EntityTypeMapping TypeName="Models.SecurityUserAccess">
+              <MappingFragment StoreEntitySet="SecurityUserAccess">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="ApplicationCode" ColumnName="ApplicationCode" />
+                <ScalarProperty Name="FormCode" ColumnName="FormCode" />
+                <ScalarProperty Name="FormActionCode" ColumnName="FormActionCode" />
+                <ScalarProperty Name="ActionValue" ColumnName="ActionValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyApplications">
+            <EntityTypeMapping TypeName="Models.CompanyApplication">
+              <MappingFragment StoreEntitySet="CompanyApplication">
+                <ScalarProperty Name="ActiveFlag" ColumnName="ActiveFlag" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ApplicationCode" ColumnName="ApplicationCode" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityUserApplications">
+            <EntityTypeMapping TypeName="Models.SecurityUserApplication">
+              <MappingFragment StoreEntitySet="SecurityUserApplication">
+                <ScalarProperty Name="AllowFlag" ColumnName="AllowFlag" />
+                <ScalarProperty Name="ApplicationCode" ColumnName="ApplicationCode" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

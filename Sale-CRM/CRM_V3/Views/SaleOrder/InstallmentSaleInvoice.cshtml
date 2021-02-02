@@ -1,0 +1,1646 @@
+﻿
+
+@{
+    ViewBag.Title = "SaleOrder";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+
+
+<style>
+    .makespace {
+        margin-bottom: 0.5rem;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+
+
+<section class="wrapper main-wrapper row">
+
+
+
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align:center"><strong><span class=""></span>Installment Sale Invoice</strong></div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">ISI No</label>
+                                <div class="input-group">
+                                        <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalISI" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                    <input type="text" class="form-control" id="txtISINo" maxlength="10" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">ISI Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control" value="@ViewBag.CurrentDate" data-date-format='dd/MM/yyyy' id="txtISIDate" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">SO No</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalSO" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                    <input type="text" class="form-control" id="txtSoNo" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Sale Type</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                    <input type="text" class="form-control" id="txtSaleType" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Credit Terms</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    <input type="text" class="form-control" id="txtCreditTerms" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <input type="hidden" class="form-control" id="txtSalePersonCd" readonly>
+                            <div class="col-md-4">
+                                <label class="form-label">Sales Person</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalSP" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                    <input type="text" class="form-control" id="txtSalePerson" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <input type="hidden" class="form-control" id="txtCustomerCd" readonly>
+                            <div class="col-md-4">
+                                <label class="form-label">Customer</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalCus" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                    <input type="text" class="form-control" id="txtCustomer" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Contact</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+                                    <input type="text" class="form-control" id="txtContact" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">CNIC</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                                    <input type="text" class="form-control" id="txtCNIC" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">City</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                    <input type="text" class="form-control" id="txtCity" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Country</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-institution"></i></span>
+                                    <input type="text" class="form-control" id="txtCountry" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Customer Type</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                    <input type="text" class="form-control" id="txtCustomerType" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Price Level</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                    <input type="text" class="form-control" id="txtPriceLevel" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Bill To</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                    <textarea class="form-control" rows="3" id="txtBillTo"></textarea>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Ship To</label>
+                                <div class="pull-right col-md-2">
+                                    <label class="form-label">SameAs</label>
+                                    <input class="pull-right" type="checkbox" id="Check1" onclick="CopyAddress()" />
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                    <textarea class="form-control" rows="3" id="txtShipTo"></textarea>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <!--copy till this-->
+                        </div>
+                        <div class="row" style="margin-top:10px">
+                            <div class="col-xs-12">
+                                <div class="panel-group" id="accordion">
+
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                Vehicle
+                                            </a>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <ul class="nav nav-tabs nav-justified primary">
+                                                            <li class="active">
+                                                                <a href="#home-7" data-toggle="tab">
+                                                                    <i class="fa fa-car"></i> Vehicle Type
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content primary">
+                                                            <div class="tab-pane fade in active" id="home-7">
+                                                                <div class="row">
+
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Rec No</label>
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalStock" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                            <input type="text" id="txtRecNo" class="form-control" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Engine</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                                                                            <input type="text" id="txtEngine" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Chessis</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-automobile"></i></span>
+                                                                            <input type="text" id="txtChassis" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Stock Type</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-floppy-o"></i></span>
+                                                                            <input type="text" id="txtStockType" class="form-control" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <input type="hidden" id="txtBrandCd" class="form-control" readonly />
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Brand</label>
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalBrand" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                            <input type="text" id="txtBrand" class="form-control" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Product</label>
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalProd" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                            <input type="text" id="txtProductCode" class="form-control" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Model</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
+                                                                            <input type="text" id="txtModel" class="form-control" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Product Description</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                                                                            <input type="text" id="txtProductDescription" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <input type="hidden" class="form-control" id="txtColorCd" readonly />
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Color</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                                                            <input type="text" class="form-control" id="txtColor" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Segment</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                                                            <input type="text" class="form-control" id="txtSegment" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Quanitty</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-book"></i></span>
+                                                                            <input type="text" class="form-control" value="1" id="txtQuantity" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Factory Price</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                            <input type="text" class="form-control" id="txtFactoryPrice" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Sale Price</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                            <input type="text" class="form-control" id="txtSalePrice" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Freight Charges</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                            <input class="form-control" id="txtFreightCharges" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                                                   type="number"
+                                                                                   maxlength="8" />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Market Rate</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                            <input class="form-control" id="txtMarketRate" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                                                   type="number"
+                                                                                   maxlength="8" />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Discount</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                            <input class="form-control" id="txtDiscount" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                                                   type="number"
+                                                                                   maxlength="8" />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Installment Plan</label>
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalIP" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                            <input type="text" class="form-control" id="txtInstallmentPlan" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <input type="hidden" class="form-control" id="txtPlanID" />
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Monthly Installment</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-book"></i></span>
+                                                                            <input type="text" class="form-control" id="txtMonthlyInstallment" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Advance Amount</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-book"></i></span>
+                                                                            <input type="text" class="form-control" id="txtAdvanceAmount" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Total Amount</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                            <input type="text" class="form-control" id="txtTotalAmount" readonly/>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Payable Amount</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                                            <input type="text" class="form-control" id="txtPayableAmount" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+
+                                                               
+                                                                <!-- -->
+                                                                <div class="row">
+                                                                    <div class="col-md-2">
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                Customer Installment Schedule
+                                            </a>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                  
+                                                    <div class="form-group row" style="margin-left:10px;margin-right:10px">
+                                                        <div class="table-responsive table-Scroll" style="overflow: scroll; height:380px;width:100%">
+                                                            <table id="tblPlanDetail" class="table color-table info-table">
+                                                                <thead class="bg-primary">
+                                                                    <tr>
+                                                                        <th class="tdDiv" style="text-align:left" width="10%">Sr #</th>
+                                                                        @*<th class="tdDiv" style="text-align:left" width:"30%">Dealer Code</th>
+                                                                        <th class="tdDiv" style="text-align:left" width:"30%">Invoice No</th>*@
+                                                                        <th class="tdDiv" style="text-align:left" width:"30%">Customer</th>
+                                                                        <th class="tdDiv" style="text-align:left" width:"30%">Product | Version </th>
+                                                                        <th class="tdDiv" style="text-align:left" width:"30%">No Of Installment</th>
+                                                                        <th class="tdDiv" style="text-align:left" width:"30%">Due Date</th>
+                                                                        <th class="tdDiv" style="text-align:left" width:"30%">Monthly Installment</th>
+                                                                        <th class="tdDiv" style="text-align:left" width:"30%">Principal at Begin</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--Copy Till This-->
+
+                        </div>
+                        <div class="row">
+                           
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-info" id="btnSave" style="margin-top:27px; width:100px">Save</button>
+
+                                    <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px; width:100px">Delete</button>
+
+                                    <button type="button" class="btn btn-default" id="btnClear" style="margin-top:27px; width:100px">Clear</button>
+
+                                    <button type="button" class="btn btn-success" id="btnPrint"  style="margin-top:27px; width:100px">Print</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+
+</section>
+
+
+ @*Save , Delete Lookups*@
+
+<div class="modal" id="section-Grid" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red">
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Please Add the Vehicle Type Data</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-danger" onclick="scrollWin(0, 50)" id="btnGrid" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="section-confirmRemove" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Are you sure to want Delete ?</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-danger" type="button" onclick="RemoveISI();">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Are you sure to want save ?</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-success" type="button" onclick="SaveISI(); ">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header" id="modalMessage">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5 id="lblMessage"></h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*ISI No LookUp*@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalISI" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top:150px; height:500px;width:800px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">SO Detail</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:280px;width:750px">
+                        <table id="AccountTableSO" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">ISI No</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">ISI Date</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer Name</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer Contact</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.ISIDetail != null)
+{
+    foreach (var item in ViewBag.ISIDetail)
+    {
+        <tr style="text-align: left" onclick="RevClickDetail('@item.TransCode','@item.TransDate','@item.SaleType','@item.CreditTerms','@item.EmpCode','@item.EmpName','@item.CusCode','@item.CusDesc','@item.CustomerType','@item.CNICNTN','@item.ContactNo','@item.CityDesc','@item.CountryDesc','@item.PriceLevel','@item.BillTo','@item.ShipTo','@item.TotalQty','@item.RecNo','@item.BrandCode','@item.BrandDesc','@item.ProdCode','@item.ProdDesc','@item.VersionCode','@item.ColorCode','@item.ColorDesc','@item.ChassisNo','@item.EngineNo','@item.Qty','@item.InstallmentPlan','@item.FactoryPrice','@item.SalePrice','@item.Discount','@item.FreightCharges','@item.MarketRate','@item.Advance','@item.VehicleTtlAmount','@item.StockType','@item.RefDocumentNo','@item.RefType','@item.Segment','@item.GrandTtlAmount','@item.MonthlyInstallment')">
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.TransCode</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.TransDate</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.CusDesc</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.ContactNo</a>
+            </td>
+        </tr>
+    }
+}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*SO Detail Lookpu*@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalSO" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top:150px; height:500px;width:800px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">SO Detail</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:280px;width:750px">
+                        <table id="AccountTableSO" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">SO No</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">SO Date</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Contact</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Sale Type</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.SOData != null)
+{
+    foreach (var item in ViewBag.SOData)
+    {
+        <tr style="text-align: left" onclick="RevClickSO('@item.TransCode','@item.SaleType','@item.CreditTerms','@item.EmpCode','@item.EmpName','@item.CusCode','@item.CusDesc','@item.CustomerType','@item.CityDesc','@item.CountryDesc','@item.CNICNTN','@item.ContactNo','@item.PriceLevel','@item.BillTo','@item.ShipTo')">
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.TransCode</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.TransDate</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.ContactNo</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.SaleType</a>
+            </td>
+        </tr>
+    }
+}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*Vehicle Area Lookup*@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalStock" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 150px; height:600px;width:1050px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Stock Detail Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchBrand" class="form-control" aria-controls="AccountTableBrand" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;width:1000px">
+                        <table id="tblVehicleStock" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Rec No</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Product</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Chassis No</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Engine No</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @*@if (ViewBag.VehicleAreaData != null)
+{
+    foreach (var item in ViewBag.VehicleAreaData)
+    {
+        <tr style="text-align: left" onclick="RevClickStock('@item.RecNo','@item.EngineNo','@item.ChasisNo','@item.Type','@item.BrandCode','@item.ProdCode','@item.ProdDesc','@item.VersionCode','@item.ColorCode','@item.Color','@item.Segment','@item.CostPrice','@item.SalePrice')">
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.RecNo</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.ProdDesc</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.ChasisNo</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.EngineNo</a>
+            </td>
+        </tr>
+    }
+}*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*Installment Plan lookup*@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalIP" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 150px; height:600px;width:1050px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Stock Detail Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchBrand" class="form-control" aria-controls="AccountTableBrand" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;width:1000px">
+                        <table id="tblInstallmentPlan" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Plan Id</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Installment Months</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Monthly Installment</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @*@if (ViewBag.ISIInstallmentPlan != null)
+                                {
+                                    foreach (var item in ViewBag.ISIInstallmentPlan)
+                                    {
+                                        <tr style="text-align: left" onclick="RevClickIP('@item.NoOfInstallment','@item.MonthlyInstallment','@item.DownPayment')">
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.NoOfInstallment</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.MonthlyInstallment</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.DownPayment</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+
+    $("#btnClear").click(function () {
+
+        document.getElementById('txtISINo').value = '';
+        document.getElementById('txtISIDate').value = '';
+        document.getElementById('txtSoNo').value = '';
+        document.getElementById('txtSaleType').value = '';
+        document.getElementById('txtCreditTerms').value = '';
+        document.getElementById('txtCustomerCd').value = '';
+        document.getElementById('txtCustomer').value = '';
+        document.getElementById('txtSalePersonCd').value = '';
+        document.getElementById('txtSalePerson').value = '';
+        document.getElementById('txtCustomerType').value = '';
+        document.getElementById('txtCNIC').value = '';
+        document.getElementById('txtContact').value = '';
+        document.getElementById('txtCity').value = '';
+        document.getElementById('txtCountry').value = '';
+        document.getElementById('txtPriceLevel').value = '';
+        document.getElementById('txtBillTo').value = '';
+        document.getElementById('txtShipTo').value = '';
+
+            document.getElementById('Check1').checked = false;
+
+        document.getElementById('txtRecNo').value = '';
+        document.getElementById('txtEngine').value = '';
+        document.getElementById('txtChassis').value = '';
+        document.getElementById('txtStockType').value = '';
+        document.getElementById('txtBrandCd').value = '';
+        document.getElementById('txtBrand').value = '';
+        document.getElementById('txtProductCode').value = '';
+        document.getElementById('txtModel').value = '';
+        document.getElementById('txtProductDescription').value = '';
+        document.getElementById('txtColorCd').value = '';
+        document.getElementById('txtColor').value = '';
+        document.getElementById('txtSegment').value = '';
+
+        document.getElementById('txtSalePrice').value = '';
+        document.getElementById('txtFactoryPrice').value = '';
+        document.getElementById('txtFreightCharges').value = '';
+        document.getElementById('txtMarketRate').value = '';
+        document.getElementById('txtDiscount').value = '';
+        document.getElementById('txtInstallmentPlan').value = '';
+        document.getElementById('txtMonthlyInstallment').value = '';
+        document.getElementById('txtAdvanceAmount').value = '';
+        document.getElementById('txtTotalAmount').value = '';
+        document.getElementById('txtPayableAmount').value = '';
+
+
+       
+
+    })
+
+
+    $(window).on('beforeunload', function () {
+        $(window).scrollTop(0);
+    });
+
+    function CopyAddress() {
+        var CusAddress = $("#txtBillTo").val();
+        document.getElementById('txtShipTo').value = CusAddress;
+
+    }
+
+    $("#btnPrint").click(function () {
+
+        var baseurl = '@Url.Action("ISIExport")';
+        var url = baseurl + '?TransCode=' + $('#txtISINo').val() + '&DealerCode=@Session["DealerCode"].ToString()';
+        //window.location.href = url;
+        window.open(url, '_blank');
+
+
+        //window.open("../WebForms/Sale/SaleOrder.aspx", 'mywindow', 'fullscreen=yes,scrollbar=auto');
+
+    })
+    
+
+
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    var prodcode;
+    var versioncode;
+    var color;
+    var recno;
+
+   
+
+
+
+    RevClickDetail = function (TransCode, TransDate, SaleType, CreditTerms, EmpCode, EmpName, CusCode, CusDesc, CustomerType, CNICNTN, ContactNo, CityDesc, CountryDesc, PriceLevel, BillTo, ShipTo, TotalQty, RecNo, BrandCode, BrandDesc, ProdCode, ProdDesc, VersionCode, ColorCode, ColorDesc, ChassisNo, EngineNo, Qty, InstallmentPlan, FactoryPrice, SalePrice, Discount, FreightCharges, MarketRate, Advance, VehicleTtlAmount, StockType, RefDocumentNo, RefType, Segment,GrandTtlAmount,MonthlyInstallment) {
+
+        document.getElementById('txtISINo').value = TransCode;
+        document.getElementById('txtISIDate').value = TransDate;
+        document.getElementById('txtSoNo').value = RefDocumentNo;
+        document.getElementById('txtSaleType').value = SaleType;
+        document.getElementById('txtCreditTerms').value = CreditTerms;
+        document.getElementById('txtCustomerCd').value = CusCode;
+        document.getElementById('txtCustomer').value = CusDesc;
+        document.getElementById('txtSalePersonCd').value = EmpCode;
+        document.getElementById('txtSalePerson').value = EmpName;
+        document.getElementById('txtCustomerType').value = CustomerType;
+        document.getElementById('txtCNIC').value = CNICNTN;
+        document.getElementById('txtContact').value = ContactNo;
+        document.getElementById('txtCity').value = CityDesc;
+        document.getElementById('txtCountry').value = CountryDesc;
+        document.getElementById('txtPriceLevel').value = PriceLevel;
+        document.getElementById('txtBillTo').value = BillTo;
+        document.getElementById('txtShipTo').value = ShipTo;
+
+        if (BillTo = ShipTo) {
+
+            document.getElementById('Check1').checked = true ;
+        }
+
+        document.getElementById('txtRecNo').value = RecNo;
+        document.getElementById('txtEngine').value = EngineNo;
+        document.getElementById('txtChassis').value = ChassisNo;
+        document.getElementById('txtStockType').value = StockType;
+        document.getElementById('txtBrandCd').value = BrandCode;
+        document.getElementById('txtBrand').value = BrandDesc;
+        document.getElementById('txtProductCode').value = ProdCode;
+        document.getElementById('txtModel').value = VersionCode;
+        document.getElementById('txtProductDescription').value = ProdDesc;
+        document.getElementById('txtColorCd').value = ColorCode;
+        document.getElementById('txtColor').value = ColorDesc;
+        document.getElementById('txtSegment').value = Segment;
+        
+        document.getElementById('txtSalePrice').value = SalePrice;
+        document.getElementById('txtFactoryPrice').value = FactoryPrice;
+        document.getElementById('txtFreightCharges').value = FreightCharges;
+        document.getElementById('txtMarketRate').value = MarketRate;
+        document.getElementById('txtDiscount').value = Discount;
+        document.getElementById('txtInstallmentPlan').value = InstallmentPlan;
+        document.getElementById('txtMonthlyInstallment').value = MonthlyInstallment;
+        document.getElementById('txtAdvanceAmount').value = Advance;
+        document.getElementById('txtTotalAmount').value = VehicleTtlAmount;
+        document.getElementById('txtPayableAmount').value = GrandTtlAmount;
+
+        prodcode = ProdCode;
+        versioncode = VersionCode;
+        color = ColorDesc;
+        recno = RecNo;
+
+
+       
+
+            $("table#tblPlanDetail tbody").empty();
+
+
+            $.ajax({
+                type: "Post",
+                url: '@Url.Content("~/Definition/InstallmentPlanSchedule")',
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify({ BrandCode: BrandCode, ProdCode: ProdCode, VersionCode: VersionCode, Color: color }),
+                success: function (data) {
+                    if (data.length > 0) {
+                        $.each(data, function (Index, obj) {
+
+                            $("table#tblPlanDetail").append('<tr><td>' + Index +
+                                            '</td><td style="min-width:20px;display:none">' + obj.DealerCode + '</td><td style="min-width:50px;display:none">' + obj.RecNo + '</td><td style="min-width:100px">' + obj.CusName + '</td><td style="min-width:70px">' + obj.ProdCode + '    |    ' + obj.VersionCode +
+                                            '</td><td style="min-width:100px">' + obj.NoOfInstallment + '</td><td style="text-align:left">' + obj.InstallmentDate + '</td><td style="text-align:left">' + obj.MonthlyInstallment +
+                                            '</td><td style="text-align:left">' + obj.PrincipleAtBegin + '</td></tr>');
+
+                            
+                        })
+                    }
+                },
+
+
+
+            });
+
+        
+        $("#POModalISI").modal("hide");
+    }
+
+
+    // this will fields specific fields based on id after row is clicked in the popped up model
+    RevClickSO = function (TransCode, SaleType, CreditTerms, EmpCode, EmpName, CusCode, CusDesc, CustomerType, CityDesc, CountryDesc, CNICNTN, ContactNo, PriceLevel, BillTo, ShipTo) {
+
+        document.getElementById('txtSoNo').value = TransCode;
+        document.getElementById('txtSaleType').value = SaleType;
+        document.getElementById('txtCreditTerms').value = CreditTerms;
+        document.getElementById('txtCustomerCd').value = CusCode;
+        document.getElementById('txtCustomer').value = CusDesc;
+        document.getElementById('txtSalePersonCd').value = EmpCode;
+        document.getElementById('txtSalePerson').value = EmpCode;
+        document.getElementById('txtCustomerType').value = CustomerType;
+        document.getElementById('txtCity').value = CityDesc;
+        document.getElementById('txtCountry').value = CountryDesc;
+        document.getElementById('txtCNIC').value = CNICNTN;
+        document.getElementById('txtContact').value = ContactNo;
+        document.getElementById('txtPriceLevel').value = PriceLevel;
+        document.getElementById('txtBillTo').value = BillTo;
+        document.getElementById('txtShipTo').value = ShipTo;
+
+        $("#POModalSO").modal("hide");
+            
+        var SOTransCode = TransCode; 
+
+            $.ajax({
+                type: "Post",
+                url: '@Url.Content("~/SaleOrder/ISIVehicleStock")',
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify({ TransCode : SOTransCode }),
+                success: function (data) {
+                    if (data.length > 0) {
+                        $.each(data, function (Index, obj) {
+
+                            $("table#tblVehicleStock").append('<tr class=SelectRow ><td>' + obj.RecNo + '</td><td style="text-align:left">' + obj.ProdDesc +'</td><td style="text-align:left">' + obj.EngineNo + '</td><td style="text-align:left">' + obj.ChasisNo +
+                                            '</td><td style="min-width:100px; display:none">'  + obj.Type + '</td><td style="display:none">'  + obj.BrandCode + '</td><td style="text-align:left; display:none">' + obj.ProdCode + '</td><td style="text-align:left; display:none">' + obj.VersionCode +
+                                            '</td><td style="text-align:left; display:none">' + obj.ColorCode + '</td><td style="text-align:left; display:none">' + obj.Color + '</td><td style="text-align:left; display:none">' + obj.Segment + '</td><td style="text-align:left; display:none">' + obj.CostPrice +
+                                            '</td><td style="text-align:left; display:none">' + obj.SalePrice + '</td></tr>');
+
+
+                        })
+
+                    }
+
+                },
+
+
+
+            });
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Content("~/SaleOrder/ISIPlanData")',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({ TransCode: SOTransCode }),
+            success: function (data) {
+                if (data.length > 0) {
+                    $.each(data, function (Index, obj) {
+
+                        $("table#tblInstallmentPlan").append('<tr class=SelectRow ><td>' + obj.NoOfInstallment + '</td><td style="text-align:left">' + obj.MonthlyInstallment + '</td><td style="text-align:left">' + obj.DownPayment + '</td><td style="text-align:left; display:none">' + obj.PlanID +  '</td></tr>');
+
+
+                    })
+
+                }
+
+            },
+
+
+
+        });
+
+        $("table#tblVehicleStock").on('click', '.SelectRow', function () {
+
+                rIndex = $(this).closest('tr');
+
+                index = $(this).closest('tr')[0].rowIndex;
+                //rIndex = this.rowIndex;
+                console.log(index);
+
+                var RecNo = rIndex.find('td:eq(0)').text().replace(/\s+/g, " ");
+                var ProdDesc = rIndex.find('td:eq(1)').text().replace(/\s+/g, " ");
+                var EngineNo = rIndex.find('td:eq(2)').text().replace(/\s+/g, " ");
+                var ChasisNo = rIndex.find('td:eq(3)').text().replace(/\s+/g, " ");
+                var Type = rIndex.find('td:eq(4)').text().replace(/\s+/g, " ");
+                var BrandCode = rIndex.find('td:eq(5)').text().replace(/\s+/g, " ");
+                var ProdCode = rIndex.find('td:eq(6)').text().replace(/\s+/g, " ");
+                var VersionCode = rIndex.find('td:eq(7)').text().replace(/\s+/g, " ");
+                var ColorCode = rIndex.find('td:eq(8)').text().replace(/\s+/g, " ");
+                var Color = rIndex.find('td:eq(9)').text().replace(/\s+/g, " ");
+                var Segment = rIndex.find('td:eq(10)').text().replace(/\s+/g, " ");
+                var CostPrice = rIndex.find('td:eq(11)').text().replace(/\s+/g, " ");
+                var SalePrice = rIndex.find('td:eq(12)').text().replace(/\s+/g, " ");
+               
+                document.getElementById('txtRecNo').value = RecNo;
+                document.getElementById('txtEngine').value = EngineNo;
+                document.getElementById('txtChassis').value = ChasisNo;
+                document.getElementById('txtStockType').value = Type;
+                document.getElementById('txtBrand').value = BrandCode;
+                document.getElementById('txtProductCode').value = ProdCode;
+                document.getElementById('txtModel').value = VersionCode;
+                document.getElementById('txtProductDescription').value = ProdDesc;
+                document.getElementById('txtColorCd').value = ColorCode;
+                document.getElementById('txtColor').value = Color;
+                document.getElementById('txtSegment').value = Segment;
+                document.getElementById('txtFactoryPrice').value = CostPrice;
+                document.getElementById('txtSalePrice').value = SalePrice;
+
+
+                $("#POModalStock").modal("hide");
+
+            });
+
+
+        $("table#tblInstallmentPlan").on('click', '.SelectRow', function () {
+
+            rIndex = $(this).closest('tr');
+
+            index = $(this).closest('tr')[0].rowIndex;
+            //rIndex = this.rowIndex;
+            console.log(index);
+
+            var NoOfInstallment = rIndex.find('td:eq(0)').text().replace(/\s+/g, " ");
+            var MonthlyInstallment = rIndex.find('td:eq(1)').text().replace(/\s+/g, " ");
+            var DownPayment = rIndex.find('td:eq(2)').text().replace(/\s+/g, " ");
+            var PlanID = rIndex.find('td:eq(3)').text().replace(/\s+/g, " ");
+           
+            document.getElementById('txtInstallmentPlan').value = NoOfInstallment;
+            document.getElementById('txtMonthlyInstallment').value = MonthlyInstallment;
+            document.getElementById('txtAdvanceAmount').value = DownPayment;
+            document.getElementById('txtPlanID').value = PlanID;
+
+
+            var MI = $("#txtMonthlyInstallment").val();
+            var AdvAmt = $("#txtAdvanceAmount").val();
+            document.getElementById('txtTotalAmount').value = +MI + +AdvAmt;
+            
+            $("#POModalIP").modal("hide");
+
+        });
+           
+       
+
+
+    }
+
+    RevClickStock = function (RecNo, EngineNo, ChasisNo, Type, BrandCode, ProdCode, ProdDesc, VersionCode, ColorCode, Color, Segment, CostPrice, SalePrice) {
+
+        document.getElementById('txtRecNo').value = RecNo;
+        document.getElementById('txtEngine').value = EngineNo;
+        document.getElementById('txtChassis').value = ChasisNo;
+        document.getElementById('txtStockType').value = Type;
+        document.getElementById('txtBrand').value = BrandCode;
+        document.getElementById('txtProductCode').value = ProdCode;
+        document.getElementById('txtModel').value = VersionCode;
+        document.getElementById('txtProductDescription').value = ProdDesc;
+        document.getElementById('txtColorCd').value = ColorCode;
+        document.getElementById('txtColor').value = Color;
+        document.getElementById('txtSegment').value = Segment;
+        document.getElementById('txtFactoryPrice').value = CostPrice;
+        document.getElementById('txtSalePrice').value = SalePrice;
+
+
+        $("#POModalStock").modal("hide");
+        return;
+    }
+
+
+    RevClickIP = function (NoOfInstallment, MonthlyInstallment, DownPayment) {
+
+        document.getElementById('txtInstallmentPlan').value = NoOfInstallment;
+        document.getElementById('txtMonthlyInstallment').value = MonthlyInstallment;
+        document.getElementById('txtAdvanceAmount').value = DownPayment;
+
+        var MI = $("#txtMonthlyInstallment").val();
+        var AdvAmt = $("#txtAdvanceAmount").val();
+        document.getElementById('txtTotalAmount').value = +MI  +  +AdvAmt;
+
+
+
+        $("#POModalIP").modal("hide");
+        return;
+    }
+
+
+    $("#txtPayableAmount").click(function () {
+        
+        var SP = $("#txtSalePrice").val();
+        var FC = $("#txtFreightCharges").val();
+        var MR = $("#txtMarketRate").val();
+
+        var dis = $("#txtDiscount").val();
+
+        var ttl = +SP + +FC + +MR;
+        var PayAmt = ttl - dis;
+
+        document.getElementById('txtPayableAmount').value = PayAmt;
+
+    });
+    
+</script>
+
+
+
+<script type="text/javascript">
+
+
+
+    $("#btnDelete").click(function () {
+
+        $("#section-confirmRemove").modal("show");
+
+    })
+
+
+
+    $("#btnSave").click(function () {
+
+        $("#txtISINo").css("border-color", "#ccc");
+        $("#txtISIDate").css("border-color", "#ccc");
+        $("#ddlSaleType").css("border-color", "#ccc");
+        $("#txtCreditTerms").css("border-color", "#ccc");
+        $("#txtSalePerson").css("border-color", "#ccc");
+        $("#txtCustomer").css("border-color", "#ccc");
+        $("#txtContact").css("border-color", "#ccc");
+        $("#txtCNIC").css("border-color", "#ccc");
+        $("#txtCity").css("border-color", "#ccc");
+        $("#txtCountry").css("border-color", "#ccc");
+        $("#txtCustomer").css("border-color", "#ccc");
+        $("#txtPriceLevel").css("border-color", "#ccc");
+        $("#txtBillTo").css("border-color", "#ccc");
+        $("#txtShipTo").css("border-color", "#ccc");
+
+
+        var ISINo = $("#txtISINo").val();
+        var ISIDate = $("#txtISIDate").val();
+        var SaleType = $("#txtSaleType").val();
+        var CreditTerms = $("#txtCreditTerms").val();
+        var SalePerson = $("#txtSalePerson").val();
+        var SalePersoncd = $("#txtSalePersonCd").val();
+        var CustomerCode = $("#txtCustomer").val();
+        var CustomerContact = $("#txtContact").val();
+        var CNIC = $("#txtCNIC").val();
+        var City = $("#txtCity").val();
+        var Country = $("#txtCountry").val();
+        var Customer = $("#txtCustomer").val();
+        var PriceLevel = $("#txtPriceLevel").val();
+        var BillTo = $("#txtBillTo").val();
+        var ShipTo = $("#txtShipTo").val();
+
+        
+
+
+
+        //if (SoNo == "" || SoNo == " ") {
+        //    $("#txtSoNo").css("border-color", "red");
+        //    return;
+        //}
+        if (ISIDate == "" || ISIDate == " ") {
+            $("#txtISIDate").css("border-color", "red");
+            return;
+        }
+        if (SaleType == "" || SaleType == " ") {
+            $("#txtSaleType").css("border-color", "red");
+            return;
+        }
+        //if (CreditTerms == "" || CreditTerms == " ") {
+        //    $("#txtCreditTerms").css("border-color", "red")
+        //    return;
+        //}
+        if (SalePerson == null || SalePerson == "") {
+            $("#txtSalePerson").css("border-color", "red");
+            return;
+        }
+        if (CustomerCode == "") {
+            $("#txtCustomer").css("border-color", "red");
+            return;
+        }
+
+        if (CustomerContact == "") {
+            $("#txtContact").css("border-color", "red");
+            return;
+        }
+        if (CNIC == "") {
+            $("#txtCNIC").css("border-color", "red");
+            return;
+        }
+        
+        if (Customer == "") {
+            $("#txtCustomer").css("border-color", "red");
+            return;
+        }
+        if (PriceLevel == "" || PriceLevel == 0) {
+            $("#txtPriceLevel").css("border-color", "red");
+            return;
+        }
+        if (BillTo == "") {
+            $("#txtBillTo").css("border-color", "red");
+            return;
+        }
+        if (ShipTo == "") {
+            $("#txtShipTo").css("border-color", "red");
+            return;
+        }
+
+        // Validation for Vehicle Area
+
+
+
+        
+        var RecNo = $("#txtRecNo").val();
+        var EngineNo = $("#txtEngine").val();
+        var ChassisNo = $("#txtChassis").val();
+        var StockType = $("#txtStockType").val();
+        var BrandCode = $("#txtBrand").val();
+        var ProdCode = $("#txtProductCode").val();
+        var VersionCode = $("#txtModel").val();
+        var ColorDesc = $("#txtColor").val();
+        //var Segment = $("#txtSegment").val();
+        var Qty = $("#txtQuantity").val();
+        var FactoryPrice = $("#txtFactoryPrice").val();
+        var SalePrice = $("#txtSalePrice").val();
+        var FreightCharges = $("#txtFreightCharges").val();
+        var MarketRate = $("#txtMarketRate").val();
+        var Discount = $("#txtDiscount").val();
+        var InstallmentPlan = $("#txtInstallmentPlan").val();
+        //var MonthlyInstallment = $("#txtMonthlyInstallment").val();
+        var Advance = $("#txtAdvanceAmount").val();
+        var TotalAmount = $("#txtTotalAmount").val();
+        var PayableAmount = $("#txtPayableAmount").val();
+
+        prodcode = ProdCode;
+        versioncode = VersionCode;
+        color = ColorDesc;
+        recno = RecNo;
+
+
+        if (RecNo == "" || RecNo == " ") {
+            $("#section-Grid").modal("show");
+            return;
+        }
+
+        if (RecNo == "") {
+            $("#txtRecNo").css("border-color", "red");
+            return;
+        }
+
+        if (EngineNo == "") {
+            $("#txtEngine").css("border-color", "red");
+            return;
+        }
+
+        if (ChassisNo == "") {
+            $("#txtChassis").css("border-color", "red");
+            return;
+        }
+
+        if (StockType == "") {
+            $("#txtStockType").css("border-color", "red");
+            return;
+        }
+
+        if (BrandCode == "") {
+            $("#txtBrand").css("border-color", "red");
+            return;
+        }
+
+        if (ProdCode == "") {
+            $("#txtProductCode").css("border-color", "red");
+            return;
+        }
+
+        if (VersionCode == "") {
+            $("#txtModel").css("border-color", "red");
+            return;
+        }
+        if (ColorDesc == "") {
+            $("#txtColor").css("border-color", "red");
+            return;
+        }
+        if (Qty == "") {
+            $("#txtQuantity").css("border-color", "red");
+            return;
+        }
+        if (FreightCharges == "") {
+            $("#txtFreightCharges").css("border-color", "red");
+            return;
+        }
+        if (MarketRate == "") {
+            $("#txtMarketRate").css("border-color", "red");
+            return;
+        }
+        if (Discount == "") {
+            $("#txtDiscount").css("border-color", "red");
+            return;
+        }
+        if (TotalAmount == "") {
+            $("#txtTotalAmount").css("border-color", "red");
+            return;
+        }
+        if (PayableAmount == "") {
+            $("#txtPayableAmount").css("border-color", "red");
+            return;
+        }
+
+        $("#section-confirm").modal("show");
+    })
+
+
+
+
+    function SaveISI() {
+
+        var dto = {};
+
+
+        var ISINo = $("#txtISINo").val();
+        var ISIDate = $("#txtISIDate").val();
+        var SoNo = $("#txtSoNo").val();
+        var SaleType = $("#txtSaleType").val();
+        var CreditTerms = $("#txtCreditTerms").val();
+        var SalesPersonCd = $("#txtSalePersonCd").val();
+        var SalePersonDesc = $("#txtSalePerson").val();
+        var CustomerCode = $("#txtCustomerCd").val();
+        var CustomerDesc = $("#txtCustomer").val();
+        var Contact = $("#txtContact").val();
+        var CNIC = $("#txtCNIC").val();
+        var City = $("#txtCity").val();
+        var Country = $("#txtCountry").val();
+        var Customertype = $("#txtCustomerType").val();
+        var PriceLevel = $("#txtPriceLevel").val();
+        var BillTo = $("#txtBillTo").val();
+        var ShipTo = $("#txtShipTo").val();
+        var Qty = $("#txtQuantity").val();
+        var TotalAmount = $("#txtPayableAmount").val();
+        var PlanID = $("#txtPlanID").val();
+
+
+        dto.TransCode = ISINo;
+        dto.TransDate = ISIDate;
+        dto.RefDocumentNo = SoNo;
+        dto.SaleType = SaleType;
+        dto.RefType = SaleType;
+        dto.CreditTerms = CreditTerms;
+        dto.EmpCode = SalesPersonCd;
+        dto.EmpDesc = SalePersonDesc;
+        dto.CusCode = CustomerCode;
+        dto.CusDesc = CustomerDesc;
+        dto.ContactNo = Contact;
+        dto.CNICNTN = CNIC;
+        dto.City = City;
+        dto.Country = Country;
+        dto.CustomerType = Customertype;
+        dto.PriceLevel = PriceLevel;
+        dto.BillTo = BillTo;
+        dto.ShipTo = ShipTo;
+        dto.TotalQty = Qty;
+        dto.ServceQty = Qty;
+        dto.TotalAmount = TotalAmount;
+        dto.PlanID = PlanID;
+
+        dto.RecNo = recno;
+        dto.ProdCode = prodcode;
+        dto.VersionCode = versioncode;
+        dto.Color = color;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/SaleOrder/Insert_ISIMaster")',
+            data: dto,
+            success: function (data) {
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        SaveISIVehicleArea();
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+
+
+    }
+
+
+
+
+
+
+    function SaveISIVehicleArea() {
+
+        var dto = {};
+
+
+        var RecNo = $("#txtRecNo").val();
+        var EngineNo = $("#txtEngine").val();
+        var ChassisNo = $("#txtChassis").val();
+        var StockType = $("#txtStockType").val();
+        var BrandCode = $("#txtBrand").val();
+        var ProdCode = $("#txtProductCode").val();
+        var VersionCode = $("#txtModel").val();
+        var ColorCode = $("#txtColorCd").val();
+        var ColorDesc = $("#txtColor").val();
+        //var Segment = $("#txtSegment").val();
+        var Qty = $("#txtQuantity").val();
+        var FactoryPrice = $("#txtFactoryPrice").val();
+        var SalePrice = $("#txtSalePrice").val();
+        var FreightCharges = $("#txtFreightCharges").val();
+        var MarketRate = $("#txtMarketRate").val();
+        var Discount = $("#txtDiscount").val();
+        var InstallmentPlan = $("#txtInstallmentPlan").val();
+        //var MonthlyInstallment = $("#txtMonthlyInstallment").val();
+        var Advance = $("#txtAdvanceAmount").val();
+        var TotalAmount = $("#txtTotalAmount").val();
+
+
+        dto.RecNo = RecNo;
+        dto.EngineNo = EngineNo;
+        dto.ChasisNo = ChassisNo;
+        dto.StockType = StockType;
+        dto.BrandCode = BrandCode;
+        dto.ProdCode = ProdCode;
+        dto.VersionCode = VersionCode;
+        dto.ColorCode = ColorCode;
+        dto.ColorDesc = ColorDesc;
+        //dto.Segment = Segment;
+        dto.Qty = Qty;
+        dto.FactoryPrice = FactoryPrice;
+        dto.SalePrice = SalePrice;
+        dto.FreightCharges = FreightCharges;
+        dto.MarketRate = MarketRate;
+        dto.Discount = Discount;
+        dto.InstallmentPlan = InstallmentPlan;
+        //dto.MonthlyInstallment = MonthlyInstallment;
+        dto.Advance = Advance;
+        dto.TotalAmount = TotalAmount;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/SaleOrder/Insert_ISIVehicleData")',
+            data: dto,
+            success: function (data) {
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+
+
+    }
+
+
+    //---------------------------------Remove ISI----------------------------------
+
+    function RemoveISI() {
+
+        var dto = {};
+
+
+        var ISINo = $("#txtISINo").val();
+        var ISIDate = $("#txtISIDate").val();
+        var SoNo = $("#txtSoNo").val();
+        var SaleType = $("#txtSaleType").val();
+        var CreditTerms = $("#txtCreditTerms").val();
+        var SalesPerson = $("#txtSalePersonCd").val();
+        var CustomerCode = $("#txtCustomerCd").val();
+        var Contact = $("#txtContact").val();
+        var CNIC = $("#txtCNIC").val();
+        var City = $("#txtCity").val();
+        var Country = $("#txtCountry").val();
+        var Customertype = $("#txtCustomerType").val();
+        var PriceLevel = $("#txtPriceLevel").val();
+        var BillTo = $("#txtBillTo").val();
+        var ShipTo = $("#txtShipTo").val();
+        var Qty = $("#txtQuantity").val();
+        var TotalAmount = $("#txtPayableAmount").val();
+
+
+        dto.TransCode = ISINo;
+        dto.TransDate = ISIDate;
+        dto.RefDocumentNo = SoNo;
+        dto.SaleType = SaleType;
+        dto.RefType = SaleType;
+        dto.CreditTerms = CreditTerms;
+        dto.EmpCode = SalesPerson;
+        dto.CusCode = CustomerCode;
+        dto.ContactNo = Contact;
+        dto.CNICNTN = CNIC;
+        dto.City = City;
+        dto.Country = Country;
+        dto.CustomerType = Customertype;
+        dto.PriceLevel = PriceLevel;
+        dto.BillTo = BillTo;
+        dto.ShipTo = ShipTo;
+        dto.TotalQty = Qty;
+        dto.ServceQty = Qty;
+        dto.TotalAmount = TotalAmount;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/SaleOrder/Remove_ISIMaster")',
+            data: dto,
+            success: function (data) {
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+
+
+    }
+
+
+
+
+</script>

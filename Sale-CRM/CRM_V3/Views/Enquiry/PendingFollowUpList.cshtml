@@ -1,0 +1,419 @@
+﻿
+@{
+    ViewBag.Title = "PendingFollowUpList";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<h2>Pending FollowUp List</h2>
+
+
+<style>
+    .bacground-color-hthelper {
+        background-color: #c4e66d;
+    }
+
+    .table > tbody > tr > td {
+        padding: 5px;
+    }
+
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .mandatory {
+        color: red;
+        margin-left: 5px;
+    }
+
+    #CustomerTable thead, #CustomerTable tbody, #CustomerTable tr, #CustomerTable td, #CustomerTable th {
+        display: block;
+    }
+
+        #CustomerTable tr:after {
+            content: ' ';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+
+        #CustomerTable thead th {
+            height: 40px;
+        }
+
+    #CustomerTable tbody {
+        height: 350px;
+        overflow-y: auto;
+    }
+
+    thead {
+        /* fallback */
+    }
+
+    #CustomerTable tbody td, #CustomerTable thead th {
+        /*width: 10%;*/
+        float: left;
+    }
+</style>
+@*<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/select2/select2-bootstrap.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+
+    @*<link href='@Url.Content("~/assets/css/bootstrap-select.css")' rel="stylesheet" type="text/css" />*@
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.css")' rel="stylesheet" />
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.min.css")' rel="stylesheet" />
+<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2-bootstrap.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+@*<link href='@Url.Content("~/assets/css/chosen.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/css/bootstrap-select.css")' rel="stylesheet" type="text/css" />*@
+<!-- CORE CSS FRAMEWORK - START -->
+<link href="../assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/animate.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+<!-- CORE CSS FRAMEWORK - END -->
+<!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START -->
+
+
+<link href="../assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="../assets/plugins/datepicker/css/datepicker.css" rel="stylesheet" type="text/css" media="screen" />
+
+<!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
+<!-- CORE CSS TEMPLATE - START -->
+<link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/responsive.css" rel="stylesheet" type="text/css" />
+<!-- CORE CSS TEMPLATE - END -->
+<section class="wrapper main-wrapper row">
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel-header">
+                    <h2 class="title pull-left">Follow Up</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                    </div>
+                </header>
+                <div class="content-body">
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <ul class="nav nav-tabs primary" style="border-radius:0px;">
+                                <li class="active">
+                                    <a href="#home-7" data-toggle="tab">
+                                        <i></i> Follow Up
+                                    </a>
+                                </li>
+
+                                @*<li>
+                                    <a href="#messages-7" data-toggle="tab">
+                                        <i></i>Approved DTR
+                                    </a>
+                                </li>*@
+                                @*<li>
+                                        <a href="#Images" data-toggle="tab">
+                                            <i></i> Images
+                                        </a>
+                                    </li>*@
+                            </ul>
+                            <div class="tab-content primary">
+                                <div class="tab-pane fade in active" id="home-7">
+                                    <div class="form-group row">
+                                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                                        <div class="col-md-10">
+                                            <input type="text" id="DTRSearchApp" class="form-control" aria-controls="DTRTable" placeholder="Search . . . ">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:1rem;">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="display table table-hover table-condensed" id="DTRTable" style="white-space: nowrap; FONT-SIZE: 13px;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="20%">Sr</th>
+                                                            <th width="20%">Enquiry No</th>
+                                                            <th width="20%">Follow Up Date</th>
+                                                            <th width="20%">Customer.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="fixedRow" data-tr-count="0"></tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="messages-7">
+                                    <div class="form-group row">
+                                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                                        <div class="col-md-10">
+                                            <input type="text" id="DTRSearchClose" class="form-control" aria-controls="DTRTable" placeholder="Search . . . ">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:1rem;">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="display table table-hover table-condensed" id="DTRTableClose" style="white-space: nowrap; FONT-SIZE: 13px;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="20%">Sr</th>
+                                                            <th width="20%">Enquiry No</th>
+                                                            <th width="20%">Follow Up Date</th>
+                                                            <th width="20%">Customer.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="fixedRow1" data-tr-count="0"></tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+            </section>
+        </div>
+    </form>
+
+
+
+
+
+    <!-- Customer Modal Start -->
+    <div class="modal" tabindex="-1" id="PendingFollowModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Dealer Technical </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="DTRSearch" class="form-control" aria-controls="DTRTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:350px;">
+                            <table id="DTRTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">Sr</th>
+                                        <th width="20%">Enquiry No</th>
+                                        <th width="20%">Follow Up Date</th>
+                                        <th width="20%">Customer.</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Customer Modal End -->
+</section>
+
+<script src="~/assets/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+    function DTRModal() {
+        $("#DTRModal").modal("show");
+    }
+
+    //$("#DTRSearch").keyup(function () {
+    //    var value = this.value.toLowerCase().trim();
+
+    //    $("table#DTRTable tr").each(function (index) {
+    //        if (!index) return;
+    //        $(this).find("td").each(function () {
+    //            var id = $(this).text().toLowerCase().trim();
+    //            var not_found = (id.indexOf(value) == -1);
+    //            $(this).closest('tr').toggle(!not_found);
+    //            return not_found;
+    //        });
+    //    });
+    //});
+
+    $(document).ready(function () {
+
+        Get_DTRDetails();
+        Get_DTRClosedDetails();
+    });
+
+    $(document).ready(function () {
+        $("#DTRSearchApp").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#DTRTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    $(document).ready(function () {
+        $("#DTRSearchClose").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#DTRTableClose tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    function Get_DTRDetails() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Enquiry/Select_PendingFollow")',
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#DTRTable tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+                            debugger
+                            $("#DTRTable tbody").append('<tr  onclick="SelectVehicleWarranty(this);" id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                                '<td>' + SNo++ + '</td>' +
+                                                                '<td> <label id="lblEnquiryCode">' + item.Enquiry_ID.trim() + ' </label></td>' +
+                                                                '<td> <label id="lblEnquiryDate">' + item.EnqDate + ' </label></td>' +
+                                                                '<td> <label id="lblName">' + item.Name + ' </label></td>' +
+
+
+                                                                //'<td><button type="button" class="btn btn-primary btn-xs" id="btnRemove" onclick="RemoveDealer(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                            '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+    function Get_DTRClosedDetails() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+        url: '@Url.Content("~/Enquiry/Select_PendingFollow")',
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#DTRTableClose tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+                            debugger
+                            $("#DTRTableClose tbody").append('<tr  onclick="SelectVehicleWarranty(this);" id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                                '<td>' + SNo++ + '</td>' +
+                                                                '<td> <label id="lblEnquiryCode">' + item.Enquiry_ID.trim() + ' </label></td>' +
+                                                                '<td> <label id="lblEnquiryDate">' + item.EnqDate + ' </label></td>' +
+                                                                '<td> <label id="lblName">' + item.Name + ' </label></td>' +
+
+
+                                                                //'<td><button type="button" class="btn btn-primary btn-xs" id="btnRemove" onclick="RemoveDealer(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                            '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    function SelectVehicleWarranty(value) {
+        debugger;
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        var FIRCode = $(value).closest('tr').find("#lblEnquiryCode").text().trim();
+
+//window.location.href = "/DTR/DTR?EnquiryId= " + FIRCode + "&EnDealerCode=" + dealerCode ;
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'Get',
+            data: { 'EnquiryId': FIRCode, 'EnDealerCode': dealerCode,'EnCLose':"" },
+            url: '@Url.Content("~/Enquiry/DTRRedirectLCV")',
+
+            success: function (data) {
+
+                window.location.href = '@Url.Content("~/Enquiry/FollowUp")'; // your action should return an object having [redirecturl] property
+
+            },
+        });
+
+
+    }
+    function SelectVehicleDTR(value) {
+        debugger;
+        var dealerCode = $(value).closest('tr').find("#lblDealerCode").text().trim();
+        var FIRCode = $(value).closest('tr').find("#lblPPRCode").text().trim();
+
+      //  window.location.href = "/DTR/DTR?EnquiryId= " + FIRCode + "&EnDealerCode=" + dealerCode + "&EnCLose=" + "Close";
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'Get',
+            data: { 'EnquiryId': FIRCode, 'EnDealerCode': dealerCode,'EnCLose':"Close" },
+            url: '@Url.Content("~/DTR/DTRRedirectLCV")',
+
+            success: function (data) {
+
+                window.location.href = '@Url.Content("~/DTR/DTR")'; // your action should return an object having [redirecturl] property
+
+            },
+        });
+
+
+    }
+    function Get_DTRPartsData(value, value1) {
+        //
+        var value = $("#lblDealerCode").text();
+        var value1 = $("#txtDTRNo").val();
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+
+    }
+
+</script>

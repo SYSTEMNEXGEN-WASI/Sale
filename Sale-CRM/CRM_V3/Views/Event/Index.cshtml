@@ -1,0 +1,596 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+         .tabborder {
+        border-radius:0px;
+        border-bottom: 0px;
+        border-color:#aaaaaa;
+    }
+    .btnborder{
+    margin-top:27px;
+    border-radius:0px;
+     width:100px;
+    }
+
+</style>
+@*<link href='@Url.Content("~/assets/plugins/pace/pace-theme-flash.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/bootstrap/css/bootstrap.min.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/plugins/bootstrap/css/bootstrap-theme.min.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/fonts/font-awesome/css/font-awesome.css")' rel="stylesheet" type="text/css" />*@
+<link href='@Url.Content("~/assets/css/animate.min.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/plugins/perfect-scrollbar/perfect-scrollbar.css")' rel="stylesheet" type="text/css" />
+
+
+@*<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/datepicker/css/datepicker.css")' rel="stylesheet" type="text/css" media="screen" />*@
+
+<link href='@Url.Content("~/assets/css/style.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/responsive.css")' rel="stylesheet" type="text/css" />
+<section class="wrapper main-wrapper row" style=''>
+    @*<div class='col-xs-12'>
+        <div class="page-title">
+            <div class="pull-left">
+                <!-- PAGE HEADING TAG - START --><h1 class="title">Event Enquiry</h1><!-- PAGE HEADING TAG - END -->
+            </div>
+        </div>
+    </div>*@
+        <div class="clearfix"></div>
+
+        @* Main Body Starts *@
+        <form method="post">
+            <div class="col-xs-12">
+                <section class="box">
+                    <header class="panel_header">
+                        <h2 class="title pull-left">Event Information</h2>
+                        <div class="actions panel_actions pull-right">
+                            <a class="box_toggle fa fa-chevron-down"></a>
+                            @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                        </div>
+                    </header>
+
+                    <div class="content-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">Event</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                    @Html.DropDownList("ddlEvent", new SelectList((IEnumerable<SelectListItem>)ViewBag.Event, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlEvent" })
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Event Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control datepicker" id="txtEventDate" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Event Name*</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="arrow"></span>
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input type="text" required class="form-control" id="txtEventName" maxlength="100">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Event type</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                    <select class="form-control m-bot15" id="ddlEventType">
+                                        <option value="0">Select</option>
+                                        <option value="Promotions">Promotions</option>
+                                        <option value="Vehicle Dsiplay">Vehicle Dsiplay</option>
+                                        <option value="New Launching">New Launching</option>
+                                        <option value="Seiminar">Seiminar</option>
+                                        <option value="Conference">Conference</option>
+                                        <option value="Dinner">Dinner</option>
+                                        <option value="Lunch">Lunch</option>
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            
+                            <div class="col-md-4">
+                                <label class="form-label">Start Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control datepicker" id="txtEventStartDate" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">End Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control datepicker" id="txtEventEndDate" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Brand</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    @Html.DropDownList("ddlBrandCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.BrandCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlBrandCode" })
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label class="form-label">Product</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    @Html.DropDownList("ddlProdCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ProdCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlProdCode" })
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4" style="display:none;">
+                                <label class="form-label">Version</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    <input type="text" class="form-control" id="txtVersionCode" maxlength="10"/>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Color</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                    @Html.DropDownList("ddlColor", new SelectList((IEnumerable<SelectListItem>)ViewBag.Color, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlColor" })
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Assign To</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="arrow"></span>
+                                        <i class="fa fa-users"></i>
+                                    </span>
+
+                                    @Html.DropDownList("ddlAssignTo", new SelectList((IEnumerable<SelectListItem>)ViewBag.AssignTo, "Value", "Text", Session["EmpCode"].ToString()), new { @class = "form-control m-bot15", @id = "ddlAssignTo" })
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label class="form-label">Expected Budget</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="arrow"></span>
+                                        <i class="fa fa-money"></i>
+                                    </span>
+                                    <input type="text" required class="form-control" id="txtExpBudget" maxlength="100">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Actual Budget</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="arrow"></span>
+                                        <i class="fa fa-dollar"></i>
+                                    </span>
+                                    <input type="text" required class="form-control" id="txtActBudget" maxlength="100">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Status</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="arrow"></span>
+                                        <i class="fa fa-info-circle"></i>
+                                    </span>
+                                    <select class="form-control m-bot15" id="ddlStatus">
+                                        <option value="Select">Select</option>
+                                        <option value="Open">Open</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Close">Close</option>
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Feedback</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+                                    <input type="text" class="form-control" id="txtFeedback">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="pull-left">
+                                    
+                                </div>
+                                <div class="pull-right">
+                                    <button type="reset" class="btn btn-default btnborder" id="btnCancel" >Cancel</button>
+                                    <button type="button" class="btn btn-primary btnborder" id="btnSave" >Save</button>
+                                    <a  class="btn btn-primary" id="btnPrint"  style="margin-top:25px;" href="#">Print</a> @*onclick="PrintReport()" *@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>             
+        </form>
+        <!-- Popup box modal start -->
+        <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog animated bounceInDown">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Confirm</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5>Are you sure want to save ?</h5>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                        <button class="btn btn-success" type="button" onclick="SaveEnquiry()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal end -->
+        <!-- Popup box modal start -->
+        <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog animated bounceInDown">
+                <div class="modal-content">
+                    <div class="modal-header" id="modalMessage">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Success</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5 id="lblMessage"></h5>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal end -->
+</section>
+
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script>
+<script src="../assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        //today = mm + '/' + dd + '/' + yyyy;
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtEventDate").val(today);
+        $("#txtEventDate").attr('max', today);
+        $("#txtEventStartDate").val(today);
+        $("#txtEventEndDate").val(today);
+    })
+
+    function PrintReport()
+    {
+        debugger
+        var leadId = $("#ddlEvent").val();
+        var dealerCode = "@Session["DealerCode"].ToString()";
+
+        $.ajax({
+
+            //data: JSON.stringify(oParam),if you want to pass data you can pass as json object here
+            type: 'POST',
+            async: true,
+            contentType: 'application/json;',
+            dataType: 'json',
+            url: '@Url.Content("~/Event/InvoicePrint")',
+            data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+            success: function () {
+                $("#ReportFrame").attr("src", "~/Reports/MyEvents.aspx");
+                window.open("~/Reports/MyEvents.aspx");
+            }
+        });
+
+    }
+
+    $("#btnSave").click(function () {
+        $("#txtEventName").css("border-color", "#ccc");
+        $("#txtEventDate").css("border-color", "#ccc");
+        $("#txtEventStartDate").css("border-color", "#ccc");
+        $("#txtEventEndDate").css("border-color", "#ccc");
+        $("#txtExpBudget").css("border-color", "#ccc");
+        $("#txtActBudget").css("border-color", "#ccc");
+        $("#txtFeedback").css("border-color", "#ccc");
+        $("#ddlEvent").css("border-color", "#ccc");
+        $("#ddlAssignTo").css("border-color", "#ccc");
+        $("#ddlStatus").css("border-color", "#ccc");
+
+        var name = $("#txtEventName").val();
+        var eventDate = $("#txtEventDate").val();
+        var eStartDate = $("#txtEventStartDate").val();
+        var eEndDate = $("#txtEventEndDate").val();
+        var expBudget = $("#txtExpBudget").val();
+        var actBudget = $("#txtActBudget").val().trim();
+        var subject = $("#txtFeedback").val();
+        var event = $("#ddlEvent").val();
+        var assignTo = $("#ddlAssignTo").val();
+        var status = $("#ddlStatus").val();
+
+        if (name == "" || name == " ") {
+            $("#txtCustName").css("border-color", "red");
+            return;
+        }
+        if (eventDate == "" || eventDate == " ") {
+            $("#txtEventDate").css("border-color", "red");
+            return;
+        }
+        if (assignTo == "0") {
+            $("#ddlAssignTo").css("border-color", "red");
+            return;
+        }
+        if (expBudget == "" || expBudget == " ") {
+            $("#txtExpBudget").css("border-color", "red")
+            return;
+        }
+        if (actBudget == "" || actBudget == " ") {
+            $("#txtActBudget").css("border-color", "red")
+            return;
+        }
+
+        $("#section-confirm").modal("show");
+    })
+
+    $("#ddlEvent").change(function () {
+        var leadId = $("#ddlEvent").val();
+        if (leadId == "0") {
+            location.reload();
+        }
+        else {
+            getDate(leadId);
+        }
+
+    });
+
+    $("#ddlBrandCode").change(function () {
+        var brandCode = $("#ddlBrandCode").val();
+        if (brandCode == "0") {
+            location.reload();
+        } else {
+            getProduct(brandCode);
+        }
+    });
+
+    $("#btnPrint").click(function () {
+
+        var baseurl = '@Url.Action("Export")';
+        var url = baseurl + '?EnquiryId=' + $('#ddlEvent').val() + '&DealerCode='+"@Session["DealerCode"].ToString()";
+        //window.location.href = url;
+        window.open(  url,  '_blank' );
+
+        })
+
+    $("#ddlProdCode").change(function () {
+
+        var skillsSelect = document.getElementById("ddlProdCode");
+        var selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
+
+        var prodCode = $("#ddlProdCode").val();
+
+        var version = selectedText.split('|', selectedText.length);
+
+        $("#txtVersionCode").val(version[1]);
+
+
+        //if (prodCode == "0") {
+        //    location.reload();
+        //} else {
+        //    getVersion(prodCode);
+        //}
+    });
+
+    @*function getVersion(id) {
+            var leadId = id;
+            var dealerCode = "00001";
+            if (leadId != "0") {
+                $.ajax({
+                    dataType: "json",
+                    async: true,
+                    type: 'GET',
+                    url: '@Url.Content("~/Event/Select_ProductVersion")',
+                    data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+                    success: function (data) {
+                        if (data.Success == true) {
+                            var item = JSON.parse(data.Response)
+
+                            $("#txtVersionCode").val(item[0].VersionCode);
+                        }
+                    },
+                    complete: function () {
+                    },
+                });
+            }
+        }*@
+
+    function getProduct(id) {
+        var leadId = id;
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Event/Select_BrandProduct")',
+                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        //var items = JSON.parse(data.Response)
+
+                        //$("#ddlProdCode").val(item[0].ProdCode.trim());
+                        $("#ddlProdCode").find('option').remove();
+
+                        // next iterate thru your object adding each option to the drop down\
+                        $(data.Response).each(function (index, item) { // GETTING ERROR HERE
+                            $("#ddlProdCode").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                        });
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function getDate(id) {
+        var leadId = id;
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Event/Select_EventDetail")',
+                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+                success: function (data) {
+                    debugger;
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        debugger
+                        //Event Information
+                        $("#txtEventDate").val(item[0].EventDate);
+                        $("#txtEventName").val(item[0].EventDesc);
+                        $("#ddlBrandCode").val(item[0].BrandCode)
+                        $("#ddlEventType").val(item[0].EventType);
+                        $("#txtEventStartDate").val(item[0].StartDate);
+                        $("#txtEventEndDate").val(item[0].EndDate);
+                        $("#ddlProdCode").val(item[0].ProdCode);
+                        $("#txtVersionCode").val(item[0].VersionCode);
+                        $("#ddlColor").val(item[0].ColorCode);
+                        $("#ddlAssignTo").val(item[0].AssignID.trim());
+                        $("#txtExpBudget").val(item[0].ExpBudget);
+                        $("#txtActBudget").val(item[0].ActBudget);
+                        $("#ddlStatus").val(item[0].Status);
+                       
+                        $("#txtFeedback").val(item[0].Feedback);
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function SaveEnquiry() {
+
+        var dto = {};
+        debugger
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.Event_ID = $("#ddlEvent").val();
+        dto.EventDate = $("#txtEventDate").val();
+        dto.EventDesc = $("#txtEventName").val();
+        dto.AssignID = $("#ddlAssignTo").val();
+        dto.StartDate = $("#txtEventStartDate").val();
+        dto.EndDate = $("#txtEventEndDate").val();
+        dto.ExpBudget = $("#txtExpBudget").val();
+        dto.Actbudget = $("#txtActBudget").val();
+        dto.Status = $("#ddlStatus").val();
+        dto.Feedback = $("#txtFeedback").val();
+        dto.EventType = $("#ddlEventType").val();
+        dto.ProdCode = $("#ddlProdCode").val();
+        dto.ColorCode = $("#ddlColor").val();
+        dto.VersionCode = $("#txtVersionCode").val();
+        dto.BrandCode = $("#ddlBrandCode").val();
+
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Event/Insert_EventDetail")',
+            data: dto,
+            success: function (data) {
+                debugger
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+    }
+
+
+</script>

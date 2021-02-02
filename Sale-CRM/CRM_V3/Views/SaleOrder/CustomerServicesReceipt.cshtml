@@ -1,0 +1,323 @@
+﻿
+@{
+    ViewBag.Title = "VehicleSalesInvoice";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+<section class="wrapper main-wrapper row">
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align:center"><strong><span class=""></span>Customer Services Receipt</strong></div>
+                    <div class="panel-body">
+
+                        <div class="row" style="margin-bottom:1rem; margin-left:1px">
+                            <div class="form-group row">
+                                
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Services Receipt No</label>
+                                    <div class="input-group" style="margin-right:1px">
+                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate" readonly>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Services Receipt Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate" placeholder="dd/mm/yyyy">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Sale Order No</label>
+                                    <div class="input-group" style="margin-right:15px">
+                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                        <select class="form-control m-bot15" id="CusTitleID" name="CusTitle" required>
+                                            <option value="Mr">Mr.</option>
+                                            <option value="Ms">Ms.</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Sale Order Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Customer</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Product Description</label>
+                                    <div class="input-group" style="margin-right:15px">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Quantity</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Naration</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-comment"></i></span>
+                                        <input type="text" class="form-control" id="FaxNoID" name="FaxNo" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <button type="reset" class="btn btn-warning" id="btnCancel" style="margin-top: 2.4rem; width: 100px">Vourcher</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                        Services Charges
+                                </div>
+                                
+                                    <div class="panel-body">
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label class="form-label">Service For</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                    <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                                        <option value="Mr">Mr.</option>
+                                                        <option value="Ms">Ms.</option>
+                                                    </select>
+                                                    <span class="input-group-addon"><a href="@Url.Action("TaxPaymentReceiptHead","Definition")"><i class="fa fa-plus"></i></a></span>
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="col-md-4">
+                                                <label class="form-label">Service To</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                    <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                                        <option value="Mr">Mr.</option>
+                                                        <option value="Ms">Ms.</option>
+                                                    </select>
+                                                    <span class="input-group-addon"><a href="@Url.Action("EmployeeProfile","Definition")"><i class="fa fa-plus"></i></a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4 pull-left">
+                                                <label class="form-label">Description</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                                    <input type="text" class="form-control" id="FaxNoID" name="FaxNo" />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-md-4">
+                                                <label class="form-label">Amount</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                    <input type="text" class="form-control" id="FaxNoID" name="FaxNo" />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-md-4">
+                                                <button type="reset" class="btn btn-primary" id="btnCancel" style="margin-top:27px; width:189px">+</button>
+                                                <button type="button" class="btn btn-primary" id="btnSave" style="margin-top:27px; width:189px">-</button>
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row container-fluid">
+                                        <div class="col-md-12">
+                                            <div class="table-respon">
+                                                <table id="Item" class="table success color-bordered-table info-bordered-table">
+                                                    <thead class="">
+                                                        <tr>
+                                                            <th>Service Receipt No#</th>
+                                                            <th>Service For</th>
+                                                            <th>Service To</th>
+                                                            <th>Description</th>
+                                                            <th>Amount</th>
+                                                            <th style="text-align : right">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>001</td>
+                                                            <td>11</td>
+                                                            <td>test1</td>
+                                                            <td>test22</td>
+                                                            <td>good</td>
+                                                            <td style="text-align:center"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" style="color:blue"><i class="fa fa-trash"></i></a></td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                        Instrument Payment Details
+                                </div>
+                                
+                                    <div class="panel-body">
+                                        <div class="row container-fluid" style="margin-bottom:1rem;">
+                                            <div class="form-group row">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Payment Account</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                                            <option value="Mr">Mr.</option>
+                                                            <option value="Ms">Ms.</option>
+                                                        </select>
+                                                        <span class="input-group-addon"><a href="@Url.Action("AccountSetup","Definition")"><i class="fa fa-plus"></i></a></span>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Payment Mode</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                                            <option value="Mr">Mr.</option>
+                                                            <option value="Ms">Ms.</option>
+                                                        </select>
+                                                        <span class="input-group-addon"><a href="@Url.Action("PaymentMode","Definition")"><i class="fa fa-plus"></i></a></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Amount</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                        <input type="text" class="form-control" id="FaxNoID" name="FaxNo" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+
+
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Instrument Date</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" class="form-control" id="FaxNoID" name="FaxNo" placeholder="dd/mm/yyyy" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Instrument No</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                        <input type="text" class="form-control" id="FaxNoID" name="FaxNo" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label class="form-label">Bank</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+                                                        <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                                            <option value="Mr">Mr.</option>
+                                                            <option value="Ms">Ms.</option>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="form-label">Branch</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                        <input type="text" class="form-control" id="FaxNoID" name="FaxNo" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="pull-right">
+
+                                        <button type="submit" class="btn btn-info" id="btnCancel" style="margin-top:27px; width:100px">Save</button>
+
+                                        <button type="submit" class="btn btn-danger" id="btnCancel" style="margin-top:27px; width:100px">Delete</button>
+
+                                        <button type="submit" class="btn btn-default" id="btnCancel" style="margin-top:27px; width:100px">Clear</button>
+
+                                        <button type="submit" class="btn btn-success" id="btnCancel" style="margin-top:27px; width:100px">Print</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                       
+                    </div>
+                </div>
+            </section>
+        </div>
+        <style>
+            .border-for {
+                border: 1px solid blue;
+            }
+
+            .label-heading {
+                margin: 0.5rem;
+            }
+
+            .divider {
+                width: 5px;
+                height: auto;
+                display: inline-block;
+            }
+        </style>
+
+    </form>
+</section>
+
+
+

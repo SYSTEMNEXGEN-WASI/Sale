@@ -1,0 +1,161 @@
+﻿
+@{
+    ViewBag.Title = "BCVDetailReport";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<h2>BCVDetailReport</h2>
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .border {
+        display: inline-block;
+        width: 70px;
+        height: 70px;
+        margin: 6px;
+    }
+</style>
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+        <fieldset>
+            <div class="col-xs-12">
+                <section class="box">
+                    <header class="panel_header">
+                        <lengend><h2 class="title pull-left"> Price Offer Detail</h2></lengend>
+                    </header>
+                    <div class="content-body">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>From Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control datepicker" id="txtTODate" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>To Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control datepicker" id="txtFromDate" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Buying Mode</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    <select class="form-control m-bot15" id="ddlBuyingMode">
+                                        <option value="NCV">Non Certified</option>
+                                        <option value="CV">Certified</option>
+
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            
+                            
+                           
+                                <div class="pull-right">
+                                    <a class="btn btn-primary" id="btnPrint" style="margin-top:25px;" href="#">Print</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+           
+        </fieldset>
+    </form>
+    </section>
+<!-- Popup box modal start -->
+<div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Are you sure want to save ?</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-success" type="button" onclick="SaveMasterEnquiry()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal end -->
+<div class="modal" id="section-confirm-Delete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Are you sure want to Delete ?</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-danger" type="button" onclick="DeleteEnquiry()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Popup box modal start -->
+<div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown">
+        <div class="modal-content">
+            <div class="modal-header" id="modalMessage">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5 id="lblMessage"></h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/datatables/js/jquery.dataTables.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+    })
+
+    $("#btnPrint").click(function () {
+        debugger;
+        var baseurl = '@Url.Action("ExportBuyingDetail")';
+        var url = baseurl + '?todate=' + $('#txtTODate').val() + '&fromdate=' + $('#txtFromDate').val() + '&Buyingmode=' + $('#ddlBuyingMode').val();
+       // window.location.href = url
+        window.open(url, '_blank');
+
+    })
+</script>
+
+

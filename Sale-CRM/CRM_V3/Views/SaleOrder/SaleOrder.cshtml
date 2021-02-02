@@ -1,0 +1,1700 @@
+﻿
+@{
+    ViewBag.Title = "SaleOrder";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+
+
+<style>
+    .makespace {
+        margin-bottom:0.5rem;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+
+
+<section class="wrapper main-wrapper row">
+
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align:center"><strong>Sale Order</strong></div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">SO No</label>
+                                <div class="input-group">
+                                    @* onclick="SetIds('BookNo1','AccountCodeID1', 'DetailDescID1') *@
+                                    <div class="input-group-addon"><a data-toggle="modal" data-target="#POModal2" style="color:blue"><i class="fa fa-search" ></i></a></div>
+                                    <input type="text" class="form-control" id="txtSoNo" name="TransCode" maxlength="10" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">SO Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" ></span></span>
+                                    <input type="text" class="form-control" value="@ViewBag.CurrentDate" data-date-format='dd/MM/yyyy' id="txtSoDate" name="TransDate" readonly required>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Sale Type</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                    <select class="form-control input-md m-bot15" id="ddlSaleType" onchange="OnChange(); OnChange2();" name="SaleType">
+                                        <option value="Cash">Cash</option>
+                                        <option value="Credit">Credit</option>
+                                        <option value="Installment">Installment</option>
+                                        <option value="Services">Services</option>
+
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Credit Terms</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    <input type="text" class="form-control datepicker" id="txtCreditTerms" disabled name="CreditTerms" placeholder="Days" maxlength="3" required>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Sales Person</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalSP" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                    <input type="text" class="form-control" id="txtSalesPerson" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <input type="hidden" class="form-control" id="txtSalesPersonCd" name="EmpCode">
+                            
+                                <div class="form-group row container-fluid">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Customer</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><a data-toggle="modal" data-target="#POModal" style="color:blue"><i class="fa fa-search" onclick="SetIds('BookNo1','AccountCodeID1', 'DetailDescID1')"></i></a></div>
+                                            <input type="text" class="form-control" id="txtCustomer" readonly>
+                                        </div>
+                                        <div class="makespace"></div>
+                                    </div>
+
+                                    <input type="hidden" class="form-control" id="txtCustomerCd" name="CusCode">
+
+                                    <div class="col-md-4">
+                                        <label class="form-label">Customer Contact</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+                                            <input class="form-control" id="txtCustomerContact" oninput="javascript: if (this.value.length >= this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                   type="tel"
+                                                   maxlength="13" />
+                                        </div>
+                                        <div class="makespace"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">CNIC</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                                            <input type="text" class="form-control" id="txtCNIC" name="CNICNTN" readonly />
+                                        </div>
+                                        <div class="makespace"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">City</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                            <input type="text" class="form-control" id="txtCity" name="" readonly />
+                                        </div>
+                                        <div class="makespace"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Country</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-institution"></i></span>
+                                            <input type="text" class="form-control" id="txtCountry" name="txtCountry" readonly />
+                                        </div>
+                                        <div class="makespace"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Customer Type</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                            <input type="text" class="form-control" id="txtCustomerTypeDesc" name="CustomerType" readonly />
+                                            <input type="hidden" class="form-control" id="txtCustomerType" name="CusCode">
+                                        </div>
+                                        <div class="makespace"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Price Level</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                            <select class="form-control input-md m-bot15" id="ddlPriceLevel" name="PriceLevel">
+                                                <option value="0">Select</option>
+                                                <option>Standard</option>
+                                                <option>Dealer Price</option>
+                                                <option>Retail Price</option>
+                                                <option>Destributer Price</option>
+                                            </select>
+                                        </div>
+                                        <div class="makespace"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Bill To</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                            <textarea class="form-control" id="txtBillTo" name="BillTo" maxlength="100" rows="3"></textarea>
+                                        </div>
+                                        <div class="makespace"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Ship To</label>
+                                        <div class="pull-right col-md-2">
+                                            <label class="form-label">SameAs</label>
+                                            <input class="pull-right" id="CheckBox" type="checkbox" onclick="CopyAddress()" />
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                            <textarea class="form-control" id="txtShipTo" name="ShipTo" maxlength="100" rows="3"></textarea>
+                                        </div>
+                                        <div class="makespace"></div>
+                                    </div>
+                                </div>
+                            
+
+
+                            <!--copy till this-->
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            <div class="col-xs-12">
+                                <div class="panel-group" id="accordion">
+                                    
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                Vehicle
+                                            </a>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div class="panel-body">
+
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <ul class="nav nav-tabs nav-justified primary">
+                                                            <li class="active">
+                                                                <a href="#home-7" data-toggle="tab">
+                                                                    <i class="fa fa-car"></i> Vehicle Type
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content primary">
+                                                            <div class="tab-pane fade in active" id="home-7">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Brand</label>
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalBrand" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                            <input type="text" id="txtBrandDesc" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <input type="hidden" class="form-control" id="txtBrandCd">
+
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Product</label>
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalProd" style="color:blue"><i class="fa fa-search" onclick="SetIds('BookNo1','AccountCodeID1', 'DetailDescID1')"></i></a></div>
+                                                                            <input type="text" id="txtProduct" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Model</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
+                                                                            <input type="text" id="txtModel" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Product Description</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                                                                            <input type="text" id="txtProductDescription" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Color</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                                                            <input type="text" id="txtColor" class="form-control" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Segment</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                                                            <input type="text" class="form-control" id="txtSegment" readonly />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                   
+
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Quanitty</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-book"></i></span>
+                                                                            <input class="form-control" id="txtQuantity" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                                                   type="number"
+                                                                                   maxlength="3" />
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label">Instalment Month</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
+                                                                            <select class="form-control m-bot15" id="ddlInstallmentMonth" disabled>
+                                                                                <option value="0.00">0.00</option>
+                                                                                <option value="6">6</option>
+                                                                                <option value="12">12</option>
+                                                                                <option value="18">18</option>
+                                                                                <option value="24">24</option>
+                                                                                <option value="30">30</option>
+                                                                                <option value="36">36</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                       
+                                                                        <button type="button" class="btn btn-info" id="addItem" style="margin-top:24px; width:100px">+</button>
+                                                                        
+                                                                        <div class="makespace"></div>
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                                <div class="row" style="margin-top:1rem;">
+                                                                    <div class="col-md-12">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-bordered table-striped" id="productDetail" style="white-space: nowrap; FONT-SIZE: 13px;">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>#</th>
+                                                                                        <th>Customer Desc</th>
+                                                                                        <th>Brand </th>
+                                                                                        <th>Product</th>
+                                                                                        <th>Model</th>
+                                                                                        <th>Product Description</th>
+                                                                                        <th>Color</th>
+                                                                                        <th>Segment</th>
+                                                                                        <th>Quantity</th>
+                                                                                        <th>Installment Month</th>
+                                                                                        <th>Action</th>
+
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                   
+                                                                                    
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- -->
+                                                                <div class="row">
+                                                                    <div class="col-md-2">
+
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Copy Till This-->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">Total Payable</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    <input type="number" class="form-control" id="txtTotalPayable" readonly />
+                                </div>
+                            </div>
+                            <div class="pull-right" style="margin-right:15px">
+                                <button type="button" class="btn btn-info" id="btnSave" style="margin-top:27px; width:100px">Save</button>
+
+                                <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px; width:100px">Delete</button>
+
+                                <button type="button" class="btn btn-default" id="btnClear" style="margin-top:27px; width:100px">Clear</button>
+
+                                <button type="button" class="btn btn-success" id="btnPrint" style="margin-top:27px; width:100px">Print</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+</section>
+        </div>
+    </form>
+
+</section>
+
+
+
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModal2" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top:150px; height:500px;width:800px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">SO Detail</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:280px;width:750px">
+                        <table id="AccountTableSO" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">SO No</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">So Date</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer Name</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer Contact</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.DetailLookup != null)
+{
+    foreach (var item in ViewBag.DetailLookup)
+    {
+        <tr style="text-align: left" onclick="RevClickDetail('@item.TransCode','@item.TransDate','@item.SaleType','@item.CreditTerms','@item.EmpCode','@item.EmpName','@item.CusCode','@item.CusDesc','@item.CustomerType','@item.CNICNTN','@item.ContactNo','@item.PriceLevel','@item.BillTo','@item.ShipTo','@item.TotalQty','@item.CustomerTypeDesc')">
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.TransCode</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.TransDate</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.CusDesc</a>
+            </td>
+            <td class="tdDiv">
+                <a href="#" style="color:black">@item.ContactNo</a>
+            </td>
+
+        </tr>
+    }
+}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+
+@*-lookUp for SalesPerson-*@
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalSP" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 150px; height:600px;width:1050px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">SalesPerson Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchSP" class="form-control" aria-controls="AccountTableSP" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;width:1000px">
+                        <table id="AccountTableSP" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Id</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Desc</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.AssignTo != null)
+                                {
+                                    foreach (var item in ViewBag.AssignTo)
+                                    {
+                                        <tr style="text-align: left" onclick="RevClick2('@item.Value','@item.Text')">
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.Value</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.Text</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+@*lookup for Product*@
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalProd" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 150px; height:600px;width:1050px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Product Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchPro" class="form-control" aria-controls="AccountTablePro" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;width:1000px">
+                        <table id="AccountTablePro" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Brand</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Product</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Model</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Product Desc</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Color</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Segment</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @*@if (ViewBag.AssignPro != null)
+                {
+                    foreach (var item in ViewBag.AssignPro)
+                    {
+                        <tr style="text-align: left" onclick="RevClick3('@item.BrandCode','@item.ProdCode','@item.VersionCode','@item.Color','@item.ColorCode','@item.ProdDesc','@item.Segment')">
+                            <td class="tdDiv">
+                                <a href="#" style="color:black">@item.BrandCode</a>
+                            </td>
+                            <td class="tdDiv">
+                                <a href="#" style="color:black">@item.ProdCode</a>
+                            </td>
+                            <td class="tdDiv">
+                                <a href="#" style="color:black">@item.VersionCode</a>
+                            </td>
+                            <td class="tdDiv">
+                                <a href="#" style="color:black">@item.ProdDesc</a>
+                            </td>
+                            <td class="tdDiv">
+                                <a href="#" style="color:black">@item.Color</a>
+                            </td>
+                            <td class="tdDiv">
+                                <a href="#" style="color:black">@item.Segment</a>
+                            </td>
+                        </tr>
+                    }
+                }*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+@*Brand Lookup*@
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalBrand" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 150px; height:600px;width:1050px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Brand Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchBrand" class="form-control" aria-controls="AccountTableBrand" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;width:1000px">
+                        <table id="AccountTableBrand" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Brand Code</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Brand Name</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.BrandCode != null)
+                                {
+                                    foreach (var item in ViewBag.BrandCode)
+                                    {
+                                        <tr style="text-align: left" onclick="RevClickBrand('@item.Value','@item.Text')">
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.Value</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.Text</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*-lookUp for Customer-*@
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModal" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 150px; height:600px;width:1050px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Customer Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchCus" class="form-control" aria-controls="AccountTableCus" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;width:1000px">
+                        <table id="AccountTableCus" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Dealer | Customer Code</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Name</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Contact</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">CNIC</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Address</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Type</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.AssignCus != null)
+                                {
+                                    foreach (var item in ViewBag.AssignCus)
+                                    {
+                                        <tr style="text-align: left" onclick="RevClick('@item.CusCode','@item.CusDesc','@item.CellNo','@item.NIC','@item.Address1','@item.CityDesc','@item.CountryDesc','@item.CusTypeCode','@item.CusTypeDesc')">
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.DealerCode | @item.CusCode</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.CusDesc</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.CellNo</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.NIC</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.Address1</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.CusTypeCode</a>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal" id="section-Grid" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red">
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Please Add the Grid Data</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-danger" onclick="scrollWin(0, 50)" id="btnGrid" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="section-confirmRemove" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Are you sure to want Delete ?</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-danger" type="button" onclick="RemoveRecord();">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Pop Up Box for Save*@
+<!-- Popup box modal start -->
+<div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Are you sure to want save ?</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-success" type="button" onclick="SaveEnquiry(); SaveDetail();">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal end -->
+<!-- Popup box modal start -->
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+@*<script src='@Url.Content("~/Scripts/bootstrap.js")'></script>
+<script src='@Url.Content("~/Scripts/bootstrap.min.js")'></script>*@
+
+
+
+<script type="text/javascript">
+
+    $("#btnGrid").on("click", function () {
+        $("#collapseTwo").collapse('show');
+    });
+
+    $(window).on('beforeunload', function () {
+        $(window).scrollTop(0);
+    });
+
+
+    $("#btnPrint").click(function () {
+
+        var baseurl = '@Url.Action("Export")';
+        var url = baseurl + '?TransCode=' + $('#txtSoNo').val() + '&DealerCode=@Session["DealerCode"].ToString()';
+        //window.location.href = url;
+        window.open(url, '_blank');
+
+
+        //window.open("../WebForms/Sale/SaleOrder.aspx", 'mywindow', 'fullscreen=yes,scrollbar=auto');
+
+    })
+
+
+
+    function CopyAddress() {
+        var CusAddress = $("#txtBillTo").val();
+        document.getElementById('txtShipTo').value = CusAddress;
+
+    }
+
+    function OnChange() {
+       var changeValue=$("#ddlSaleType").val();
+       if (changeValue == "Credit") {
+           $("#txtCreditTerms").removeAttr("disabled", "disabled");
+       }
+       else {
+           $("#txtCreditTerms").attr("disabled", "disabled");
+       }
+    }
+
+    function OnChange2() {
+        var changeValue = $("#ddlSaleType").val();
+        if (changeValue == "Installment") {
+            $("#ddlInstallmentMonth").removeAttr("disabled", "disabled");
+            $("#txtQuantity").attr('Readonly', true);
+            document.getElementById('txtQuantity').value = '1';
+        }
+        else {
+            $("#ddlInstallmentMonth").attr("disabled", "disabled");
+            $("#txtQuantity").attr('Readonly', false);
+
+        }
+    }
+
+
+
+    function FetchGridData() {
+
+        var transcode = $("#SoNo").val();
+
+        var data = {};
+        data = JSON.parse('@Html.Raw(Json.Encode(ViewBag.DetailGrid))');
+        if (data.length > 0) {
+            $.each(data, function (Index, obj) {
+
+                $("table#productDetail").append('<tr><td>' + Index +
+                                '</td><td style="min-width:100px">' + obj.CusDesc + '</td><td style="min-width:100px">' + obj.BrandDesc + '</td><td>' + obj.ProdCode + '</td><td style="text-align:left">' + obj.VersionCode +
+                                '</td><td style="text-align:left">' + obj.ProdDesc + '</td><td style="text-align:left">' + obj.ColorCode + '</td><td style="text-align:left">' + obj.Segment +
+                                '</td><td style="text-align:left">' + obj.Qty + '</td><td style="text-align:left">' + obj.InstallmentPlan + '</td>' +
+                                '<td style="text-align:left"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td></tr>');
+
+
+
+            })
+        }
+    }
+
+    $("#btnClear").click(function () {
+
+        document.getElementById('txtSoNo').value = '';
+        document.getElementById('ddlSaleType').value = 'Cash';
+        document.getElementById('txtCreditTerms').value = '';
+        document.getElementById('txtCustomerCd').value = '';
+        document.getElementById('txtCustomer').value = '';
+        document.getElementById('txtSalesPersonCd').value = '';
+        document.getElementById('txtSalesPerson').value = '';
+        document.getElementById('txtCustomerType').value = '';
+        document.getElementById('txtCNIC').value = '';
+        document.getElementById('txtCustomerContact').value = '';
+        document.getElementById('ddlPriceLevel').value = 0;
+        document.getElementById('txtBillTo').value = '';
+        document.getElementById('txtShipTo').value = '';
+        document.getElementById('txtShipTo').value = ''; 
+        document.getElementById('CheckBox').checked = false;
+        document.getElementById('txtTotalPayable').value = '';
+
+
+        document.getElementById('txtBrandDesc').value = '';
+        document.getElementById('txtProduct').value = '';
+        document.getElementById('txtModel').value = '';
+        document.getElementById('txtProductDescription').value = '';
+        document.getElementById('txtColor').value = '';
+        document.getElementById('txtSegment').value = '';
+        document.getElementById('txtQuantity').value = '';
+        document.getElementById('ddlInstallmentMonth').value = 0;
+
+        $("table#productDetail tbody").empty();
+
+
+    });
+
+    //calcTotal(tableItem);
+    $("#addItem").click(function () {
+
+
+
+
+        $("#txtBrandDesc").css("border-color", "#ccc");
+        $("#txtProduct").css("border-color", "#ccc");
+        $("#txtModel").css("border-color", "#ccc");
+        $("#txtProductDescription").css("border-color", "#ccc");
+        $("#txtColor").css("border-color", "#ccc");
+        $("#txtSegment").css("border-color", "#ccc");
+        $("#txtQuantity").css("border-color", "#ccc");
+        $("#ddlInstallmentMonth").css("border-color", "#ccc");
+
+
+
+        var brand = $("#txtBrandDesc").val();
+        var product = $("#txtProduct").val();
+        var model = $("#txtModel").val();
+        var prodesc = $("#txtProductDescription").val();
+        var color = $("#txtColor").val();
+        var segment = $("#txtSegment").val();
+        var quantity = $("#txtQuantity").val();
+        var installment = $("#ddlInstallmentMonth").val();
+        var SaleType = $("#ddlSaleType").val();
+        var Ttl = $("#txtTotalPayable").val();
+
+        var Ttl = $("#txtTotalPayable").val();
+        document.getElementById('txtTotalPayable').value = +Ttl + +quantity;
+        
+
+
+
+        if (brand == "" || brand == 0 || brand == null) {
+            $("#txtBrandDesc").css("border-color", "red");
+            return;
+        }
+        if (product == "" || product == " ") {
+            $("#txtProduct").css("border-color", "red");
+            return;
+        }
+        if (model == "") {
+            $("#txtModel").css("border-color", "red")
+            return;
+        }
+        if (prodesc == "" && prodesc == null) {
+            $("#txtProductDescription").css("border-color", "red");
+            return;
+        }
+        if (color == "") {
+            $("#txtColor").css("border-color", "red");
+            return;
+        }
+
+        if (segment == "") {
+            $("#txtSegment").css("border-color", "red");
+            return;
+        }
+        if (quantity == "") {
+            $("#txtQuantity").css("border-color", "red");
+            return;
+        }
+
+        if (installment == "" && ddlSaleType=='Installment' ) {
+            $("#ddlInstallmentMonth").css("border-color", "red");
+            return;
+        }
+
+
+
+
+
+
+        var tableItem = document.getElementById('productDetail');
+        var i = 0;
+        i++;
+        //var itemNo = $("#ItemNo").val().trim();
+        var len = tableItem.rows.length;
+        var value = false;
+        // check first empty row
+        var rows = tableItem.rows;
+        var firstRow = rows[1];
+        var NFound = '';
+        //if (firstRow != undefined) {
+        //    NFound = firstRow.cells[0].innerHTML;
+        //}
+        //else {
+        //    NFound = "1";
+        //}
+        //this if condition was the first condition in for loop, so i moved it outside
+        //if (NFound.substring(0, 2) != 'NO') {
+        //    for (var i = 1; i < len ; i++) {
+
+        //        if (tableItem.rows[i].cells[1].innerHTML.trim() === itemNo) {
+        //            value = true;
+        //            index = tableItem.rows[i];
+        //        }
+        //    }
+        //}
+        //if (value === false) {
+        //    if (NFound.substring(0, 2) === 'NO') {
+        //$("#productDetail tbody tr").remove();
+        i = 1;
+
+        $("table#productDetail").append('<tr><td>' + i +
+        '</td><td style="min-width:100px">' + $("#txtCustomer").val().toUpperCase() + '</td><td style="min-width:100px">' + $("#txtBrandCd").val().toUpperCase() + '</td><td>' + $("#txtProduct").val().toUpperCase() + '</td><td style="text-align:left">' + $("#txtModel").val() +
+        '</td><td style="text-align:left">' + $("#txtProductDescription").val() + '</td><td style="text-align:left">' + $("#txtColor").val() + '</td><td style="text-align:left">' + $("#txtSegment").val() +
+        '</td><td style="text-align:left">' + $("#txtQuantity").val() + '</td><td style="text-align:left">' + $("#ddlInstallmentMonth").val() + '</td>' +
+        '<td style="text-align:left"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td></tr>');
+        //clearItem();
+
+        
+        $("#txtBrandDesc").val("");
+        $("#txtProduct").val("");
+        $("#txtModel").val("");
+        $("#txtProductDescription").val("");
+        $("#txtColor").val("");
+        $("#txtSegment").val("");
+        $("#txtQuantity").val("");
+        $("#ddlInstallmentMonth").val(0);
+       
+
+        //}
+
+        //}
+
+    });
+
+
+
+
+
+    $("table#productDetail").on('click', '.deleteItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        $(this).closest('tr').remove();
+        var qty = rIndex.find('td:eq(8)').text().replace(/\s+/g, " ");
+        var TotalQty = $("#txtTotalPayable").val();
+        TotalQty = TotalQty - qty;
+        document.getElementById('txtTotalPayable').value = TotalQty;
+    });
+
+    // delete item from grid
+    $("table#productDetail").on('click', '.selectItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        //rIndex = this.rowIndex;
+        console.log(index);
+        var brand = rIndex.find('td:eq(2)').text().replace(/\s+/g, " ");
+        var product = rIndex.find('td:eq(3)').text().replace(/\s+/g, " ");
+        var model = rIndex.find('td:eq(4)').text().replace(/\s+/g, "");
+        var proDesc = rIndex.find('td:eq(5)').text().replace(/\s+/g, " ");
+        var color = rIndex.find('td:eq(6)').text().replace(/\s+/g, " ");
+        var segment = rIndex.find('td:eq(7)').text().replace(/\s+/g, " ");
+        var qty = rIndex.find('td:eq(8)').text().replace(/\s+/g, " ");
+        var Instmonth = rIndex.find('td:eq(9)').text().replace(/\s+/g, " ");
+        var TotalQty = $("#txtTotalPayable").val();
+        TotalQty = TotalQty - qty;
+
+        document.getElementById('txtBrandCd').value = brand;
+        document.getElementById('txtBrandDesc').value = brand;
+        document.getElementById('txtProduct').value = product;
+        document.getElementById('txtModel').value = model;
+        document.getElementById('txtProductDescription').value = proDesc;
+        document.getElementById('txtColor').value = color;
+        document.getElementById('txtSegment').value = segment;
+        document.getElementById('txtQuantity').value = qty;
+        document.getElementById('ddlInstallmentMonth').value = Instmonth;
+        document.getElementById('txtTotalPayable').value = TotalQty;
+
+        $(this).closest('tr').remove();
+
+    });
+
+</script>
+
+
+
+
+
+
+
+@*select record for lookup*@
+<script type="text/javascript">
+
+    var cusDesc = '';
+    var cusContact = '';
+    var cusCNIC = '';
+    var cusCity = '';
+    var cusCountry = '';
+    var cusType = '';
+
+
+    // this will fields specific fields based on id after row is clicked in the popped up model
+    RevClick = function (CusCode, cusDesc, CellNo, NIC,Address1 ,CityDesc, CountryDesc, CusTypeCode,CusTypeDesc) {
+        document.getElementById('txtCustomerCd').value = CusCode;
+        document.getElementById('txtCustomer').value = cusDesc;
+        document.getElementById('txtBillTo').value = Address1;
+        document.getElementById('txtCustomerContact').value = CellNo;
+        document.getElementById('txtCNIC').value = NIC;
+        document.getElementById('txtCity').value = CityDesc;
+        document.getElementById('txtCountry').value = CountryDesc;
+        document.getElementById('txtCustomerTypeDesc').value = CusTypeDesc;
+        document.getElementById('txtCustomerType').value = CusTypeCode;
+        $("#POModal").modal("hide");
+    }
+
+    RevClick3 = function (BrandCode, ProdCode, VersionCode, Color, ColorCode, ProdDesc, Segment) {
+        document.getElementById('txtProduct').value = ProdCode;
+        document.getElementById('txtModel').value = VersionCode;
+        document.getElementById('txtProductDescription').value = ProdDesc;
+        document.getElementById('txtColor').value = Color;
+        document.getElementById('txtSegment').value = Segment;
+        $("#POModalProd").modal("hide");
+        return;
+    }
+
+    RevClick2 = function (Value, Text) {
+        
+        document.getElementById('txtSalesPerson').value = Text;
+        document.getElementById('txtSalesPersonCd').value = Value;
+        $("#POModalSP").modal("hide");
+    }
+
+    RevClickBrand = function (Value, Text) {
+
+        $("table#AccountTablePro tbody").empty();
+        
+
+        document.getElementById('txtBrandDesc').value = Text;
+        document.getElementById('txtBrandCd').value = Value;
+        $("#POModalBrand").modal("hide");
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Content("~/SaleOrder/BrandMethod")',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({ BrandCode: Value }),
+            success: function (data) {
+                if (data.length > 0) {
+                    $.each(data, function (Index, obj) {
+
+                        $("table#AccountTablePro").append('<tr class=SelectRow ><td>' + obj.BrandCode +
+                                        '</td><td style="min-width:100px">' + obj.ProdCode + '</td><td style="min-width:100px">' + obj.VersionCode + '</td><td>' + obj.ProdDesc + '</td><td style="text-align:left">' + obj.ColorCode +
+                                        '</td><td style="text-align:left">' + obj.Segment + '</td></tr>') ;
+                        
+                        
+                    })
+                    
+                }
+                
+            },
+
+
+
+        });
+
+        $("table#AccountTablePro").on('click', '.SelectRow', function () {
+
+            rIndex = $(this).closest('tr');
+
+            index = $(this).closest('tr')[0].rowIndex;
+            //rIndex = this.rowIndex;
+            console.log(index);
+
+            var ProdCode = rIndex.find('td:eq(1)').text().replace(/\s+/g, " ");
+            var VersionCode = rIndex.find('td:eq(2)').text().replace(/\s+/g, " ");
+            var ProdDesc = rIndex.find('td:eq(3)').text().replace(/\s+/g, " ");
+            var ColorCode = rIndex.find('td:eq(4)').text().replace(/\s+/g, " ");
+            var Segment = rIndex.find('td:eq(5)').text().replace(/\s+/g, " ");
+            
+
+
+            document.getElementById('txtProduct').value = ProdCode;
+            document.getElementById('txtModel').value = VersionCode;
+            document.getElementById('txtProductDescription').value = ProdDesc;
+            document.getElementById('txtColor').value = ColorCode;
+            document.getElementById('txtSegment').value = Segment;
+            $("#POModalProd").modal("hide");
+
+
+
+        });
+
+        $("#POModalSP").modal("hide");
+    }
+
+    RevClickDetail = function (TransCode, TransDate, SaleType, CreditTerms, EmpCode,EmpName, CusCode, CusDesc, CustomerTypeDesc, CNICNTN, ContactNo, PriceLevel, BillTo, ShipTo,TotalQty) {
+
+        $("table#productDetail tbody").empty();
+
+        var datetime = TransDate;
+        var date = datetime.split(' ')[0];
+        debugger
+        document.getElementById('txtSoNo').value = TransCode;
+        document.getElementById('txtSoDate').value = date;
+        document.getElementById('ddlSaleType').value = SaleType;
+        document.getElementById('txtCreditTerms').value = CreditTerms;
+        document.getElementById('txtCustomerCd').value = CusCode;
+        document.getElementById('txtCustomer').value =  CusDesc;
+        document.getElementById('txtSalesPersonCd').value = EmpCode;
+        document.getElementById('txtSalesPerson').value = EmpName;
+        document.getElementById('txtCustomerTypeDesc').value = CustomerTypeDesc;
+        document.getElementById('txtCNIC').value = CNICNTN;
+        document.getElementById('txtCustomerContact').value = ContactNo;
+        document.getElementById('ddlPriceLevel').value = PriceLevel;
+        document.getElementById('txtBillTo').value = BillTo;
+        document.getElementById('txtShipTo').value = ShipTo;
+        document.getElementById('txtTotalPayable').value = TotalQty;
+        
+        if (SaleType == "Installment") {
+            $("#ddlInstallmentMonth").removeAttr("disabled", "disabled");
+            $("#txtQuantity").attr('Readonly', true);
+            document.getElementById('txtQuantity').value = '1';
+        }
+        else {
+            $("#ddlInstallmentMonth").attr("disabled", "disabled");
+            $("#txtQuantity").attr('Readonly', false);
+
+        }
+
+        if (BillTo == ShipTo ){
+            document.getElementById('CheckBox').checked = true;
+        }
+         
+        var transcode = TransCode;
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Content("~/SaleOrder/MTransMethod")',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({ TransCode: TransCode }),
+            success: function (data) {
+                if (data.length > 0) {
+                    $.each(data, function (Index, obj) {
+
+                        $("table#productDetail").append('<tr><td>' + Index +
+                                        '</td><td style="min-width:100px">' + obj.CusDesc + '</td><td style="min-width:100px">' + obj.BrandCode + '</td><td>' + obj.ProdCode + '</td><td style="text-align:left">' + obj.VersionCode +
+                                        '</td><td style="text-align:left">' + obj.ProdDesc + '</td><td style="text-align:left">' + obj.ColorCode + '</td><td style="text-align:left">' + obj.Segment +
+                                        '</td><td style="text-align:left">' + obj.Qty + '</td><td style="text-align:left">' + obj.InstallmentPlan + '</td>' +
+                                        '<td style="text-align:left"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td></tr>');
+
+
+
+                    })
+                }
+            },
+
+
+
+        });
+
+
+        $("#POModal2").modal("hide");
+        
+    }
+
+    //  For Item Lookup
+    $("#AccountSearchSO").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table#AccountTableSO tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
+
+    //  For SalePerson
+    $("#AccountSearchSP").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table#AccountTableSP tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
+
+    //  For SalePerson
+    $("#AccountSearchCus").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table#AccountTableCus tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
+
+
+    $("#AccountSearchPro").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table#AccountTablePro tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
+
+    $("#AccountSearchBrand").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table#AccountTableBrand tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
+
+
+    //function ClearFields(fldID, fldID1, fldID2, fldID3, fldID4, fldID5) {
+
+    //    document.getElementById(fldID).value = "";
+    //    document.getElementById(fldID1).value = "";
+    //    document.getElementById(fldID2).value = "";
+    //    document.getElementById(fldID3).value = "";
+    //    document.getElementById(fldID4).value = "";
+    //    document.getElementById(fldID5).value = "";
+    //}
+
+    //function SetIds(fld, fld1, fld2 , fld3, fld4, fld5) {
+    //    cusDesc = fld;
+    //    cusContact = fld1;
+    //    cusCNIC = fld2;
+    //    cusCity = fld3;
+    //    cusCountry = fld4;
+    //    cusType = fld5;
+    //}
+
+    // For Remove the row
+    function deleteRow() {
+        $('#row1').remove();
+    }
+
+    // For Edit the row
+    $("table#CustomerTable").on('click', '.selectItem', function () {
+
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        //rIndex = this.rowIndex;
+        console.log(index);
+        
+        var CucDes = rIndex.find('td:eq(1)').text().replace(/\s+/g, " ");
+        var CusCont = rIndex.find('td:eq(2)').text().replace(/\s+/g, " ");
+        var CusNIC = rIndex.find('td:eq(3)').text().replace(/\s+/g, " ");
+        var CusCity = rIndex.find('td:eq(4)').text().replace(/\s+/g, " ");
+        var CusCountry = rIndex.find('td:eq(5)').text().replace(/\s+/g, " ");
+        var CusType = rIndex.find('td:eq(6)').text().replace(/\s+/g, " ");
+
+
+        document.getElementById('CBCode').value = CucDes;
+        document.getElementById('CBDesc').value = CusCont;
+        document.getElementById('BookNo1').value = CusNIC;
+        document.getElementById('AccountCodeID1').value = CusCity;
+        document.getElementById('OpeningBalance').value = CusCountry;
+        document.getElementById('OpeningBalance').value = CusType;
+
+        
+
+    });
+
+
+
+</script>
+
+
+<script type="text/javascript">
+     
+    $("#btnDelete").click(function () {
+        $("#section-confirmRemove").modal("show");
+    })
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+    $("#btnSave").click(function () {
+        $("#txtSoNo").css("border-color", "#ccc");
+        $("#txtSoDate").css("border-color", "#ccc");
+        $("#ddlSaleType").css("border-color", "#ccc");
+        $("#txtCreditTerms").css("border-color", "#ccc");
+        $("#txtSalesPerson").css("border-color", "#ccc");
+        $("#txtCustomer").css("border-color", "#ccc");
+        $("#txtCustomerContact").css("border-color", "#ccc");
+        $("#txtCNIC").css("border-color", "#ccc");
+        $("#txtCity").css("border-color", "#ccc");
+        $("#txtCountry").css("border-color", "#ccc");
+        $("#txtCustomer").css("border-color", "#ccc");
+        $("#ddlPriceLevel").css("border-color", "#ccc");
+        $("#txtBillTo").css("border-color", "#ccc");
+        $("#txtShipTo").css("border-color", "#ccc");
+
+
+        var SoNo = $("#txtSoNo").val();
+        var SoDate = $("#txtSoDate").val();
+        var SaleType = $("#ddlSaleType").val();
+        var CreditTerms = $("#txtCreditTerms").val();
+        var SalesPerson = $("#txtSalesPerson").val();
+        var SalesPersoncd = $("#txtSalesPersonCd").val();
+        var CustomerCode = $("#txtCustomer").val();
+        var CustomerContact = $("#txtCustomerContact").val();
+        var CNIC = $("#txtCNIC").val();
+        var City = $("#txtCity").val();
+        var Country = $("#txtCountry").val();
+        var Customer = $("#txtCustomer").val();
+        var PriceLevel = $("#ddlPriceLevel").val();
+        var BillTo = $("#txtBillTo").val();
+        var ShipTo = $("#txtShipTo").val();
+
+
+
+        //if (SoNo == "" || SoNo == " ") {
+        //    $("#txtSoNo").css("border-color", "red");
+        //    return;
+        //}
+        if (SoDate == "" || SoDate == " ") {
+            $("#txtSoDate").css("border-color", "red");
+            return;
+        }
+        if (SaleType == "" || SaleType ==" ") {
+            $("#ddlSaleType").css("border-color", "red");
+            return;
+        }
+        if (CreditTerms == "" && SaleType == "Credit") {
+            $("#txtCreditTerms").css("border-color", "red")
+            return;
+        }
+        if (SalesPerson==null || SalesPerson=="") {
+            $("#txtSalesPerson").css("border-color", "red");
+            return;
+        }
+        if (CustomerCode == "") {
+            $("#txtCustomer").css("border-color", "red");
+            return;
+        }
+
+        if (CustomerContact == "") {
+            $("#txtCustomerContact").css("border-color", "red");
+            return;
+        }
+        if (CNIC == "") {
+            $("#txtCNIC").css("border-color", "red");
+            return;
+        }
+        //if (City == "") {
+        //    $("#txtCity").css("border-color", "red");
+        //    return;
+        //}
+        //if (Country == "") {
+        //    $("#txtCountry").css("border-color", "red");
+        //    return;
+        //}
+        if (Customer == "") {
+            $("#txtCustomer").css("border-color", "red");
+            return;
+        }
+        if (PriceLevel == "" || PriceLevel==0) {
+            $("#ddlPriceLevel").css("border-color", "red");
+            return;
+        }
+        if (BillTo == "") {
+            $("#txtBillTo").css("border-color", "red");
+            return;
+        }
+        if (ShipTo == "") {
+            $("#txtShipTo").css("border-color", "red");
+            return;
+        }
+
+        var x = document.getElementById("productDetail").rows.length;
+
+        if (x == 1) {
+            $("#section-Grid").modal("show");
+            return;
+            }
+        
+
+
+        $("#section-confirm").modal("show");
+    })
+
+
+
+    function SaveEnquiry() {
+
+        var dto = {};
+        debugger
+
+        var SoNo = $("#txtSoNo").val();
+        var SoDate = $("#txtSoDate").val();
+        var SaleType = $("#ddlSaleType").val();
+        var CreditTerms = $("#txtCreditTerms").val();
+        var SalesPerson = $("#txtSalesPersonCd").val();
+        var CustomerCode = $("#txtCustomerCd").val();
+        var CustomerContact = $("#txtCustomerContact").val();
+        var CNIC = $("#txtCNIC").val();
+        var City = $("#txtCity").val();
+        var Country = $("#txtCountry").val();
+        var Customertype = $("#txtCustomerType").val();
+        var PriceLevel = $("#ddlPriceLevel").val();
+        var BillTo = $("#txtBillTo").val();
+        var ShipTo = $("#txtShipTo").val();
+        var TotalQty = $("#txtTotalPayable").val();
+
+
+        dto.TransCode = SoNo;
+        dto.TransDate = SoDate;
+        dto.SaleType = SaleType;
+        dto.CreditTerms = CreditTerms;
+        dto.EmpCode = SalesPerson;
+        dto.CusCode = CustomerCode;
+        dto.ContactNo = CustomerContact;
+        dto.CNICNTN = CNIC;
+        dto.City = City;
+        dto.Country = Country;
+        dto.CustomerType = Customertype;
+        dto.PriceLevel = PriceLevel;
+        dto.BillTo = BillTo;
+        dto.ShipTo = ShipTo;
+        dto.TotalQty = TotalQty;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/SaleOrder/Insert_SaleOrder")',
+            data: dto,
+            success: function (data) {
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+
+
+    }
+
+
+
+    // Save all rows into Array and send to Controller
+    var ItemTable = [];
+    var tableItem = document.getElementById('productDetail');
+    function ItemRows() {
+       
+        itemCount = 0;
+        $("table#productDetail").find('tr').each(function () {
+            if (itemCount != 0) {
+                var itemList = $(this).find("td");
+                // check empty row
+                var rows = tableItem.rows;
+                var firstRow = rows[1];
+                var NFound = '';
+                if (firstRow != undefined) {
+                    NFound = firstRow.cells[0].innerHTML;
+                }
+                else {
+                    NFound = "1";
+                }
+                NFound = NFound.trim();
+                if (NFound.substring(0, 2) != 'NO') {
+                    var vouch = {
+                        BrandCode: $(itemList[2]).html().trim(), ProdCode: $(itemList[3]).html().trim(), VersionCode: $(itemList[4]).html().trim(),
+                        ColorCode: $(itemList[6]).html().trim(), Qty: $(itemList[8]).html().trim(), InstallmentPlan: $(itemList[9]).html().trim()
+                    };
+                    ItemTable.push(vouch);
+                }
+            }
+            itemCount++;
+        })
+    }
+    function SaveDetail () {
+        
+        //if (!(checkAllEmptyInputs())) {
+        ItemRows();
+        // check empty row
+        var rows = tableItem.rows;
+        var firstRow = rows[1];
+        var NFound = '';
+       
+        var trancode = $("#txtSoNo").val();
+        //if (firstRow != undefined) {
+        //    NFound = firstRow.cells[0].innerHTML;
+        //}
+        //else {
+        //    NFound = "1";
+        //}
+        NFound = NFound.trim();
+
+        if (NFound.substring(0, 2) != 'NO') {
+            //calcTotal(document.getElementById('productDetail'));
+            $.ajax({
+                type: "POST",
+                url: "/SaleOrder/Insert_SaleOrderDetail",
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify({ modelDetail: ItemTable , trancode:trancode}),
+                contentType: "application/json; charset=utf-8",
+                complete: function (data) {
+                    //document.forms["salesOrder"].submit();
+                }
+            });
+        }
+        else {
+            alert("Table should not be empty");
+        }
+    
+    
+    }
+
+    function RemoveRecord() {
+
+        var dto = {};
+
+
+        var SoNo = $("#txtSoNo").val();
+        var SoDate = $("#txtSoDate").val();
+        var SaleType = $("#ddlSaleType").val();
+        var CreditTerms = $("#txtCreditTerms").val();
+        var SalesPerson = $("#txtSalesPersonCd").val();
+        var CustomerCode = $("#txtCustomerCd").val();
+        var CustomerContact = $("#txtCustomerContact").val();
+        var CNIC = $("#txtCNIC").val();
+        var City = $("#txtCity").val();
+        var Country = $("#txtCountry").val();
+        var Customertype = $("#txtCustomerType").val();
+        var PriceLevel = $("#ddlPriceLevel").val();
+        var BillTo = $("#txtBillTo").val();
+        var ShipTo = $("#txtShipTo").val();
+
+
+        dto.TransCode = SoNo;
+        dto.TransDate = SoDate;
+        dto.SaleType = SaleType;
+        dto.CreditTerms = CreditTerms;
+        dto.EmpCode = SalesPerson;
+        dto.CusCode = CustomerCode;
+        dto.ContactNo = CustomerContact;
+        dto.CNICNTN = CNIC;
+        dto.City = City;
+        dto.Country = Country;
+        dto.CustomerType = Customertype;
+        dto.PriceLevel = PriceLevel;
+        dto.BillTo = BillTo;
+        dto.ShipTo = ShipTo;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/SaleOrder/Removed_SaleOrder")',
+            data: dto,
+            success: function (data) {
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirmRemove").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                    else {
+                        $("#section-confirmRemove").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirmRemove").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+
+
+    }
+
+
+</script>

@@ -1,0 +1,1607 @@
+﻿
+@{
+    ViewBag.Title = "BCV";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+
+<link href="../assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="../assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="../assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Buying Customer Vehicle</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Buying Code</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><a data-toggle="modal" data-target="#BuyingModal" style="color:blue"><i class="fa fa-search" onclick=""></i></a></div>
+                                <input type="text" class="form-control" id="txtBCVNo" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Buying Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control " id="txtBCVDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Evaluation Code</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><a data-toggle="modal" data-target="#RegNoModal" style="color:blue"><i class="fa fa-search" onclick=""></i></a></div>
+                                <input type="text" class="form-control" id="txtOfferCode" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Registration Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" class="form-control" id="txtRegistrationDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Chassis No</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" class="form-control" id="txtChassisNo" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Engine</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-qrcode"></i></span>
+                                <input type="text" class="form-control" id="txtEngineNo" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Model Year</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control" id="txtModelYear" readonly />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Actual KM</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control" id="txtCurrentMilleage" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Road Tax Paid</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <select class="form-control m-bot15" id="ddlRTaxPaid">
+                                    <option value="N">No</option>
+                                    <option value="Y">Yes</option>
+
+
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Valid UpTo</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtRTaxPaidDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Insurance</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <select class="form-control m-bot15" id="ddlInsurance">
+                                    <option value="N">No</option>
+                                    <option value="Y">Yes</option>
+
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label"> Valid UpTo</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtInsuranceDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <label class="form-label" style="white-space: nowrap">Buying Price*(Include All Taxes and Accessories)</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" class="form-control" id="txtBuyingPrice">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Registration No</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                <input type="text" class="form-control" id="txtRegNo" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Evaluation Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                <input type="text" class="form-control datepicker" id="txtOfferDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Price Offer</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-dashboard"></i></span>
+                                <input type="text" class="form-control " id="txtEvaluationPrice" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+
+
+                        <div class="col-md-4">
+                            <label class="form-label">Buying Mode</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <select class="form-control m-bot15" id="ddlBuyingMode">
+                                    <option value="NCV">Non Certified</option>
+                                    <option value="CV">Certified</option>
+
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Location</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                @*<input type="text" required class="form-control" id="txtInsTypeCode" style="width:40%"  />
+                                    <input type="text" required class="form-control" id="txtInsTypeDesc" style="width:60%" readonly />*@
+                                @Html.DropDownList("ddlLocation", new SelectList((IEnumerable<SelectListItem>)ViewBag.ddlLocation, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlLocation" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <ul class="nav nav-tabs nav-justified primary">
+                                <li class="active">
+                                    <a href="#tabCustomerVeh" data-toggle="tab">
+                                        <i class="fa fa-car"></i> Customer Vehicle
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tabPaymentDetail" data-toggle="tab">
+                                        <i class="fa fa-car"></i> Payment Detail
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tabDocument" data-toggle="tab">
+                                        <i class="fa fa-car"></i> Documents
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tabImages" data-toggle="tab">
+                                        <i class="fa fa-car"></i> Images
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content primary">
+                                <div class="tab-pane fade in active" id="tabCustomerVeh">
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <label class="form-label">Customer</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-sort-amount-desc"></i></span>
+                                                <input type="text" class="form-control" id="txtCusCode" style="width:30%" readonly />
+                                                <input type="text" class="form-control" id="txtCustomer" style="width:70%" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Father/Husband Name</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-sort-amount-desc"></i></span>
+                                                <input type="text" class="form-control" id="txtF_HN" style="width:100%" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label">Corporate/Institution</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtCor_Ins" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Adress</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtAddress" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label">Vehicle</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtVehCode" style="width:20%" readonly />
+                                                <input type="text" class="form-control" id="txtProdCode" style="width:20%" readonly />
+                                                <input type="text" class="form-control" id="txtProdDesc" style="width:60%" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                       
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Cell No</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtCellNo" readonly />
+                                                @*@Html.DropDownList("ddlProdCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ProdCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlProdCode" })*@
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Phone No</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtPhoneNo" readonly />
+                                                @*@Html.DropDownList("ddlProdCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ProdCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlProdCode" })*@
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Fax No</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtFaxNo" readonly />
+                                                @*@Html.DropDownList("ddlProdCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ProdCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlProdCode" })*@
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <label class="form-label">NIC No</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                                <input type="text" class="form-control" id="txtNIC" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">NTN No</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtNTN" readonly />
+
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Invoice No.</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                                <input type="text" required class="form-control" id="txtInvoiceNo" readonly />
+
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Invoice Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-file"></i>
+                                                </span>
+                                                <input type="text" required class="form-control" id="txtInvoiceDate" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!-- modal end -->
+                                <!-- modal Start -->
+                                <div class="tab-pane fade" id="tabPaymentDetail">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Instrument Type</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                                @*<input type="text" required class="form-control" id="txtInsTypeCode" style="width:40%"  />
+                                                    <input type="text" required class="form-control" id="txtInsTypeDesc" style="width:60%" readonly />*@
+                                                @Html.DropDownList("ddlInsCOde", new SelectList((IEnumerable<SelectListItem>)ViewBag.ddlInsCOde, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlInsCOde" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Instrument No.</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                                <input type="text" required class="form-control" id="txtInsNo" />
+
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Instrument Date.</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                                <input type="text" required class="form-control datepicker" id="txtInsDate" readonly />
+
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Instrument Amount.</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                                <input type="text" required class="form-control" id="txtInsAmount" />
+
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Branch.</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                                <input type="text" required class="form-control" id="txtBranch" />
+
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Invoice No.</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                                <input type="text" required class="form-control" id="txtInvoiceNo" />
+
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Bank.</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><a data-toggle="modal" data-target="#BankModal" style="color:blue"><i class="fa fa-search" onclick=""></i></a></div>
+                                                <input type="text" required class="form-control" style="width:30%" id="txtBankCode" readonly />
+                                                <input type="text" required class="form-control" style="width:70%" id="txtBankDesc" readonly />
+
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">City.</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><a data-toggle="modal" data-target="#CityModal" style="color:blue"><i class="fa fa-search" onclick=""></i></a></div>
+                                                <input type="text" required class="form-control" style="width:30%" id="txtCityCode" readonly />
+                                                <input type="text" required class="form-control" style="width:70%" id="txtCityDesc" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="pull-right">
+                                                <button type="button" class="btn btn-default" id="btnAdd" style="margin-top:25px;" onclick="Get_PayDetailData()">Add</button>
+                                                <button type="button" class="btn btn-primary" id="btnClear" style="margin-top:25px;">Clear</button>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped" id="tblPayDetail">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>Instrument No</th>
+                                                            <th>Instrument Date</th>
+                                                            <th>Instrument Amount</th>
+                                                            <th>City</th>
+                                                            <th>Bank</th>
+                                                            <th>Branch</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- modal end -->
+                                <!-- modal Start -->
+                                <div class="tab-pane fade" id="tabDocument">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped" id="tblDelChkList">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Check List Code</th>
+                                                            <th>Check List Desc</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="DelChkListRow1" data-tr-count="0"></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- modal end -->
+                                <!-- modal Start -->
+                                <div class="tab-pane fade" id="tabImages">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Front Side </label>
+
+                                            <div class="input-group">
+
+                                                <input id="FrontImg" type="file" name="files" class="upload" />
+
+                                                <div class="makespace"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Back Side </label>
+                                            <div class="input-group">
+                                                <input id="BackSideImg" type="file" name="files" class="upload" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Left Side </label>
+                                            <div class="input-group">
+                                                <input id="LeftSideImg" type="file" name="files" class="upload" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Right Side </label>
+                                            <div class="input-group">
+                                                <input id="RightSideImg" type="file" name="files" class="upload" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Top Side </label>
+                                            <div class="input-group">
+                                                <input id="TopSideImg" type="file" name="files" class="upload" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                    </div>
+                                    <!-- modal end -->
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="pull-right">
+                                            <button type="reset" class="btn btn-default" id="btnCancel" style="margin-top:25px;">Cancel</button>
+                                            <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveEnquiryMaster()" style="margin-top:25px;">Save</button>
+                                            <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px; width:100px" onclick="DeleteEnquiry()">Delete</button>
+                                            <a class="btn btn-primary" id="btnPrint" style="margin-top:25px;" href="#">Print</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            </section>
+        </div>
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" tabindex="-1" id="RegNoModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Search Reg No</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="ComplainSearch" class="form-control" aria-controls="RegNoTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="RegNoTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>EvaluationCode</th>
+                                        <th>Reg No</th>
+                                        <th>Reg Date </th>
+                                        <th>Chassis No</th>
+                                        <th>Engine No</th>
+                                        <th>Cus Code</th>
+                                        <th>CusDesc</th>
+                                        <th>Version</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+
+                                    @{ int i = 1; }
+                                    @if (ViewBag.RegNo != null)
+                                    {
+
+                                        foreach (var item in ViewBag.RegNo)
+                                        {
+                                            <tr style="text-align: left" onclick="RevClickDetails('@item.EvaluationCode','@item.RegNo','@item.tdDate','@item.ChassisNo','@item.EngineNo','@item.CusCode','@item.CusDesc','@item.VersionCode')">
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.EvaluationCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.RegNo</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.tdDate</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.ChassisNo</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.EngineNo</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.CusCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.CusDesc</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.VersionCode</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- modal end -->
+    <!-- Bank modal start -->
+    <div class="modal" tabindex="-1" id="BankModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Search Bank
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="txtBankSearch" class="form-control" aria-controls="BankTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="RegNoTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Bank Code</th>
+                                        <th>Bank </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+
+                                    @{ int j = 1; }
+                                    @if (ViewBag.Get_BankDesc != null)
+                                    {
+
+                                        foreach (var item in ViewBag.Get_BankDesc)
+                                        {
+                                            <tr style="text-align: left" onclick="Set_Bank('@item.BankCode','@item.BankDesc')">
+
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.BankCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.BankDesc</a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- modal end -->
+    <!-- Bank modal start -->
+    <div class="modal" tabindex="-1" id="CityModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Search City
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="txtCitySearch" class="form-control" aria-controls="CityTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="RegNoTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>City Code</th>
+                                        <th>City </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+
+                                    @{ int k = 1; }
+                                    @if (ViewBag.Get_CityDesc != null)
+                                    {
+
+                                        foreach (var item in ViewBag.Get_CityDesc)
+                                        {
+                                            <tr style="text-align: left" onclick="Set_City('@item.CityCode','@item.CityDesc')">
+
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.CityCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.CityDesc</a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- modal end -->
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveMasterEnquiry()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <div class="modal" id="section-confirm-Delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to Delete ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-danger" type="button" onclick="DeleteEnquiry()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- Lookup Modal Start -->
+    <div class="modal" tabindex="-1" id="BuyingModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Search Buying No</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="BuyingSearch" class="form-control" aria-controls="BuyingTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="RegNoTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Buying Code</th>
+                                        <th>Reg No</th>
+                                        <th>Buying Date </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+
+                                    @{ int g = 1; }
+                                    @if (ViewBag.Buying != null)
+                                    {
+
+                                        foreach (var item in ViewBag.Buying)
+                                        {
+                                            <tr style="text-align: left" onclick="SetClickDetails('@item.BuyingCode','@item.RegNo','@item.BuyingDate')">
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.BuyingCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.RegNo</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.BuyingDate</a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+</section>
+
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/icheck/icheck.min.js")' type="text/javascript"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        Get_DelChkListData();
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtBCVDate").val(today);
+    })
+    SetClickDetails = function (BuyingCode,RegNo, BuyingDate) {
+        debugger;
+        document.getElementById('txtBCVNo').value = BuyingCode;
+        document.getElementById('txtRegNo').value = RegNo;
+        document.getElementById('txtBCVDate').value = BuyingDate;
+
+        $("#BuyingModal").modal("hide");
+        var leadId = $("#txtBCVNo").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'Get',
+            url: '@Url.Content("~/BuyingCustomerVehicle/Get_BuyingDataView")',
+            data: { 'EnquiryId': leadId },
+            success: function (data) {
+                document.getElementById('ddlRTaxPaid').value = data[0].RoadTaxPaid;
+                document.getElementById('ddlInsurance').value = data[0].IsInsured;
+                document.getElementById('txtOfferCode').value = data[0].EvaluationCode;
+                document.getElementById('txtOfferDate').value = data[0]. EvaluationDate;
+                document.getElementById('txtRegNo').value = data[0].RegNo;
+                document.getElementById('txtCurrentMilleage').value = data[0].KM;
+                document.getElementById('txtRTaxPaidDate').value = data[0].RoadTaxValidUpTo;
+                document.getElementById('txtInsuranceDate').value = data[0].InsuranceValidUpTo;
+                document.getElementById('txtBuyingPrice').value = data[0].BuyingPrice;
+                document.getElementById('ddlBuyingMode').value = data[0].BuyingMode;
+                document.getElementById('txtModelYear').value = data[0].VersionCode;
+                document.getElementById('txtChassisNo').value = data[0].ChassisNo;
+                document.getElementById('txtEngineNo').value = data[0].ChassisNo;
+                document.getElementById('txtRegistrationDate').value = data[0].tdDate;
+                document.getElementById('txtEvaluationPrice').value = data[0].CustomerExpectedPrice;
+                //pay
+                document.getElementById('txtInsDate').value = data[0].InstrumentDate;
+                document.getElementById('txtInvoiceNo').value = data[0].InvoiceNo;
+                //Customer
+                document.getElementById('txtCusCode').value = data[0].CusCode;
+                document.getElementById('txtCustomer').value =data[0].CusDesc;
+                document.getElementById("txtF_HN").value = data[0].FatherHusName;
+                // document.getElementById("txtCor_Ins").value = data[0].CusTypeDesc;
+                document.getElementById("txtAddress").value = data[0].Address1;
+                document.getElementById("txtNIC").value = data[0].NIC;
+                document.getElementById("txtNTN").value = data[0].NTNno;
+                document.getElementById("txtCellNo").value = data[0].CellNo;
+                document.getElementById("txtPhoneNo").value = data[0].Phone1;
+                document.getElementById("txtFaxNo").value = data[0].FaxNo;
+                document.getElementById("txtVehCode").value = data[0].VehicleCode;
+                document.getElementById("txtProdCode").value = data[0].ProdCode;
+                document.getElementById("txtProdDesc").value = data[0].ProdDesc;
+                document.getElementById("txtInvoiceNo").value = data[0].InvoiceNo;
+                document.getElementById("txtInvoiceDate").value = data[0].InvoiceDate;
+
+            }
+
+
+        });
+
+        Select_BuyingPayData();
+
+    }
+
+    function Select_BuyingPayData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+        var leadId = $("#txtBCVNo").val();
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+
+            url: '@Url.Content("~/BuyingCustomerVehicle/Select_BuyingPayData")',
+            data: { 'EnquiryId': leadId },
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#ComplainDetail tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+                        debugger;
+
+                        $.each(item, function (value, item) {
+
+                            $("#tblPayDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+
+
+                                                    '<td> <label id="lblInsDate1   ">' + item.InstrumentNo + ' </label></td>' +
+                                                     '<td> <label id="lblInsAmount  ">' + item.InstrumentDate + ' </label></td>' +
+                                                    '<td> <label id="lblInsAmount  ">' + item.InstrumentAmount + ' </label></td>' +
+                                                    '<td> <label id="lblCityDesc   ">' + item.CityCode +" | "+item.CityDesc+ ' </label></td>' +
+                                                    '<td> <label id="lblBankDesc   ">' + item.BankCode +" | "+item.BankDesc+ ' </label></td>' +
+                                                    '<td> <label id="lblBranch     ">' + item.Branch + ' </label></td>' +
+                                                    '<td style="text-align:center;">' +
+                                                     '<button class="btn btn-danger btn-xs" id="btnRemove" onclick="removeRow_PayGrid(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                    '</td>' +
+                                                    '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+
+    RevClickDetails = function (EvaluationCode, RegNo, tdDate, ChassisNo, EnginNo, CusCode, CusDesc, VersionCode) {
+        debugger;
+        document.getElementById('txtRegNo').value = RegNo;
+        document.getElementById('txtRegistrationDate').value = tdDate;
+        document.getElementById('txtEngineNo').value = EnginNo;
+        document.getElementById('txtChassisNo').value = ChassisNo;
+        document.getElementById('txtCusCode').value = CusCode;
+        document.getElementById('txtCustomer').value = CusDesc;
+        document.getElementById('txtModelYear').value = VersionCode;
+        $("#RegNoModal").modal("hide");
+        var leadId = $("#txtRegNo").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'Get',
+            url: '@Url.Content("~/BuyingCustomerVehicle/Get_RegNo_Data")',
+            data: { 'EnquiryId': leadId },
+            success: function (data) {
+                debugger;
+
+
+                document.getElementById("txtOfferCode").value =data[0].EvaluationCode;
+                document.getElementById("txtOfferDate").value = data[0].EvaluationDate;
+                debugger;
+                document.getElementById("txtEvaluationPrice").value = data[0].CustomerExpectedPrice;
+                document.getElementById("txtF_HN").value = data[0].FatherHusName;
+               // document.getElementById("txtCor_Ins").value = data[0].CusTypeDesc;
+                document.getElementById("txtAddress").value = data[0].Address1;
+                document.getElementById("txtNIC").value = data[0].NIC;
+                document.getElementById("txtNTN").value = data[0].NTNno;
+                document.getElementById("txtCellNo").value = data[0].CellNo;
+                document.getElementById("txtPhoneNo").value = data[0].Phone1;
+                document.getElementById("txtFaxNo").value = data[0].FaxNo;
+                document.getElementById("txtVehCode").value = data[0].VehicleCode;
+                document.getElementById("txtProdCode").value = data[0].ProdCode;
+                document.getElementById("txtProdDesc").value = data[0].ProdDesc;
+                document.getElementById("txtInvoiceNo").value = data[0].InvoiceNo;
+                document.getElementById("txtInvoiceDate").value = data[0].InvoiceDate;
+
+            }
+
+        });
+
+    }
+
+    Set_Bank = function (BankCode, BankDesc) {
+        debugger;
+        document.getElementById('txtBankCode').value = BankCode;
+        document.getElementById('txtBankDesc').value = BankDesc;
+        $("#BankModal").modal("hide");
+    }
+    Set_City = function (CityCode, CityDesc) {
+        debugger;
+        document.getElementById('txtCityCode').value = CityCode;
+        document.getElementById('txtCityDesc').value = CityDesc;
+        $("#CityModal").modal("hide");
+    }
+
+
+
+    function Get_PayDetailData() {
+        debugger;
+        var city=  $("#txtCityDesc").val().trim();
+        var bank =  $("#txtBankDesc").val().trim();
+        var branch= $("#txtBranch").val().trim();
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+                            $("#tblPayDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+
+                                                    '<td> <label id="lblInsNo1">' +$("#txtInsNo").val().trim()+' </label><input type="hidden" id="hdnInsCOde" value="' + $("#ddlInsCOde").val()  + '"/>' +
+                                                    '<td> <label id="lblInsDate1">'+$("#txtInsDate").val().trim()+' </label>' +
+                                                    '<td> <label id="lblInsAmount">'+ $("#txtInsAmount").val().trim()+'</label>' +
+                                                    '<td> <label id="lblCityDesc">' +city  + ' </label> <input type="hidden" id="hdnCityCode" value="' +  $("#txtCityCode").val() .trim() + '"/></td>' +
+                                                    '<td> <label id="lblBankDesc">'+bank + ' </label><input type="hidden" id="hdnBankCode" value="' +  $("#txtBankCode").val() .trim() + '"/></td>' +
+                                                    '<td> <label id="lblBranch">' +branch + ' </label>' +
+                                                    '<td style="text-align:center;">' +
+                                                     '<button class="btn btn-danger btn-xs" id="btnRemove" onclick="removeRow_PayGrid(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                    '</tr>');
+        }
+
+
+    function removeRow_PayGrid(value) {
+
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        $("#" + tempRow).find('.remove').show();
+        $(value).parent().parent().remove();
+
+        dataCount--;
+        rowCount--;
+        SNo--;
+
+    }
+    function clearFeilds_GridPay() {
+        $("#txtInsNo           ").val('');
+        $("#txtInsDate     ").val('');
+        $("#txtInsAmount   ").val('');
+        $("#txtCityCode    ").val('');
+        $("#txtCityDesc    ").val('');
+        $("#txtBankCode   ").val('');
+        $("#txtBankDesc   ").val('');
+        $("#txtBranch     ").val('');
+    }
+
+
+    function Get_DelChkListData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/BuyingCustomerVehicle/Select_DelChkList")',
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#tblDelChkList tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            var test2 = "";
+                            var test = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblDelChkListCode">' + item.DelChkListCode.trim() + ' </label></td>' +
+                                                    '<td> <label id="lblDelChkListDesc">' + item.DelChkListDesc.trim() + ' </label>' +
+                                                        '<input type="text" style="display:none;" class="form-control" id="txtDocTypeDesctbl"></td>';
+                            if (item.OptFlag == "M") {
+                                test2 = '<td style="text-align:center;">' +
+                                        '<input type="checkbox" id="chkOptFlag" class="chkBank icheckbox_minimal-blue" checked="true" value="' + item.DelChkListCode.trim() + '" >' +
+                                        '<input type="hidden" id="hdnDocCode" value="' + item.DelChkListCode.trim() + '"/>' +
+                                    '</td>' +
+                                    '</tr>';
+                            } else {
+                                test2 = '<td style="text-align:center;">' +
+                                       '<input type="checkbox" id="chkOptFlag" class="chkBank icheckbox_minimal-blue" value="' + item.DelChkListCode.trim() + '" >' +
+                                       '<input type="hidden" id="hdnDocCode" value="' + item.DelChkListCode.trim() + '"/>' +
+                                   '</td>}' +
+                                   '</tr>'
+                            }
+
+                            $("#tblDelChkList tbody").append(test + test2);
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    function SaveEnquiryMaster() {
+
+        debugger;
+        var dto = {};
+
+        if ($("#txtOfferCode").val() == "") {
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblMessage").text("Please Select Evaluation: ")
+            $("#section-message").modal('show');
+            setTimeout(function () {
+                $('#section-message').modal('hide')
+            }, 4000);
+            return;
+
+        }
+        if ($("#txtBuyingPrice").val() == "") {
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblMessage").text("Please Fill Buying Price: ")
+            $("#section-message").modal('show');
+            setTimeout(function () {
+                $('#section-message').modal('hide')
+            }, 4000);
+            return;
+        }
+        if ($("#ddlLocation").val() == "") {
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblMessage").text("Please Select Location: ")
+            $("#section-message").modal('show');
+            setTimeout(function () {
+                $('#section-message').modal('hide')
+            }, 4000);
+            return;
+        }
+
+            dto.BuyingCode        =$("#txtBCVNo").val();
+            dto.BuyingDate        = $("#txtBCVDate").val();
+            dto.RegNo             =$("#txtRegNo").val();
+            dto.KM                =$("#txtCurrentMilleage").val();
+            dto.RoadTaxPaid       =$("#ddlRTaxPaid").val();
+            dto.RoadTaxValidUpTo  =$("#txtRTaxPaidDate").val();
+            dto.IsInsured         =$("#ddlInsurance").val();
+            dto.InsuranceValidUpTo=$("#txtInsuranceDate").val();
+            dto.BuyingPrice       =$("#txtBuyingPrice").val();
+            dto.EvaluationCode    =$("#txtOfferCode").val();
+            dto.EvaluationDate    =$("#txtOfferDate").val();
+            dto.LocationCode      =$("#ddlLocation").val();
+            dto.BuyingMode        =$("#ddlBuyingMode").val();
+
+
+
+            $.ajax({
+
+                dataType: "json",
+                async: true,
+                type: 'Get',
+                url: '@Url.Content("~/BuyingCustomerVehicle/Insert_Buying")',
+                data: dto,
+
+                success: function (data) {
+                    if (data) {
+                        if (data.Success == true) {
+                            saveDetailEnquiry();
+
+                        }
+                        else {
+                            $("#section-confirm").modal("hide")
+                            $("#modalMessage").css("background-color", "#e46457");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                }
+
+            });
+
+        }
+
+        function insertRecord() {
+            var obj = [];
+            debugger;
+            $("#tblPayDetail tbody tr").each(function () {
+                var dto = {};
+                dto.InstrumentCode = $(this).closest('tr').find('#hdnInsCOde').val().trim();
+                dto.InstrumentNo = $(this).closest('tr').find('#lblInsNo1').text().trim();
+                dto.InstrumentDate = $(this).closest('tr').find('#lblInsDate1').text().trim();
+                dto.InstrumentAmount = $(this).closest('tr').find('#lblInsAmount').text().trim();
+                debugger;
+                dto.CityCode = $(this).closest('tr').find('#hdnCityCode').val();
+                dto.BankCode = $(this).closest('tr').find('#hdnBankCode').val();
+                dto.Branch = $(this).closest('tr').find('#lblBranch').text().trim();
+                dto.LocationCode=$('ddlLocation').val();
+                dto.DealerCode = "@Session["DealerCode"].ToString()";
+
+                obj.push(dto);
+            });
+
+            return obj;
+        }
+
+        function saveDetailEnquiry(){
+
+            var rowCount = $('#tblPayDetail >tbody  >tr').length;
+            if (rowCount == 0) {
+                $("#productDetail").css("border-color", "red");
+                return false;
+            }
+            var objects = [];
+
+
+            objects = JSON.stringify({ 'objects' : insertRecord()});
+
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                //async: true,
+                type: 'POST',
+                url: '@Url.Content("~/BuyingCustomerVehicle/Insert_BCVPay_Detail")',
+                data: objects ,
+                success: function (data) {
+
+                    if (data) {
+                        saveCheckList();
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                }
+
+            });
+
+
+
+        }
+
+        function saveCheckList(){
+            var checkedValues = $('input:checkbox:checked').map(function() {
+                if(this.value != "on"){
+                    return this.value;
+                }
+
+            }).get();
+            var strCheckedValues = checkedValues.toString();
+
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'POST',
+                url: '@Url.Content("~/BuyingCustomerVehicle/Insert_BuyingChkList")',
+                data: { 'strCheckedValues' : strCheckedValues } ,
+                success: function (data) {
+
+                    if (data) {
+                        if (data.Success == true) {
+                            $("#section-confirm").modal("hide")
+                            $("#modalMessage").css("background-color", "#64c344");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                        }
+                        else {
+                            $("#section-confirm").modal("hide")
+                            $("#modalMessage").css("background-color", "#e46457");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                }
+
+            });
+
+
+        }
+
+        var model = @Html.Raw(Json.Encode(Model));
+
+        $('#FrontImg').on('change', function (e) {
+            var files = e.target.files;
+
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    debugger;
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    var no="Pic1";
+
+                    $.ajax({
+                        type: "POST",
+
+                        url: '/BuyingCustomerVehicle/UploadFile/'+ model+ '?EnquiryId=' +no,
+
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            $('#image').attr('src', '@Url.Content("~/Images/")' + result.fileName);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+        $('#BackSideImg').on('change', function (e) {
+            var files = e.target.files;
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    debugger;
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+
+                    var no="Pic2";
+
+                    $.ajax({
+                        type: "POST",
+
+                        url: '/BuyingCustomerVehicle/UploadFile/'+ model+ '?EnquiryId=' +no,
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            $('#image').attr('src', '@Url.Content("~/Images/")' + result.fileName);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+
+        $('#LeftSideImg').on('change', function (e) {
+            var files = e.target.files;
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    debugger;
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    var no="Pic3";
+
+                    $.ajax({
+                        type: "POST",
+
+                        url: '/BuyingCustomerVehicle/UploadFile/'+ model+ '?EnquiryId=' +no,
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            $('#image').attr('src', '@Url.Content("~/Images/")' + result.fileName);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+        $('#RightSideImg').on('change', function (e) {
+            var files = e.target.files;
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    debugger;
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    var no="Pic4";
+
+                    $.ajax({
+                        type: "POST",
+
+                        url: '/BuyingCustomerVehicle/UploadFile/'+ model+ '?EnquiryId=' +no,
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            $('#image').attr('src', '@Url.Content("~/Images/")' + result.fileName);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+        $('#TopSideImg').on('change', function (e) {
+            var files = e.target.files;
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    debugger;
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    var no="Pic5";
+
+                    $.ajax({
+                        type: "POST",
+
+                        url: '/BuyingCustomerVehicle/UploadFile/'+ model+ '?EnquiryId=' +no,
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            $('#image').attr('src', '@Url.Content("~/Images/")' + result.fileName);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
+
+        function DeleteEnquiry() {
+
+            var leadId = $("#txtBCVNo").val();
+
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'POST',
+                url: '@Url.Content("~/BuyingCustomerVehicle/Delete_BuyingData")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+                    if (data) {
+                        if (data.success == true) {
+                            $("#section-confirm-Delete").modal("hide")
+                            $("#modalMessage").css("background-color", "#64c344");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                            setTimeout(function () {
+                                $('#section-message').modal('hide')
+                            }, 4000);
+                        } else {
+                            $("#section-confirm-Delete").modal("hide")
+                            $("#modalMessage").css("background-color", "#e46457");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                            setTimeout(function () {
+                                $('#section-message').modal('hide')
+                            }, 4000);
+
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+        $("#btnPrint").click(function () {
+
+            var baseurl = '@Url.Action("Exports")';
+            var url = baseurl + '?EnquiryId=' + $("#txtBCVNo").val();
+            //window.location.href = url;
+            window.open(url, '_blank');
+
+        });
+
+    
+
+</script>
+
+

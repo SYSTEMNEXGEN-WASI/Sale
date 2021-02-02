@@ -1,0 +1,217 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Login </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Login_v6/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/vendor/bootstrap/css/bootstrap.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/fonts/iconic/css/material-design-iconic-font.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/vendor/animate/animate.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/vendor/css-hamburgers/hamburgers.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/vendor/animsition/css/animsition.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/vendor/select2/select2.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/vendor/daterangepicker/daterangepicker.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/css/util.css" />
+    <link rel="stylesheet" type="text/css" href="~/Login_v6/css/main.css" />
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+
+            <div class="wrap-login-marquee">
+                <marquee id="mq" direction="right" loop="true">
+                    DMS
+                </marquee>
+            </div>
+            <div class="wrap-login100 ">
+                <form class="login100-form validate-form" >
+                    <div class="formlogin">
+                        <span class="login100-form-avatar">
+                            <img src="~/Login_v6/images/logo.jpg" alt="AVATAR" />
+                        </span>
+
+                        <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate="Enter username">
+                            <input class="input100" type="text" id="user_login" name="username" />
+                            @*<asp:TextBox ID="txt_username" runat="server" CssClass="input100"></asp:TextBox>*@
+                            <span class="focus-input100" data-placeholder="Username"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
+                           <input class="input100" id="user_pass" type="password" name="pass">
+                            @*<asp:TextBox ID="txt_Password" runat="server" TextMode="Password" CssClass="input100"></asp:TextBox>*@
+                            <span class="focus-input100" data-placeholder="Password"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <button type="button" class="login100-form-btn" id="btnLogin">
+                                Login
+                            </button>
+                            @*<asp:Button ID="btn_login" runat="server" CssClass="login100-form-btn" Text="Login" OnClick="btn_login_Click" />*@
+                            <button class="login100-form-btn" type="button" id="btnClear">
+                                Clear
+                            </button>
+                        </div>
+                        <div class="m-t-85 ">
+
+                            <label id="lblMessage" style="color:red" ></label>
+                            @*<asp:Label ID="lblMsg" runat="server" CssClass="input100"></asp:Label>*@
+
+                        </div>
+
+                        @*<ul class="login-more p-t-190">
+                            <li class="m-b-8">
+                                <span class="txt1">
+                                    Forgot
+                                </span>
+
+                                <a href="#" class="txt2">
+                                    Username / Password?
+                                </a>
+                            </li>
+
+                            <li>
+                                <span class="txt1">
+                                    Don’t have an account?
+                                </span>
+
+                                <a href="#" class="txt2">
+                                    Sign up
+                                </a>
+                            </li>
+                        </ul>*@
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+        <div class="wrap-login10">
+
+            <Label ID="Label1" CssClass="lblcss">Welcome To DMS</Label>
+
+        </div>
+
+    </div>
+
+
+    <!--===============================================================================================-->
+    <script src="~/Login_v6/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_v6/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_v6/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Login_v6/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_v6/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_v6/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Login_v6/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_v6/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_v6/js/main.js"></script>
+
+</body>
+</html>
+
+
+<script>
+    //window.onload = function () { Clear(); }
+    //function Clear() {
+    //    var Backlen = history.length;
+    //    if (Backlen > 0) history.go(-Backlen);
+    //}
+
+    $("#btnClear").click(function () {
+
+        $("#user_login").val('');
+        $("#user_pass").val('');
+
+      
+    })
+
+      $("#btnLogin").click(function () {
+
+        var input = $('.validate-input .input100');
+
+
+        var user = $("#user_login").val().trim();
+        var pass = $("#user_pass").val().trim();
+
+        var check = true;
+
+        for (var i = 0; i < input.length; i++) {
+            if (validate(input[i]) == false) {
+                showValidate(input[i]);
+                check = false;
+            }
+        }
+
+        if (check == true) {
+            $.ajax({
+                datatype: "json",
+                async: true,
+                type: 'POST',
+                url: '@Url.Content("~/Home/LoginRequest")',
+                data: { 'user': user, 'pass': pass },
+                success: function (data) {
+                    debugger
+                    if (data) {
+                        debugger
+                        if (data.result == 'Redirect') {
+                            window.location = data.url;
+                        } else {
+                            $("#lblMessage").text(data.result);
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+        }       
+      })
+
+    function validate(input) {
+        
+            if ($(input).val().trim() == '') {
+                return false;
+            }
+    }
+
+    function showValidate(input) {
+        var thisAlert = $(input).parent();
+
+        $(thisAlert).addClass('alert-validate');
+    }
+
+    function hideValidate(input) {
+        var thisAlert = $(input).parent();
+
+        $(thisAlert).removeClass('alert-validate');
+    }
+
+
+</script>

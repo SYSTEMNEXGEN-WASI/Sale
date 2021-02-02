@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="sngonclo_BMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="BankCode" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="BankCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="BankDesc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BankStatus" Type="varchar" MaxLength="25" />
+          <Property Name="OEMFinance" Type="bit" />
+        </EntityType>
+        <EntityType Name="CashBankSetup">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="CBCode" />
+          </Key>
+          <Property Name="CompanyCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="CBCode" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="CBDesc" Type="varchar" MaxLength="50" />
+          <Property Name="ACType" Type="char" MaxLength="1" />
+          <Property Name="FAMSACNo" Type="char" MaxLength="2" />
+          <Property Name="AccountCode" Type="varchar" MaxLength="50" />
+          <Property Name="OpeningBalance" Type="float" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdDate" Type="datetime" />
+          <Property Name="UpdTime" Type="datetime" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" />
+          <Property Name="Delflag" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="CityCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="CityDesc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StateCode" Type="char" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="CostCenterSetup">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="CSCode" />
+          </Key>
+          <Property Name="CompanyCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="CSCode" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="CSDate" Type="datetime" />
+          <Property Name="CSName" Type="varchar" MaxLength="150" />
+          <Property Name="Remarks" Type="varchar" MaxLength="150" />
+          <Property Name="CSTypeCode" Type="char" MaxLength="4" />
+          <Property Name="EffectiveFromDate" Type="datetime" />
+          <Property Name="EffectiveToDate" Type="datetime" />
+          <Property Name="IsActive" Type="char" MaxLength="1" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdDate" Type="datetime" />
+          <Property Name="UpdTime" Type="datetime" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" />
+          <Property Name="IsDefault" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="DailyExpenseDetail">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ExpInvNo" />
+            <PropertyRef Name="ExpFor" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ExpInvNo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="ExpFor" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ExpPayTo" Type="char" MaxLength="6" />
+          <Property Name="ExpRemarks" Type="varchar" MaxLength="150" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="AccountCode" Type="char" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="DailyExpenseMaster">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ExpInvNo" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ExpInvNo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="ExpInvDate" Type="datetime" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" />
+          <Property Name="CBCode" Type="char" MaxLength="4" />
+          <Property Name="PayModeCode" Type="char" MaxLength="1" />
+          <Property Name="InsNo" Type="varchar" MaxLength="20" />
+          <Property Name="InsDate" Type="datetime" />
+          <Property Name="InsAmount" Type="float" />
+          <Property Name="BankCode" Type="char" MaxLength="5" />
+          <Property Name="Branch" Type="varchar" MaxLength="50" />
+          <Property Name="ExpTotalInvAmount" Type="float" />
+          <Property Name="DelFlag" Type="char" MaxLength="1" />
+          <Property Name="PostFlag" Type="char" MaxLength="1" />
+          <Property Name="VoucherNo" Type="varchar" MaxLength="20" />
+          <Property Name="VoucherFlag" Type="char" MaxLength="1" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="20" />
+          <Property Name="UpdDate" Type="datetime" />
+          <Property Name="UpdTime" Type="datetime" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="20" />
+          <Property Name="CSCode" Type="char" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="DealerEmp">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="EmpCode" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="EmpCode" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="EmpName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="JoiningDate" Type="datetime" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Experience" Type="tinyint" Nullable="false" />
+          <Property Name="LeavingDate" Type="datetime" />
+          <Property Name="DesigCode" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="DeptCode" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PrimaryTechCode" Type="char" MaxLength="1" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Role" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="char" MaxLength="1" />
+          <Property Name="SecurityUserID" Type="char" MaxLength="3" />
+          <Property Name="CNIC" Type="char" MaxLength="15" />
+          <Property Name="EmpID" Type="varchar" MaxLength="5" />
+          <Property Name="Picture" Type="varchar(max)" />
+          <Property Name="Email" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="ExpenseHead">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ECode" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ECode" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="EDesc" Type="varchar" MaxLength="50" />
+          <Property Name="AccountCode" Type="varchar" MaxLength="50" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdDate" Type="datetime" />
+          <Property Name="UpdTime" Type="datetime" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PaymentMode">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="PayModeCode" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="PayModeCode" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="PayModeDesc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Version" Type="char" MaxLength="8" />
+          <Property Name="PayModeCodeOEM" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="ReceiptHead">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ReceiptHeadCode" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ReceiptHeadCode" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="ReceiptHeadDesc" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Function Name="sp_ExpInvNo_DailyExpenseMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="sngonclo_BMSModelStoreContainer">
+          <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CashBankSetup" EntityType="Self.CashBankSetup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CostCenterSetup" EntityType="Self.CostCenterSetup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyExpenseDetail" EntityType="Self.DailyExpenseDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyExpenseMaster" EntityType="Self.DailyExpenseMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DealerEmp" EntityType="Self.DealerEmp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExpenseHead" EntityType="Self.ExpenseHead" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMode" EntityType="Self.PaymentMode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReceiptHead" EntityType="Self.ReceiptHead" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sngonclo_BMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="BankCode" />
+          </Key>
+          <Property Name="DealerCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="BankCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="BankDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BankStatus" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="OEMFinance" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CashBankSetup">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="CBCode" />
+          </Key>
+          <Property Name="CompanyCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CBCode" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CBDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FAMSACNo" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="AccountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OpeningBalance" Type="Double" />
+          <Property Name="UpdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Delflag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DailyExpenseMaster">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ExpInvNo" />
+          </Key>
+          <Property Name="DealerCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ExpInvNo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ExpInvDate" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CBCode" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="PayModeCode" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="InsNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="InsDate" Type="DateTime" Precision="3" />
+          <Property Name="InsAmount" Type="Double" />
+          <Property Name="BankCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpTotalInvAmount" Type="Double" />
+          <Property Name="DelFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="PostFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="VoucherNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VoucherFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="UpdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UpdDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdTerm" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CSCode" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DealerEmp">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="EmpCode" />
+          </Key>
+          <Property Name="DealerCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EmpCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EmpName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JoiningDate" Type="DateTime" Precision="3" />
+          <Property Name="ContactNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Experience" Type="Byte" Nullable="false" />
+          <Property Name="LeavingDate" Type="DateTime" Precision="3" />
+          <Property Name="DesigCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DeptCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PrimaryTechCode" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="SecurityUserID" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="CNIC" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="EmpID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ExpenseHead">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ECode" />
+          </Key>
+          <Property Name="DealerCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ECode" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PaymentMode">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="PayModeCode" />
+          </Key>
+          <Property Name="DealerCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PayModeCode" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PayModeDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Version" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="PayModeCodeOEM" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ReceiptHead">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ReceiptHeadCode" />
+          </Key>
+          <Property Name="DealerCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ReceiptHeadCode" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReceiptHeadDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="sngonclo_BMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Banks" EntityType="Self.Bank" />
+          <EntitySet Name="CashBankSetups" EntityType="Self.CashBankSetup" />
+          <EntitySet Name="DailyExpenseMasters" EntityType="Self.DailyExpenseMaster" />
+          <EntitySet Name="DealerEmps" EntityType="Self.DealerEmp" />
+          <EntitySet Name="ExpenseHeads" EntityType="Self.ExpenseHead" />
+          <EntitySet Name="PaymentModes" EntityType="Self.PaymentMode" />
+          <EntitySet Name="ReceiptHeads" EntityType="Self.ReceiptHead" />
+          <FunctionImport Name="sp_ExpInvNo_DailyExpenseMaster" ReturnType="Collection(String)" />
+          <EntitySet Name="CostCenterSetups" EntityType="sngonclo_BMSModel.CostCenterSetup" />
+          <EntitySet Name="DailyExpenseDetails" EntityType="sngonclo_BMSModel.DailyExpenseDetail" />
+          <EntitySet Name="Cities" EntityType="sngonclo_BMSModel.City" />
+        </EntityContainer>
+        <EntityType Name="CostCenterSetup">
+          <Key>
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="CSCode" />
+          </Key>
+          <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="CSCode" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="CSDate" Type="DateTime" Precision="3" />
+          <Property Name="CSName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CSTypeCode" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="EffectiveFromDate" Type="DateTime" Precision="3" />
+          <Property Name="EffectiveToDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="UpdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsDefault" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DailyExpenseDetail">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ExpInvNo" />
+            <PropertyRef Name="ExpFor" />
+          </Key>
+          <Property Name="DealerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ExpInvNo" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="ExpFor" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ExpPayTo" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="ExpRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="AccountCode" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="DealerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="CityCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="CityDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTerm" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StateCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sngonclo_BMSModelStoreContainer" CdmEntityContainer="sngonclo_BMSEntities">
+          <EntitySetMapping Name="Banks">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.Bank">
+              <MappingFragment StoreEntitySet="Bank">
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+                <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+                <ScalarProperty Name="BankDesc" ColumnName="BankDesc" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+                <ScalarProperty Name="BankStatus" ColumnName="BankStatus" />
+                <ScalarProperty Name="OEMFinance" ColumnName="OEMFinance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashBankSetups">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.CashBankSetup">
+              <MappingFragment StoreEntitySet="CashBankSetup">
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="CBCode" ColumnName="CBCode" />
+                <ScalarProperty Name="CBDesc" ColumnName="CBDesc" />
+                <ScalarProperty Name="ACType" ColumnName="ACType" />
+                <ScalarProperty Name="FAMSACNo" ColumnName="FAMSACNo" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+                <ScalarProperty Name="Delflag" ColumnName="Delflag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyExpenseMasters">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.DailyExpenseMaster">
+              <MappingFragment StoreEntitySet="DailyExpenseMaster">
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+                <ScalarProperty Name="ExpInvNo" ColumnName="ExpInvNo" />
+                <ScalarProperty Name="ExpInvDate" ColumnName="ExpInvDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CBCode" ColumnName="CBCode" />
+                <ScalarProperty Name="PayModeCode" ColumnName="PayModeCode" />
+                <ScalarProperty Name="InsNo" ColumnName="InsNo" />
+                <ScalarProperty Name="InsDate" ColumnName="InsDate" />
+                <ScalarProperty Name="InsAmount" ColumnName="InsAmount" />
+                <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="ExpTotalInvAmount" ColumnName="ExpTotalInvAmount" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+                <ScalarProperty Name="PostFlag" ColumnName="PostFlag" />
+                <ScalarProperty Name="VoucherNo" ColumnName="VoucherNo" />
+                <ScalarProperty Name="VoucherFlag" ColumnName="VoucherFlag" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+                <ScalarProperty Name="CSCode" ColumnName="CSCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DealerEmps">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.DealerEmp">
+              <MappingFragment StoreEntitySet="DealerEmp">
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+                <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="LeavingDate" ColumnName="LeavingDate" />
+                <ScalarProperty Name="DesigCode" ColumnName="DesigCode" />
+                <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="PrimaryTechCode" ColumnName="PrimaryTechCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SecurityUserID" ColumnName="SecurityUserID" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpenseHeads">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.ExpenseHead">
+              <MappingFragment StoreEntitySet="ExpenseHead">
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+                <ScalarProperty Name="ECode" ColumnName="ECode" />
+                <ScalarProperty Name="EDesc" ColumnName="EDesc" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentModes">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.PaymentMode">
+              <MappingFragment StoreEntitySet="PaymentMode">
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+                <ScalarProperty Name="PayModeCode" ColumnName="PayModeCode" />
+                <ScalarProperty Name="PayModeDesc" ColumnName="PayModeDesc" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="PayModeCodeOEM" ColumnName="PayModeCodeOEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReceiptHeads">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.ReceiptHead">
+              <MappingFragment StoreEntitySet="ReceiptHead">
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+                <ScalarProperty Name="ReceiptHeadCode" ColumnName="ReceiptHeadCode" />
+                <ScalarProperty Name="ReceiptHeadDesc" ColumnName="ReceiptHeadDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_ExpInvNo_DailyExpenseMaster" FunctionName="sngonclo_BMSModel.Store.sp_ExpInvNo_DailyExpenseMaster" />
+          <EntitySetMapping Name="CostCenterSetups">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.CostCenterSetup">
+              <MappingFragment StoreEntitySet="CostCenterSetup">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EffectiveToDate" ColumnName="EffectiveToDate" />
+                <ScalarProperty Name="EffectiveFromDate" ColumnName="EffectiveFromDate" />
+                <ScalarProperty Name="CSTypeCode" ColumnName="CSTypeCode" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CSName" ColumnName="CSName" />
+                <ScalarProperty Name="CSDate" ColumnName="CSDate" />
+                <ScalarProperty Name="CSCode" ColumnName="CSCode" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyExpenseDetails">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.DailyExpenseDetail">
+              <MappingFragment StoreEntitySet="DailyExpenseDetail">
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ExpRemarks" ColumnName="ExpRemarks" />
+                <ScalarProperty Name="ExpPayTo" ColumnName="ExpPayTo" />
+                <ScalarProperty Name="ExpFor" ColumnName="ExpFor" />
+                <ScalarProperty Name="ExpInvNo" ColumnName="ExpInvNo" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="CityDesc" ColumnName="CityDesc" />
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

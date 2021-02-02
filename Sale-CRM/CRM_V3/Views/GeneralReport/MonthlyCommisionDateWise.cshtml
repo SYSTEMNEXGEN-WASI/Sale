@@ -1,0 +1,221 @@
+﻿
+@{
+    ViewBag.Title = "MonthlyCommisionDateWise";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+<link href='@Url.Content("~/assets/css/style.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/responsive.css")' rel="stylesheet" type="text/css" />
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+    <form method="post">
+        <div class="col-lg-12" >
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Commision Detail Report</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Service</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <select class="form-control m-bot15" id="ddlService">
+                                    <option value="0">Select</option>
+                                    <option value="BO">Booking Order</option>
+                                    <option value="TL">Technician Labor </option>
+                                    <option value="JC">JobCard</option>
+                                    <option value="EW">Extended Warranty</option>
+                                    <option value="UV">Used Vehicle Sales</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Employee</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><a data-toggle="modal" data-target="#POModalSP" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                <input type="text" class="form-control" id="txtEmpCode" style="width:30%" readonly />
+                                <input type="text" class="form-control" id="txtEmpDesc" style="width:70%" readonly />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Frome Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtFromDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">To Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtToDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="input-group pull-right" style="margin-top: 25px;">
+                                <a class="btn btn-primary" id="btnPrint" href="#">Print</a>
+                                <button type="reset" class="btn btn-default">Clear</button>
+                                <div class="makespace"></div>
+                            </div>                                
+                        </div>
+
+                    </div>
+                    @*<div class="row">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" id="btnPrint" href="#">Print</a>
+                                <button type="reset" class="btn btn-default">Clear</button>
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+            </section>
+        </div>
+    </form>
+
+</section>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalSP" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 50px; height:600px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">SalesPerson Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchSP" class="form-control" aria-controls="AccountTableSP" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;">
+                        <table id="AccountTableSP" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+
+                                    <th class="tdDiv" style="text-align:left">Code</th>
+                                    <th class="tdDiv" style="text-align:left">Name</th>
+                                    <th class="tdDiv" style="text-align:left">Designation</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.AssignTo != null)
+                                {
+                                    foreach (var item in ViewBag.AssignTo)
+                                    {
+                                        <tr style="text-align: left" onclick="RevClick2('@item.EmpCode','@item.EmpName','@item.DesigDesc')">
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.EmpCode</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.EmpName</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.DesigDesc</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy",
+            yearRange: "-3:+1",
+            changeYear: true,
+            changeMonth: true,
+        });
+
+        $(function () {
+            $(".datepicker").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                yearRange: "-30:+1",
+                dateFormat: "dd-mm-yy"
+            });
+        });
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtFromDate").val(today);
+        $("#txtToDate").val(today);
+
+    })
+
+
+    $("#btnPrint").click(function () {
+
+        debugger
+        var baseurl = '@Url.Action("CommisionDetailReport")';
+        var url = baseurl + '?FromDate=' + $("#txtFromDate").val() + '&ToDate=' + $("#txtToDate").val() + '&Emp=' + $("#txtEmpCode").val() + '&Service=' + $("#ddlService").val() + '';
+
+        window.open(url, '_blank');
+
+    })
+
+    RevClick2 = function (code, name, designation) {
+
+        document.getElementById('txtEmpCode').value = code;
+        document.getElementById('txtEmpDesc').value = name;
+        $("#POModalSP").modal("hide");
+    }
+
+</script>

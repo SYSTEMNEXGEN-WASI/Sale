@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "CommissionMaster";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+<form method="post" style="margin-top:7rem">
+    <div class="col-xs-12">
+        <section class="box">
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="text-align:center"><strong>Commission Month</strong></div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Brand</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModal2" style="color:blue"><i class="fa fa-search" onclick="SetIds('BookNo1','AccountCodeID1', 'DetailDescID1')"></i></a></div>
+                                <select class="form-control input-md m-bot15" id="ddlBrand" onchange="OnChange(); OnChange2();" name="ddlBrand">
+                                    <option value="Select">Select</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Product</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+                                <select class="form-control input-md m-bot15" id="ddlProduct" name="Product">
+                                    <option value="Select">Select</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Model</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                <input type="text" class="form-control" id="txtModel" name="Model">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Description</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                <input type="text" class="form-control" id="txtDescription" name="Description" >
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Sales Person</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-pinterest"></i></span>
+                                <select class="form-control input-md m-bot15" id="ddlProduct" name="Product">
+                                    <option value="Select">Select</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="form-label">Commission Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    <input type="text" class="form-control" id="txtCommissionAmount">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="form-label">Effective Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control" id="txtEffectiveDate">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="form-label">End Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    <input type="text" class="form-control" id="txtEndDate">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+
+                                <button type="button" class="btn btn-info" id="btnAdd" style="margin-top:25px; width:100px">+</button>
+                                
+                            </div>
+                        </div>
+                        <!--copy till this-->
+                    </div>
+
+                  
+                        <div class="form-group row" style="margin-left:3px;margin-right:3px;margin-top:20px">
+                            <div class="table-responsive table-Scroll" style="overflow-y: scroll; height:auto;width:auto">
+                                <table id="tblCommissionMaster" class="table color-table info-table">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                            <th class="tdDiv" style="text-align:left" width="10%">Sr #</th>
+                                            <th class="tdDiv" style="text-align:left" width:"30%">Brand</th>
+                                            <th class="tdDiv" style="text-align:left" width:"30%">Product</th>
+                                            <th class="tdDiv" style="text-align:left" width:"30%">Model</th>
+                                            <th class="tdDiv" style="text-align:left" width:"30%">Description</th>
+                                            <th class="tdDiv" style="text-align:left" width:"30%">Sale Person</th>
+                                            <th class="tdDiv" style="text-align:left" width:"30%">Commission Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                   
+                  
+                    <!--Copy Till This-->
+                    <div class="row">
+                        <div class="pull-right" style="margin-right:15px">
+                            <button type="button" class="btn btn-info" id="btnSave" style="margin-top:27px; width:100px">Save</button>
+
+                            <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px; width:100px">Delete</button>
+
+                            <button type="button" class="btn btn-default" id="btnClear" style="margin-top:27px; width:100px">Clear</button>
+
+                            <button type="button" class="btn btn-success" id="btnPrint" style="margin-top:27px; width:100px">Print</button>
+                     </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</form>
+

@@ -1,0 +1,1078 @@
+﻿
+@{
+    ViewBag.Title = "FollowUp";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+    string leadID = ViewBag.UrlLeadId;
+    string EnDealerCode = ViewBag.UrlDealerCode;
+    string EnCLose = ViewBag.EnCLose;
+
+}
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+        .tabborder {
+        border-radius:0px;
+        border-bottom: 0px;
+        border-color:#aaaaaa;
+    }
+    .btnborder{
+    margin-top:27px;
+    border-radius:0px;
+     width:100px;
+    }
+</style>
+@*<link href='@Url.Content("~/assets/plugins/pace/pace-theme-flash.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/bootstrap/css/bootstrap.min.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/plugins/bootstrap/css/bootstrap-theme.min.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/fonts/font-awesome/css/font-awesome.css")' rel="stylesheet" type="text/css" />*@
+<link href='@Url.Content("~/assets/css/animate.min.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/plugins/perfect-scrollbar/perfect-scrollbar.css")' rel="stylesheet" type="text/css" />
+
+
+@*<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/datepicker/css/datepicker.css")' rel="stylesheet" type="text/css" media="screen" />*@
+
+<link href='@Url.Content("~/assets/css/style.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/responsive.css")' rel="stylesheet" type="text/css" />
+@* New Format *@
+<section class="wrapper main-wrapper row" style=''>
+
+
+    <!-- MAIN CONTENT AREA STARTS -->
+    <div class="clearfix"></div>
+
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Follow Up</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                        <input type="hidden" value="@leadID" id="txtLeadID" />
+                        <input type="hidden" value="" id="txtProspectID" />
+                    </div>
+                </header>
+
+                <div class="content-body">
+               
+                    <div class="row">
+                        @*<div class="col-md-12 col-sm-10 col-xs-12">
+
+            </div>*@
+                        <div class="col-md-4">
+                            <label class="form-label">Lead ID</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Enquiry')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                <input type="text" class="form-control" id="ddlLeadId" readonly>
+                                @*@Html.DropDownList("ddlLeadId", new SelectList((IEnumerable<SelectListItem>)ViewBag.LeadId, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlLeadId" })*@
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Lead Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtLeadDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <!-- ROW AREA ENDS -->
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <ul class="nav nav-tabs primary tabborder">
+                                <li class="active">
+                                    <a href="#home-7" data-toggle="tab" >
+                                        <i class="fa fa-car"></i> Customer Information
+                                    </a>
+                                </li>
+                                @*<li>
+                                    <a href="#tabCheckList" data-toggle="tab" style="border-radius:0px;">
+                                        <i class="fa fa-car"></i> Work Information
+                                    </a>
+                                </li>*@
+                                <li>
+                                    <a href="#Product" data-toggle="tab" >
+                                        <i class="fa fa-car"></i> Vehicle Information
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#followup" data-toggle="tab" >
+                                        <i class="fa fa-event"></i> Follow Up
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content primary">
+
+
+                                <div class="tab-pane fade in active" id="home-7">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Name*</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-user"></i>
+                                                </span>
+                                                <input type="text" required class="form-control" id="txtCustName" maxlength="100" readonly>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Email*</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-envelope"></i>
+                                                </span>
+                                                <input type="email" class="form-control" id="txtCustEmail" required maxlength="100" readonly>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Cell No.*</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-phone"></i>
+                                                </span>
+                                                <input type="tel" required class="form-control" id="txtCustCellNo" maxlength="12" readonly>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Company</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-building"></i>
+                                                </span>
+                                                <input type="text" class="form-control" id="txtCompany" maxlength="50" readonly>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Office No.</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-phone"></i>
+                                                </span>
+                                                <input type="tel" class="form-control" id="txtOfficeNo" maxlength="12" readonly>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">EXT</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-phone"></i>
+                                                </span>
+                                                <input type="text" class="form-control" id="txtOfficeNoExt" maxlength="5" readonly>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Lead Type</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-info-circle"></i>
+                                                </span>
+                                                @Html.DropDownList("ddlLeadType", new SelectList((IEnumerable<SelectListItem>)ViewBag.LeadType, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlLeadType", @disabled = "disabled" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Subject</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+                                                <input type="text" class="form-control" id="txtSubject" readonly>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <!-- ROW AREA ENDS -->
+                                    </div>
+
+                                    
+                                    
+
+                                    
+
+                                </div>
+                                <div class="tab-pane fade " id="tabCheckList">
+                                    
+                                    
+
+                                </div>
+                                <div class="tab-pane fade " id="Product">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped" id="productDetail">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Brand Code</th>
+                                                            <th>Product Code</th>
+                                                            <th>Description</th>
+                                                            <th>Color</th>
+                                                            <th>Priority</th>
+                                                            <th>Quantity</th>
+                                                            <th>Further Contact</th>
+                                                            <th>Further Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+                                </div>
+                                <div class="tab-pane fade " id="followup">
+                                    <div class="row">
+                                        @*<div class="col-md-12 col-sm-10 col-xs-12">
+
+            </div>*@
+                                        <div class="col-md-3">
+                                            <label class="form-label">Next Action</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                                @Html.DropDownList("ddlFurtherContact", new SelectList((IEnumerable<SelectListItem>)ViewBag.FurtherContact, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlFurtherContact" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="form-label">Status</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                                                @Html.DropDownList("ddlStatusType", new SelectList((IEnumerable<SelectListItem>)ViewBag.StatusType, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlStatusType" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="form-label">Followup Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" class="form-control datepicker" id="txtFurtherDate" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="form-label">Followup Time</label>
+                                            <div class="input-group control">
+                                                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                                <input type="text" class="form-control timepicker" id="txtFurtherTime"
+                                                       data-template="dropdown" data-show-seconds="true" data-default-time="09:45 AM"
+                                                       data-show-meridian="true" data-minute-step="5" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-9">
+                                            <label class="form-label">Comments</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-comments"></i>
+                                                </span>
+                                                <input type="text" class="form-control" id="txtComments">
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="input-group" style="width:100%;">
+                                                <button class="btn btn-success btn-sm" id="btnAddData" type="button" style="margin-top: 28px;width: 100%;padding: 8px;" onclick="AddProduct(this)">
+                                                    <i class="fa fa-plus fa-2x"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- ROW AREA ENDS -->
+                                    </div>
+
+                                    <div id="LostArea" style="display:none;">
+                                        <div class="row">
+
+                                            <div class="col-md-4">
+                                                <label class="form-label">Lost Reason</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                                    @Html.DropDownList("ddlLostReason", new SelectList((IEnumerable<SelectListItem>)ViewBag.LostReason, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlLostReason" })
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label class="form-label">Lost Date</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    <input type="text" class="form-control datepicker" id="txtLostDate" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label class="form-label">Comments</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-comments"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="txtLostComments">
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped" id="followupDetail">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Next Action</th>
+                                                            <th>Status</th>
+                                                            <th>Followup Date</th>
+                                                            <th>Followup Time</th>
+                                                            <th>Comments</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="fixedRow1" data-tr-count="0">
+                                                            @*<td>1</td>
+                                <td>Suzuki</td>
+                                <td>Mehran</td>
+                                <td>Sedan</td>
+                                <td>White</td>
+                                <td>High</td>
+                                <td>2</td>
+                                <td>Call</td>
+                                <td>09-Feb-2018</td>
+                                <td style="text-align:center;"><button class="btn btn-danger btn-xs"><i class="fa fa-minus fa-lg"></i></button></td>*@
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--ends here-->
+                                
+
+                                
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <button type="reset" class="btn btn-default btnborder" id="btnCancel">Cancel</button>
+
+                                <button type="button" class="btn btn-primary btnborder" id="btnSave" onclick='$("#section-confirm").modal("show")'>Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+
+                    <!--Copy Till This-->
+
+
+
+
+                </div>
+            </section>
+        </div>
+
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveForm()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="lblTitle"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- Enquiry No Modal Start -->
+    <div class="modal" tabindex="-1" id="EnquiryNoModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Enquiries</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="EnquirySearch" class="form-control" aria-controls="EnquiryTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="EnquiryTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th>Enquiry No</th>
+                                        <th>Enquiry Date</th>
+                                        <th>Customer</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Enquiry No Modal End -->
+</section>
+@* End Format *@
+
+
+
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script>
+    ///Search Modal Start 
+    $(document).ready(function () {
+        $("#EnquirySearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#EnquiryTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+
+    //Search Model End 
+    $(document).ready(function () {
+
+        Get_EnquiryModalData();
+        debugger
+        var id="@leadID";
+        var dealer="@ViewBag.UrlDealerCode";
+        var close="@EnCLose";
+
+        if (id != "" && dealer !== "") {
+            $("#txtLeadID").val(id);
+            getData(id);
+
+        }
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        //today = mm + '/' + dd + '/' + yyyy;
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtFurtherDate").val(today);
+        $("#txtLeadDate").val(today);
+        
+       
+        //var leadID = $("#txtLeadID").val();
+
+        //if(leadID != ''){
+        //    getData(leadID);
+        //    $("#ddlLeadId").val(leadID);
+        //}
+
+    })
+
+    $("#ddlStatusType").change(function () {
+
+        var status = $("#ddlStatusType").val();
+
+        if(status == "3")
+        {
+            $("#LostArea").show();
+        }
+        else
+        {
+            $("#LostArea").hide();
+        }
+
+    })
+
+    EnqNo = function (value) {
+        debugger
+
+        var EnqNo = $(value).closest('tr').find("#hdnEnqNo").val();
+
+
+        document.getElementById("ddlLeadId").value = EnqNo;
+        $("#ddlLeadId").css("border-color", "#e1e1e1");
+        getData(EnqNo);
+        $("#EnquiryNoModal").modal("hide");
+    }
+
+    function Get_EnquiryModalData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/BookingOrder/Get_EnquiryModal")',
+            success: function (data) {
+                debugger
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#EnquiryTable tbody tr").remove()
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="EnqNo(this)">' +
+                                '<td>' + SNo++ + '</td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblEnqNo">' + item.Enquiry_ID + '</label><input type="hidden" id="hdnEnqNo" value="' + item.Enquiry_ID + '"/></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblEnqDate">' + item.EnqDate + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCustomer">' + item.Name + '</label></td>' +
+                            '</tr>';
+
+                            $("#EnquiryTable tbody").append(temp);
+
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+    
+    function AddProduct(value) {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        var check = ValidateFollowUpDetails();
+        if (check == true) {
+            var nextAction = $("#ddlFurtherContact :selected").text(); $("#ddlFurtherContact").css("border-color", "#ccc");
+            var FurtherContactCode = $("#ddlFurtherContact").val();
+            var statusType = $("#ddlStatusType :selected").text(); $("#ddlStatusType").css("border-color", "#ccc");
+            var statusTypeId = $("#ddlStatusType").val();
+            var nextDate = $("#txtFurtherDate").val(); $("#txtFurtherDate").css("border-color", "#ccc");
+            var nextTime = $("#txtFurtherTime").val(); $("#txtFurtherTime").css("border-color", "#ccc")
+            var comments = $("#txtComments").val(); $("#txtComments").css("border-color", "#ccc");
+
+            var row = $(value).parent().parent().html();
+            var dt = $("#followupDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblNextAction">' + nextAction + ' </label><input type="hidden" id="hdnFurtherContactCode" value="' + FurtherContactCode + '"/></td>' +
+                                                        '<td> <label id="lblStatusType">' + statusType + ' </label> <input type="hidden" id="hdnStatusId" value="' + statusTypeId + '" /> </td>' +
+                                                        '<td> <label id="lblNextDate">' + nextDate + ' </label></td>' +
+                                                        '<td> <label id="lblNextTime">' + nextTime + ' </label></td>' +
+                                                        '<td> <label id="lblComments">' + comments + ' </label></td>' +
+                                                        '<td style="text-align:center;"><button class="btn btn-danger btn-xs" onclick="removeRow(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                        '</tr>');
+
+        }
+        else {
+
+        }
+    }
+
+    function removeRow(value) {
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        $("#" + tempRow).find('.remove').show();
+        $(value).parent().parent().remove();
+
+        dataCount--;
+        rowCount--;
+        SNo--;
+    }
+
+    function ValidateFollowUpDetails() {
+
+        debugger
+        var check = false;
+        var leadId = $("#ddlLeadId").val();
+        var furhterContact = $("#ddlFurtherContact").val();
+        var statusType = $("#ddlStatusType").val();
+        var furtherDate = $("#txtFurtherDate").val();
+        var furhterTime = $("#txtFurtherTime").val();
+        var comments = $("#txtComments").val();
+        var lostReason = $("#ddlLostReason").val();
+        var lostDate = $("#txtLostDate").val();
+        var lostComments = $("#txtLostComments").val();
+
+        if (leadId == "0")
+        {
+            $("#ddlLeadId").css("border-color", "red");
+            $('html, body').animate({
+                scrollTop: $("#ddlLeadId").scrollTop(500)
+            }, 800);
+            return check;
+        }
+        else {
+            $("#ddlLeadId").css("border-color", "#ccc");
+        }
+
+
+        if (furhterContact == "0") {
+            $("#ddlFurtherContact").css("border-color", "red");
+            return check;
+        }
+        else {
+            $("#ddlFurtherContact").css("border-color", "#ccc");
+        }
+
+        if (statusType == "0") {
+            $("#ddlStatusType").css("border-color", "red");
+            return check;
+        } else {
+            $("#ddlStatusType").css("border-color", "#ccc");
+        }
+
+        if (furtherDate == "" || furtherDate == undefined) {
+            $("#txtFurtherDate").css("border-color", "red");
+            return check;
+        } else {
+            $("#txtFurtherDate").css("border-color", "#ccc");
+        }
+
+        if (furhterTime == "" || furtherDate == undefined) {
+            $("#txtFurtherTime").css("border-color", "red");
+            return check;
+        } else {
+            $("#txtFurtherTime").css("border-color", "#ccc")
+        }
+
+        if (comments == "" || comments == undefined) {
+            $("#txtComments").css("border-color", "red");
+            return check;
+        } else {
+            $("#txtComments").css("border-color", "#ccc")
+        }
+
+        if (statusType == "3")
+        {
+            if (lostReason == "0") {
+                $("#ddlLostReason").css("border-color", "red");
+                return check;
+            }
+            else {
+                $("#ddlLostReason").css("border-color", "#ccc");
+            }
+
+            if (lostDate == "" || lostDate == undefined) {
+                $("#txtLostDate").css("border-color", "red");
+                return check;
+            } else {
+                $("#txtLostDate").css("border-color", "#ccc");
+            }
+
+            if (lostComments == "" || lostComments == undefined) {
+                $("#txtLostComments").css("border-color", "red");
+                return check;
+            } else {
+                $("#txtLostComments").css("border-color", "#ccc");
+            }
+        }
+
+        check = true;
+        return check;
+    }
+
+    function ShowModal(type) {
+        if (type == 'Customer') {
+            $('#CustomerModal').modal("show");
+        } else
+            if (type == 'AccountOf') {
+                $('#AccountOfModal').modal("show");
+            } else if (type == 'BookRefNo') {
+                $('#BookRefNoModal').modal("show");
+            } else {
+                $('#EnquiryNoModal').modal("show");
+            }
+    }
+
+    $("#ddlLeadId").change(function () {
+        var leadId = $("#ddlLeadId").val();
+        if (leadId == "0") {
+            location.reload();
+        }
+        else {
+            getData(leadId);
+        }
+
+    });
+
+    function insertRecord() {
+        var obj = [];
+        var leadId = $("#ddlLeadId").val();
+        var IsLostEnq = false;
+        var status = $("#ddlStatusType").val();
+
+        (status == "3") ? IsLostEnq = true : IsLostEnq = false;
+
+        $("#followupDetail tbody tr").each(function () {
+
+            var dto = {};
+            dto.FollowupId = $(this).closest('tr').find('#hdnFollowUpId').val();
+            dto.EnquiryID = leadId; // Need to add this in View Model
+            dto.IsLostEnq = IsLostEnq;  
+            dto.LostReasonId = $("#ddlLostReason").val();
+            dto.LostDate = $("#txtLostDate").val();
+            dto.NextFollowUpDate = $(this).closest('tr').find('#lblNextDate').text().trim();
+            dto.NextFollowUpTime = $(this).closest('tr').find('#lblNextTime').text().trim();
+            dto.NextFollowUpActionPlan = $(this).closest('tr').find('#hdnFurtherContactCode').val();
+            dto.NextFollowUpPurpose = $(this).closest('tr').find('#lblComments').text().trim();
+            dto.StatusTypeId = $(this).closest('tr').find('#hdnStatusId').val();
+            obj.push(dto);
+        });
+
+        return obj;
+    }
+
+    function SaveForm()
+    {
+        var check = true;
+
+        if (check == true) {
+            
+
+            var objects = [];
+
+            objects = JSON.stringify({ 'objects': insertRecord() });
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '@Url.Content("~/Enquiry/Insert_NextFollowupDetail")',
+                data: objects,
+                //async: true,
+                //cache: false,
+                //crossDomain: true,
+                success: function (data) {
+                    if (data) {
+                        if (data.Success == true) {
+                            $("#section-confirm").modal("hide")
+                            $("#modalMessage").css("background-color", "#64c344");
+                            $("#lblTitle").text("Success");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                            setTimeout(function () {
+                                $('#section-message').modal('hide')
+                            }, 4000);
+                            clearFeilds();
+                        }
+                        else {
+                            $("#section-confirm").modal("hide")
+                            $("#modalMessage").css("background-color", "#e46457");
+                            $("#lblTitle").text("Failure");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                        }
+
+                    }
+                },
+                complete: function () {
+                    Get_EnquiryModalData();
+                },
+                error: function (data) {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblTitle").text("Failure");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                }
+            });
+
+        }
+        else {
+            $("#section-confirm").modal("hide")
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblTitle").text("Failure");
+            $("#lblMessage").text("Please fill mandatory fields..")
+            $("#section-message").modal('show');
+        }
+    }
+
+    function getData(id)
+    {
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Enquiry/Select_EnquiryMaster")',
+                data: { 'EnquiryId': leadId},
+                success: function (data) {
+                    
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        //Lead Information
+                        $("#txtLeadDate").val(item[0].EnqDate);
+                        $("#ddlLeadId").val(leadId);
+                        (item[0].Interest == "New") ? $("#ddlInterest").val(1) : $("#ddlInterest").val(2)
+
+                        $("#ddlLeadType").val(item[0].ProspectTypeID)
+
+                        $("#txtCustCellNo").val(item[0].Mobile);
+                        var IsFinanced = item[0].IsFinanced.trim();
+
+                        $("#txtSubject").val(item[0].Remarks)
+
+                        //Customer  and Work Details
+                        $("#ddlCustomerId").val(item[0].ProspectID);
+                        $("#txtCustName").val(item[0].Name);
+                        $("#txtCustEmail").val(item[0].Email)
+                        $("#txtCustCellNo").val(item[0].Mobile)
+
+                        //WORK INFO
+                        $("#txtCompany").val(item[0].CompanyDetail)
+                        $("#txtDesigntaion").val(item[0].Designation);
+                        $("#txtDepartment").val(item[0].Profession);
+                        var str = item[0].OffPhone;
+                        var officephone = new Array();
+                       // officephone = str.split("x");
+                     //   $("#txtOfficeNo").val(officephone[0].trim()) + " x " + $("#txtOfficeNoExt").val(officephone[1].trim());
+
+                        //ProductDetail
+                        Get_EnquiryDetailData(id)
+
+                        //FollowpUp Detail
+                        GetFollowUpData(id)
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function Get_EnquiryDetailData(id) {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Enquiry/Select_EnquiryDetail")',
+                data: { 'EnquiryId': leadId},
+                success: function (data) {
+                    
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        $("#productDetail tbody tr").remove()
+                        //ProductDetail
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+                                $("#productDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblBrandCode">' + item.BrandDesc.trim() + ' </label></td>' +
+                                                        '<td> <label id="lblProdCode">' + item.ProdDesc.trim() + ' </label></td>' +
+                                                        '<td> <label id="">' + item.VersionDesc.trim() + ' </label></td>' +
+                                                        '<td> <label id="lblColor">' + item.ColorDesc.trim() + ' </label></td>' +
+                                                        '<td> <label id="lblPriority">' + item.StatusCode + ' </label></td>' +
+                                                        '<td> <label id="lblQuantity">' + item.Qty + ' </label></td>' +
+                                                        '<td> <label id="lblFurtherContact">' + item.FurtherContact + ' </label></td>' +
+                                                        '<td> <label id="lblFurtherDate">' + item.FurtherDate + ' </label></td>' +
+                                                        '</tr>');
+
+                            });
+
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    var rowCount = 1;
+    var dataCount = 1;
+    var SNo = 1;
+
+    function GetFollowUpData(Id)
+    {
+        
+        var leadId = Id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Enquiry/Select_FollowUpDetail")',
+                data: { 'EnquiryId': leadId},
+                success: function (data) {
+                    
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        $("#followupDetail tbody tr").remove()
+                        debugger;
+                        //ProductDetail
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+
+                                $("#followupDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                       '<td>' + SNo++ + '<input type="hidden" id="hdnFollowUpId" value="' + item.FollowupId + '"/></td>' +
+                                                       '<td> <label id="lblNextAction">' + item.NextFollowUpActionPlan.trim() + ' </label><input type="hidden" id="hdnFurtherContactCode" value="' + item.TaskTypeCode + '"/></td>' +
+                                                       '<td> <label id="lblStatusType">' + item.StatusType.trim() + ' </label> <input type="hidden" id="hdnStatusId" value="' + item.StatusTypeId + '" /> </td>' +
+                                                       '<td> <label id="lblNextDate">' + item.NextFollowUpDate.trim() + ' </label></td>' +
+                                                       '<td> <label id="lblNextTime">' + item.NextFollowUpTime.trim() + ' </label></td>' +
+                                                       '<td> <label id="lblComments">' + item.NextFollowUpPurpose.trim() + ' </label></td>' +
+                                                       '<td style="text-align:center;"><button class="btn btn-danger btn-xs" onclick="removeRow(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                       '</tr>');
+
+                                if (item.StatusTypeId == 3) {
+                                    $("#LostArea").show();
+                                    $("#ddlLostReason").val(item.LostReasonId);
+                                    $("#txtLostDate").val(item.LostDate);
+                                    $("#txtLostComments").val(item.NextFollowUpPurpose);
+                                    $("#btnSave").prop("disabled", true)
+                                    $("#btnAddData").prop("disabled", true)
+                                }
+                            });
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+    }
+
+
+    function clearFeilds() {
+
+        $("#txtLeadDate").val('');
+        //$("#ddlLeadId").val();
+        $("#ddlInterest").val(1)
+        $("#ddlLeadType").val('')
+        $("#txtCustCellNo").val('');
+        $("#txtSubject").val('');
+
+        //Customer  and Work Details
+        $("#ddlCustomerId").val('');
+        $("#txtCustName").val('');
+        $("#txtCustEmail").val('');
+        $("#txtCustCellNo").val('');
+
+        //WORK INFO
+        $("#txtCompany").val('')
+        $("#txtDesigntaion").val('');
+        $("#txtDepartment").val('');
+        $("#txtOfficeNoExt").val('');
+        $("#txtOfficeNo").val('');
+
+        $("#productDetail tbody tr").remove();
+        $("#followupDetail tbody tr").remove();
+
+    }
+
+
+</script>

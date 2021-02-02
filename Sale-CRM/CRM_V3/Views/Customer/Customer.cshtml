@@ -1,0 +1,1373 @@
+﻿@*@model CRM_V3.Models.Customers*@
+@model CRM_V3.Models.Customer
+
+@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+    .bacground-color-hthelper {
+        background-color: #c4e66d;
+    }
+    .table>tbody>tr>td {
+        padding: 5px;
+    }
+     .makespace {
+        margin-bottom: 20px;
+    }
+     .mandatory{
+        color: red;
+        margin-left : 5px;
+    }
+
+    #CustomerTable thead,#CustomerTable tbody,#CustomerTable tr,#CustomerTable td,#CustomerTable th { display: block; }
+      #CustomerTable tr:after {
+            content: ' ';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+
+        #CustomerTable thead th {
+            height: 40px;
+        }
+
+        #CustomerTable tbody {
+            height: 350px;
+            overflow-y: auto;
+        }
+
+        thead {
+            /* fallback */
+        }
+
+        #CustomerTable tbody td,#CustomerTable thead th {
+           /*width: 10%;*/
+            float: left;
+        }
+</style>
+<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2-bootstrap.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/css/chosen.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/bootstrap-select.css")' rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='@Url.Content("~/assets/css/style.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/responsive.css")' rel="stylesheet" type="text/css" />
+
+<section class="wrapper main-wrapper row">
+    @using (Html.BeginForm("Customer", "Customer", FormMethod.Post))
+    {
+        <form method="post">
+            <div class="col-xs-12">
+                <section class="box">
+                    <header class="panel_header">
+                        <h2 class="title pull-left">Customer Profile</h2>
+                        <div class="actions panel_actions pull-right">
+                            <a class="box_toggle fa fa-chevron-down"></a>
+                        </div>
+                    </header>
+
+
+                    <div class="content-body">
+                        <div class="row" style="margin-bottom:1rem;">
+                            <div class="col-md-4">
+                                <label class="form-label">Customer Code</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Customer')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                    <input type="text" class="form-control" id="ddlCustomers" name="CusCode" readonly />
+                                    @*@Html.DropDownList("ddlCustomers", new SelectList((IEnumerable<SelectListItem>)ViewBag.Customers, "Value", "Text", "0"), new { @class = "form-control", @id = "ddlCustomers" })*@
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Customer Type</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                    @Html.DropDownList("ddlCusType", new SelectList((IEnumerable<SelectListItem>)ViewBag.CusType, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlCusType" })
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Title</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <select class="form-control m-bot15" id="ddlCusTitle" name="CusTitle">
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mr.">Mrs.</option>
+                                        <option value="Ms.">Ms.</option>
+                                        <option value="M/S">M/S</option>
+                                        <option value="Dr.">Dr.</option>
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Customer<span class="mandatory">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('CustomerProsPect')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                    <input type="text" class="form-control" id="txtCusDesc" name="CusDesc" maxlength="50" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">NIC/NTN<span class="mandatory">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                                    <input type="text" class="form-control" id="txtNICNTN" name="NIC" maxlength="30" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Sales Tax No</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+                                    <input type="text" class="form-control" id="txtSalesTaxRegNoID" name="SalesTaxRegNo" maxlength="30" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Payment Term</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+                                    <input type="text" class="form-control" id="txtCreditDays" name="CreditDays" maxlength="10" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Credit Limit</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    <input type="text" class="form-control" id="txtCreditLimit" name="CreditLimit" maxlength="10" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Customer Distance</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-plane"></i></span>
+                                    <input type="text" class="form-control" id="txtDistance" name="Distance" maxlength="10" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Auto Customer No.</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input type="text" class="form-control" id="txtCustomerNoMan" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Manual Customer No. </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input type="text" class="form-control" id="txtMCNo" maxlength="20" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Account Code*</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Account')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                    <input type="text" class="form-control" id="txtAccountCode" name="FaxNo" onblur="ChangeColor(this)" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="panel-group" id="accordion">
+
+                                    <div class="row">
+                                        <div class="col-xs-12"></div>
+                                        <ul class="nav nav-tabs primary" style="border-radius:0px;">
+                                            <li class="active">
+                                                <a href="#home-7" data-toggle="tab" style="border-radius:0px;">
+                                                    <i class="fa fa-car"></i> Contact Details
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#Gurantor" data-toggle="tab" style="border-radius:0px;">
+                                                    <i class="fa fa-car"></i> Gurantor Details
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                        <div class="tab-content primary">
+                                            <div class="tab-pane fade in active" id="home-7">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Address</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                                            <input type="text" class="form-control" id="txtAddress" name="Address1" maxlength="50" />
+                                                            @*@Html.TextBoxFor(model => model.Address1, new { @class = "form-control", @id = "Address1ID" })*@
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="form-label">Country</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+                                                            @Html.DropDownList("ddlCountry", new SelectList((IEnumerable<SelectListItem>)ViewBag.Country, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlCountry" })
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="form-label">State</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-institution"></i></span>
+                                                            @Html.DropDownList("ddlState", new SelectList((IEnumerable<SelectListItem>)ViewBag.State, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlState" })
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Near City</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+
+                                                            @Html.DropDownList("ddlCity", new SelectList((IEnumerable<SelectListItem>)ViewBag.City, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlCity" })
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Phone Number</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
+                                                            <input type="text" class="form-control" id="txtPhone1" name="Phone1" maxlength="15" onkeypress="return isCellNumberKey(event)" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Mobile No<span class="mandatory">*</span></label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+                                                            <input type="text" class="form-control" id="txtCellNo" name="CellNo" maxlength="15" onkeypress="return isCellNumberKey(event)" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Whatssap No</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-whatsapp"></i></span>
+                                                            <input type="text" class="form-control" id="txtPhone2" name="Phone2" maxlength="15" onkeypress="return isCellNumberKey(event)" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Fax</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fax"></i></span>
+                                                            <input type="text" class="form-control" id="txtFaxNo" name="FaxNo" maxlength="15" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Email</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                                                            <input type="text" class="form-control" id="txtEmail" name="Email" maxlength="25" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Url</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-anchor"></i></span>
+                                                            <input type="text" class="form-control" id="txtURL" name="URL" maxlength="50" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Contact Person</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                                            <input type="text" class="form-control" id="txtContPerson" name="ContPerson" maxlength="50" />
+                                                            @*@Html.TextBoxFor(model => model.ContPerson, new { @class = "form-control", @id = "ContPersonID" })*@
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4" style="padding:2rem;">
+                                                        <input type="checkbox" id="chkSameAs" class="chkBank icheckbox_minimal-blue" />
+                                                        <label class="form-label">Same As</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade " id="Gurantor">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">GrCode</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                                                            <input type="text" class="form-control" id="txtGRCode" name="Address1" readonly />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Name</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            <input type="text" class="form-control" id="txtGRDesc" name="Address1" maxlength="50" onblur="ChangeColor(this)" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Address</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                                            <input type="text" class="form-control" id="txtGRAddress" name="Address1" maxlength="50" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">City</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                                            @Html.DropDownList("ddlGRCity", new SelectList((IEnumerable<SelectListItem>)ViewBag.City, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlGRCity" })
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="form-label">State</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-university"></i></span>
+                                                            @Html.DropDownList("ddlGRState", new SelectList((IEnumerable<SelectListItem>)ViewBag.State, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlGRState" })
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="form-label">Country</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                                                            @Html.DropDownList("ddlGRCountry", new SelectList((IEnumerable<SelectListItem>)ViewBag.Country, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlGRCountry" })
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">NIC</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                                            <input type="text" class="form-control" id="txtGRNIC" name="GRNIC" maxlength="13" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Phone</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                            <input type="text" class="form-control" id="txtGRPhone" name="FaxNo" maxlength="11" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Cell</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                                                            <input type="text" class="form-control" id="txtGRCell" name="Email" maxlength="11" onblur="ChangeColor(this)" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                    <div class="col-md-4" style="padding:2rem;">
+                                                        <input type="checkbox" id="chkActive" class="chkBank icheckbox_minimal-blue" />
+                                                        <label class="form-label">Active</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <label class="form-label">Remarks</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-comment"></i></span>
+                                                            <input type="text" class="form-control" id="txtRemarks" name="URL" maxlength="50" />
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="input-group" style="width:100%;">
+                                                            <button class="btn btn-success btn-sm" type="button" style="width: 100%;padding: 8px; border-radius:0px; margin-top: 20px; right: 15px;" onclick="AddGuarantor(this)">Add</button>
+                                                        </div>
+                                                        <div class="makespace"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped" id="GuarantorDetail" style="white-space: nowrap; FONT-SIZE: 10px;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>SR</th>
+                                                                        <th>GR Name</th>
+                                                                        <th>GR Address</th>
+                                                                        <th>GR City</th>
+                                                                        <th>GR State</th>
+                                                                        <th>GR Country</th>
+                                                                        <th>GR NIC</th>
+                                                                        <th>GR Phone</th>
+                                                                        <th>GR Cell</th>
+                                                                        <th>Remarks</th>
+                                                                        <th>Status</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="pull-right">
+
+
+                                <button type="button" class="btn btn-primary" id="btnSave" style="margin-top:0px;width:100px; margin-right:0px; border-radius:0px;">Save</button>
+                                <button type="reset" class="btn btn-default" id="btnCancel" style="margin-top:0px;width:100px;margin-right:0px; border-radius:0px;">Clear</button>
+                                <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:0px;width:100px;margin-right:0px; border-radius:0px;" disabled>Delete</button>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </section>
+            </div>
+        </form>
+    }
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-danger" type="button">No</button>
+                    <button class="btn btn-primary" type="button" onclick="SaveMasterEnquiry()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <div class="modal" id="section-confirm-Delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to Delete ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-danger" type="button" onclick="DeleteEnquiry()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- Customer Modal Start -->
+    <div class="modal" tabindex="-1" id="CustomerModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Customer List</h4>
+                </div>
+                <div class="modal-body" style="padding-bottom:0px;">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-6">
+                            <input type="text" id="CustomerSearch" class="form-control" aria-controls="CustomerTable" placeholder="Search . . . ">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div>
+                            <table id="CustomerTable" class="table  responsive">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%;">ID</th>
+                                        <th style="width:20%;">Customer Name</th>
+                                        <th style="width:15%;">NIC</th>
+                                        <th style="width:38%;">Address</th>
+                                        <th style="width:10%;">Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase;">
+
+                                    @if (ViewBag.Customer != null)
+                                    {
+                                        foreach (var item in ViewBag.Customer)
+                                        {
+                                            <tr style="text-align:left">
+
+                                                <td class="tdDiv" nowrap="nowrap" style="width:10%;" onclick="IssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblCusCode">@item.CusCode</label></a>
+                                                </td>
+                                                <td class="tdDiv" nowrap="nowrap" style="width:20%;" onclick="IssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblCusDesc">@item.CusDesc</label></a>
+                                                </td>
+                                                <td class="tdDiv" nowrap="nowrap" style="width:15%;" onclick="IssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblNIC">@item.NIC</label></a>
+                                                </td>
+                                                <td class="tdDiv" style="width:38%;" onclick="IssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblAddress">@item.Address1</label></a>
+                                                </td>
+                                                <td class="tdDiv" nowrap="nowrap" style="width:10%;" onclick="IssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblPhone">@item.Phone1</label></a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Customer Modal End -->
+    <!-- Account Code Modal Start-->
+    <div class="modal" tabindex="-1" id="POModalActCode" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Account Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-left:10px">
+                        <div class="table-responsive table-Scroll" style="height:280px">
+                            <table id="AccountTableSO" class="table color-table info-table">
+                                <thead>
+                                    <tr>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Account Code</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Account Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+                                    @if (ViewBag.Accounts != null)
+                                    {
+                                        foreach (var item in ViewBag.Accounts)
+                                        {
+                                            <tr style="text-align: left" onclick="ClickAccount('@item.AcCode')">
+                                                <td class="tdDiv">
+                                                    @item.AcCode
+                                                </td>
+                                                <td class="tdDiv">
+                                                    @item.AcTitle
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Account Code Modal END-->
+    <!-- Customer Modal Start -->
+    <div class="modal" tabindex="-1" id="PreCustomerModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Pre Customer List</h4>
+                </div>
+                <div class="modal-body" style="padding-bottom:0px;">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-6">
+                            <input type="text" id="PreCustomerSearch" class="form-control" aria-controls="CustomerTable" placeholder="Search . . . ">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div>
+                            <table id="PreCustomerTable" class="table  responsive">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%;">ID</th>
+                                        <th style="width:20%;">Customer Name</th>
+                                        <th style="width:10%;">Phone</th>
+                                        <th style="width:15%;">NIC</th>
+                                        <th style="width:38%;">Address</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase;">
+
+                                    @if (ViewBag.PreCustomer != null)
+                                    {
+                                        foreach (var item in ViewBag.PreCustomer)
+                                        {
+                                            <tr style="text-align:left">
+
+                                                <td class="tdDiv" nowrap="nowrap" style="width:10%;" onclick="PreIssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblCusCode">@item.ProspectID</label></a>
+                                                </td>
+                                                <td class="tdDiv" nowrap="nowrap" style="width:20%;" onclick="PreIssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblCusDesc">@item.Name</label></a>
+                                                </td>
+                                                <td class="tdDiv" nowrap="nowrap" style="width:10%;" onclick="PreIssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblPhone">@item.Mobile</label></a>
+                                                </td>
+                                                <td class="tdDiv" nowrap="nowrap" style="width:15%;" onclick="PreIssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblNIC">@item.NIC</label></a>
+                                                </td>
+                                                <td class="tdDiv" style="width:38%;" onclick="PreIssueFunc(this)">
+                                                    <a href="#" style="color:black"><label id="lblAddress">@item.ResAddress</label></a>
+                                                </td>
+                                                
+
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Customer Modal End -->
+</section>
+<script src="~/assets/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+    function isCellNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+
+        if (charCode != 45  && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+    function ChangeColor(value) {
+
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    function ShowModal(type) {
+
+        if (type == 'Customer') {
+            $('#CustomerModal').modal("show");
+        } else if (type == 'SMSSetup') {
+            $('#SMSSetupModal').modal("show");
+        } else if (type == 'CustomerProsPect') {
+            $('#PreCustomerModal').modal("show");
+        }
+        else {
+            $('#POModalActCode').modal("show");
+        }
+    }
+
+    //function ShowModal(type) {
+          
+    //}
+
+
+    ClickAccount = function (AccountDesc) {
+
+        $('#txtAccountCode').val(AccountDesc);
+        $('#txtAccountCode').css("border-color", "#e1e1e1");
+
+        $("#POModalActCode").modal("hide");
+    }
+
+    $("#CustomerSearch").on("keyup", function () {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#CustomerTable tbody tr").each(function () {
+            
+            $row = $(this);
+            var id = $(this).closest('tr').find('#lblCusDesc').text();
+            var desc = $(this).closest('tr').find('#lblNIC').text();
+            var nic = $(this).closest('tr').find('#lblAddress').text();
+            var phone = $(this).closest('tr').find('#lblPhone').text();
+
+            if (id.indexOf(value) !== 0 && desc.indexOf(value) !== 0 && nic.indexOf(value) !== 0 && phone.indexOf(value) !== 0) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+    $("#PreCustomerSearch").on("keyup", function () {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#PreCustomerTable tbody tr").each(function () {
+            
+            $row = $(this);
+            var id = $(this).closest('tr').find('#lblCusDesc').text();
+            var desc = $(this).closest('tr').find('#lblNIC').text();
+            var nic = $(this).closest('tr').find('#lblAddress').text();
+            var phone = $(this).closest('tr').find('#lblPhone').text();
+
+            if (id.indexOf(value) !== 0 && desc.indexOf(value) !== 0 && nic.indexOf(value) !== 0 && phone.indexOf(value) !== 0) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+    function ValidateGuarantorDetail() {
+
+        var count = 0;
+
+        var grDesc = $("#txtGRDesc").val();
+        var grCell = $("#txtGRCell").val();
+
+        if (grDesc == 0) {
+            $("#txtGRDesc").css("border-color", "red");
+            count++;
+        } else {
+            $("#txtGRDesc").css("border-color", "#ccc")
+        }
+        if (grCell == 0) {
+            $("#txtGRCell").css("border-color", "red");
+            count++;
+        } else {
+            $("#txtGRCell").css("border-color", "#ccc")
+        }
+
+
+        if (count == 0) {
+            return true;
+        }
+        return false;
+
+    }
+
+    function AddGuarantor(value) {
+        
+        var check = ValidateGuarantorDetail();
+        
+            if (check == true) {
+
+                addPaymentDetailtoTable(value);
+                //clearPaymentFeilds();
+
+            }
+    }
+
+    function clearPaymentFeilds() {
+        $("#ddlPaymentMode").val("0");
+        $("#txtInstrumentNo").val("");
+        $("#ddlPaymentType")[0].selectedIndex = 0;
+        $("#ddlBank").val("0");
+        $("#txtBranch").val("");
+        $("#ddlCity").val("0");
+        $("#txtAmount").val("");
+    }
+
+    var rowCount = 1;
+    var dataCount = 1;
+    var SNo = 1;
+
+    function addPaymentDetailtoTable(value) {        
+
+        var GRDesc = $("#txtGRDesc").val();
+        var GRAddress = $("#txtGRAddress").val();
+        var GRCityCode = $("#ddlGRCity").val();
+        var GRCityDesc = $("#ddlCity :selected").text();
+        var GRStateCode = $("#ddlGRState").val();
+        var GRStateDesc = $("#ddlGRState :selected").text();
+        var GRCountryCode = $("#ddlGRCountry").val();
+        var GRCountryDesc = $("#ddlGRCountry :selected").text();
+        var GRNIC = $("#txtGRNIC").val();
+        var GRPhone = $("#txtGRPhone").val();
+        var GRCell = $("#txtGRCell").val();
+        var Remarks = $("#txtRemarks").val();
+        var Active = $("#chkActive").is(":checked");
+
+        var row = $(value).parent().parent().html();
+        var tabel2 = '';
+        var tabel1 = '<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblGRName">' + GRDesc + ' </label></td>' +
+                                                    '<td> <label id="lblGRAddress">' + GRAddress + ' </label></td>' +
+                                                    '<td> <label id="lblCity">' + GRCityDesc + ' </label><input type="hidden" id="hdnCityCode" value="' + GRCityCode + '"/></td>' +
+                                                    '<td> <label id="lblStateDesc">' + GRStateDesc + ' </label><input type="hidden" id="hdnStateCode" value="' + GRStateCode + '"/></td>' +
+                                                    '<td> <label id="lblCountry">' + GRCountryDesc + ' </label><input type="hidden" id="hdnCountryCode" value="' + GRCountryCode + '"/></td>' +
+                                                    '<td> <label id="lblGRNIC">' + GRNIC + ' </label></td>' +
+                                                    '<td> <label id="lblGRPhone">' + GRPhone + ' </label></td>' +
+                                                    '<td> <label id="lblGRCell">' + GRCell + ' </label></td>' +
+                                                    '<td> <label id="lblRemarks">' + Remarks + ' </label></td>';
+        if (Active) {
+            tabel2 = '<td> <label id="lblStatus">Active</label></tr>';
+        } else {
+            tabel2 = '<td> <label id="lblStatus">Inactive</label></tr>';
+        }
+        var dt = $("#GuarantorDetail tbody").append(tabel1 + tabel2);
+    }
+
+    IssueFunc = function (value) {
+
+        var leadId = $(value).parent().closest('tr').find('#lblCusCode').text();
+
+        getData(leadId);
+        $("#CustomerModal").modal("hide");
+    }
+    PreIssueFunc = function (value) {
+        debugger;
+        var leadId = $(value).parent().closest('tr').find('#lblCusCode').text();
+
+        PreCustomerData(leadId);
+        $("#PreCustomerModal").modal("hide");
+    }
+
+    $("#chkSameAs").change(function () {
+        
+        var FFS = $("#chkSameAs").is(":checked");
+        if (FFS) {
+            $("#txtContPerson").prop('readonly',true);
+        }else
+        {
+            $("#txtContPerson").prop('readonly',false);
+        }
+        
+    })
+
+    $("#btnSave").click(function () {
+
+        //var check = true;
+        var check = ValidateCustomer();
+        if (check == true) {
+            $("#section-confirm").modal("show");
+        }
+    })
+
+    function ValidateCustomer() {
+
+        var count = 0;
+
+        var CusDesc = $("#txtCusDesc").val();
+        var CellNo = $("#txtCellNo").val();
+
+        if (CusDesc == "" || CusDesc == null) {
+            $("#txtCusDesc").css("border-color", "red");
+            count++;
+        }
+
+        if (CellNo == "" || CellNo == null) {
+            $("#txtCellNo").css("border-color", "red");
+            count++;
+        }
+
+        if (count > 0) {
+
+            $("#lblMessage").html("Please fill the Required feilds");
+            $("#section-message").modal("show");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    function SaveMasterEnquiry() {
+
+        var dto = {};
+
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.CusCode = $("#ddlCustomers").val();
+        dto.CusTypeCode = $("#ddlCusType").val();
+        dto.Title         = $("#ddlCusTitle").val();
+        dto.CusDesc       = $("#txtCusDesc").val();
+
+        if($("#ddlCusType").val() == '001')
+            dto.NIC           = $("#txtNICNTN").val();
+        else
+            dto.NTNno         = $("#txtNICNTN").val();
+
+        dto.SalesTaxRegNo = $("#txtSalesTaxRegNoID").val();
+        dto.CreditDays    = $("#txtCreditDays").val();
+        dto.CreditLimit   = $("#txtCreditLimit").val();
+        dto.Distance      = $("#txtDistance").val();
+        dto.MCNo          = $("#txtMCNo").val();
+        dto.Address1      = $("#txtAddress").val();
+        dto.CountryCode   = $("#ddlCountry").val();
+        dto.StateCode     = $("#ddlState").val();
+        dto.CityCode      = $("#ddlCity").val();
+        dto.Phone1        = $("#txtPhone1").val();
+        dto.CellNo        = $("#txtCellNo").val();
+        dto.Phone2        = $("#txtPhone2").val();
+        dto.FaxNo         = $("#txtFaxNo").val();
+        dto.Email         = $("#txtEmail").val();
+        dto.URL           = $("#txtURL").val();
+        dto.ContPerson    = $("#txtContPerson").val();
+        dto.AccountCode = $("#txtAccountCode").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Customer/Insert_Customer")',
+            data: dto,
+            success: function (data) {
+                
+                if (data) {
+                    if (data.Success == true) {
+
+                        var rowCount = $('#GuarantorDetail >tbody  >tr').length;
+                        if (rowCount > 0) {
+                            saveGuarantor();
+                        } else {
+                            $("#section-confirm").modal("hide")
+                            $("#modalMessage").css("background-color", "#64c344");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                            setTimeout(function () {
+                                location.reload();
+                            }, 4000);
+                        }
+                        
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+               
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+    }
+
+
+    function insertRecord() {
+        var obj = [];
+
+        $("#GuarantorDetail tbody tr").each(function () {
+            var dto = {};
+            dto.GRDesc = $(this).closest('tr').find('#lblGRName').text().trim();
+            dto.Address1 = $(this).closest('tr').find('#lblGRAddress').text().trim();
+            dto.CityCode = $(this).closest('tr').find('#hdnCityCode').val();
+            dto.StateCode = $(this).closest('tr').find('#hdnStateCode').val();
+            dto.CountryCode = $(this).closest('tr').find('#hdnCountryCode').val();
+            dto.NIC = $(this).closest('tr').find('#lblGRNIC').text().trim();
+            dto.Phone1 = $(this).closest('tr').find('#lblGRPhone').text().trim();
+            dto.CellNo = $(this).closest('tr').find('#lblGRCell').text().trim();
+            dto.Remarks = $(this).closest('tr').find('#lblRemarks').text().trim();
+            var status = $(this).closest('tr').find('#lblStatus').text().trim();
+            if (status == "Active") {
+                dto.Active = 'Y';
+            } else {
+                dto.Active = 'N';
+            }
+
+            obj.push(dto);
+        });
+
+        return obj;
+    }
+
+    function saveGuarantor(){
+
+        var objects = [];
+        
+        objects = JSON.stringify({ 'objects': insertRecord() });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            //async: true,
+            type: 'POST',
+            url: '@Url.Content("~/Customer/Insert_Guarantor")',
+            data: objects,
+            success: function (data) {
+
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+
+    }
+
+    $("#ddlCustomers").change(function () {
+        var leadId = $("#ddlCustomers").val();
+        if (leadId == "0") {
+            location.reload();
+        }
+        else {
+            getData(leadId);
+            document.getElementById("btnDelete").disabled = false;
+        }
+
+    });
+    function getData(id) {
+        var leadId = id;
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Customer/Select_Customer")',
+                data: { 'EnquiryId': leadId},
+                success: function (data) {
+                    ;
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        //Customer Information
+
+                        $("#ddlCustomers").val(item[0].CusCode);
+                        $("#ddlCusType").val(item[0].CusTypeCode);
+                        $("#ddlCusTitle").val(item[0].Title);
+                        $("#txtCusDesc").val(item[0].CusDesc);
+                        $("#txtNICNTN").val(item[0].NTNno);
+                        $("#txtNICNTN").val(item[0].NIC);
+                        $("#txtSalesTaxRegNoID").val(item[0].SalesTaxRegNo);
+                        $("#txtCreditDays").val(item[0].CreditDays);
+                        $("#txtCreditLimit").val(item[0].CreditLimit);
+                        $("#txtDistance").val(item[0].Distance);
+                        $("#txtCustomerNoMan").val(item[0].CSGNo);
+                        $("#txtAddress").val(item[0].Address1);
+                        $("#ddlCountry").val(item[0].CountryCode);
+                        $("#ddlState").val($.trim(item[0].StateCode));
+                        $("#ddlCity").val(item[0].CityCode);
+                        $("#txtPhone1").val(item[0].Phone1);
+                        $("#txtCellNo").val(item[0].CellNo);
+                        $("#txtPhone2").val(item[0].Phone2);
+                        $("#txtFaxNo").val(item[0].FaxNo);
+                        $("#txtEmail").val(item[0].Email);
+                        $("#txtURL").val(item[0].URL);
+                        $("#txtContPerson").val(item[0].ContPerson);
+                        $("#txtMCNo").val(item[0].MCNo);
+                        $("#txtAccountCode").val(item[0].AccountCode);
+
+                        getGuarantor(id);
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+    function PreCustomerData(id) {
+        var leadId = id;
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Customer/Get_PreCustomer_Data")',
+                data: { 'ProsPectID': leadId },
+                success: function (data) {
+                    
+                   // if (data.Success == true) {
+                      //  var item = JSON.parse(data.Response)
+
+                        //Customer Information
+
+                      //  $("#ddlCustomers").val(item[0].CusCode);
+                      //  $("#ddlCusType").val(item[0].CusTypeCode);
+                     //   $("#ddlCusTitle").val(item[0].Title);
+                        $("#txtCusDesc").val(data[0].Name);
+                        $("#txtNICNTN").val(data[0].NTN);
+                       // $("#txtNICNTN").val(item[0].NIC);
+                     //   $("#txtSalesTaxRegNoID").val(item[0].SalesTaxRegNo);
+                    //    $("#txtCreditDays").val(item[0].CreditDays);
+                    //    $("#txtCreditLimit").val(item[0].CreditLimit);
+                     //   $("#txtDistance").val(item[0].Distance);
+                     //   $("#txtCustomerNoMan").val(item[0].CSGNo);
+                        $("#txtAddress").val(data[0].ResAddress);
+                        $("#ddlCountry").val("PAK");
+                      //  $("#ddlState").val($.trim(item[0].StateCode));
+                        $("#ddlCity").val(data[0].ResCityCode);
+                        $("#txtPhone1").val(data[0].ResPhone);
+                        $("#txtCellNo").val(data[0].Mobile);
+                       // $("#txtPhone2").val(item[0].Phone2);
+                        $("#txtFaxNo").val(data[0].Fax);
+                        $("#txtEmail").val(data[0].Email);
+                      //  $("#txtURL").val(item[0].URL);
+                   //     $("#txtContPerson").val(item[0].ContPerson);
+                   //     $("#txtMCNo").val(item[0].MCNo);
+                   //     $("#txtAccountCode").val(item[0].AccountCode);
+
+                     //   getGuarantor(id);
+
+                    
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function getGuarantor(id) {
+
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Customer/Select_Guarantor")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+                    
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        $("#GuarantorDetail tbody tr").remove();
+
+                        $.each(item, function (value, item) {
+
+                            var tabel2 = '';
+                            var tabel1 = '<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                                        '<td>' + SNo++ + '</td>' +
+                                                                        '<td> <label id="lblGRName">' + item.GRDesc + ' </label></td>' +
+                                                                        '<td> <label id="lblGRAddress">' + item.Address1 + ' </label></td>' +
+                                                                        '<td> <label id="lblCity">' + item.CityDesc + ' </label><input type="hidden" id="hdnCityCode" value="' + item.CityCode + '"/></td>' +
+                                                                        '<td> <label id="lblStateDesc">' + item.StateDesc + ' </label><input type="hidden" id="hdnStateCode" value="' + item.StateCode + '"/></td>' +
+                                                                        '<td> <label id="lblCountry">' + item.CountryDesc + ' </label><input type="hidden" id="hdnCountryCode" value="' + item.CountryCode + '"/></td>' +
+                                                                        '<td> <label id="lblGRNIC">' + item.NIC + ' </label></td>' +
+                                                                        '<td> <label id="lblGRPhone">' + item.Phone1 + ' </label></td>' +
+                                                                        '<td> <label id="lblGRCell">' + item.CellNo + ' </label></td>' +
+                                                                        '<td> <label id="lblRemarks">' + item.Remarks + ' </label></td>';
+                            if (item.Active == 'Y') {
+                                tabel2 = '<td> <label id="lblStatus">Active</label></tr>';
+                            } else {
+                                tabel2 = '<td> <label id="lblStatus">Inactive</label></tr>';
+                            }
+
+                            var dt = $("#GuarantorDetail tbody").append(tabel1 + tabel2);
+                        });
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    $("#btnDelete").click(function () {
+        $("#section-confirm-Delete").modal("show");
+    })
+
+    function DeleteEnquiry() {
+        var leadId = $("#ddlCustomers").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/Customer/Delete_Customer")',
+            data: { 'EnquiryId': leadId },
+            success: function (data) {
+                if (data) {
+                    if (data.success == true) {
+                        $("#section-confirm-Delete").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide')
+                        }, 4000);
+                    } else {
+                        $("#section-confirm-Delete").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide')
+                        }, 4000);
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+    @*
+    $(function(){
+    $("#btnSave").click(function(e){
+    e.preventDefault();
+    var CustomerList = [];
+    var count = 0;
+    var CustomerCode = $("#CusCodeID").val();
+    var CustomerType = $('#CusTypeCode').val();
+    var CustomerTitle = $('#CusTitleID').val();
+    var CustomrDescription = $('#CusDescID').val();
+    var CustomerCNIC = $('#NICID').val();
+    var CustomerContact = $('#ContPersonID').val();
+    var CustomrAddress = $('#Address1ID').val();
+    var Country = $('#CountryCode').val();
+    var State = $('#StateDescID').val();
+    var City = $('#CityCode').val();
+    var CustomerPhone = $('#Phone1ID').val();
+    var CustomerCellNo = $('#CellNoID').val();
+    var CustomerWhatssapNo = $('#Phone2ID').val();
+    var CustomerFaxNo = $('#FaxNoID').val();
+    var CustomerEmail = $('#EmailID').val();
+    var CustomerURL = $('#URLID').val();
+    var CutomerNTNno = $('#NTNnoID').val();
+    var CustomerSalesTaxNo = $('#SalesTaxRegNoID').val();
+    var CustomerPaymentTerm = $('#CreditDaysID').val();
+    var CustomerPaymentLimit = $('#CreditLimitID').val();
+    var CustomerDistance = $('#DistanceID').val();
+
+
+
+    if(count==0)
+    {
+        var CustomerVariable =
+    {
+        CusCode: CustomerCode, CusTypeCode: CustomerType, CusTitle: CustomerTitle, CusDesc: CustomrDescription, NIC: CustomerCNIC,
+        ContPerson: CustomerContact, Address1: CustomrAddress, CountryCode: Country, StateCode: State, CityCode: City,
+        Phone1: CustomerPhone, CellNo: CustomerCellNo, Phone2: CustomerWhatssapNo, FaxNo: CustomerFaxNo, Email: CustomerEmail,
+        URL: CustomerURL, NTNno: CutomerNTNno, SalesTaxRegNo: CustomerSalesTaxNo, CreditDays: CustomerPaymentTerm,
+        CreditLimit: CustomerPaymentLimit, Distance: CustomerDistance
+    };
+    CustomerList.push(CustomerVariable);
+
+
+    }
+    count++;
+    $.ajax({
+    type: "POST",
+    url: "/Customer/SaveData",
+    dataType: "json",
+    contentType: 'application/json',
+    data: JSON.stringify({ CustomerList: CustomerList }),
+    contentType: "application/json; charset=utf-8",
+    complete: function (result) {
+
+        //document.forms["Customer"].submit();
+        window.location.href = '@Url.Action("Customer", "Customer")';
+    }
+    });
+    });
+    })*@
+</script>
+

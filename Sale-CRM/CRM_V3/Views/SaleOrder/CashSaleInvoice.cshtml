@@ -1,0 +1,2362 @@
+﻿
+                                @{
+                                    ViewBag.Title = "SaleOrder";
+                                    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+                                }
+
+
+
+
+                                <style>
+                                    .makespace {
+                                        margin-bottom: 0.5rem;
+                                    }
+
+                                    .icheckbox_minimal-blue {
+                                        top: 10px;
+                                    }
+                                </style>
+<link href='@Url.Content("~/assets/css/style.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/responsive.css")' rel="stylesheet" type="text/css" />
+
+                                <section class="wrapper main-wrapper row">
+
+                                    <div class="clearfix"></div>
+
+                                    <form method="post">
+                                        <div class="col-xs-12">
+                                            <section class="box">
+                                                <header class="panel_header">
+                                                    <h2 class="title pull-left">Sale Invoice</h2>
+                                                    <div class="actions panel_actions pull-right">
+                                                        <a class="box_toggle fa fa-chevron-down"></a>
+                                                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                                                    </div>
+                                                </header>
+
+                                                <div class="content-body">
+                                                    <div class="row">
+                                                        <div class="row" style="margin-left:0px;">
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">CSI No</label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalCSI" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                    <input type="text" class="form-control" id="txtCSINo" maxlength="10" readonly>
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            <input type="hidden" id="hdnJVNo" />
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">CSI Date</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                    <input type="text" class="form-control datepicker" value="@ViewBag.CurrentDate" data-date-format='dd/MM/yyyy' id="txtCSIDate" readonly>
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        @*<div class="col-md-4">
+                                    <label class="form-label">SO No</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalSO" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                        <input type="text" class="form-control" id="txtSoNo" readonly>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>*@
+                                                        <div class="col-md-2 hidden">
+                                                            <label class="form-label">Sale Type</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                                                <input type="text" class="form-control" id="txtSaleType" readonly>
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-2 hidden">
+                                                            <label class="form-label">Price Level</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                <input type="text" class="form-control" id="txtPriceLevel" readonly />
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">Customer</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalSO" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                <input type="text" class="form-control" id="txtCustomer" readonly>
+                                                            </div>
+                                                            <input type="hidden" class="form-control" id="txtCustomerCd" readonly>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">Invoice Customer </label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalinvCustomer" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                <input type="text" class="form-control" id="txtInvoiceCustomer" readonly>
+                                                            </div>
+                                                            <input type="hidden" class="form-control" id="txtInvoiceCustomerCd" readonly>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        @*<div class="col-md-2">
+                                    <label class="form-label">Credit Terms</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input type="text" class="form-control" id="txtCreditTerms" readonly>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>*@
+                                                        <input type="hidden" class="form-control" id="txtSalePersonCd" readonly>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">Sales Person</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalSP" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                @*<input type="text" class="form-control" id="txtSalePerson" readonly>*@
+                                                                @Html.DropDownList("txtSalePerson", new SelectList((IEnumerable<SelectListItem>)ViewBag.AssignTo, "Value", "Text", "0"), new { @class = "form-control m-bot15", style = "border-radius:0px; disabled", @id = "txtSalePerson" })
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+
+
+                                                        @*<div class="col-md-2">
+                                    <label class="form-label">Contact</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+                                        <input type="text" class="form-control" id="txtContact" />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>*@
+                                                        <div class="col-md-4 hidden">
+                                                            <label class="form-label">CNIC</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                                                                <input type="text" class="form-control" id="txtCNIC" readonly />
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        @*<div class="col-md-2">
+                                    <label class="form-label">City</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                        <input type="text" class="form-control" id="txtCity" readonly />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>*@
+                                                        @*<div class="col-md-2">
+                                    <label class="form-label">Country</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-institution"></i></span>
+                                        <input type="text" class="form-control" id="txtCountry" readonly />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>*@
+                                                        @*<div class="col-md-2">
+                                    <label class="form-label">Customer Type</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                        <input type="text" class="form-control" id="txtCustomerType" readonly />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>*@
+
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">Bill To</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                                                <textarea class="form-control" rows="2" id="txtBillTo"></textarea>
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">Ship To</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                                                <textarea class="form-control" rows="2" id="txtShipTo"></textarea>
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-4" style="padding:2rem;font-size:18px;">
+                                                            <input type="checkbox" id="Check1" onclick="CopyAddress()" />SameAs
+                                                            <div style="margin-bottom: 40px;"></div>
+                                                        </div>
+                                                        <input type="hidden" id="hdGrandTotal" readonly />
+
+                                                        <!--copy till this-->
+                                                    </div>
+                                                    <div class="row">
+
+                                                        <div class="col-xs-12">
+                                                            <ul class="nav nav-tabs primary" style="border-radius:0px;">
+                                                                <li class="active">
+                                                                    <a href="#home-7" data-toggle="tab" style="border-radius:0px;">
+                                                                        <i class="fa fa-car"></i> Vehicle
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#tabCheckList" data-toggle="tab" style="border-radius:0px;">
+                                                                        <i class="fa fa-car"></i> Vehicle Receipt Check List
+                                                                    </a>
+                                                                </li>
+                                                                @*<li>
+                                            <a href="#messages-7" data-toggle="tab">
+                                                <i class="fa fa-event"></i> Document Check List
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#settings-7" data-toggle="tab">
+                                                <i class="fa fa-car"></i> Vehicle Location
+                                            </a>
+                                        </li>*@
+                                                            </ul>
+
+                                                            <div class="tab-content primary">
+
+
+                                                                <div class="tab-pane fade in active" id="home-7">
+                                                                    <div class="row">
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Segment</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                                                                @*<input type="text" class="form-control" id="txtSegment"  />*@
+                                                                                <select class="form-control m-bot15" id="ddlSegment">
+                                                                                    <option value="0">Select</option>
+                                                                                    <option value="2 Wheel">2 wheels</option>
+                                                                                    <option value="4 Wheel" selected>4 wheels</option>
+                                                                                    <option value="6 Wheel">6 wheels</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Stock Type</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                                @*<input type="text" id="txtStockType" class="form-control" readonly />*@
+                                                                                <select class="form-control m-bot15" id="ddlStockType">
+                                                                                    <option value="0">Select</option>
+                                                                                    <option value="Open">Open</option>
+                                                                                    <option value="On Order">On Order</option>
+                                                                                    <option value="Exchange">Exchange</option>
+                                                                                    <option value="Others">Others</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <label class="form-label">Chassis</label>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalStock" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                                                <input type="text" class="form-control" id="txtChassisNo" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <label class="form-label">Engine</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                                                                                <input type="text" class="form-control" id="txtEngineNo" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label class="form-label">Product Description</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                                                                                <input type="text" class="form-control" id="txtProductDescription" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-4 hidden">
+                                                                            <label class="form-label">Rec No</label>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalStock" style="color:blue"><i class="fa fa-search"></i></a></div>
+
+                                                                                <input type="text" id="txtRecNo" class="form-control" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-4 hidden">
+                                                                            <label class="form-label">Brand</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                                <input type="text" id="txtBrand" class="form-control" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <input type="hidden" id="hdnBrandCode" />
+                                                                        <input type="hidden" id="hdnProdCode" />
+
+
+
+                                                                        <input type="hidden" id="hdnColorCode" />
+
+
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Product</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                                                                                <input type="text" id="txtProduct" class="form-control" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Version</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                                                                                @Html.DropDownList("txtVersionCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ddlVersion, "Value", "Text", "0"), new { @class = "form-control m-bot15", style = "border-radius:0px;disabled", @id = "txtVersionCode" })
+                                                                                @*<input type="text" id="txtVersionCode" class="form-control" readonly />*@
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+
+
+
+                                                                        <input type="hidden" class="form-control" style="margin-left:20px" id="txtColorCode" readonly>
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Color</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                                                                <input type="text" class="form-control" id="txtColor" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-2 ">
+                                                                            <label class="form-label">Model</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
+                                                                                <input type="text" class="form-control" id="txtModel" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Quantity</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-book"></i></span>
+                                                                                <input type="text" class="form-control" id="txtQuantity" value="1" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Price</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                                <input type="text" class="form-control" id="txtFactoryPrice" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-2 hidden">
+                                                                            <label class="form-label">Sale Price</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                                <input type="text" class="form-control" id="txtSalePrice" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+
+                                                                        <div class="col-md-2 hidden">
+                                                                            <label class="form-label">Freight Charges</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                                <input class="form-control" id="txtFreightCharges" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                                                       type="number"
+                                                                                       maxlength="8" />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Market Rate</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                                <input class="form-control" id="txtMarketRate" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                                                       type="number"
+                                                                                       maxlength="8" />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Discount</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                                <input class="form-control" id="txtDiscount" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                                                       type="number"
+                                                                                       maxlength="8" />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <label class="form-label">Total Amount</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                                                <input type="text" id="txtTotalAmount" class="form-control" onclick="CalTotal()" readonly />
+                                                                            </div>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                        <div class="col-md-2 pull-right">
+                                                                            <button type="button" class="btn btn-info" id="addItem" style="margin-top:23px; border-radius:0px; width:100%">+</button>
+                                                                            <div class="makespace"></div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="row" style="margin-top:2rem;">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table table-bordered table-striped" id="productDetail" style="white-space: nowrap; FONT-SIZE: 13px;">
+                                                                                            <thead>
+                                                                                                <tr class="bg-muted">
+                                                                                                    <th>S.No</th>
+                                                                                                    <th>Stock Type</th>
+                                                                                                    <th>Rec No </th>
+                                                                                                    <th>Brand </th>
+                                                                                                    <th>Product</th>
+                                                                                                    <th>Model</th>
+                                                                                                    <th>Product Description</th>
+                                                                                                    <th>Engine No</th>
+                                                                                                    <th>Chassis No</th>
+                                                                                                    <th>Color</th>
+                                                                                                    <th>Color Code</th>
+                                                                                                    <th>Segment</th>
+                                                                                                    <th>Quantity</th>
+                                                                                                    <th>Factory Price</th>
+                                                                                                    @*<th>Sale Price</th>*@
+                                                                                                    <th>Freight Charges</th>
+                                                                                                    <th>Market Rate </th>
+                                                                                                    <th>Discount </th>
+                                                                                                    <th>Total Amount </th>
+                                                                                                    <th>Version </th>
+                                                                                                    <th>Action</th>
+
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody></tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="tab-pane fade " id="tabCheckList">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-bordered table-striped" id="tblDelChkList">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>#</th>
+                                                                                            <th>Check List Code</th>
+                                                                                            <th>Check List Desc</th>
+                                                                                            <th>Action</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr id="DelChkListRow1" data-tr-count="0"></tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-4 hidden">
+                                                                <label class="form-label">Total Payable</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                                    <input type="text" class="form-control" id="txtTotalPayable" readonly />
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+                                                            <div class="col-xs-12">
+                                                                <div class="pull-right">
+                                                                    <button type="button" class="btn btn-info" id="btnSave" disabled style="margin-top:27px;border-radius:0px; width:100px">Save</button>
+
+                                                                    <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px;border-radius:0px; width:100px">Delete</button>
+
+                                                                    <button type="button" class="btn btn-default" id="btnClear" style="margin-top:27px;border-radius:0px; width:100px">Clear</button>
+
+                                                                    <button type="button" class="btn btn-success" id="btnPrint" style="margin-top:27px;border-radius:0px; width:100px">Print</button>
+
+                                                                    <button type="button" class="btn btn-warning" id="btnVoucher" style="margin-top: 27px; width: 100px; border-radius:0px;" >Voucher</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <!--Copy Till This-->
+
+
+
+
+                                                    </div>
+                                                 </div>
+                                            </section>
+                                        </div>
+                                    </form>
+
+                                </section>
+                                @*CSI Detail Lookup*@
+                                @*<div class="modal" tabindex="-1" id="CSIVoucher" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">CSI Voucher</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="content-body">
+                        <div class="row">
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label class="form-label">Voucher Type</label>
+                                    <div class="input-group">
+
+                                        <label class="rdoBtn">
+                                            C R
+                                            <input type="radio" name="frequency" id="minimal-radio-1" value="CR" checked style="margin-left: 10px;margin-right:10px;" />
+                                        </label>
+                                        <label class="rdoBtn">
+                                            C P<input type="radio" name="frequency" id="minimal-radio-2" value="CP" style="margin-left: 10px;margin-right:10px;" />
+                                        </label>
+
+                                        <label class="rdoBtn">
+                                            B R
+                                            <input type="radio" name="frequency" id="minimal-radio-3" class="icheck-minimal-blue" value="BR" style="margin-left:10px;margin-right:10px;" />
+                                        </label>
+
+                                        <label class="rdoBtn">
+                                            B P
+                                            <input type="radio" name="frequency" id="minimal-radio-4" class="icheck-minimal-blue" value="BP" style="margin-left:10px;margin-right:10px;" />
+                                        </label>
+                                        <label class="rdoBtn">
+                                            J V
+                                            <input type="radio" name="frequency" id="minimal-radio-5" value="JV" checked style="margin-left: 10px;margin-right:10px;" />
+                                        </label>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div style="text-align: center;padding: 10px; border: 1px solid;">
+                                        <label class="form-label" id="lblText" style="font-size:large; color:blue; font-weight:bold; margin-bottom: 0px">@ViewBag.Text Mode</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="form-label">Journal No.</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                        @Html.DropDownList("ddljournalNo", new SelectList((IEnumerable<SelectListItem>)ViewBag.Journal, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddljournalNo", @onchange = "ChangeColor(this)" })
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Voucher No.</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                        <input type="text" class="form-control" id="txtVouchNo" value="@ViewBag.VoucherNo">
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Voucher Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                        <input type="text" class="form-control datepicker" id="txtVouchDate" value="@ViewBag.CurrentDate" readonly>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="form-label">Cheque No.</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                        <input type="text" class="form-control" id="txtChqNo" value="@ViewBag.InstNo">
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Cheque Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                        <input type="text" class="form-control datepicker" id="txtChqDate" value="@ViewBag.CurrentDate" readonly>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="tblVoucher" style="white-space: nowrap; FONT-SIZE: 10px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Account Code</th>
+                                                    <th>Account Title</th>
+                                                    <th>Naration</th>
+                                                    <th>Debit</th>
+                                                    <th>Credit</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td colspan="2">Are you sure you want to generate the voucher?</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:50%; float:right"><button type="button" class="btn btn-primary" id="btnSave" style="margin-top:25px;">Yes</button></td>
+                                            <td style="width:50%"><button type="button" class="btn btn-primary" style="margin-top:25px;" OnClientClick="javascript:window.close()"> No</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <label ID="lblMsg" Width="100%" style="color:red"></label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td style="width:50%;padding-right:10px;text-align:right;">Total</td>
+                                            @* <td style="width:25%"><input type="text" class="form-control" id="txtDebit" value="@ViewBag.Debit" readonly></td>*@
+                                @*<td style="width:25%"><input type="text" class="form-control" id="txtCredit" value="@ViewBag.Credit" readonly></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            </div>
+                        </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>*@
+
+
+
+
+                                @*Customer Detail Lookup*@
+                                <div class="modal" tabindex="-1" id="POModalSO" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="margin-top:60px;">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title" id="modal123Label">Customer Invoice Detail</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group row">
+                                                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" id="ProductSearchCus" class="form-control" aria-controls="ProductTable" placeholder="Search . . . ">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="table-responsive" style="height:350px;">
+                                                        <table id="ProductTableCus" class="table table-striped table-hover responsive">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer Code</th>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer</th>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Contact</th>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Adress</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody style="font-size:12px; text-transform: uppercase">
+                                                                @if (ViewBag.Customer != null)
+                                                                {
+                                                                    foreach (var item in ViewBag.Customer)
+                                                                    {
+                                                                        <tr style="text-align: left" onclick="RevClickSO('@item.CusCode','@item.CusDesc','@item.NIC','@item.CellNo','@item.Address1','@item.NIC')">
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.CusCode</a>
+                                                                            </td>
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.CusDesc</a>
+                                                                            </td>
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.CellNo</a>
+                                                                            </td>
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.Address1</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                @*Customer Invoice Detail Lookup*@
+                                <div class="modal" tabindex="-1" id="POModalinvCustomer" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="margin-top:60px;">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title" id="modal123Label">Customer Invoice Detail</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group row">
+                                                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" id="ProductSearchinvcus" class="form-control" aria-controls="ProductTable" placeholder="Search . . . ">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="table-responsive" style="height:350px;">
+                                                        <table id="InvCusTable" class="table table-striped table-hover responsive">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer Code</th>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer</th>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Contact</th>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Adress</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody style="font-size:12px; text-transform: uppercase">
+                                                                @if (ViewBag.Customer != null)
+                                                                {
+                                                                    foreach (var item in ViewBag.Customer)
+                                                                    {
+                                                                        <tr style="text-align: left" onclick="RevClickInvCustomer('@item.CusCode','@item.CusDesc','@item.NIC','@item.CellNo','@item.Address1','@item.NIC')">
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.CusCode</a>
+                                                                            </td>
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.CusDesc</a>
+                                                                            </td>
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.CellNo</a>
+                                                                            </td>
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.Address1</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
+                                @*ISI No LookUp*@
+                                @*CSI Detail Lookup*@
+                                <div class="modal" tabindex="-1" id="POModalCSI" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="margin-top:60px;">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title" id="modal123Label">CSI Detail</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group row">
+                                                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" id="ProductSearch" class="form-control" aria-controls="ProductTable" placeholder="Search . . . ">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="table-responsive" style="height:350px;">
+                                                        <table id="ProductTable" class="table table-striped table-hover responsive">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">CSI No</th>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">CSI Date</th>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer Name</th>
+                                                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer Contact</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody style="font-size:12px; text-transform: uppercase">
+                                                                @if (ViewBag.CSIDetail != null)
+                                                                {
+                                                                    foreach (var item in ViewBag.CSIDetail)
+                                                                    {
+                                                                        <tr style="text-align: left" onclick="RevClickDetail('@item.TransCode','@item.TransDate','@item.SaleType','@item.CreditTerms','@item.EmpCode','@item.EmpName','@item.CusCode','@item.CusDesc','@item.CustomerType','@item.CNICNTN','@item.ContactNo','@item.CityDesc','@item.CountryDesc','@item.PriceLevel','@item.BillTo','@item.ShipTo','@item.RefDocumentNo','@item.CusInvCode','@item.CusInvDesc','@item.VoucherNo')">
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.TransCode</a>
+                                                                            </td>
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.TransDate</a>
+                                                                            </td>
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.CusDesc</a>
+                                                                            </td>
+                                                                            <td class="tdDiv">
+                                                                                <a href="#" style="color:black">@item.ContactNo</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
+                                @*Vehicle Area Lookup*@
+                                <div class="modal" tabindex="-1" id="POModalStock" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="margin-top:60px;">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title" id="modal123Label">Stock Detail</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group row">
+                                                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" id="ProductSearchstock" class="form-control" aria-controls="ProductTablestock" placeholder="Search . . . ">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="table-responsive" style="height:350px;">
+                                                        <table id="ProductTable" class="table table-striped table-hover responsive">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>SR No</th>
+                                                                    <th>Rec No</th>
+                                                                    <th>Product Code</th>
+                                                                    <th>Version </th>
+                                                                    <th>Product Description</th>
+                                                                    <th>Chassis No</th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
+
+                                <div class="modal" id="section-Grid" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="background-color:red">
+                                                <h4 class="modal-title">Warning</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <h5>Please Add the Grid Data</h5>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button data-dismiss="modal" class="btn btn-danger" onclick="scrollWin(0, 50)" id="btnGrid" type="button">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal" id="section-confirmRemove" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="background-color:red">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title">Confirm</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <h5>Are you sure to want Delete ?</h5>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                                <button class="btn btn-danger" type="button" onclick="RemoveCSIRecord()">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*Pop Up Box for Save*@
+                                <!-- Popup box modal start -->
+                                <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title">Confirm</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <h5>Are you sure to want save ?</h5>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button data-dismiss="modal" class="btn btn-danger" type="button">No</button>
+                                                <button class="btn btn-primary" type="button" onclick="SaveCSI(); ">Yes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- modal end -->
+                                <!-- Popup box modal start -->
+                                <!-- Popup box modal start -->
+                                <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+                                        <div class="modal-content">
+                                            <div class="modal-header" id="modalMessage">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title">Success</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <h5 id="lblMessage"></h5>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button data-dismiss="modal" class="btn btn-default" type="button" onclick="">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @*<link href="../assets/css/RadioButtons.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <link href="~/assets/plugins/datepicker/css/datepicker.css" rel="stylesheet" />
+        <script src="~/assets/plugins/datepicker/js/datepicker.js"></script>
+        <script src="~/assets/js/jquery-1.11.2.min.js"></script>*@
+
+                                <link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+                                <link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+                                <script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+                                @*<script src='@Url.Content("~/Scripts/bootstrap.js")'></script>
+        <script src='@Url.Content("~/Scripts/bootstrap.min.js")'></script>*@
+
+
+                                <script type="text/javascript">
+
+                                    var MarketRate;
+                                    @*//voucher
+                                    function showvoucher() {
+
+                                        $("#CSIVoucher").modal("show");
+                                        VoucherGrid();
+
+                                    }
+                                    $('input[type="radio"]').on('click change', function (e) {
+
+                                        
+                                        var radioValue = $("input[name='frequency']:checked").val();
+
+                                        $.ajax({
+                                            contentType: 'application/json; charset=utf-8',
+                                            dataType: "json",
+                                            async: true,
+                                            type: 'GET',
+                                            url: '@Url.Content("~/Voucher/Select_VoucherType")',
+                                            data: { 'Type': radioValue },
+                                            success: function (data) {
+
+                                                
+                                                if (data) {
+                                                    
+                                                    if (data.Success == true) {
+                                                        $("#ddljournalNo").find('option').remove();
+                                                        $(data.Response).each(function (index, item) { // GETTING ERROR HERE
+                                                            $("#ddljournalNo").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                                                        });
+
+                                                    }
+                                                    else {
+                                                        $("#lblMsg").text(data.Message)
+                                                    }
+                                                }
+                                            },
+                                            complete: function () {
+
+                                            },
+                                            error: function (data) {
+                                                $("#lblMsg").text(data.Message)
+                                            }
+                                        });
+
+                                    });
+
+                                    function VoucherGrid() {
+                                        var Chassis = $("#hdnChassisNo").val();
+                                        var leadId = $("#txtCSINo").val();
+                                        
+                                        var rowCount = 1;
+                                        var dataCount = 1;
+                                        var SNo = 1;
+
+                                        var dealerCode = "@Session["DealerCode"].ToString()";
+                                        if (leadId != "0") {
+                                            $.ajax({
+                                                dataType: "json",
+                                                async: true,
+                                                type: 'GET',
+                                                url: '@Url.Content("~/SaleOrder/VoucherGet")',
+                                                data: { 'leadId': leadId, 'DealerCode': @Session["DealerCode"].ToString(), 'ChassisNo': Chassis },
+                                                success: function (data) {
+                                                    if (data.Success == true) {
+                                                        var item = JSON.parse(data.Response)
+                                                        $("#tblVoucher tbody tr").remove()
+                                                        if (item.length > 0) {
+
+                                                            $.each(item, function (value, item) {
+                                                                
+                                                                var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="IssueFunc(this)">' +
+                                                                    '<td>' + SNo++ + '</td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblCusCode">' + item.AccountCode + '</label><input type="hidden" id="hdnCusCode" value="' + item.CusCode + '"/></td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblCusDesc">' + item.AccountTitle + '</label></td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblNIC">' + item.Narration + '</label></td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblAddress">' + item.Debit + '</label></td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblPhone">' + item.Credit + '</label></td>' +
+                                                                '</tr>';
+
+                                                                $("#tblVoucher tbody").append(temp);
+
+
+                                                            });
+
+                                                        }
+                                                    }
+                                                    //if (data.Success == true) {
+                                                    //    $("#tblVoucher tbody tr").remove()
+                                                    //    if (data.Response.length > 0) {
+                                                    //        ;
+                                                    //        $.each(data.Response, function (value, data) {
+
+                                                    //            
+                                                    //            var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + ''
+                                                    //                '<td>' + SNo++ + '</td>' +
+                                                    //          '<td class="tdDiv" style="overflow:auto"><label id="lblRecNo">' + data.AccountCode + '</label></td>' +
+                                                    //          '<td class="tdDiv" style="overflow:auto"><label id="lblProdCode">' + data.AccountTitle + '</label>'+
+                                                    //          '<td class="tdDiv" style="overflow:auto"><label id="lblVersionCode">' + data.Narration + '</label></td>' +
+                                                    //          '<td class="tdDiv" style="overflow:auto"><label id="lblProdDesc">' + data.Debit + '</label></td>' +
+                                                    //          '<td class="tdDiv" style="overflow:auto"><label id="lblChasisNo">' + data.Credit + '</label></td>' +
+                                                    //           '</tr>';
+
+                                                    //                $("#tblVoucher tbody").append(temp);
+
+                                                    //        });
+
+                                                    //    }
+
+                                                    //}
+                                                },
+                                                complete: function () {
+                                                    //if (tempProduct != "") {
+                                                    //    $("#ddlProdCode").val(tempProduct);
+                                                    //}
+
+                                                },
+                                            });
+
+                                        }
+                                    }
+
+                                    //Voucher End*@
+                                    ///Search Modal Start 
+                                    $(document).ready(function () {
+                                        $("#EnquirySearch").on("keyup", function () {
+                                            var value = $(this).val().toLowerCase();
+                                            $("#EnquiryTable tr").filter(function () {
+                                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                            });
+                                        });
+                                    });
+
+
+                                    //Search Model End 
+
+                                    //ProductTableCus
+                                    $(document).ready(function () {
+                                        $("#ProductSearchCus").on("keyup", function () {
+                                            var value = $(this).val().toLowerCase();
+                                            $("#ProductTableCus tr").filter(function () {
+                                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                            });
+                                        });
+                                    });
+
+                                    $(document).ready(function () {
+                                        $("#ProductSearch").on("keyup", function () {
+                                            var value = $(this).val().toLowerCase();
+                                            $("#ProductTable tr").filter(function () {
+                                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                            });
+                                        });
+                                    });
+
+
+                                    $(document).ready(function () {
+                                        $("#ProductSearchinvcus").on("keyup", function () {
+                                            var value = $(this).val().toLowerCase();
+                                            $("#InvCusTable tr").filter(function () {
+                                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                            });
+                                        });
+                                    });
+                                    $(document).ready(function () {
+
+                                        Get_DelChkListData();
+                                            $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy",
+            yearRange: "-3:+1",
+            changeYear: true,
+            changeMonth: true,
+        });
+                                    });
+                                    $("#txtMarketRate").change(function () {
+                                        
+
+                                        var quantity = document.getElementById('txtQuantity').value;
+                                        var SalePrice = document.getElementById('txtFactoryPrice').value;
+                                        var Discount = document.getElementById('txtDiscount').value;
+                                        var MarketRate = document.getElementById('txtMarketRate').value;
+                                        var Total = document.getElementById('txtTotalAmount').value;
+                                        Total = +SalePrice + +MarketRate * quantity;
+
+
+                                        document.getElementById('txtTotalAmount').value = Total;
+
+
+
+                                    })
+                                    $("#txtQuantity").change(function () {
+                                        
+                                        var quantity = document.getElementById('txtQuantity').value;
+                                        var SalePrice = document.getElementById('txtFactoryPrice').value;
+                                        var Discount = document.getElementById('txtDiscount').value;
+                                        var MarketRate = document.getElementById('txtMarketRate').value;
+                                        var Total = document.getElementById('txtTotalAmount').value;
+                                        var Total = +quantity * SalePrice;
+                                       // var GrandTotal = Total - Discount;
+
+                                        document.getElementById('txtTotalAmount').value = Total;
+
+
+
+                                    })
+
+
+
+                                    $("#txtDiscount").change(function () {
+                                        
+                                        var quantity = document.getElementById('txtQuantity').value;
+                                        var SalePrice = document.getElementById('txtFactoryPrice').value;
+                                        var Discount = document.getElementById('txtDiscount').value;
+                                        var MarketRate = document.getElementById('txtMarketRate').value;
+                                        var Total = document.getElementById('txtTotalAmount').value;
+                                        var GrandTotal = Total - Discount * quantity;
+
+                                        document.getElementById('txtTotalAmount').value = GrandTotal;
+
+
+
+                                    })
+                                    function Get_DelChkListData() {
+
+                                        var rowCount = 1;
+                                        var dataCount = 1;
+                                        var SNo = 1;
+                                        var dealerCode = "@Session["DealerCode"].ToString()";
+                                        $.ajax({
+                                            dataType: "json",
+                                            async: true,
+                                            type: 'GET',
+                                            url: '@Url.Content("~/SaleOrder/Select_DelChkList")',
+                                            data: { 'Type': "CS", 'DealerCode': dealerCode },
+                                            success: function (data) {
+
+                                                if (data.Success == true) {
+                                                    var item = JSON.parse(data.Response)
+                                                    $("#tblDelChkList tbody tr").remove()
+                                                    //ProductDetail
+                                                    if (item.length > 0) {
+
+                                                        $.each(item, function (value, item) {
+
+                                                            var test2 = "";
+                                                            var test = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                                '<td>' + SNo++ + '</td>' +
+                                                                                    '<td> <label id="lblDelChkListCode">' + item.DelChkListCode.trim() + ' </label></td>' +
+                                                                                    '<td> <label id="lblDelChkListDesc">' + item.DelChkListDesc.trim() + ' </label>' +
+                                                                                        '<input type="text" style="display:none;" class="form-control" id="txtDocTypeDesctbl"></td>';
+                                                            if (item.OptFlag == "M") {
+                                                                test2 = '<td style="text-align:center;">' +
+                                                                        '<input type="checkbox" id="chkOptFlag" class="chkBank icheckbox_minimal-blue" checked="true" value="' + item.DelChkListCode.trim() + '" >' +
+                                                                        '<input type="hidden" id="hdnDocCode" value="' + item.DelChkListCode.trim() + '"/>' +
+                                                                    '</td>' +
+                                                                    '</tr>';
+                                                            } else {
+                                                                test2 = '<td style="text-align:center;">' +
+                                                                       '<input type="checkbox" id="chkOptFlag" class="chkBank icheckbox_minimal-blue" value="' + item.DelChkListCode.trim() + '" >' +
+                                                                       '<input type="hidden" id="hdnDocCode" value="' + item.DelChkListCode.trim() + '"/>' +
+                                                                   '</td>}' +
+                                                                   '</tr>'
+                                                            }
+
+                                                            $("#tblDelChkList tbody").append(test + test2);
+
+                                                        });
+
+                                                    }
+                                                }
+                                            },
+                                            complete: function () {
+
+                                            },
+                                        });
+                                    }
+                                    $("#ddlStockType").change(function () {
+
+                                        getProduct();
+
+                                    })
+                                    function getProduct() {
+                                        var Segment = $("#ddlSegment").val();
+                                        var leadId = $("#ddlStockType").val();
+                                        
+                                        var rowCount = 1;
+                                        var dataCount = 1;
+                                        var SNo = 1;
+
+                                        var dealerCode = "@Session["DealerCode"].ToString()";
+                                        if (leadId != "0") {
+                                            $.ajax({
+                                                dataType: "json",
+                                                async: true,
+                                                type: 'GET',
+                                                url: '@Url.Content("~/SaleOrder/Select_BrandProduct")',
+                                                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode, 'Segment': Segment },
+                                                success: function (data) {
+
+                                                    if (data.Success == true) {
+                                                        $("#ProductTable tbody tr").remove()
+                                                        if (data.Response.length > 0) {
+
+                                                            $.each(data.Response, function (value, data) {
+
+
+                                                                var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="ProductSelect(this)">' +
+                                                                    '<td>' + SNo++ + '</td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblRecNo">' + data.RecNo + '</label></td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblProdCode">' + data.ProdCode + '</label><input type="hidden" id="hdnProdCode" value="' + data.ProdCode + '"/></td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblVersionCode">' + data.VersionCode + '</label></td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblProdDesc">' + data.ProdDesc + '</label></td>' +
+                                                              '<td class="tdDiv" style="overflow:auto"><label id="lblChasisNo">' + data.ChasisNo + '</label></td>' +
+                                                               '</tr>';
+                                                                $("#ProductTable tbody").append(temp);
+
+                                                            });
+
+                                                        }
+
+                                                    }
+                                                },
+                                                complete: function () {
+                                                    //if (tempProduct != "") {
+                                                    //    $("#ddlProdCode").val(tempProduct);
+                                                    //}
+
+                                                },
+                                            });
+
+                                        }
+                                    }
+
+                                    ProductSelect = function (value) {
+                                        
+
+                                        var recNo = $(value).closest('tr').find("#lblRecNo").text();
+                                        var prodCode = $(value).closest('tr').find("#hdnProdCode").val();
+                                        var prodDesc = $(value).closest('tr').find('#lblProdDesc').text();
+                                        var version = $(value).closest('tr').find('#lblVersionCode').text();
+                                        var chasisno = $(value).closest('tr').find('#lblChasisNo').text();
+                                       
+                                        document.getElementById("txtRecNo").value = recNo;
+                                        document.getElementById("txtProduct").value = prodCode;
+                                        $("#ddlProdCode").css("border-color", "#e1e1e1");
+                                        //document.getElementById("txtProduct").value = prodDesc;
+                                        document.getElementById("txtProductDescription").value = prodDesc;
+                                        document.getElementById("txtVersionCode").value = version;
+                                        document.getElementById('txtChassisNo').value = chasisno;
+                                        $("#POModalStock").modal("hide");
+                                        // $("#Product2wheelModal").modal("hide");
+
+
+                                        var leadId = recNo;
+
+
+                                        $.ajax({
+                                            dataType: "json",
+                                            async: true,
+                                            type: 'Get',
+                                            url: '@Url.Content("~/SaleOrder/Get_BrandDetailFromModal")',
+                                            data: { 'EnquiryId': leadId, 'chasisNo': chasisno },
+                                            success: function (data) {
+                                                
+
+                                                document.getElementById('txtEngineNo').value = data[0].EngineNo;
+                                                document.getElementById('txtChassisNo').value = data[0].ChasisNo;
+                                                document.getElementById('hdnBrandCode').value = data[0].BrandCode;
+                                                document.getElementById('txtBrand').value = data[0].BrandDesc;
+                                               // document.getElementById('hdnBrandCode').value = data[0].BrandCode;
+                                                
+                                                ;
+                                                document.getElementById('txtColorCode').value = data[0].ColorCode;
+                                                document.getElementById('txtColor').value = data[0].ColorDesc;
+                                                //document.getElementById('txtVersionCode').value = data[0].VersionCode;
+                                                document.getElementById('txtModel').value = data[0].ModelYear;
+                                                document.getElementById('txtFactoryPrice').value = data[0].Amount;
+                                                document.getElementById('txtTotalAmount').value = data[0].Amount;
+                                                $("#ProductModal").modal("hide");
+                                            }
+
+
+                                        });
+
+                                    }
+
+
+
+
+
+                                    $("#btnPrint").click(function () {
+
+                                        var baseurl = '@Url.Action("CSIExport")';
+                                        var url = baseurl + '?TransCode=' + $('#txtCSINo').val() + '&DealerCode=@Session["DealerCode"].ToString()';
+                                        //window.location.href = url;
+                                        window.open(url, '_blank');
+
+
+                                        //window.open("../WebForms/Sale/SaleOrder.aspx", 'mywindow', 'fullscreen=yes,scrollbar=auto');
+
+                                    })
+
+
+
+                                    function CopyAddress() {
+                                        var billto = document.getElementById('txtBillTo').value;
+
+                                        if (document.getElementById('Check1').checked == true) {
+                                            //  document.getElementById('Check1').checked = true;
+                                            document.getElementById('txtShipTo').value = billto;
+                                        }
+                                        else {
+                                            document.getElementById('txtShipTo').value = "";
+
+                                        }
+
+
+                                    }
+
+                                    RevClickDetail = function (TransCode, TransDate, SaleType, CreditTerms, EmpCode, EmpName, CusCode, CusDesc, CustomerType, CNICNTN, ContactNo, CityDesc, CountryDesc, PriceLevel, BillTo, ShipTo, RefDocumentNo,CusInvCode,CusInvDesc,VouchNo) {
+                                        
+                                        document.getElementById('txtCSINo').value = TransCode;
+                                        //document.getElementById('txtCSIDate').value = TransDate;
+                                        // document.getElementById('txtSoNo').value = RefDocumentNo;
+                                        document.getElementById('txtSaleType').value = SaleType;
+                                        // document.getElementById('txtCreditTerms').value = CreditTerms;
+                                        document.getElementById('txtCustomerCd').value = CusCode;
+                                        document.getElementById('txtCustomer').value = CusDesc;
+                                        document.getElementById('txtInvoiceCustomerCd').value = CusInvCode;
+                                        document.getElementById('txtInvoiceCustomer').value = CusInvDesc;
+                                        //document.getElementById('txtSalePersonCd').value = EmpCode;
+                                        $("#txtSalePerson").val(EmpCode);
+                                        // document.getElementById('txtSalePerson').value = EmpName;
+                                        //  document.getElementById('txtCustomerType').value = CustomerType;
+                                        document.getElementById('txtCNIC').value = CNICNTN;
+                                        // document.getElementById('txtContact').value = ContactNo;
+                                        // document.getElementById('txtCity').value = CityDesc;
+                                        // document.getElementById('txtCountry').value = CountryDesc;
+                                        document.getElementById('hdnJVNo').value = VouchNo;
+                                        document.getElementById('txtBillTo').value = BillTo;
+                                        document.getElementById('txtShipTo').value = ShipTo;
+
+
+                                        var TransCode = TransCode;
+
+                                        $.ajax({
+                                            type: "Post",
+                                            url: '@Url.Content("~/SaleOrder/CSIGetGridData")',
+                                            dataType: "json",
+                                            contentType: 'application/json',
+                                            data: JSON.stringify({ TransCode: TransCode }),
+                                            success: function (data) {
+                                                if (data.length > 0) {
+                                                    
+                                                    var chassis = data[0].ChasisNo;
+                                                    $("#productDetail tbody tr").each(function () {
+
+                                                        
+                                                        //var check = $(this).closest('tr').find('#lblEngineNo').text();
+                                                        var check = $(this).closest('tr').find('td:eq(8)').text().trim();
+                                                        var result = false;
+                                                        if (chassis == check) {
+                                                            $("#lblMsg").text('This Chasis No car is already exist in table');
+                                                            $("#lblMsg").css("color", "red");
+                                                           // $("#txtChassisNo").css("border-color", "red");
+                                                            $("#btnAdd").prop('disabled', true);
+                                                            //isExistChassis = false;
+                                                            return result;
+                                                        }
+                                                    });
+                                                    $.each(data, function (Index, obj) {
+                                                    
+                                                        $("table#productDetail").append('<tr><td>' + Index +
+                                                                        '</td><td style="min-width:100px">' + obj.Type + '</td><td style="min-width:100px">' + obj.RecNo + '</td><td>' + obj.BrandDesc + '<input type="Hidden" id="hdnBrandCodes" value="'+obj.BrandCode +'"></td><td style="text-align:left">' + obj.ProdCode + '</td><td style="text-align:left">' + obj.ModelYear +
+                                                                        '</td><td style="text-align:left">' + obj.ProdDesc + '</td><td style="text-align:left">' + obj.EngineNo + '</td><td style="text-align:left">' + obj.ChasisNo + '<input type="Hidden" id="hdnChassisNo" value="' + obj.ChasisNo + '"></td><td style="text-align:left">' + obj.Color + '</td><td style="text-align:left">' + obj.ColorCode +
+                                                                        '</td><td style="text-align:left">' + obj.Segment +
+                                                                        '</td><td style="text-align:left">' + obj.Qty + '</td><td style="text-align:left">' + obj.FactoryPrice + '</td>' + '</td>' + '</td><td style="text-align:left">' + obj.FreightCharges + '</td>' +
+                                                                        '</td><td style="text-align:left">' + obj.MarketRate + '<input type="Hidden" id="hdnMarketRate" value="' + obj.MarketRate + '"></td><td style="text-align:left">' + obj.Discount + '</td><td style="text-align:left">' + obj.TotalAmount + '</td><td style="text-align:left">' + obj.VersionCode +'<td style="display:none; text-align:left">' + obj.BrandCode + '</td>'+
+                                                                        '</td><td style="text-align:left"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td></tr>');
+
+
+
+                                                    })
+                                                }
+                                            },
+
+
+
+                                        });
+
+
+                                        $("#POModalCSI").modal("hide");
+                                    }
+
+                                </script>
+
+                                <script type="text/javascript">
+
+                                    RevClickSO = function (CusCode, CusDesc, CNICNTN, ContactNo, BillTo) {
+                                        
+                                        //  document.getElementById('txtSoNo').value = TransCode;
+                                        // document.getElementById('txtSaleType').value = SaleType;
+                                        // document.getElementById('txtCreditTerms').value = CreditTerms;
+                                        document.getElementById('txtCustomerCd').value = CusCode;
+                                        document.getElementById('txtCustomer').value = CusDesc;
+                                        //   document.getElementById('txtSalePersonCd').value = EmpCode;
+                                        //   document.getElementById('txtSalePerson').value = EmpName;
+                                        //  document.getElementById('txtCustomerType').value = CustomerType;
+                                        // document.getElementById('txtCity').value = CityDesc;
+                                        //   document.getElementById('txtCountry').value = CountryDesc;
+                                        document.getElementById('txtCNIC').value = CNICNTN;
+                                        //document.getElementById('txtContact').value = ContactNo;
+                                        //  document.getElementById('txtPriceLevel').value = PriceLevel;
+                                        document.getElementById('txtBillTo').value = BillTo;
+                                        //    document.getElementById('txtShipTo').value = ShipTo;
+                                        document.getElementById('txtInvoiceCustomerCd').value = CusCode;
+                                        document.getElementById('txtInvoiceCustomer').value = CusDesc;
+                                        //if (BillTo == ShipTo) {
+                                        //    document.getElementById('Check1').checked = true;
+                                        //}
+
+                                        //     document.getElementById('txtTotalPayable').value = TotalQty;
+
+                                        $("#POModalSO").modal("hide");
+
+                                        @*var SOTransCode = TransCode;
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Content("~/SaleOrder/CSIGetGridData")',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({ TransCode: SOTransCode }),
+            success: function (data) {
+                if (data.length > 0) {
+                    $.each(data, function (Index, obj) {
+
+                        $("table#tblVehicleStock").append('<tr class=SelectRow ><td style="text-align:left">' + obj.RecNo + '</td><td style="text-align:left">' + obj.ProdDesc + '</td><td style="text-align:left">' + obj.EngineNo + '</td><td style="text-align:left">' + obj.ChassisNo +
+                                        '</td><td style="min-width:100px; display:none">' + obj.Type + '</td><td style="text-align:left; display:none">' + obj.BrandCode + '</td><td style="text-align:left; display:none">' + obj.ProdCode + '</td><td style="text-align:left; display:none">' + obj.VersionCode +
+                                        '</td><td style="text-align:left; display:none">' + obj.ColorCode + '</td><td style="text-align:left; display:none">' + obj.Color + '</td><td style="text-align:left; display:none">' + obj.Segment + '</td><td style="text-align:left; display:none">' + obj.CostPrice +
+                                        '</td><td style="text-align:left; display:none">' + obj.SalePrice + '</td><td style="text-align:left; display:none">' + obj.Qty + '</td><td style="text-align:left; display:none">' + obj.FreightCharges + '</td><td style="text-align:left; display:none">' + obj.MarketRate +
+                                        '</td><td style="text-align:left; display:none">' + obj.Discount + '</td><td style="text-align:left; display:none">' + obj.TotalAmount + '</td></tr>');
+
+
+                    })
+
+                }
+
+            },
+
+
+
+        });*@
+
+                                    }
+                                    RevClickInvCustomer = function (CusCode, CusDesc, CNICNTN, ContactNo, BillTo) {
+                                        
+
+                                        document.getElementById('txtInvoiceCustomerCd').value = CusCode;
+                                        document.getElementById('txtInvoiceCustomer').value = CusDesc;
+
+                                        $("#POModalinvCustomer").modal("hide");
+
+                                    }
+
+
+
+
+                                </script>
+
+                                <script type="text/javascript">
+
+                                    var prodesc;
+                                    var engineno;
+                                    var chassisno;
+                                    var cuscode;
+                                    var empcode;
+                                    var empname;
+
+
+                                    $("table#productDetail").on('click', '.selectItem', function () {
+                                        rIndex = $(this).closest('tr');
+                                        index = $(this).closest('tr')[0].rowIndex;
+                                        //rIndex = this.rowIndex;
+
+                                        console.log(index);
+                                        
+                                        var StockType = rIndex.find('td:eq(1)').text().replace(/\s+/g, " ");
+                                        var RecNo = rIndex.find('td:eq(2)').text().replace(/\s+/g, " ");
+                                        var Brand = rIndex.find('td:eq(3)').text().replace(/\s+/g, " ");
+                                      
+                                        var Product = rIndex.find('td:eq(4)').text();
+                                        var Model = rIndex.find('td:eq(5)').text().replace(/\s+/g, " ");
+                                        var ProductDescription = rIndex.find('td:eq(6)').text().replace(/\s+/g, " ");
+                                        var EngineNo = rIndex.find('td:eq(7)').text().replace(/\s+/g, " ");
+                                        var ChasisNo = rIndex.find('td:eq(8)').text().replace(/\s+/g, " ");
+                                        var Color = rIndex.find('td:eq(9)').text().replace(/\s+/g, " ");
+                                        var ColorCode = rIndex.find('td:eq(10)').text().replace(/\s+/g, " ");
+                                        var Segment = rIndex.find('td:eq(11)').text().replace(/\s+/g, " ");
+                                        var Quantity = rIndex.find('td:eq(12)').text().replace(/\s+/g, " ");
+                                        var FactoryPrice = rIndex.find('td:eq(13)').text().replace(/\s+/g, " ");
+                                        // var SalePrice = rIndex.find('td:eq(14)').text().replace(/\s+/g, " ");
+                                        var FreightCharges = rIndex.find('td:eq(14)').text().replace(/\s+/g, " ");
+                                        var MarketRate = rIndex.find('td:eq(15)').text().replace(/\s+/g, " ");
+                                        var Discount = rIndex.find('td:eq(16)').text().replace(/\s+/g, " ");
+                                        var TotalAmount = rIndex.find('td:eq(17)').text().replace(/\s+/g, " ");
+                                        var Version = rIndex.find('td:eq(18)').text().replace(/\s+/g, " ");
+                                        var hdnMarket = rIndex.find('hdnMarketRate').val();
+                                        debugger
+                                        var BrandCode = rIndex.find('td:eq(19)').text().replace(/\s+/g, " ");
+                                        document.getElementById('ddlStockType').value = StockType;
+                                        document.getElementById('txtRecNo').value = RecNo;
+                                        document.getElementById('txtBrand').value = Brand;
+                                        document.getElementById('hdnBrandCode').value = BrandCode;
+                                        document.getElementById('txtProduct').value = Product;
+                                        document.getElementById('txtModel').value = Model;
+                                        document.getElementById('txtProductDescription').value = ProductDescription;
+                                        document.getElementById('txtEngineNo').value = EngineNo;
+                                        document.getElementById('txtChassisNo').value = ChasisNo;
+                                        document.getElementById('txtColor').value = Color;
+                                        document.getElementById('txtColorCode').value = ColorCode;
+                                        document.getElementById('ddlSegment').value = Segment;
+                                        document.getElementById('txtQuantity').value = Quantity;
+                                        document.getElementById('txtFactoryPrice').value = FactoryPrice;
+                                        // document.getElementById('txtSalePrice').value = SalePrice;
+                                        document.getElementById('txtFreightCharges').value = FreightCharges;
+                                        document.getElementById('txtMarketRate').value = MarketRate;
+                                        document.getElementById('txtDiscount').value = Discount;
+                                        document.getElementById('txtTotalAmount').value = TotalAmount;
+                                        document.getElementById('txtVersionCode').value = Version;
+
+                                        $(this).closest('tr').remove();
+
+                                    });
+
+                                    $("table#productDetail").on('click', '.deleteItem', function () {
+                                        rIndex = $(this).closest('tr');
+                                        index = $(this).closest('tr')[0].rowIndex;
+                                        $(this).closest('tr').remove();
+
+                                    });
+
+
+                                    $("#addItem").click(function () {
+
+                                        $("#ddlStockType").css("border-color", "#ccc");
+                                        $("#txtRecNo").css("border-color", "#ccc");
+                                        $("#txtBrand").css("border-color", "#ccc");
+                                        $("#txtProduct").css("border-color", "#ccc");
+                                        $("#txtModel").css("border-color", "#ccc");
+                                        $("#txtProductDescription").css("border-color", "#ccc");
+                                        $("#txtColor").css("border-color", "#ccc");
+                                        $("#ddlSegment").css("border-color", "#ccc");
+                                        $("#txtQuantity").css("border-color", "#ccc");
+                                        $("#txtFactoryPrice").css("border-color", "#ccc");
+                                        //  $("#txtSalePrice").css("border-color", "#ccc");
+                                        $("#txtFreightCharges").css("border-color", "#ccc");
+                                        $("#txtMarketRate").css("border-color", "#ccc");
+                                        $("#txtDiscount").css("border-color", "#ccc");
+                                        $("#txtTotalAmount").css("border-color", "#ccc");
+                                        
+                                        var StockType = $("#ddlStockType").val();
+                                        var RecNo = $("#txtRecNo").val();
+                                        var Brand = $("#txtBrand").val();
+                                        var product = $("#txtProduct").val();
+                                        var Model = $("#txtModel").val();
+                                        var ProductDesc = $("#txtProductDescription").val();
+                                        var Color = $("#txtColor").val();
+                                        var Segment = $("#ddlSegment").val();
+                                        var Quantity = $("#txtQuantity").val();
+                                        var FactoryPrice = $("#txtFactoryPrice").val();
+                                        //  var SalePrice = $("#txtSalePrice").val();
+                                        var FreightCharges = $("#txtFreightCharges").val();
+                                        var MarketRate = $("#txtMarketRate").val();
+                                        var Discount = $("#txtDiscount").val();
+                                        var TotalAmount = FactoryPrice;
+                                        var VersionCode = $("#txtVersionCode").val();
+                                        var BrandCode = $("#hdnBrandCode").val();
+                                        document.getElementById('hdGrandTotal').value = TotalAmount;
+
+
+                                        if (StockType == "" || StockType == " ") {
+                                            $("#ddlStockType").css("border-color", "red");
+                                            return;
+                                        }
+                                        if (RecNo == "" || RecNo == 0 || RecNo == null) {
+                                            $("#txtRecNo").css("border-color", "red");
+                                            return;
+                                        }
+                                        //if (Brand == "") {
+                                        //    $("#txtBrand").css("border-color", "red")
+                                        //    return;
+                                        //}
+                                        if (product == "" && product == null) {
+                                            $("#txtProduct").css("border-color", "red");
+                                            return;
+                                        }
+                                        if (Model == "" && Model == null) {
+                                            $("#txtModel").css("border-color", "red");
+                                            return;
+                                        }
+                                        if (ProductDesc == "" && ProductDesc == null) {
+                                            $("#txtProductDescription").css("border-color", "red");
+                                            return;
+                                        }
+                                        if (Color == "") {
+                                            $("#txtColor").css("border-color", "red");
+                                            return;
+                                        }
+                                        //if (Segment == "") {
+                                        //    $("#ddlSegment").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (Quantity == "") {
+                                        //    $("#txtQuantity").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (FactoryPrice == "") {
+                                        //    $("#txtFactoryPrice").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (SalePrice == "") {
+                                        //    $("#txtSalePrice").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (FreightCharges == "") {
+                                        //    $("#txtFreightCharges").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (MarketRate == "") {
+                                        //    $("#txtMarketRate").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (Discount == "") {
+                                        //    $("#txtDiscount").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (TotalAmount == "") {
+                                        //    $("#txtTotalAmount").css("border-color", "red");
+                                        //    return;
+                                        //}
+
+                                        prodesc = $("#txtProductDescription").val();
+                                        engineno = $("#txtEngineNo").val();
+                                        chassisno = $("#txtChassisNo").val();
+                                        cuscode = $("#txtCustomerCd").val();
+                                        empcode = $("#txtSalePersonCd").val();
+                                        empname = $("#txtSalePerson").val();
+
+                                        var tableItem = document.getElementById('productDetail');
+                                        var i = 0;
+                                        i++;
+                                        var len = tableItem.rows.length;
+                                        var value = false;
+                                        var rows = tableItem.rows;
+                                        var firstRow = rows[1];
+                                        var NFound = '';
+
+                                        i = 1;
+                                        debugger
+                                        $("table#productDetail").append('<tr><td>' + i +
+                                        '</td><td style="min-width:100px">' + $("#ddlStockType").val().toUpperCase() +
+                                        '</td><td style="min-width:100px">' + $("#txtRecNo").val().toUpperCase() +
+                                        '</td><td>' + $("#txtBrand").val().toUpperCase() + 
+                                        '</td><td style="text-align:left">' + $("#txtProduct").val() +
+                                        '</td><td style="text-align:left">' + $("#txtModel").val() +
+                                        '</td><td style="text-align:left">' + $("#txtProductDescription").val() +
+                                        '</td><td style="text-align:left">' + $("#txtEngineNo").val() +
+                                        '</td><td style="text-align:left">' + $("#txtChassisNo").val() +
+                                        '</td><td style="text-align:left">' + $("#txtColor").val() +
+                                        '</td><td style="text-align:left">' + $("#txtColorCode").val() +
+                                        '</td><td style="text-align:left">' + $("#ddlSegment").val() +
+                                        '</td><td style="text-align:left">' + $("#txtQuantity").val() +
+                                        '</td><td style="text-align:left">' + $("#txtFactoryPrice").val() +
+                                        '<td style="text-align:left">' + $("#txtFreightCharges").val() +
+                                        '</td><td style="text-align:left">' + $("#txtMarketRate").val() +
+                                        '</td><td style="text-align:left">' + $("#txtDiscount").val() +
+                                        '</td><td style="text-align:left">' + $("#txtTotalAmount").val() +
+                                        '</td><td style="text-align:left">' + $("#txtVersionCode").val() +
+                                        '</td><td style=" display:none;text-align:left">' +BrandCode +
+                                        '</td><td style="text-align:left"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td></tr>');
+                                      
+                                      
+                                        //clearItem();
+
+
+                                        $("#ddlStockType").val("");
+                                        $("#txtRecNo").val("");
+                                        $("#txtBrand").val("");
+                                        $("#txtProduct").val("");
+                                        $("#txtModel").val("");
+                                        $("#txtProductDescription").val("");
+                                        $("#txtEngineNo").val("");
+                                        $("#txtChassisNo").val("");
+                                        $("#txtColor").val("");
+                                        $("#ddlSegment").val("");
+                                        $("#txtQuantity").val("");
+                                        $("#txtFactoryPrice").val("");
+                                        $("#txtSalePrice").val("");
+                                        $("#txtFreightCharges").val("");
+                                        $("#txtMarketRate").val("");
+                                        $("#txtDiscount").val("");
+                                        $("#txtTotalAmount").val("");
+
+
+                                        $("#btnSave").prop('disabled', false);
+
+                                        //}
+
+                                        //}
+
+                                    });
+
+                                    $("#btnClear").click(function () {
+
+                                        $("#txtCSINo").val("");
+                                        $("#txtCSIDate").val("");
+                                        //  $("#txtSoNo").val("");
+                                        $("#txtSaleType").val("");
+                                        //$("#txtCreditTerms").val("");
+                                        $("#txtCustomerCd").val("");
+                                        $("#txtCustomer").val("");
+                                        $("#txtSalePersonCd").val("");
+                                        $("#txtSalePerson").val("");
+                                        //  $("#txtCustomerType").val("");
+                                        // $("#txtCity").val("");
+                                        //   $("#txtCountry").val("");
+                                        $("#txtCNIC").val("");
+                                        //  $("#txtContact").val("");
+                                        $("#txtPriceLevel").val("");
+                                        $("#txtBillTo").val("");
+                                        $("#txtShipTo").val("");
+                                        $("#txtTotalPayable").val("");
+                                        $("#hdGrandTotal").val("");
+
+                                        $("#ddlStockType").val("");
+                                        $("#txtRecNo").val("");
+                                        $("#txtBrand").val("");
+                                        $("#txtProduct").val("");
+                                        $("#txtModel").val("");
+                                        $("#txtProductDescription").val("");
+                                        $("#txtEngineNo").val("");
+                                        $("#txtChassisNo").val("");
+                                        $("#txtColor").val("");
+                                        $("#ddlSegment").val("");
+                                        $("#txtQuantity").val("");
+                                        $("#txtFactoryPrice").val("");
+                                        $("#txtSalePrice").val("");
+                                        $("#txtFreightCharges").val("");
+                                        $("#txtMarketRate").val("");
+                                        $("#txtDiscount").val("");
+                                        $("#txtTotalAmount").val("");
+                                        $("table#productDetail tbody").empty();
+                                        $("#collapseTwo").collapse('hide');
+                                        $(window).scrollTop(0);
+
+                                    })
+
+                                    $("#btnDelete").click(function () {
+
+                                        $("#section-confirmRemove").modal("show");
+
+
+                                    })
+
+
+                                    function CalTotal() {
+
+                                        var SalePrice = document.getElementById('txtSalePrice').value;
+                                        var Discount = document.getElementById('txtDiscount').value;
+                                        //var FreightCharges = document.getElementById('txtFreightCharges').value;
+
+                                        var Total = +SalePrice + +FreightCharges;
+                                        var GrandTotal = Total - Discount;
+
+                                        document.getElementById('txtTotalAmount').value = GrandTotal;
+                                    }
+
+
+                                </script>
+
+
+                                <script type="text/javascript">
+
+                                    $("#btnSave").click(function () {
+                                        
+                                        var check = ProdRecMaster();
+                                        if (check == true) {
+                                            $("#section-confirm").modal("show");
+                                        }
+                                        else {
+                                            $("#lblMessage").html("Please fill the Required feilds");
+                                            $("#section-message").modal("show");
+                                           // return false;
+                                        }
+                                    })
+
+                                    function ProdRecMaster() {
+                                        $("#txtCSIDate").css("border-color", "#ccc");
+                                        //  $("#txtSoNo").css("border-color", "#ccc");
+                                        //$("#txtSoDate").css("border-color", "#ccc");
+                                        $("#txtSaleType").css("border-color", "#ccc");
+                                        //  $("#txtCreditTerms").css("border-color", "#ccc");
+                                        $("#txtSalePerson").css("border-color", "#ccc");
+                                        $("#txtCustomer").css("border-color", "#ccc");
+                                        // $("#txtContact").css("border-color", "#ccc");
+                                        $("#txtCNIC").css("border-color", "#ccc");
+                                        //  $("#txtCity").css("border-color", "#ccc");
+                                        //   $("#txtCountry").css("border-color", "#ccc");
+                                        //  $("#txtCustomerType").css("border-color", "#ccc");
+                                        $("#txtPriceLevel").css("border-color", "#ccc");
+                                        $("#txtBillTo").css("border-color", "#ccc");
+                                        $("#txtShipTo").css("border-color", "#ccc");
+
+
+                                        var check = false;
+                                        var CSIDate = $("#txtCSIDate").val();
+                                        // var SoNo = $("#txtSoNo").val();
+                                        //var SoDate = $("#txtSoDate").val();
+                                        var SaleType = $("#txtSaleType").val();
+                                        // var CreditTerms = $("#txtCreditTerms").val();
+                                        var SalePerson = $("#txtSalePerson").val();
+                                        //var SalesPersoncd = $("#txtSalesPersonCd").val();
+                                        var Customer = $("#txtCustomer").val();
+                                        //var CustomerContact = $("#txtContact").val();
+                                        var CNIC = $("#txtCNIC").val();
+                                        var City = $("#txtCity").val();
+                                        //   var Country = $("#txtCountry").val();
+                                        var CustomerType = $("#txtCustomerType").val();
+                                        var PriceLevel = $("#txtPriceLevel").val();
+                                        var BillTo = $("#txtBillTo").val();
+                                        var ShipTo = $("#txtShipTo").val();
+                                        var SalePersonCode = $("#txtSalePerson").val();
+
+                                        if (CSIDate == "" || CSIDate == " ") {
+                                            $("#txtCSIDate").css("border-color", "red");
+                                            return check;
+                                        }
+                                        if (SalePersonCode == "0" || SalePersonCode ==null) {
+                                            $("#txtSalePerson").css("border-color", "red");
+                                            return check;
+                                        }
+
+                                        //if (SaleType == "" || SaleType == " ") {
+                                        //    $("#txtSaleType").css("border-color", "red");
+                                        //    return check;
+                                        //}
+                                        //if (CreditTerms == "" && SaleType == "Credit") {
+                                        //    $("#txtCreditTerms").css("border-color", "red")
+                                        //    return;
+                                        //}
+                                        if (SalePerson == null || SalePerson == "") {
+                                            $("#txtSalePerson").css("border-color", "red");
+                                            return check;
+                                        }
+                                        if (Customer == "") {
+                                            $("#txtCustomer").css("border-color", "red");
+                                            return check;
+                                        }
+
+                                        //if (CustomerContact == "") {
+                                        //    $("#txtContact").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (CNIC == "") {
+                                        //    $("#txtCNIC").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (CustomerType == "") {
+                                        //    $("#txtCustomerType").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        //if (PriceLevel == "" || PriceLevel == 0) {
+                                        //    $("#txtPriceLevel").css("border-color", "red");
+                                        //    return;
+                                        //}
+                                        if (BillTo == "") {
+                                            $("#txtBillTo").css("border-color", "red");
+                                            return check;
+                                        }
+                                        if (ShipTo == "") {
+                                            $("#txtShipTo").css("border-color", "red");
+                                            return check;
+                                        }
+
+                                        var x = document.getElementById("productDetail").rows.length;
+
+                                        if (x == 1) {
+                                            $("#section-Grid").modal("show");
+                                            return check;
+                                        }
+
+                                        $("#section-confirm").modal("show");
+                                        check = true;
+                                        return check;
+
+                                    }
+
+
+                                    function SaveCSI() {
+
+                                        var model = {};
+
+                                        var CSINo = $("#txtCSINo").val();
+                                        var CSIDate = $("#txtCSIDate").val();
+                                        // var SoNo = $("#txtSoNo").val();
+                                        var SaleType = $("#txtSaleType").val();
+                                        //  var CreditTerms = $("#txtCreditTerms").val();
+                                        var SalePersonCode = $("#txtSalePerson").val();
+                                        var Empdesc = $("#txtSalePerson").text();
+                                        var CustomerCode = $("#txtCustomerCd").val();
+                                        var CusDesc = $("#txtCustomer").val();
+                                        var InvCustomerCode = $("#txtInvoiceCustomerCd").val();
+                                        var InvCusDesc = $("#txtInvoiceCustomer").val();
+                                        // var CustomerContact = $("#txtContact").val();
+                                        var CNIC = $("#txtCNIC").val();
+                                        //   var City = $("#txtCity").val();
+                                        //   var Country = $("#txtCountry").val();
+                                        //   var Customertype = $("#txtCustomerType").val();
+                                        var PriceLevel = $("#txtPriceLevel").val();
+                                        var BillTo = $("#txtBillTo").val();
+                                        var ShipTo = $("#txtShipTo").val();
+                                        var TotalQty = $("#txtTotalPayable").val();
+                                        var GrandTotal = $("#hdGrandTotal").val();
+                                        //var ProDesc = $("#txtProductDescription").val();
+                                        //var EngineNo = $("#txtEngineNo").val();
+                                        //var ChassisNo = $("#txtChassisNo").val();
+
+
+
+                                        model.TransCode = CSINo;
+                                        model.TransDate = CSIDate;
+                                        //    model.RefDocumentNo = SoNo;
+                                        model.RefType = SaleType;
+                                        model.SaleType = SaleType;
+                                        //   model.CreditTerms = CreditTerms;
+                                        model.EmpCode = SalePersonCode;
+                                        model.EmpDesc = Empdesc;
+                                        model.CusCode = CustomerCode;
+                                        model.CusDesc = CusDesc;
+                                        //  model.ContactNo = CustomerContact;
+                                        model.CNICNTN = CNIC;
+                                        //   model.City = City;
+                                        // model.Country = Country;
+                                        //   model.CustomerType = Customertype;
+                                        model.PriceLevel = PriceLevel;
+                                        model.BillTo = BillTo;
+                                        model.ShipTo = ShipTo;
+                                        model.TotalQty = TotalQty;
+                                        model.TotalAmount = GrandTotal;
+                                        model.ProdDesc = prodesc;
+                                        model.EngineNo = engineno;
+                                        model.ChassisNo = chassisno;
+                                        model.CusInvCode = InvCustomerCode
+
+                                        $.ajax({
+                                            dataType: "json",
+                                            async: true,
+                                            type: 'POST',
+                                            url: '@Url.Content("~/SaleOrder/Insert_CSIMaster")',
+                                            data: model,                 //{ model : VehModel, ChassisNo : chassisno, EngineNo : engineno, ProdDesc : prodesc },
+                                            //data: {model: model , ChassisNo: chassisno, EngineNo: engineno, ProdDesc: prodesc },
+                                            success: function (data) {
+                                                if (data) {
+                                                    if (data.Success == true) {
+                                                        $("#section-confirm").modal("hide")
+                                                        $("#modalMessage").css("background-color", "#64c344");
+                                                        $("#lblMessage").text(data.Message)
+                                                        $("#section-message").modal('show');
+                                                        SaveCSIDetail();
+                                                    }
+                                                    else {
+                                                        $("#section-confirm").modal("hide")
+                                                        $("#modalMessage").css("background-color", "#e46457");
+                                                        $("#lblMessage").text(data.Message)
+                                                        $("#section-message").modal('show');
+                                                    }
+                                                }
+                                            },
+                                            complete: function () {
+
+                                            },
+                                            error: function (data) {
+                                                $("#section-confirm").modal("hide")
+                                                $("#modalMessage").css("background-color", "#e46457");
+                                                $("#lblMessage").text(data.Message)
+                                                $("#section-message").modal('show');
+                                            }
+                                        });
+
+
+                                    }
+
+
+
+                                    // Save all rows into Array and send to Controller
+                                    var ItemTable = [];
+                                    var tableItem = document.getElementById('productDetail');
+
+                                    function ItemRows() {
+
+                                        itemCount = 0;
+                                        $("table#productDetail").find('tr').each(function () {
+                                            if (itemCount != 0) {
+                                                var itemList = $(this).find("td");
+                                                // check empty row
+                                                var rows = tableItem.rows;
+                                                var firstRow = rows[1];
+                                                var NFound = '';
+                                                if (firstRow != undefined) {
+                                                    NFound = firstRow.cells[0].innerHTML;
+                                                }
+                                                else {
+                                                    NFound = "1";
+                                                }
+                                                NFound = NFound.trim();
+                                                if (NFound.substring(0, 2) != 'NO') {
+                                                    var vouch = {
+                                                        StockType: $(itemList[1]).html().trim(), RecNo: $(itemList[2]).html().trim(), BrandCode: $(itemList[19]).html().trim(),
+                                                        ProdCode: $(itemList[4]).html().trim(), VersionCode: $(itemList[5]).html().trim(), EngineNo: $(itemList[7]).html().trim(),
+                                                        ChassisNo: $(itemList[8]).html().trim(), ColorDesc: $(itemList[9]).html().trim(), ColorCode: $(itemList[10]).html().trim(),
+                                                        Segment: $(itemList[11]).html().trim(), Qty: $(itemList[12]).html().trim(), FactoryPrice: $(itemList[13]).html().trim(),
+                                                        FreightCharges: $(itemList[14]).html().trim(), MarketRate: $(itemList[15]).html().trim(),
+                                                        Discount: $(itemList[16]).html().trim(), TotalAmount: $(itemList[17]).html().trim(), VersionCode: $(itemList[18]).html().trim(), SNO: $(itemList[0]).html().trim()
+                                                    };
+                                                    ItemTable.push(vouch);
+                                                }
+                                            }
+                                            itemCount++;
+                                        })
+                                    }
+                                    function SaveCSIDetail() {
+
+                                        //if (!(checkAllEmptyInputs())) {
+                                        ItemRows();
+                                        // check empty row
+                                        var rows = tableItem.rows;
+                                        var firstRow = rows[1];
+                                        var NFound = '';
+
+                                        var trancode = $("#txtCrdSINo").val();
+                                        //if (firstRow != undefined) {
+                                        //    NFound = firstRow.cells[0].innerHTML;
+                                        //}
+                                        //else {
+                                        //    NFound = "1";
+                                        //}
+                                        NFound = NFound.trim();
+
+                                        if (NFound.substring(0, 2) != 'NO') {
+                                            //calcTotal(document.getElementById('productDetail'));
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/SaleOrder/Insert_CSIGrid",
+                                                dataType: "json",
+                                                contentType: 'application/json',
+                                                data: JSON.stringify({ modelDetail: ItemTable, trancode: trancode, CusCode: cuscode, EmpCode: empcode, EmpName: empname, ProdDesc: prodesc }),
+                                                contentType: "application/json; charset=utf-8",
+                                                success: function (data) {
+                                                    if (data) {
+                                                        if (data.Success == true) {
+                                                            saveCheckList();
+                                                            $("#section-confirm").modal("hide")
+                                                            Insert_VehChkList();
+                                                            $("#modalMessage").css("background-color", "#64c344");
+                                                            $("#lblMessage").text(data.Message)
+                                                            $("#section-message").modal('show');
+                                                        }
+                                                        else {
+                                                            $("#section-confirm").modal("hide")
+                                                            $("#modalMessage").css("background-color", "#e46457");
+                                                            $("#lblMessage").text(data.Message)
+                                                            $("#section-message").modal('show');
+                                                        }
+                                                    }
+                                                },
+                                                complete: function () {
+
+                                                },
+                                                error: function (data) {
+                                                    $("#section-confirm").modal("hide")
+                                                    $("#modalMessage").css("background-color", "#e46457");
+                                                    $("#lblMessage").text(data.Message)
+                                                    $("#section-message").modal('show');
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            alert("Table should not be empty");
+                                        }
+
+
+                                    }
+
+                                    function RemoveCSIRecord() {
+
+                                        var dto = {};
+
+
+                                        var CrdSINo = $("#txtCSINo").val();
+                                        var CrdSIDate = $("#txtCSIDate").val();
+                                        //var SoNo = $("#txtSoNo").val();
+                                        var SaleType = $("#txtSaleType").val();
+                                        // var CreditTerms = $("#txtCreditTerms").val();
+                                        var SalePersonCode = $("#txtSalePersonCd").val();
+                                        var CustomerCode = $("#txtCustomerCd").val();
+                                        // var CustomerContact = $("#txtContact").val();
+                                        var CNIC = $("#txtCNIC").val();
+                                        //  var City = $("#txtCity").val();
+                                        // var Country = $("#txtCountry").val();
+                                        // var Customertype = $("#txtCustomerType").val();
+                                        var PriceLevel = $("#txtPriceLevel").val();
+                                        var BillTo = $("#txtBillTo").val();
+                                        var ShipTo = $("#txtShipTo").val();
+                                        var TotalQty = $("#txtTotalPayable").val();
+
+
+
+                                        dto.TransCode = CrdSINo;
+                                        dto.TransDate = CrdSIDate;
+                                        //  dto.RefDocumentNo = SoNo;
+                                        dto.RefType = SaleType;
+                                        dto.SaleType = SaleType;
+                                        // dto.CreditTerms = CreditTerms;
+                                        dto.EmpCode = SalePersonCode;
+                                        dto.CusCode = CustomerCode;
+                                        //  dto.ContactNo = CustomerContact;
+                                        dto.CNICNTN = CNIC;
+                                        //   dto.City = City;
+                                        //  dto.Country = Country;
+                                       // dto.CustomerType = Customertype;
+                                      //  dto.PriceLevel = PriceLevel;
+                                        dto.BillTo = BillTo;
+                                        dto.ShipTo = ShipTo;
+                                        dto.TotalQty = TotalQty;
+
+                                        $.ajax({
+                                            dataType: "json",
+                                            async: true,
+                                            type: 'POST',
+                                            url: "/SaleOrder/Remove_CSIRecord",
+                                            data: dto,
+                                            success: function (data) {
+                                                if (data) {
+                                                    if (data.Success == true) {
+                                                        $("#section-confirmRemove").modal("hide")
+                                                        $("#modalMessage").css("background-color", "#64c344");
+                                                        $("#lblMessage").text(data.Message)
+                                                        $("#section-message").modal('show');
+                                                        location.reload();
+                                                    }
+                                                    else {
+                                                        $("#section-confirmRemove").modal("hide")
+                                                        $("#modalMessage").css("background-color", "#e46457");
+                                                        $("#lblMessage").text(data.Message)
+                                                        $("#section-message").modal('show');
+                                                    }
+                                                }
+                                            },
+                                            complete: function () {
+
+                                            },
+                                            error: function (data) {
+                                                $("#section-confirmRemove").modal("hide")
+                                                $("#modalMessage").css("background-color", "#e46457");
+                                                $("#lblMessage").text(data.Message)
+                                                $("#section-message").modal('show');
+                                            }
+                                        });
+
+
+                                    }
+
+                                    function saveCheckList() {
+                                        var checkedValues = $('input:checkbox:checked').map(function () {
+                                            if (this.value != "on") {
+                                                return this.value;
+                                            }
+
+                                        }).get();
+                                        var strCheckedValues = checkedValues.toString();
+
+                                        $.ajax({
+                                            dataType: "json",
+                                            async: true,
+                                            type: 'POST',
+                                            url: '@Url.Content("~/SaleOrder/Insert_VehChkList")',
+                                            data: { 'strCheckedValues': strCheckedValues },
+                                            success: function (data) {
+
+                                                if (data) {
+                                                    if (data.Success == true) {
+                                                        $("#section-confirm").modal("hide")
+                                                        $("#modalMessage").css("background-color", "#64c344");
+                                                        $("#lblMessage").text(data.Message)
+                                                        $("#section-message").modal('show');
+                                                    }
+                                                    else {
+                                                        $("#section-confirm").modal("hide")
+                                                        $("#modalMessage").css("background-color", "#e46457");
+                                                        $("#lblMessage").text(data.Message)
+                                                        $("#section-message").modal('show');
+                                                    }
+                                                }
+                                            },
+                                            complete: function () {
+                                                location.reload();
+                                            },
+                                            error: function (data) {
+                                                $("#section-confirm").modal("hide")
+                                                $("#modalMessage").css("background-color", "#e46457");
+                                                $("#lblMessage").text(data.Message)
+                                                $("#section-message").modal('show');
+                                            }
+
+                                        });
+
+
+                                    }
+
+      $("#btnVoucher").click(function () {
+        var check;
+        var vouch;
+        var price;
+        var leadId=leadId= $('#txtCSINo').val();
+        ;
+        $("#productDetail tbody tr").each(function () {
+            ;
+
+            //var check = $(this).closest('tr').find('#lblEngineNo').text();
+             check = $(this).closest('tr').find('td:eq(8)').text().trim();
+             price= $(this).closest('tr').find('td:eq(13)').text().trim();
+             if(price=="" || price==null){
+                 $("#section-confirm").modal("hide")
+                 $("#modalMessage").css("background-color", "#64c344");
+                 $("#lblMessage").text("Voucher Can Not be Created Price must be Entered First!")
+                 $("#section-message").modal('show');
+                 return false;
+             
+             }
+        });
+        @*$.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/SaleOrder/Select_VehicleReceiptVoucherNo")',
+            data: { 'EnquiryId': leadId, 'DealerCode': @Session["DealerCode"].ToString() },
+            success: function (data) {
+                ;
+                if (data.Success == true) {
+                    vouch = data.Response.VouchNo;
+                }
+            },
+            complete: function () {
+
+            },
+        });*@
+
+        var baseurl = '@Url.Action("VoucherMain", "Voucher")';
+        
+        var url = baseurl + '?leadId=' + $('#txtCSINo').val() + '&type=CSI' + '&ChassisNo=' + check + '&VouchNo=' + "";
+        window.open(url, "_blank", "width=1000,height=600");
+        //window.location.href = baseurl;
+        //window.open(baseurl, '_blank');
+
+    })
+
+                                </script>

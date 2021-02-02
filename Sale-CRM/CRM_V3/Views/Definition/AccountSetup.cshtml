@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "CostCenter";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<h2>CostCenter</h2>
+
+<section class="wrapper main-wrapper row panel-default">
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left" style="margin-left:100px">Account Setup</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                    </div>
+                </header>
+                <div class="content-body ">
+                    <div class="row" style="margin-bottom: 1rem; margin-left: 120px; margin-right:120px">
+                        <div class="form-group row">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label class="form-label">Cash/Bank Code*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="form-label">Cash</label>
+                                    <div class="input-group">
+                                        <input type="radio" id="txtSoDate">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="form-label">Bank</label>
+                                    <div class="input-group">
+                                        <input type="radio" id="txtSoDate">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-8">
+                                    <label class="form-label">Description</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                        <input type="text" class="form-control" id="FaxNoID" name="FaxNo" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label class="form-label">FAMS A/C Number*</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label class="form-label">Account Code</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label class="form-label">Account Description</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                        <input type="text" class="form-control" id="FaxNoID" name="FaxNo" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Opening Balance</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                            <input type="text" class="form-control" id="txtSoDate">
+                                        </div>
+                                    </div>
+                                
+
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-info" id="btnCancel" style="margin-top:27px; width:100px">Save</button>
+                            </div>
+                                </div>
+
+                            <div class="form-group row">
+                                <div class="">
+                                    <div class="col-md-12">
+                                        <div class="table-respon">
+                                            <table id="Item" class="table table-bordered">
+                                                <thead class="">
+                                                    <tr class="bg-info">
+                                                        <th style="color:blue">Code</th>
+                                                        <th>Type</th>
+                                                        <th>Description</th>
+                                                        <th>FAMS A/C Number</th>
+                                                        <th>Account Code</th>
+                                                        <th>Opening Balance</th>
+                                                        <th style="text-align : center">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>001</td>
+                                                        <td>11</td>
+                                                        <td>test1</td>
+                                                        <td>test22</td>
+                                                        <td>good</td>
+                                                        <td>good</td>
+                                                        <td style="text-align:center"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" style="color:blue"><i class="fa fa-trash"></i></a></td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <style>
+            .border-for {
+                border: 1px solid blue;
+            }
+
+            .label-heading {
+                margin: 0.5rem;
+            }
+
+            .divider {
+                width: 5px;
+                height: auto;
+                display: inline-block;
+            }
+        </style>
+
+    </form>
+</section>
+
+
+

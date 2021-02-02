@@ -1,0 +1,374 @@
+﻿
+@{
+    ViewBag.Title = "ExpenseMain";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.css")' rel="stylesheet" />
+<link href='@Url.Content("~/assets/css/style.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/responsive.css")' rel="stylesheet" type="text/css" />
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+
+
+        <div class="col-lg-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Expenses</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                            <a class="box_close fa fa-times"></a>*@
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+
+                        <div class="col-xs-12">
+
+                            <ul class="nav nav-tabs nav-justified primary">
+                                <li class="active">
+                                    <a href="#home-7" data-toggle="tab">
+                                        <i class="fa fa-briefcase"></i> Expense Type
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content primary">
+                                <div class="tab-pane fade in active" id="home-7">
+
+                                    <div>
+                                        @* WORK TODO:  *@
+
+                                        <div class="row">
+
+                                            <div class="col-md-4">
+                                                <label class="form-label">Expense Description</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-info"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="txtExpTypeDesc">
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label class="form-label">Account Code</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal()" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                                    <input type="text" class="form-control" id="txtAccountCode" onblur="ChangeColor(this)" />
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-group pull-right">
+                                                    <button type="button" class="btn btn-success" id="addVehType" onclick="SaveEnquiry('','','')" style="margin-top:25px;">Add</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <table id="ExpenseTypeDetail" class="table table-striped dt-responsive display">
+                                                    <thead>
+                                                        <tr>
+                                                            @*<th>S/N</th>*@
+                                                            <th>Expense Code</th>
+                                                            <th>Expense Description</th>
+                                                            <th>Account Code</th>
+                                                            <th style="text-align:center;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if (ViewBag.ReceiptHead != null)
+                                                        {
+                                                            foreach (var item in ViewBag.ReceiptHead)
+                                                            {
+                                                                <tr style="text-align: left" >
+
+                                                                    <td class="tdDiv">
+                                                                        <label id="lblExpCode">@item.ECode</label>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <label id="lblExpDesc">@item.EDesc</label>
+                                                                        <input type="text" style="display:none;" class="form-control" id="txtExpDesctbl" />
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <label id="lblAccoutnCode">@item.AccountCode</label>
+                                                                        <span class="input-group-addon" id="IssueClick" style="display:none; width:11% ; float : left"><a  onclick="ShowModal(this)" style="color:blue;"><i class="fa fa-search"></i></a></span>
+                                                                        <input type="text" style="display:none; width:89%; float : right" class="form-control" id="txtAccountbl" />
+                                                                    </td>
+                                                                    <td style="text-align:center;">
+                                                                        <button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditVehType(this)"><i class="fa fa-plus fa-lg"></i></button>
+                                                                        <button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>
+                                                                        <button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)"><i class="fa fa-minus fa-lg"></i></button>
+                                                                        <input type="hidden" id="hdnVehCode" value="@item.ECode" />
+                                                                        <button type="button" style="margin-left: 5px;" class="btn btn-danger btn-xs" id="btnDelete" onclick="removeVehicleType(this)"><i class="fa fa-close fa-lg"></i></button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->    
+
+    <div class="modal" tabindex="-1" id="POModalActCode" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Account Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-left:10px">
+                        <div class="table-responsive table-Scroll" style="height:280px">
+                            <table id="AccountTableSO" class="table color-table info-table">
+                                <thead>
+                                    <tr>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Account Code</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Account Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+                                    @if (ViewBag.Accounts != null)
+                                    {
+                                        foreach (var item in ViewBag.Accounts)
+                                        {
+                                            <tr style="text-align: left" onclick="ClickAccount('@item.AcCode')">
+                                                <td class="tdDiv">
+                                                    @item.AcCode
+                                            </td>
+                                            <td class="tdDiv">
+                                                @item.AcTitle
+                                        </td>
+                                    </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</section>
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#AccountSearchSO").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#AccountTableSO tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    var Control;
+
+    function EditVehType(value) {
+
+        $(value).closest('tr').find("#IssueClick").show();
+        $(value).closest('tr').find("#txtExpDesctbl").show();
+        $(value).closest('tr').find("#txtAccountbl").show();
+        $(value).closest('tr').find("#lblExpDesc").hide();
+        $(value).closest('tr').find("#lblAccoutnCode").hide();
+        $(value).closest('tr').find("#btnUpdate").show();
+        $(value).closest('tr').find("#btnCancel").show();
+        $(value).closest('tr').find("#btnEdit").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblExpDesc").text().trim();
+        var lblAccoutnCode = $(value).closest('tr').find("#lblAccoutnCode").text().trim();
+        $(value).closest('tr').find("#txtExpDesctbl").val(lblVehDesc);
+        $(value).closest('tr').find("#txtAccountbl").val(lblAccoutnCode);
+    }
+
+    function CancelEvent(_this) {
+        $(_this).closest('tr').find("#IssueClick").hide();
+        $(_this).closest('tr').find("#txtExpDesctbl").hide();
+        $(_this).closest('tr').find("#txtAccountbl").hide();
+        $(_this).closest('tr').find("#lblExpDesc").show();
+        $(_this).closest('tr').find("#lblAccoutnCode").show();
+        $(_this).closest('tr').find("#btnUpdate").hide();
+        $(_this).closest('tr').find("#btnCancel").hide();
+        $(_this).closest('tr').find("#btnEdit").show();
+
+    }
+
+    function UpdateData(_this) {
+        var vehicleDesc = $(_this).closest('tr').find("#txtExpDesctbl").val();
+        var vehcleCode = $(_this).closest('tr').find("#hdnVehCode").val();
+        var account = $(_this).closest('tr').find("#txtAccountbl").val();
+        //alert(vehicleDesc);
+
+        SaveEnquiry(vehcleCode, vehicleDesc, account);
+
+    }
+
+    ClickAccount = function (AccountDesc) {
+
+        if (control == null) {
+            $('#txtAccountCode').val(AccountDesc);
+            $('#txtAccountCode').css("border-color", "#e1e1e1");
+        } else {
+            $(control).closest('tr').find("#txtAccountbl").val(AccountDesc);
+        }
+        $("#POModalActCode").modal("hide");
+    }
+
+    function ShowModal(type) {
+        debugger
+        control = type;
+
+        $('#POModalActCode').modal("show");
+    }
+
+    function removeVehicleType(value) {
+
+        debugger
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        var ColumnCode = $(value).closest('tr').find("#hdnVehCode").val();
+
+        var Column = 'ECode';
+        var table = 'ExpenseHead'
+
+        DeleteEnquiry(table, Column, ColumnCode);
+
+        //$("#" + tempRow).find('.remove').show();
+        //$(value).parent().parent().remove();
+
+        //dataCount--;
+        //rowCount--;
+        //SNo--;
+    }
+
+    function DeleteEnquiry(table, Column, ColumnCode) {
+
+        var DealerCode = "@Session["DealerCode"].ToString()";
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Delete_VehicleType")',
+            data: { 'table': table, 'Column': Column, 'ColumnCode': ColumnCode, 'DealerCode': DealerCode },
+            success: function (data) {
+                debugger
+                if (data.Success == false) {
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                }
+            },
+            complete: function () {
+                location.reload();
+            },
+
+        });
+    }
+
+    function SaveEnquiry(expcode, expdesc,aacount) {
+
+        var dto = {};
+        debugger;
+        var ExpenseDesc = "";
+        var AccountCode = "";
+
+        if (expdesc == "") {
+            ExpenseDesc = $("#txtExpTypeDesc").val();
+        }
+        else {
+
+            ExpenseDesc = expdesc;
+        }
+
+        if (aacount == "") {
+            AccountCode = $("#txtAccountCode").val();
+        }
+        else {
+
+            AccountCode = aacount;
+        }
+
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.ECode = expcode;
+        dto.EDesc = ExpenseDesc;
+        dto.AccountCode = AccountCode;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_ExpenseType")',
+            data: dto,
+            success: function (data) {
+                $("#txtExpTypeDesc").val('');
+                $("#txtAccountCode").val('');
+            },
+            complete: function () {
+                //Get_VehicleTypeDetailData();
+                location.reload();
+
+            },
+
+        });
+
+    }
+
+</script>
