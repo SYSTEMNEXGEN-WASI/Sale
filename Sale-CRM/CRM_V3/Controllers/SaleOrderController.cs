@@ -23,6 +23,9 @@ namespace CRM_V3.Controllers
         static string dealerCode = string.Empty;
         sngonclo_BMSEntities BMS = new sngonclo_BMSEntities();
         SysFunction sysfun = new SysFunction();
+        static Transaction ObjTrans = new Transaction();
+        static SqlTransaction Trans;
+
         public ActionResult SaleOrder()
         {
             string dealerCode = Session["DealerCode"].ToString();
@@ -408,9 +411,9 @@ namespace CRM_V3.Controllers
             ViewBag.ExpData = BMS.DailyExpenseMasters.Where(x => x.DealerCode == dealerCode & x.DelFlag == "N").ToList();
             ViewBag.ReceiptHead = BMS.ExpenseHeads.Where(x => x.DealerCode == dealerCode).ToList();
             ViewBag.DealerEmp = BMS.DealerEmps.Where(x => x.DealerCode == dealerCode).ToList();
-            ViewBag.PaymentMode = BMS.PaymentModes.Where(x => x.DealerCode == "AAAAA").ToList();
+            ViewBag.PaymentMode = BMS.PaymentModes.Where(x => x.DealerCode == "COMON").ToList();
             ViewBag.CashBankSetup = BMS.CashBankSetups.Where(x => x.CompanyCode == dealerCode).ToList();
-            ViewBag.Bank = BMS.Banks.Where(x => x.DealerCode == "AAAAA").ToList();
+            ViewBag.Bank = BMS.Banks.Where(x => x.DealerCode == "COMON").ToList();
 
             return View();
         }
@@ -879,7 +882,7 @@ namespace CRM_V3.Controllers
             SOData = CashSaleInvoiceMethods.Get_SaleDetailData(DealerCode);
             ViewBag.SOData = SOData;
             List<SelectListItem> ddlAssignTo = new List<SelectListItem>();
-            ddlAssignTo = GeneralMethods.Get_DealerEmp(DealerCode);
+            ddlAssignTo = DeliveryOrderMethods.GetDealerEmployee(dealerCode);
             ViewBag.AssignTo = ddlAssignTo;
             List<CustomerVM> Customer = new List<CustomerVM>();
             Customer = CashSaleInvoiceMethods.Get_CustomerData(DealerCode);
@@ -1299,9 +1302,9 @@ namespace CRM_V3.Controllers
             ddlPayMode = GeneralMethods.GetDataFromSPWithDealerCode("Select_PaymentMode", dealerCode);
             ViewBag.PayMode = ddlPayMode;
 
-            List<SelectListItem> ddlVehExpHead = new List<SelectListItem>();
-            ddlVehExpHead = GeneralMethods.GetDataFromSP("SP_Select_VehExpHead");
-            ViewBag.VehExpHead = ddlVehExpHead;
+            List<SelectListItem> ddlTaxType = new List<SelectListItem>();
+            ddlTaxType = GeneralMethods.GetDataFromSP("SP_Select_TaxType");
+            ViewBag.TaxType = ddlTaxType;
 
             List<SelectListItem> ddlBank = new List<SelectListItem>();
             ddlBank = GeneralMethods.GetBank();
@@ -1313,6 +1316,171 @@ namespace CRM_V3.Controllers
 
             return View();
         }
+        [HttpGet]
+        public JsonResult GetReceiptNo_Model(string EnquiryId)
+        {
+            string data;
+            bool result = false;
+
+            data = PaymentReceiptMethods.GetReceiptNo_Model(Session["DealerCode"].ToString());
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpGet]
+        public JsonResult GetReceiptNo_Master(string EnquiryId)
+        {
+            string data;
+            bool result = false;
+
+            data = PaymentReceiptMethods.GetReceiptNo_Master(EnquiryId,Session["DealerCode"].ToString());
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpGet]
+        public JsonResult GetReceiptNo_Detail(string EnquiryId)
+        {
+            string data;
+            bool result = false;
+
+            data = PaymentReceiptMethods.GetReceiptNo_Detail(EnquiryId, Session["DealerCode"].ToString());
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpGet]
+        public JsonResult GetReceiptNo_TaxDetail(string EnquiryId)
+        {
+            string data;
+            bool result = false;
+
+            data = PaymentReceiptMethods.GetReceiptNo_Tax(EnquiryId, Session["DealerCode"].ToString());
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpGet]
+        public JsonResult Select_CSIPendingPay(string EnquiryId)
+        {
+            string data;
+            bool result = false;
+
+            data = PaymentReceiptMethods.GetPendingCSIPay(EnquiryId,Session["DealerCode"].ToString());
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpGet]
+        public JsonResult Select_ACSPendingPay(string EnquiryId)
+        {
+            string data;
+            bool result = false;
+
+            data = PaymentReceiptMethods.GetPendingACSPay(EnquiryId, Session["DealerCode"].ToString());
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpGet]
+        public JsonResult GetAdvanceReceipt(string EnquiryId)
+        {
+            string data;
+            bool result = false;
+
+            data = PaymentReceiptMethods.GetAdvanceReceipt(EnquiryId, Session["DealerCode"].ToString());
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public JsonResult Insert_PaymentReceiptMaster(PaymentReceiptVM dto)
+        {
+            bool result = true;
+
+            string msg = "Failed to save record..";
+
+            result = PaymentReceiptMethods.Insert_PaymentReceiptMaster(dto,ref msg);
+
+            if (result)
+            {
+                msg = "Successfully Added";
+            }
+
+            return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult Insert_PaymentReceiptDetail(List<PaymentReceiptDetailVM> objects)
+        {
+            bool result = false;
+
+            string msg = "Failed to save record..";
+
+            result = PaymentReceiptMethods.Insert_PaymentDetail(objects, Session["DealerCode"].ToString(),ref msg);
+
+            if (result)
+            {
+                msg = "Successfully Added";
+            }
+
+            return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult Insert_PaymentReceiptTax(List<PaymentReceiptTaxDetailVM> objectTax)
+        {
+            bool result = false;
+
+            string msg = "Failed to save record..";
+
+            result = PaymentReceiptMethods.Insert_PaymentTaxDetail(objectTax, Session["DealerCode"].ToString(), ref msg);
+
+            if (result)
+            {
+                msg = "Successfully Added";
+            }
+
+            return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
         public ActionResult PRExport(string ReceiptNo, string DealerCode)
         {
 
@@ -1327,7 +1495,7 @@ namespace CRM_V3.Controllers
             };
 
             param[0].Value = DealerCode;
-            param[1].Value = "2000001";
+            param[1].Value = ReceiptNo;
 
             SqlDataReader rder = null;
 
@@ -1335,14 +1503,14 @@ namespace CRM_V3.Controllers
             if (sysFunc.ExecuteSP("sp_PaymentReceipt_Print", param, ref rder))
             {
                 data.sp_PaymentReceipt_Print.Load(rder);
-                sql = "exec sp_W2_PaymentReceiptTaxDetail_Select '" + Session["DealerCode"].ToString() + "','" + "2000001" + "'";
+                sql = "exec sp_W2_PaymentReceiptTaxDetail_Select '" + Session["DealerCode"].ToString() + "','" + ReceiptNo + "'";
                 dt = sysfun.GetData(sql);
                 data.sp_W2_PaymentReceiptTaxDetail_Select.Load(dt.CreateDataReader());
             }
             RD.Load(Server.MapPath("~/Reports/rptPaymentRecPrint.rpt"));
 
             RD.OpenSubreport(Server.MapPath("~/ Reports/ rptPaymentReceiptTaxDetail.rpt"));
-            RD.DataDefinition.FormulaFields["DealerPhone"].Text = "'" + Session["DealerPhone"].ToString() + "'";
+           // RD.DataDefinition.FormulaFields["DealerPhone"].Text = "'" + Session["DealerPhone"].ToString() + "'";
             RD.DataDefinition.FormulaFields["DealerEmail"].Text = "'" + Session["DealerEmail"].ToString() + "'";
         //    RD.DataDefinition.FormulaFields["DealerFax"].Text = "'" + Session["DealerFax"].ToString() + "'";
             RD.DataDefinition.FormulaFields["DealerDesc"].Text = "'" + Session["DealerDesc"].ToString() + "'";
@@ -1372,6 +1540,69 @@ namespace CRM_V3.Controllers
             }
 
 
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteIP(string ReceiptNo,string Voucher)
+        {
+
+            if (Session["DealerCode"] == null)
+            {
+                return RedirectToAction("NewLogin", "Home");
+            }
+
+            var DealerCode = Session["DealerCode"].ToString();
+            string Msg = "";
+            var result = false;
+            if (!sysfun.CheckVoucherPostFlag(Session["DealerCode"].ToString(), Voucher))
+            {
+                sysfun.UpdateJV(Session["DealerCode"].ToString(),Voucher);
+
+
+                var Check = BMS.PaymentReceiptMaster.Where(g => g.DealerCode == DealerCode && g.ReceiptNo == ReceiptNo && g.DelFlag == "N").FirstOrDefault();
+            if (Check != null)
+            {
+                try
+                {
+                    var DetailList = BMS.PaymentReceiptDetail.Where(g => g.DealerCode == DealerCode && g.ReceiptNo == ReceiptNo).ToList();
+                    if (ObjTrans.BeginTransaction(ref Trans) == true)
+                    {
+                        foreach (var item in DetailList)
+                        {
+                            if (item.InvoiceType == "CSI")
+                            {
+                                result = PaymentReceiptMethods.Delete_Invoice_Record_CSI(item.InvoiceNo, DealerCode, item.AdjAmount, Trans);
+                            }
+                            else if (item.InvoiceType == "ASC")
+                            {
+                                result = PaymentReceiptMethods.Delete_Invoice_Record_ASC( item.InvoiceNo,DealerCode, item.AdjAmount, Trans);
+                            }
+
+                        }
+                        if (result == true)
+                        {
+                            PaymentReceiptMethods.DelFlagIP( ReceiptNo, DealerCode, Trans);
+                                ObjTrans.CommittTransaction(ref Trans);
+                            }
+
+
+                        Msg = "Deleted Successfully...!";
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    ObjTrans.RollBackTransaction(ref Trans);
+                    Msg = "Something went wrong with server! /n" + ex;
+                }
+            } }
+            else
+            {
+                Msg = "You can not delete it; because voucher has already been created against this receipt";
+            }
+            return Json(Msg, JsonRequestBehavior.AllowGet);
         }
         #endregion
         public ActionResult CustomerServicesReceipt()

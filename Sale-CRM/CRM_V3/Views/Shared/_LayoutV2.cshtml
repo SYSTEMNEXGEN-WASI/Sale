@@ -55,7 +55,7 @@
     
     <link href='@Url.Content("~/assets/css/style.css")' rel="stylesheet" type="text/css" />
     <link href='@Url.Content("~/assets/css/responsive.css")' rel="stylesheet" type="text/css" />
-
+    <link href='@Url.Content("~/assets/plugins/dropify/dist/css/dropify.min.css")' rel="stylesheet" type="text/css" />
     <!-- MY THEME LIBERARY AND JAVASCRIPT -->
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
         <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
@@ -493,6 +493,10 @@
                             <li>
                                 <a class="" id="MonthlyCommision" href='@Url.Action("Main", "MonthlyCommision")'>Monthly Commision</a>
                             </li>
+
+                            <li>
+                                <a class="" id="lknDailyExpenditure" href='@Url.Action("DailyExpenditure", "SaleOrder")'>Daily Expenditure</a>
+                            </li>
                         </ul>
                     </li>
                     
@@ -504,6 +508,9 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
+                                <a class="" id="lknCashSaleInvoice" href='@Url.Action("CashSaleInvoice", "SaleOrder")'>Sale Invoice</a>
+                            </li>
+                            <li>
                                 <a id="lknAdvance/ServiceReceipt" href='@Url.Action("AdvanceServicesCharges", "SaleOrder")'>Advance/Service Receipt</a>
                             </li>
                             @*<li>
@@ -512,34 +519,30 @@
                             @*<li>
                                 <a class="" id="lknInstallmentSaleInvoice" href='@Url.Action("InstallmentSaleInvoice", "SaleOrder")'>Installment Sale Invoice</a>
                             </li>*@
-                            <li>
-                                <a class="" id="lknCashSaleInvoice" href='@Url.Action("CashSaleInvoice", "SaleOrder")'>Sale Invoice</a>
-                            </li>
+                         
                             @*<li>
                                 <a class="" id="lknCreditSaleInvoice" href='@Url.Action("CreditSaleInvoice", "SaleOrder")'>Credit Sale Invoice</a>
                             </li>
                             <li>
                                 <a class="" id="lknInstallmentPlan" href='@Url.Action("InstallmentPlan", "Definition")'>Installment Plan</a>
-                            </li>
+                            </li>*@
                             <li>
                                 <a class="" id="lknPaymentReceipt" href='@Url.Action("PaymentReceipt", "SaleOrder")'>Payment Receipt</a>
                             </li>
-                            <li>
+                            @*<li>
                                 <a class="" id="lknPaymentReceipt" href='@Url.Action("OutgoingPayment", "OutgoingPayment")'>Outgoing Payment</a>
-                            </li>
-                            <li>
+                            </li>*@
+                            @*<li>
                                 <a class="" id="lknCustomerServiceReceipt" href='@Url.Action("CustomerServicesReceipt", "SaleOrder")'>Customer Services Receipt</a>
-                            </li>
+                            </li>*@
                             
-                            <li>
+                            @*<li>
                                 <a class="" id="lknInstallmentReceipt" href='@Url.Action("InstallmentReceipt", "SaleOrder")'>Installment Receipt</a>
                             </li>
                             <li>
                                 <a class="" id="lknFullAndFinal" href='@Url.Action("FullAndFinal", "SaleOrder")'>Full And Final</a>
                             </li>
-                            <li>
-                                <a class="" id="lknDailyExpenditure" href='@Url.Action("DailyExpenditure", "SaleOrder")'>Daily Expenditure</a>
-                            </li>
+                           
                             <li>
                                 <a class="" id="lknInstallmentLedger" href='@Url.Action("Index", "InstallmentLedger")'>Installment Ledger</a>
                             </li>*@

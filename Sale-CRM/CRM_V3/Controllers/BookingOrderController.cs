@@ -105,6 +105,11 @@ namespace CRM_V3.Controllers
                 ddlPaymentMode = BookingOrderMethods.GetDataFromSP("sp_PaymentMode_select");
                 ViewBag.PaymentMode = ddlPaymentMode;
 
+                List<SelectListItem> BookingList = new List<SelectListItem>();
+                BookingList = BookingOrderMethods.GetDataFromSP("sp_DocCheckList");
+
+                ViewBag.BookingList = BookingList;
+
                 @Session["ProdCode"] = string.Empty;
 
                 ViewBag.UrlLeadId = EnquiryId;
@@ -142,7 +147,8 @@ namespace CRM_V3.Controllers
             bool result = false;
 
             data = BookingOrderMethods.GetCustomerModal(Session["DealerCode"].ToString());
-
+          
+            ViewBag.Customer = data;
             if (!string.IsNullOrEmpty(data))
             {
                 result = true;
@@ -310,13 +316,15 @@ namespace CRM_V3.Controllers
         }
 
         [HttpPost]
-        public JsonResult Insert_VehChkList(string strCheckedValues)
+        public JsonResult Insert_VehChkList(List<DocumentCheckList> objects)
         {
+            //string strCheckedValues
             bool result = false;
             int count = 0;
             string msg = "Failed to save record..";
-
-            result = BookingOrderMethods.Insert_VehChkList(strCheckedValues, Session["DealerCode"].ToString());
+           
+            // result = BookingOrderMethods.Insert_VehChkList(strCheckedValues, Session["DealerCode"].ToString());
+        result = BookingOrderMethods.Insert_VehChkLists(objects, Session["DealerCode"].ToString(),ref msg);
 
             if (result)
             {
@@ -376,7 +384,7 @@ namespace CRM_V3.Controllers
         {
             string data = "";
             bool result = false;
-            data = BookingOrderMethods.Get_BookingChkList(EnquiryId);
+            data = BookingOrderMethods.Get_BookingChkList(EnquiryId,Session["DealerCode"].ToString());
 
             if (!string.IsNullOrEmpty(data))
             {
@@ -555,5 +563,93 @@ namespace CRM_V3.Controllers
             return Json(new { Success = result, Response = json }, JsonRequestBehavior.AllowGet);
 
         }
+
+        [HttpGet]
+        public JsonResult Select_OptionalFeatures_VS(string EnquiryId, string DealerCode,string Chassis)
+        {
+            string json = "";
+            var Serializer = new JavaScriptSerializer();
+            List<OptionalFeatureVM> data;
+            bool result = false;
+            data = BookingOrderMethods.Get_OptionalFeatureData_VS(EnquiryId, DealerCode,Chassis);
+
+            if (data.Count > 0)
+            {
+                result = true;
+                json = Serializer.Serialize(data);
+            }
+
+            return Json(new { Success = result, Response = json }, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+        [HttpGet]
+        public JsonResult Check_Post(string Bo)
+        {
+            string msg = "";
+            bool result = false;
+            //result = VehReceiptMethods.Check_ChassisNo(chassisNo,engineNo, DealerCode);
+         string   DealerCode = Session["DealerCode"].ToString();
+            if (BookingOrderMethods.Check_Post(Bo, DealerCode))
+            {
+                msg = "";
+                result = true;
+            }
+
+            return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        }
+        //// Add Image into model lsit  and Convert to Binary
+        [HttpPost]
+        public JsonResult AddImage_List(string data, string EnquiryId)
+        {
+            DocumentCheckList delchklist=new DocumentCheckList();
+            string json = "";
+            var Serializer = new JavaScriptSerializer();
+            byte[] imageBytes = null;
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase file = Request.Files[0];
+
+                if (file != null && file.ContentLength > 0)
+                {
+                  
+
+                    BinaryReader reader = new BinaryReader(file.InputStream);
+                    imageBytes = reader.ReadBytes((int)file.ContentLength);
+                    json = "data:image/png;base64," + Convert.ToBase64String(imageBytes, 0, imageBytes.Length);
+                    // json= "data:image/png;base64," + Convert.ToBase64String(file.Data, 0, file.Data.Length);
+
+
+                }
+
+
+
+            }
+
+                    return Json(new { Success = true, Message = "" ,Response= json }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        //// Check hold Vehicle
+        [HttpGet]
+        public JsonResult Check_Hold(string EnquiryId)
+        {
+            string msg = "";
+            bool result = false;
+            //result = VehReceiptMethods.Check_ChassisNo(chassisNo,engineNo, DealerCode);
+            string DealerCode = Session["DealerCode"].ToString();
+            if (BookingOrderMethods.Check_Hold(EnquiryId, DealerCode))
+            {
+                msg = "This Vehicle is Hold For Booking You Can Not Create its Booking Order";
+                result = true;
+            }
+
+            return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
     }
 }

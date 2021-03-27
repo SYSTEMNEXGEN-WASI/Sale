@@ -202,7 +202,10 @@ namespace CRM_V3.Controllers
             {
                 voucheNo = sys.GetStringValuesAgainstCodes("BookRefNo", leadId, "VoucherNo", "BookOrdMaster", "", Session["DealerCode"].ToString());
             }
-
+            else if (type == "PR")
+            {
+                voucheNo = sys.GetStringValuesAgainstCodes("ReceiptNo", leadId, "VoucherNo", "PaymentReceiptMaster", "", Session["DealerCode"].ToString());
+            }
             if (voucheNo != "")
             {
                 ViewBag.Text = "Edit";
@@ -217,7 +220,7 @@ namespace CRM_V3.Controllers
 
                     ViewBag.VoucherNo = voucheNo;
 
-                    lstAccount = VoucherMethods.LoadCSI(leadId,voucheNo, Session["DealerCode"].ToString(), ChassisNo);
+                    lstAccount = VoucherMethods.LoadCSI(leadId, Session["DealerCode"].ToString(), ChassisNo);
 
                     ViewBag.InstNo = lstAccount.ElementAt(1).InstrumentNo;
                     ViewBag.InstDate = lstAccount.ElementAt(1).InstrumentDate;
@@ -254,7 +257,15 @@ namespace CRM_V3.Controllers
                     ViewBag.InstNo = lstAccount.ElementAt(1).InstrumentNo;
                     ViewBag.InstDate = lstAccount.ElementAt(1).InstrumentDate;
                 }
+                else if (type == "PR")
+                {
+                    ViewBag.VoucherNo = voucheNo;
 
+                    lstAccount = VoucherMethods.LoadBookingOrderGrid(leadId, Session["DealerCode"].ToString(), ChassisNo);
+
+                    ViewBag.InstNo = lstAccount.ElementAt(1).InstrumentNo;
+                    ViewBag.InstDate = lstAccount.ElementAt(1).InstrumentDate;
+                }
             }
             else
             {
@@ -273,7 +284,7 @@ namespace CRM_V3.Controllers
                 else if (type == "CSI")
                 {
 
-                    lstAccount = VoucherMethods.LoadCSI(leadId,voucheNo, Session["DealerCode"].ToString(), ChassisNo);
+                    lstAccount = VoucherMethods.LoadCSI(leadId, Session["DealerCode"].ToString(), ChassisNo);
 
                     //dt = sys.GetData("Select isnull(InstrumentNo,'') InstrumentNo, isnull(Convert(varchar(10),InstrumentDate,105),'') InstrumentDate From [ReceiptDetail] Where ReceiptNo = '" + leadId + "' AND [DealerCode] = '" + Session["DealerCode"].ToString() + "'", "BMS0517ConnectionString");
                     //if (dt.Rows.Count > 0)
@@ -300,7 +311,14 @@ namespace CRM_V3.Controllers
 
 
                 }
+                else if (type == "PR")
+                {
 
+
+                    lstAccount = VoucherMethods.LoadPRGrid(leadId, Session["DealerCode"].ToString(), ChassisNo);
+
+
+                }
                 else
                 {
                     lstAccount = VoucherMethods.LoadCSGrid(leadId, Session["DealerCode"].ToString());

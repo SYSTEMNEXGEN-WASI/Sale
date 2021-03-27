@@ -14,12 +14,12 @@
         top: 10px;
     }
 
-    .table>thead>tr>th{
+    /*.table>thead>tr>th{
         font-weight: bold;
         font-size : 14px;
         background-color: #3F51B5;
         color: white;
-    }
+    }*/
 
     .table > tbody > tr > td{
         font-size : 14px;
@@ -64,7 +64,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-xs-12 table-responsive add-scroll">
-                                <table class="table table-striped dt-responsive display" id="tblVehicleStock" >
+                                <table class="table table-bordered table-striped display" id="tblVehicleStock" >
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -74,6 +74,7 @@
                                             <th>Chassis No</th>
                                             <th>Engine No</th>
                                             <th>Color</th>
+                                            <th>Hold At</th>
                                             <th>Hold</th>
                                             <th>Hold By</th>
                                             <th>Hold Till</th>
@@ -143,7 +144,12 @@
                                                     '<td> <label id="lblChassisNo">' + item.ChasisNo + ' </label></td>' +
                                                     '<td> <label id="lblEngineNo">' + item.EngineNo + ' </label></td>' +
                                                     '<td> <label id="lblColor">' + item.Color + ' </label><input type="hidden" id="hdnColorCode" value="' + item.ColorCode + '"/></td>' +
-                                                    '<td> <label id="lblHold">' + (item.HoldFlag == 'Y' ? "Hold" : "Un Hold") + '</label><select class="m-bot15 ddlHold" id="ddlHold" name="ddlHold" style="display: none;" ><option value="Hold">Hold</option><option value="UnHold">Un Hold</option></select></td>' +
+                                                     '<td> <label id="lblHoldAt">' + (item.HoldAt) + '</label><select class="m-bot15 ddlHold" id="ddlHoldAt" name="ddlHoldAt" style="display: none;" >'+
+                                                     '<option value="BookingOrder">BookingOrder</option>'+
+                                                     '<option value="DeliveryOr">DeliveryOrder</option>' +
+                                                   
+                                                     + '</select></td>' +
+                                                   '<td> <label id="lblHold">' + (item.HoldFlag == 'Y' ? "Hold" : "Un Hold") + '</label><select class="m-bot15 ddlHold" id="ddlHold" name="ddlHold" style="display: none;" ><option value="Hold">Hold</option><option value="UnHold">Un Hold</option></select></td>' +
                                                     '<td> <label id="lblHoldBy">' + (item.DealerEmp == null ? '' : item.DealerEmp) + ' </label><input type="hidden" id="hdnHoldBy" value="' + item.HoldBy + '"/>' +
                                                         '<select class=" m-bot15 ddlAssignTo" id="ddlAssignTo" name="ddlAssignTo" style="display: none;"></select>' +
                                                     '</td>' +
@@ -229,6 +235,9 @@
         $(value).closest('tr').find("#ddlHold").show();
         
         $(value).closest('tr').find("#lblHold").hide();
+        $(value).closest('tr').find("#ddlHoldAt").show();
+
+        $(value).closest('tr').find("#lblHoldAt").hide();
         $(value).closest('tr').find("#lblHoldBy").hide();
         $(value).closest('tr').find("#lblHoldAmount").hide();
         $(value).closest('tr').find("#lblholdTill").hide();
@@ -238,7 +247,7 @@
         $(value).closest('tr').find("#btnDelete").hide();
 
         getEmployee(value);
-
+      
         var lblHoldAmount = $(value).closest('tr').find("#lblHoldAmount").text().trim();
         $(value).closest('tr').find("#txtHoldAmount").val(lblHoldAmount);
         var lblholdTill = $(value).closest('tr').find("#lblholdTill").text().trim();
@@ -280,19 +289,20 @@
         var EngineNo = $(_this).closest('tr').find("#lblEngineNo").text();
         var Color = $(_this).closest('tr').find("#hdnColorCode").val();
         var hold = $(_this).closest('tr').find("#ddlHold").val();
-
+        var holdAt = $(_this).closest('tr').find("#ddlHoldAt").val();
+       
         //$(_this).closest('tr').find("#lblHoldBy").text(AssignToValue);
         //$(_this).closest('tr').find("#lblHoldAmount").text(HoldAmount);
         //$(_this).closest('tr').find("#lblholdTill").text(holdTill);
 
         //CancelEvent(_this);
 
-        SaveEnquiry(BrandCode, ProdCode, Version, ChassisNo, EngineNo, Color, HoldAmount, holdTill, AssignToCode, hold);
+        SaveEnquiry(BrandCode, ProdCode, Version, ChassisNo, EngineNo, Color, HoldAmount, holdTill, AssignToCode, hold,holdAt);
         $(_this).closest('tr').css("background-color", '#d4b0b0');
 
     }
 
-    function SaveEnquiry(BrandCode, ProdCode, Version, ChassisNo, EngineNo, Color, HoldAmount, holdTill, AssignToCode, hold) {
+    function SaveEnquiry(BrandCode, ProdCode, Version, ChassisNo, EngineNo, Color, HoldAmount, holdTill, AssignToCode, hold, holdAt) {
 
 
         debugger
@@ -309,6 +319,7 @@
         dto.HoldBy = AssignToCode;
         dto.HoldTill = holdTill;
         dto.HoldAmount = HoldAmount;
+        dto.HoldAt = holdAt;
         if (hold == 'Hold') {
             dto.HoldFlag = 'Y';
         } else {

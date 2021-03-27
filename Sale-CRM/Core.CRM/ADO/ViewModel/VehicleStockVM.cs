@@ -54,5 +54,8 @@ namespace Core.CRM.ADO.ViewModel
         public string EnquiryNo { get; set; }
         public string RecNo { get; set; }
         public string TransportDelivery   { get; set;}
+        public string DeliveredTOCustomer { get; set; }
+        public string ReceiveFromOEM { get; set; }
+
     }
 }

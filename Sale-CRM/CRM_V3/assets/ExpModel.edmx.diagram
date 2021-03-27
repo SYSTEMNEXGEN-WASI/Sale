@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b2dc18b6c7bf4f54ab4095ef0c9c6844" Name="Diagram1" ZoomLevel="64">
+      <Diagram DiagramId="b2dc18b6c7bf4f54ab4095ef0c9c6844" Name="Diagram1" ZoomLevel="54">
         <EntityTypeShape EntityType="sngonclo_BMSModel.Bank" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="sngonclo_BMSModel.CashBankSetup" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="sngonclo_BMSModel.DailyExpenseMaster" Width="1.5" PointX="4.375" PointY="0.75" IsExpanded="true" />
@@ -14,7 +14,15 @@
         <EntityTypeShape EntityType="sngonclo_BMSModel.ReceiptHead" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="sngonclo_BMSModel.CostCenterSetup" Width="1.5" PointX="6" PointY="3.5" />
         <EntityTypeShape EntityType="sngonclo_BMSModel.DailyExpenseDetail" Width="1.5" PointX="7.75" PointY="2.625" />
-        <EntityTypeShape EntityType="sngonclo_BMSModel.City" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="sngonclo_BMSModel.City" Width="1.5" PointX="7.75" PointY="5.25" />
+        <EntityTypeShape EntityType="sngonclo_BMSModel.PaymentReceiptMaster" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="sngonclo_BMSModel.PaymentReceiptDetail" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="sngonclo_BMSModel.PaymentReceiptTaxDetail" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="sngonclo_BMSModel.VehicleDeliveryDetail" Width="1.5" PointX="12" PointY="10.75" />
+        <EntityTypeShape EntityType="sngonclo_BMSModel.VehicleDeliveryMaster" Width="1.5" PointX="9.75" PointY="9.125" />
+        <EntityTypeShape EntityType="sngonclo_BMSModel.VehicleStock" Width="1.5" PointX="0.75" PointY="9.75" />
+        <AssociationConnector Association="sngonclo_BMSModel.FK_VehicleDeliveryDetail_VehicleDeliveryMaster" />
+        <EntityTypeShape EntityType="sngonclo_BMSModel.Vendor" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -389,7 +389,15 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                            <div class="col-md-3 pull-right">
+                                                <label class="form-label">Total Services</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-plus-circle"></i></span>
+                                                    <input type="text" class="form-control" readonly id="txtRecTotal" placeholder="Total Taxes">
+                                                </div>
+                                            </div>
                                         </div>
+
 
                                         <div class="row">
                                             <div class="col-md-4 pull-right hidden">
@@ -1118,6 +1126,7 @@
                         var TotalQty = $("#txtTotal").val();
                         TotalQty = +parseInt(TotalQty) + parseInt(amount);
                         $('#txtTAmount').val(TotalQty);
+                        calculateTaxTotal();
                     }
                     else {
                         $("#lblMessage").html("Please fill the Required feilds");
@@ -1174,7 +1183,7 @@
 
 
                     }
-
+                    calculateTaxTotal();
 
                     $(this).closest('tr').remove();
 
@@ -1275,7 +1284,21 @@
 
                     $("#section-confirm").modal("show");
                 })
+                function calculateTaxTotal() {
+                    var total = 0;
+                    
+                    $("#tblInstrument tbody tr").each(function () {
+                        var TaxID = $(this).closest('tr').find('#hdnServiceCode').val();
+                        var amount = $(this).closest('tr').find('#lblAmount').text().trim();
+                        if (TaxID != "") {
+                            total = total + parseFloat(amount);
+                        }
 
+
+                    });
+                    $("#txtRecTotal").val(total);
+                  
+                }
                 function SaveMasterEnquiry() {
 
                     var dto = {};
@@ -1298,7 +1321,7 @@
                     dto.ChasisNo = $("#txtChassisNo").val();
                     dto.Remarks = $("#txtRemarks").val();
                     dto.FormName = "Advance/Service charges";
-
+                    dto.TotalAmount = $('#txtRecTotal').val();
 
                     $.ajax({
                         //contentType: 'application/json; charset=utf-8',
@@ -1551,6 +1574,7 @@
                             },
                             complete: function () {
                                 $('#txtTAmount').val(total);
+                                calculateTaxTotal();
                             },
                         });
 

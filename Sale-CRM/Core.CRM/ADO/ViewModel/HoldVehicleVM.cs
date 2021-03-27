@@ -25,6 +25,7 @@ namespace Core.CRM.ADO.ViewModel
         public string HoldFlag { get; set; }
         public string HoldDate { get; set; }
         public string RowColor { get; set; }
+        public string HoldAt { get; set; }
 
 
     }

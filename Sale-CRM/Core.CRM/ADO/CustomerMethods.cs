@@ -51,7 +51,7 @@ namespace Core.CRM.ADO
 							   new SqlParameter("@DealerCode",dealerCode),//0
 							   new SqlParameter("@CusCode",strAutoCode),//1
 							   new SqlParameter("@CusDesc",model.CusDesc),//2
-							   new SqlParameter("@FatherHusName",""),//3
+							   new SqlParameter("@FatherHusName",model.FatherHusName),//3
 							   new SqlParameter("@Address1",model.Address1),//4
 							   new SqlParameter("@Address2",(object)DBNull.Value),//5
 							   new SqlParameter("@Address3",(object)DBNull.Value),//6
@@ -81,7 +81,8 @@ namespace Core.CRM.ADO
 							   new SqlParameter("@Title", model.Title),//30
 							   new SqlParameter("@CSGNo", csgNo),//31
 							   new SqlParameter("@MCNo", model.MCNo),//32
-                               new SqlParameter("@AccountCode", model.AccountCode) // 33
+                               new SqlParameter("@AccountCode", model.AccountCode),//33
+                               new SqlParameter("@Source", "Sale")// 34
                                };
 
 				if (sysfun.ExecuteSP_NonQuery("sp_Insert_Customer", param))

@@ -450,7 +450,11 @@ namespace Core.CRM.ADO
                                 a = item.FID.Split('|');
                                 foreach (var i in a)
                                 {
-                                    SqlParameter[] param3 = {
+                                    if (i != "")
+                                    {
+
+
+                                        SqlParameter[] param3 = {
                                  new SqlParameter("@DealerCode",dealerCode),//0
 								 new SqlParameter("@BookRefNo",strAutoCode),//1
 								 new SqlParameter("@BrandCode",item.BrandCode),//2								 
@@ -461,17 +465,18 @@ namespace Core.CRM.ADO
 
 
                                     };
-                                    if (sysfun.ExecuteSP_NonQuery("SP_Insert_BookOrdVehFeature", param3, Trans) == true)
-                                    {
-                                        IsSaved = true;
+                                        if (sysfun.ExecuteSP_NonQuery("SP_Insert_BookOrdVehFeature", param3, Trans) == true)
+                                        {
+                                            IsSaved = true;
 
+                                        }
+                                        else
+                                        {
+                                            IsSaved = false;
+                                        }
                                     }
-                                    else
-                                    {
-                                        IsSaved = false;
-                                    }
+
                                 }
-
                             }
                             
                         }
@@ -543,11 +548,13 @@ namespace Core.CRM.ADO
                     
 				        if (sysfun.ExecuteSP_NonQuery("SP_Insert_BookingReceiptInstrumentDetail", param2, Trans) == true)
 				        {
-                           
-                         //   string sql = "Update BookOrdMaster set RemainingTotal = VehicleTotal - '" + item.InstrumentAmount + "' where BookRefNo = '" + strAutoCode + "' and DealerCode = '"+dealerCode+"'";
 
-                          //  sysfun.ExecuteQuery_NonQuery(sql , Trans );
-                            IsSaved = true;
+                        //   string sql = "Update BookOrdMaster set RemainingTotal = VehicleTotal - '" + item.InstrumentAmount + "' where BookRefNo = '" + strAutoCode + "' and DealerCode = '"+dealerCode+"'";
+
+                        //  sysfun.ExecuteQuery_NonQuery(sql , Trans );
+
+
+                        IsSaved = true;
 				        }
 				        else
 				        {
@@ -592,8 +599,13 @@ namespace Core.CRM.ADO
 								 new SqlParameter("@Branch",item.Branch),//7
 								 new SqlParameter("@PaymentMode",item.PaymentMode),//8
 								 new SqlParameter("@PaymentType",item.PaymentType),//9		
-                                 new SqlParameter("@ReceiptNo",strReceiptNo)//10						 
-								 
+                                 new SqlParameter("@ReceiptNo",strReceiptNo),//10						 
+
+                                   new SqlParameter("@DepositEmpCode",item.DepositEmpCode),//10					 
+                                   new SqlParameter("@DepositBankCode",item.DepositBankCode),//10					 
+                                    new SqlParameter("@DepositBranch",item.DepositBranch),//10					 
+                                     new SqlParameter("@DepositNo",item.DepositNo),//10					 
+                                      new SqlParameter("@DepositDate",item.DepositDate == null ?(object) DBNull.Value: sysfun.SaveDate(item.DepositDate))//10					 
 							};
 
                         if (sysfun.ExecuteSP_NonQuery("SP_Insert_BookingReceiptInstrumentDetail", param2))
@@ -620,35 +632,61 @@ namespace Core.CRM.ADO
 			return IsSaved;
 		}
 
-		public static bool Insert_VehChkList(string strCheckedValues, string dealerCode)
+		public static bool Insert_VehChkLists(List<DocumentCheckList> model, string dealerCode,ref string msg)
 		{
+            string[] a;
+            byte[] imageBytes = null;
 
-			try
-			{
-				SqlParameter[] param2 = {
-								 new SqlParameter("@DealerCode",dealerCode),//0
+            try
+            {
+                if (model != null)
+                {
+
+
+                    foreach (var item in model)
+                    {
+                        if (item.DocChkListCode != null)
+                        {
+                            if (item.Image != "" && item.Image != null)
+                            {
+                                a = item.Image.Split(',');
+                                imageBytes = Convert.FromBase64String(a[1]);
+                            }
+                            SqlParameter[] param2 = {
+                                 new SqlParameter("@DealerCode",dealerCode),//0
 								 new SqlParameter("@Delivery",strAutoCode),//1
-								 new SqlParameter("@DelChkListCode",strCheckedValues)//2								 
-								 
+								 new SqlParameter("@DelChkListCode",item.DocChkListCode),//2								 
+                                 new SqlParameter("@DocImage",imageBytes)//2
 							};
 
-				if (sysfun.ExecuteSP_NonQuery("SP_BookOrdChkList_Insert", param2))
-				{
-					ObjTrans.CommittTransaction(ref Trans);
-					IsSaved = true;
-				}
-				else
-				{
-					ObjTrans.RollBackTransaction(ref Trans);
-					IsSaved = false;
-				}
+                            if (sysfun.ExecuteSP_NonQuery("SP_BookOrdChkList_Insert", param2,Trans))
+                            {
+                             
+                            }
+                            else
+                            {
+                                ObjTrans.RollBackTransaction(ref Trans);
+                                IsSaved = false;
+                            }
+                        }
+                      
 
-			}
-			catch (Exception)
-			{
-				ObjTrans.RollBackTransaction(ref Trans);
-				throw;
-			}
+                    }
+                    ObjTrans.CommittTransaction(ref Trans);
+                    IsSaved = true;
+                }
+                else
+                {
+                    ObjTrans.CommittTransaction(ref Trans);
+                    IsSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ObjTrans.RollBackTransaction(ref Trans);
+                // throw;
+                msg = ex.Message;
+            }
 
 			return IsSaved;
 		}
@@ -741,22 +779,50 @@ namespace Core.CRM.ADO
 			return json;
 		}
 
-		public static string Get_BookingChkList(string enquiryId)
+		public static string  Get_BookingChkList(string enquiryId,string DealerCode)
 		{
 			string json = "";
 			var Serializer = new JavaScriptSerializer();
-			List<DeliveryCheckListVM> lst = new List<DeliveryCheckListVM>();
+            SqlDataReader rder = null;
+            List<DeliveryCheckListVM> lst = new List<DeliveryCheckListVM>();
 			try
 			{
-				string sql = "Select BookChkListCode from BookOrdChklist where BookRefNo = '" + enquiryId + "'";
+            
+                SqlParameter[] sqlParam = {
+                    new SqlParameter("@DealerCode",DealerCode),//1
+                    new SqlParameter("@JobCardCode",enquiryId)//1
+                                        };
+                if (sysfun.ExecuteSP("sp_BookOrdDocList", sqlParam, ref rder))
+                {
 
-				dt = sysfun.GetData(sql);
+                    while (rder.Read())
+                    {
+                        byte[] myimg = (byte[])rder["DocImage"];
+                        lst.Add(new DeliveryCheckListVM
+                        {
+                            BookChkListCode = rder["BookChklistCode"].ToString(),
+                            DelChkListDesc = rder["DelChkListDesc"].ToString(),
+                            //ContentType = sdr["ContentType"].ToString(),
+                            Image = "data:image/png;base64," + Convert.ToBase64String(myimg, 0, myimg.Length),
+                        });
+                        // Session["Image"] = "data:image/png;base64," + Convert.ToBase64String(myimg, 0, myimg.Length);
 
-				if (dt.Rows.Count > 0)
-				{
-					lst = EnumerableExtension.ToList<DeliveryCheckListVM>(dt);
-				}
-				json = Serializer.Serialize(lst);
+
+                    }
+
+
+
+                }
+                 
+
+
+
+
+
+
+
+
+                json = Serializer.Serialize(lst);
 			}
 			catch (Exception ex)
 			{
@@ -843,7 +909,7 @@ namespace Core.CRM.ADO
             return IsSaved;
         }
 
-        public static List<OptionalFeatureVM> Get_OptionalFeatureData(string enquiryId, string dealerCode)
+        public static List<OptionalFeatureVM> Get_OptionalFeatureData_VS(string enquiryId, string dealerCode,string chassis)
         {
             string json = "";
             List<SelectListItem> item = new List<SelectListItem>();
@@ -853,10 +919,11 @@ namespace Core.CRM.ADO
             {
                 SqlParameter[] sqlParam = {
                                     new SqlParameter("@EnquiryId",enquiryId),//0
-									new SqlParameter("@DealerCode",dealerCode)//1
+									new SqlParameter("@DealerCode",dealerCode),//1
+                                    new SqlParameter("@Chassis",chassis)//1
 									};
 
-                dt = DataAccess.getDataTable("SP_OptionalFeature_Select", sqlParam, General.GetBMSConString());
+                dt = DataAccess.getDataTable("SP_OptionalFeature_Select_VS", sqlParam, General.GetBMSConString());
                 if (dt.Rows.Count > 0)
                 {
                     lst = EnumerableExtension.ToList<OptionalFeatureVM>(dt);
@@ -882,6 +949,74 @@ namespace Core.CRM.ADO
             }
 
             return lst;
+        }
+        public static List<OptionalFeatureVM> Get_OptionalFeatureData(string enquiryId, string dealerCode)
+        {
+            string json = "";
+            List<SelectListItem> item = new List<SelectListItem>();
+            var Serializer = new JavaScriptSerializer();
+            List<OptionalFeatureVM> lst = new List<OptionalFeatureVM>();
+            try
+            {
+                SqlParameter[] sqlParam = {
+                                    new SqlParameter("@EnquiryId",enquiryId),//0
+									new SqlParameter("@DealerCode",dealerCode),//1
+                                   
+									};
+
+                dt = DataAccess.getDataTable("SP_OptionalFeature_Select", sqlParam, General.GetBMSConString());
+                if (dt.Rows.Count > 0)
+                {
+                    lst = EnumerableExtension.ToList<OptionalFeatureVM>(dt);
+                }
+                //json = Serializer.Serialize(lst);
+
+                //item = lst.Select(i => new SelectListItem()
+                //{
+                //    Value = i.FID.ToString(),
+                //    Text = i.FDesc.ToString(),
+                //    Price = i.FDesc.ToString()
+
+                //}).ToList();
+
+                //  item.Insert(0, new SelectListItem() { Value = "0", Text = "Select" });
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return lst;
+        }
+
+        public static bool Check_Post(string chassisNo, string dealerCode)
+        {
+            DataSet ds = new DataSet();
+
+            if (sysfun.IsExist("BookRefNo", chassisNo, "BookOrdMaster", dealerCode, "and PostFlag='Y' "))
+            {
+                return true;
+
+            }
+
+            return false;
+        }
+
+
+        public static bool Check_Hold(string chassisNo, string dealerCode)
+        {
+            DataSet ds = new DataSet();
+
+            if (sysfun.IsExist("ChasisNo", chassisNo, "VehicleStock", dealerCode, "and HoldFlag='Y' and HoldAt='BookingOrd' "))
+            {
+                return true;
+
+            }
+
+            return false;
         }
     }
 }

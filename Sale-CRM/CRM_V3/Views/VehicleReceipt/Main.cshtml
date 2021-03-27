@@ -178,7 +178,12 @@
                             <ul class="nav nav-tabs primary" style="border-radius:0px; ">
                                 <li class="active">
                                     <a href="#home-7" data-toggle="tab" style="border-radius:0px;">
-                                        <i class="fa fa-car"></i> Vehicle Type
+                                        <i class="fa fa-car"></i> Vehicle Detail
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Features" data-toggle="tab" style="border-radius:0px;">
+                                        <i class="fa fa-car"></i> Features
                                     </a>
                                 </li>
                                 <li>
@@ -216,14 +221,13 @@
                                             <div class="makespace"></div>
                                         </div>
                                         <div class="col-md-2">
-                                            <label class="form-label">Receipt Type <span class="mandatory">*</span></label>
+                                            <label class="form-label">Ledger Type<span class="mandatory">*</span></label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
-                                                <select class="form-control m-bot15" id="ddlVou" onchange="ChangeColor(this)">
-                                                    <option value="0">Select</option>
-                                                    <option value="Open">Open</option>
-                                                    <option value="On Order">On Order</option>
-                                                    <option value="Exchange">Exchange</option>
+                                                <select class="form-control m-bot15" id="ddlLedgerType" onchange="ChangeColor(this)">
+                                                    <option value="Security">Security</option>
+                                                    <option value="Bank Guarantee">Bank Gurantee</option>
+                                                    <option value="Promotion">Promotion</option>
                                                 </select>
                                             </div>
                                             <div class="makespace"></div>
@@ -341,7 +345,14 @@
                                         </div>
                                         <div class="makespace"></div>
                                     </div>*@
-
+                                        <div class="col-md-2">
+                                            <label class="form-label">Model Year </label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-dashboard"></i></span>
+                                                <input type="text" autocomplete="on" class="form-control" id="txtModel" maxlength="4" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
                                         <div class="col-md-4">
                                             <label class="form-label">VIN / Chassis <span class="mandatory">*</span></label>
                                             <div class="input-group">
@@ -369,20 +380,13 @@
                                             <div class="makespace"></div>
                                         </div>
 
-                                        <div class="col-md-2">
-                                            <label class="form-label">Model Year </label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-dashboard"></i></span>
-                                                <input type="text" autocomplete="on" class="form-control" id="txtModel" maxlength="4" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)" />
-                                            </div>
-                                            <div class="makespace"></div>
-                                        </div>
+                                        
 
                                         <div class="col-md-2">
-                                            <label class="form-label">Mileage <span class="mandatory">*</span></label>
+                                            <label class="form-label">Mileage </label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-dashboard"></i></span>
-                                                <input type="text" autocomplete="on" class="form-control" id="txtMilage" maxlength="6" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)" />
+                                                <input type="text" autocomplete="on" value="0" class="form-control" id="txtMilage" maxlength="6" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)" />
                                             </div>
                                             <div class="makespace"></div>
                                         </div>
@@ -451,6 +455,7 @@
                                                 </table>
                                                 <input type="hidden" id="hdnFCode" />
                                                 <input type="hidden" id="hdnFDesc" />
+                                                <input type="hidden" id="hdnFPrice" />
                                             </div>
                                             <div class="makespace"></div>
                                         </div>
@@ -472,6 +477,7 @@
                                             </div>
                                             <div class="makespace"></div>
                                         </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -501,6 +507,7 @@
                                                             <th>Features</th>
                                                             <th>Freight Charge</th>
                                                             <th>Stock Value</th>
+                                                            <th>Ledger Type</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -512,7 +519,34 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="profile-7">
+                              
+                                <div class="tab-pane fade" id="Features">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped" id="tblFeaturesDetail">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Brand</th>
+                                                            <th>Product</th>
+                                                            <th>Version</th>
+                                                            <th>Color</th>
+                                                            <th>Feature</th>
+                                                            <th>Price</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="FeatureListRow1" data-tr-count="0"></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                  <div class="tab-pane fade" id="profile-7">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="table-responsive">
@@ -550,7 +584,7 @@
                         <div class="col-xs-6">
                             <label id="lblMsg" style=" margin-top 30px;"></label>
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-md-6">
                             <div class="pull-right">
                                 <button type="reset" class="btn btn-default btnborder" id="btnCancel" style="margin-top:25px;">Cancel</button>
                               
@@ -572,11 +606,11 @@
                                 }
                                 @if (Core.CRM.ADO.SecurityBll.UserRights("2015", "005"))
                                 {
-                                    <button type="button" class="btn btn-warning" id="btnVoucher" style="margin-top:27px; width:100px; border-radius:0px;">Voucher</button>
+                                    <button type="button" class="btn btn-warning" id="btnVoucher" style="margin-top:27px;  border-radius:0px;">Voucher</button>
                                 }
                                 else
                                 {
-                                    <button type="button" class="btn btn-warning" id="btnVoucher" style="margin-top:27px; width:100px; border-radius:0px; display:none;">Voucher</button>
+                                    <button type="button" class="btn btn-warning" id="btnVoucher" style="margin-top:27px;  border-radius:0px; display:none;">Voucher</button>
                                 }
                                    @if (Core.CRM.ADO.SecurityBll.UserRights("2015", "006"))
                                 {
@@ -716,7 +750,7 @@
                         <div class="col-md-10">
                             <input type="text" id="CustomerSearch" class="form-control" aria-controls="CustomerTable" placeholder="Search . . . ">
                         </div>
-                    </div>
+                    </div>CustomerSearch
                     <div class="form-group row">
                         <div class="table-responsive" style="height:350px;">
                             <table id="CustomerTable" class="table table-striped table-hover responsive">
@@ -790,7 +824,7 @@
 
 
 <script>
-    ///Search Modal Start 
+    ///Search Modal Start
     $(document).ready(function () {
         $("#ProductSearch").on("keyup", function () {
             var value = $(this).val().toLowerCase();
@@ -798,7 +832,7 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
-        
+
 
     });
     $("#ddlLocation").change(function () {
@@ -809,12 +843,12 @@
         }
         else {
             getFreightChargesLocWise();
-           
+
 
         }
     });
 
-    //Search Model End 
+    //Search Model End
     IssueFunc = function (value) {
 
         var lblBrandCode = $(value).closest('tr').find("#hdnCusCode").val();
@@ -827,7 +861,7 @@
     }
 
     ProductSelect = function (value) {
-        
+
         var prodCode = $(value).closest('tr').find("#hdnProdCode").val();
         var prodDesc = $(value).closest('tr').find('#lblProdDesc').text();
         var version = $(value).closest('tr').find('#lblVersionCode').text();
@@ -843,45 +877,52 @@
     //// Total Vehicle
     function CalTotalVehiclePrice() {
 
-      
-        
+
+
 
         var amt = $("#txtAmount").val();
         var Frieght = $("#txtFrieght").val();
 
         var FeatureAmount = 0;
-      
+
         if (amt == "" || amt == null || amt == NaN) {
             amt = 0;
         }
-       
-       
+
+
         if (Frieght == "" || Frieght == null || Frieght == NaN) {
             Frieght = 0;
         }
         var res = 0;
-      
+
+
         $("#tblAddOns tbody tr").each(function () {
 
 
             var check = $(this).closest('tr').find('#chkAddOns').prop('checked');
             if (check) {
-                FeatureAmount = FeatureAmount + parseFloat($(this).closest('tr').find('#lblPrice').text());
+                if($(this).closest('tr').find('#lblPrice').val()=="" ||$(this).closest('tr').find('#lblPrice').val()=="0"||$(this).closest('tr').find('#lblPrice').val()==undefined ||$(this).closest('tr').find('#lblPrice').val()=="null"){
+                    FeatureAmount=0;
+                }else{
+                    FeatureAmount = FeatureAmount + parseFloat($(this).closest('tr').find('#lblPrice').val());
+                }
+
 
             }
         });
+
         res = parseFloat(Frieght) + parseFloat(amt) + parseFloat(FeatureAmount);
-       
+
         return res;
 
     }
-    //// Freight Charges 
-   
+    //// Freight Charges
 
-    /// Frieght Charges 
+
+    /// Frieght Charges
     function getFreightChargesLocWise() {
-       
-       
+
+
         var prod = $("#ddlProdCode").val();
         var Location = $("#ddlLocation").val();
         var dealerCode = "@Session["DealerCode"].ToString()";
@@ -904,7 +945,7 @@
                             $("#txtFrieght").val(item[0].Frieght);
                             $('#txtTotalAmount').val(CalTotalVehiclePrice());
                         }
-                       
+
 
                     }
                 },
@@ -916,7 +957,7 @@
         }
 
     }
-    //// Feature Optional 
+    //// Feature Optional
      function getFeature(id,hdnAddOnsCode) {
         var leadId = id;
 
@@ -931,7 +972,7 @@
                 success: function (data) {
 
                     if (data.Success == true) {
-                        
+
                         var item = JSON.parse(data.Response);
 
                         //$("#ddlProdCode").val(item[0].ProdCode.trim());
@@ -940,7 +981,7 @@
                         if (item.length > 0) {
                             SNo = 0;
                             $.each(item, function (value, item) {
-                                
+
                                 //$("#ddlAddOns").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
                                 //var checkbox = '<label class="class="form-label" for=' + item.Value + '>' + item.Text + '</label>&nbsp;&nbsp;<input class="icheckbox_minimal-blue" type="checkbox" id=' + item.Value + ' value=' + item.Value + ' name=' + item.Value + '><br>'
 
@@ -949,28 +990,31 @@
                                 var code = hdnAddOnsCode.split('|');
 
                                 if (code.length > 1) {
-                                    
+
                                     code = code[rowCount];
                                 }
-                               
+
                                 var test2 = "";
                                 var test = '<tr onclick="clickonchkbox(this)" id="OptChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
                                                         '<td>' + SNo++ + '</td>' +
                                                         '<td> <label id="lblFID">' + item.FID + ' </label></td>' +
                                                         '<td> <label id="lblFDesc">' + item.FDesc + ' </label></td>' +
-                                                        '<td> <label id="lblPrice">' + item.Price + ' </label></td>';
-                                 
-                                
-                              
+                                                        '<td> <input type="text" id="lblPrice" value="'+ item.Price +'" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)"> '+
+                                                        '<label id="lblFPrice" style="display:none;">'+ item.Price +' </label>'
+                                                        '</td>';
+
+
+
                                     test2 = '<td style="text-align:center;">' +
                                                '<input type="checkbox" id="chkAddOns" class="chkBank icheckbox_minimal-blue"  value="' + item.FID.trim() + '" >' +
 
                                            '</td>'+'</tr>';
-                                
+
 
                                     $("#tblAddOns tbody").append(test + test2);
 
                             });
+                            debugger
                             if (hdnAddOnsCode.length > 1) {
                                 CheckedFeatureOnEdit(hdnAddOnsCode);
                             }
@@ -981,13 +1025,13 @@
                         //$(data.Response).each(function (index, item) { // GETTING ERROR HERE
                         //    $("#ddlAddOns").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
                         //});
-                       
-                       
+
+
 
                     }
                 },
                 complete: function () {
-                   
+
 
                 },
             });
@@ -997,18 +1041,140 @@
     }
     function CheckedFeatureOnEdit(hdnAddOnsCode) {
         var code = hdnAddOnsCode.split('|');
-        ;
+
         var tablelength = document.getElementById('tblAddOns').rows.length;
-        //var rowCount = $('#tblAddOns tr').length;
-        //var rowCount2 = $('#tblAddOns').rowCount();
+
+
+        $("#tblAddOns tbody tr").each(function () {
+        debugger
+            var rowindex= $(this).closest('tr');
+            var check = $(rowindex).closest('tr').find('#lblFID').text().trim();
+            for (var i = 0; i < code.length; i++) {
+                if (code[i].toString().trim() == check.toString().trim()) {
+                    var featureRow=tblFeaturesDetail.rows;
+                    for(var k=1;k<featureRow.length;k++){
+
+                        var tblrow=$(tblFeaturesDetail.rows[k]).closest('tr');
+                        var fprice=$(tblrow).closest('tr').find('#lblfPrice').text();
+                        var fcode=$(tblrow).closest('tr').find('#hdnfcode').val()
+                        if(fcode==check){
+                            $(this).closest('tr').find('#lblPrice').val(fprice);
+                            $(this).closest('tr').find('#chkAddOns').prop('checked', true);
+                        }
+                    }
 
 
 
-        //var i;
-        //for (i = 0; i < tablelength.length; i++) {
-        // 
-        //}
 
+
+
+
+                }
+            }
+        });
+        var lblBrandCode = $(rIndex).closest('tr').find("#hdnBrandCode").val(); $("#ddlBrandCode").val(lblBrandCode);
+        var lblProdCode = $(rIndex).closest('tr').find("#hdnProdCode").val(); $("#ddlProdCode").val(lblProdCode);
+        var lblProdDesc = $(rIndex).closest('tr').find("#lblProdCode").val(); $("#txtProdDesc").val(lblProdCode);
+        var lblVersionCode = $(rIndex).closest('tr').find("#hdnVersionCode").val(); $("#txtVersionCode").val(lblVersionCode);
+        var lblColor = $(rIndex).closest('tr').find("#hdnColorCode").val(); $("#ddlColor").val(lblColor);
+
+        var fbrand= $("#ddlBrandCode").val();
+        var fprod=$("#ddlProdCode").val();
+        var fversion= $("#txtVersionCode").val();
+        var fcolor= $("#ddlColor").val();
+        removefeaturerow(fbrand,fprod,fversion,fcolor);
+        // removefeaturerow(fbrand,fprod,fversion,fcolor);
+        
+        
+
+
+
+
+
+    }
+    function getFeatureFromBookingOrder(id,hdnAddOnsCode) {
+        var leadId = id;
+
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Select_OptionalFeatures")',
+                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+                success: function (data) {
+
+                    if (data.Success == true) {
+
+                        var item = JSON.parse(data.Response);
+
+                        //$("#ddlProdCode").val(item[0].ProdCode.trim());
+                        //$("#ddlAddOns").find('option').remove();
+                        $("#tblAddOns tbody tr").remove();
+                        if (item.length > 0) {
+                            SNo = 0;
+                            $.each(item, function (value, item) {
+
+                                //$("#ddlAddOns").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                                //var checkbox = '<label class="class="form-label" for=' + item.Value + '>' + item.Text + '</label>&nbsp;&nbsp;<input class="icheckbox_minimal-blue" type="checkbox" id=' + item.Value + ' value=' + item.Value + ' name=' + item.Value + '><br>'
+
+                                //$("#container").append($(checkbox));
+
+                                var code = hdnAddOnsCode.split('|');
+
+                                if (code.length > 1) {
+
+                                    code = code[rowCount];
+                                }
+
+                                var test2 = "";
+                                var test = '<tr onclick="clickonchkbox(this)" id="OptChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblFID">' + item.FID + ' </label></td>' +
+                                                        '<td> <label id="lblFDesc">' + item.FDesc + ' </label></td>' +
+                                                        '<td> <input type="text" id="lblPrice" value="'+ item.Price +'" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)"> '+
+                                                        '<label id="lblFPrice" style="display:none;">'+ item.Price +'</label>'
+                                '</td>';
+
+
+
+                                test2 = '<td style="text-align:center;">' +
+                                           '<input type="checkbox" id="chkAddOns" class="chkBank icheckbox_minimal-blue"  value="' + item.FID.trim() + '" >' +
+
+                                       '</td>'+'</tr>';
+
+
+                                $("#tblAddOns tbody").append(test + test2);
+
+                            });
+                            debugger
+                            if (hdnAddOnsCode.length > 1) {
+                                CheckedFeatureOnEditBO(hdnAddOnsCode);
+                            }
+
+                        }
+
+                        //// next iterate thru your object adding each option to the drop down\
+                        //$(data.Response).each(function (index, item) { // GETTING ERROR HERE
+                        //    $("#ddlAddOns").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                        //});
+
+
+
+                    }
+                },
+                complete: function () {
+
+
+                },
+            });
+
+        }
+
+    }
+    function CheckedFeatureOnEditBO(hdnAddOnsCode) {
+        var code = hdnAddOnsCode.split('|');
         $("#tblAddOns tbody tr").each(function () {
             var check = $(this).closest('tr').find('#lblFID').text();
             for (var i = 0; i < code.length; i++) {
@@ -1016,42 +1182,85 @@
                     $(this).closest('tr').find('#chkAddOns').prop('checked', true);
 
                 }
+
             }
         });
+      
+
+
+        }
+        //var lblBrandCode = $(rIndex).closest('tr').find("#hdnBrandCode").val(); $("#ddlBrandCode").val(lblBrandCode);
+        //var lblProdCode = $(rIndex).closest('tr').find("#hdnProdCode").val(); $("#ddlProdCode").val(lblProdCode);
+        //var lblProdDesc = $(rIndex).closest('tr').find("#lblProdCode").val(); $("#txtProdDesc").val(lblProdCode);
+        //var lblVersionCode = $(rIndex).closest('tr').find("#hdnVersionCode").val(); $("#txtVersionCode").val(lblVersionCode);
+        //var lblColor = $(rIndex).closest('tr').find("#hdnColorCode").val(); $("#ddlColor").val(lblColor);
+
+        //var fbrand= $("#ddlBrandCode").val();
+        //var fprod=$("#ddlProdCode").val();
+        //var fversion= $("#txtVersionCode").val();
+        //var fcolor= $("#ddlColor").val();
+        //removefeaturerow(fbrand,fprod,fversion,fcolor);
+        //// removefeaturerow(fbrand,fprod,fversion,fcolor);
+        
+        
 
 
 
-    }
+
+
+    
     function clickonchkbox(value) {
-
+    debugger
         var lblFID = $(value).closest('tr').find("#lblFID").text();
         var lblFDesc = $(value).closest('tr').find('#lblFDesc').text();
-        var lblPrice = $(value).closest('tr').find('#lblPrice').text();
-        var fdesc = "";
+        var lblPrice = $(value).closest('tr').find('#lblPrice').val();
+        var lblFPrice = ($(value).closest('tr').find('#lblFPrice').text());
+        var uncheck = $(value).closest('tr').find('#chkAddOns').prop('checked');
+
         var fcode = "";
-      
-        
+        var fdesc = "";
+        var fPrice = "";
+        rIndex = $(value).closest('tr');
+        if(uncheck){
+          
+            $(rIndex).closest('tr').find("#lblFPrice").show();
+            $(rIndex).closest('tr').find("#lblFPrice").text(lblPrice);
+            $(rIndex).closest('tr').find("#lblPrice").hide();
+        }else{
+            $(rIndex).closest('tr').find("#lblFPrice").hide();
+            $(rIndex).closest('tr').find("#lblPrice").val(lblFPrice);
+            $(rIndex).closest('tr').find("#lblPrice").show();
+        }
+
+
+
         $("#tblAddOns tbody tr").each(function () {
-           
+
             var check = $(this).closest('tr').find('#chkAddOns').prop('checked');
             if (check) {
 
                 if (fcode == "") {
                     fcode = $(this).closest('tr').find('#lblFID').text();
-                    fdesc = $(this).closest('tr').find('#lblFDesc').text();
+                    fdesc = $(this).closest('tr').find('#lblFDesc').text()+":"+$(this).closest('tr').find('#lblFPrice').text();
+                    fPrice=$(this).closest('tr').find('#lblFPrice').text();
+
                 }
                 else {
                     fcode = fcode + "|" + $(this).closest('tr').find('#lblFID').text();
-                    fdesc = fdesc + "|" + $(this).closest('tr').find('#lblFDesc').text();
+                    fdesc = fdesc + "|" + $(this).closest('tr').find('#lblFDesc').text()+":"+$(this).closest('tr').find('#lblFPrice').text();
+                    fPrice = fPrice + "|" + $(this).closest('tr').find('#lblFPrice').text();
+
                 }
             }
         });
+
       //  $("#txtTotalPrice").val(CalTotalVehiclePrice());
 
-       // alert(fdesc);
-        
+       // alert(fPrice);
+
         $("#hdnFCode").val(fcode);
         $("#hdnFDesc").val(fdesc);
+        $("#hdnFPrice").val(fPrice);
         $("#txtTotalAmount").val(CalTotalVehiclePrice());
 
     }
@@ -1085,6 +1294,7 @@
         Get_VehRecModalData();
         Get_DelChkListData();
         Get_CustomerModalData();
+        getDefaultVendor();
         document.getElementById("txtVersionCode").disabled = true;
         $("#txtRecDate").datepicker({
             dateFormat: "dd-mm-yy"
@@ -1096,7 +1306,7 @@
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
-
+        $("#txtModel").val(yyyy);
         if (dd < 10) {
             dd = '0' + dd
         }
@@ -1110,6 +1320,7 @@
 
         $("#txtRecDate").val(today);
         $("#txtOEMDate").val(today);
+        $("#txtModel").val(yyyy);
         $("#txtRecDate").attr('max', today);
         //$("#txtRegDate").val(today);
         //$("#txtRegDate").attr('max', today);
@@ -1297,7 +1508,7 @@
                           '<td class="tdDiv" style="overflow:auto"><label id="lblChasisNo">' + item.ChasisNo + '</label></td>' +
                           '<td class="tdDiv" style="overflow:auto"><label id="lblEngineNo">' + item.EngineNo + '</label></td>' +
                           '<td class="tdDiv" style="overflow:auto"><label id="lblVendor">' + item.VendorDesc + '</label></td>' +
-                          
+
                           '</tr>';
 
                             $("#VehRecTable tbody").append(temp);
@@ -1374,7 +1585,7 @@
         var prodCode = $("#ddlProdCode").val();
         var color = $("#ddlColor").val();
         var VersionCode = $("#txtVersionCode").val();
-        //var InvNo = $("#txtInvNo").val();
+        var ddlLedgerType = $("#ddlLedgerType").val();
         //var InvDate = $("#txtInvDate").val();
         var regNo = $("#txtBookRefNo").val();
         //var regDate = $("#txtRegDate").val();
@@ -1420,21 +1631,22 @@
             $("#ddlLocation").css("border-color", "red");
             count++;
         }
-        if (milage == "" || milage == undefined) {
-            $("#txtMilage").css("border-color", "red");
-            count++;
-        }
+        //if (milage == "" || milage == undefined) {
+        //    $("#txtMilage").css("border-color", "red");
+        //    count++;
+        //}
         if (VersionCode == "" || VersionCode == undefined) {
             $("#txtVersionCode").css("border-color", "red");
             count++;
         }
-        if (chassisNo == "" || chassisNo == undefined) {
+        debugger
+        if (chassisNo == "" || chassisNo == undefined || chassisNo == null || chassisNo == "NULL") {
             $("#txtChassisNo").css("border-color", "red");
             count++;
         }
 
 
-        if (engineNo == "" || engineNo == undefined) {
+        if (engineNo == "" || engineNo == undefined || engineNo ==null || engineNo =="NULL") {
             $("#txtEngineNo").css("border-color", "red");
             count++;
         }
@@ -1561,7 +1773,7 @@
         });
 
     }
-  
+
 
     function AddProduct(value) {
 
@@ -1570,7 +1782,7 @@
         }
         else {
 
-            
+
 
             var brandCode = $("#ddlBrandCode :selected").text();
             var hdnbrandCode = $("#ddlBrandCode").val();
@@ -1580,7 +1792,10 @@
             var hdnprodCode = $("#ddlProdCode").val();
             $("#ddlProdCode").css("border-color", "#ccc");
 
-            var version = $("#txtVersionCode").val(); $("#txtVersionCode").css("border-color", "#ccc")
+            var version = $("#txtVersionCode").val();
+            var versiondesc = $("#txtVersionCode :selected").text();
+
+            $("#txtVersionCode").css("border-color", "#ccc")
 
             var color = $("#ddlColor :selected").text();
             var hdnColorCode = $("#ddlColor").val();
@@ -1592,7 +1807,7 @@
             $("#ddlVehLoc").css("border-color", "#ccc");
 
             var prodDesc = $("#txtProdDesc").val(); $("#txtProdDesc").css("border-color", "#ccc");
-            var refNo = $("#txtBookRefNo").val(); $("#txtBookRefNo").css("border-color", "#ccc");
+            var refNo = $("#ddlBookingNo").val(); $("#ddlBookingNo").css("border-color", "#ccc");
             var stockType = $("#ddlStkType :selected").text(); $("#ddlStkType").css("border-color", "#ccc");
             var milage = $("#txtMilage").val(); $("#txtMilage").css("border-color", "#ccc");
             //var regDate = $("#txtRegDate").val(); $("#txtRegDate").css("border-color", "#ccc");
@@ -1615,12 +1830,16 @@
             }
             var FCode = $("#hdnFCode").val();
             var FDesc = $("#hdnFDesc").val();
+
+            var FPrice = $("#hdnFPrice").val();
             var LocCode = $("#ddlLocation").val();
             var LocDesc = $("#ddlLocation :selected").text();
             var Frieght = $("#txtFrieght").val();
+            var ddlLedgerType = $("#ddlLedgerType").val();
+
             var TotalVehicle = $("#txtTotalAmount").val();
             var row = $(value).parent().parent().html();
-           
+
             var dt = $("#productDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
                                                         '<td>' + SNo++ + '</td>' +
                                                         '<td> <label id="lblBrandCode">' + brandCode + ' </label><input type="hidden" id="hdnBrandCode" value="' + hdnbrandCode + '"/></td>' +
@@ -1639,30 +1858,85 @@
                                                         //'<td> <label id="lblInsurance">' + insurance + ' </label></td>' +
                                                         '<td> <label id="lblCustomer">' + customer + ' </label><input type="hidden" id="hdnCusCode" value="' + hdnCusCode + '"/></td>' +
                                                         '<td> <label id="lblOrderNo">' + orderNo + ' </label><input type="text" style="display:none;" class="form-control" id="ddlBookingNotbl"/></td>' +
-                                                         
+
                                                          '<td> <label id="lblModel">' + Model + ' </label></td>' +
                                                          '<td> <label id="lblLocDesc">' + LocDesc + '</label><input type="hidden" id="hdnLocCode" value="' + LocCode + '"/></td>' +
                                                          '<td> <label id="lblAmount">' + Amount + ' </label><input type="text" style="display:none;" class="form-control" id="ddlBookingNotbl"/></td>' +
-                                                       '<td> <label id="lblAddOnsDesc">' + FDesc + '</label><input type="hidden" id="hdnAddOnsCode" value="' + FCode + '"/></td>' +
-                                                          
+                                                       '<td> <label id="lblAddOnsDesc" >' + FDesc + '</label><input type="hidden" id="hdnAddOnsCode" value="' + FCode + '"/><input type="hidden" id="hdnAddOnsPrice" value="' + FPrice + '"/></td>' +
+
                                                            '<td> <label id="lbFrieght">' + Frieght + ' </label></td>' +
                                                            '<td> <label id="lblTotalAmount">' + TotalVehicle + ' </label></td>' +
+                                                            '<td> <label id="lblLedger">' + ddlLedgerType + ' </label></td>' +
                                                         '<td style="text-align:center;">' +
                                                          '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
-                                                           
-                                                        '</tr>');
-            //'<button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditProdRecDetail(this)"><i class="fa fa-plus fa-lg"></i></button>' +
-            //   '<a class="btn btn-danger btn-xs" id="btnRemove" onclick="removeRow(this)"><i class="fa fa-minus fa-lg"></i></a></td>' +
 
-            
+                                                        '</tr>');
+
+
+
+
+            //// Add Features in Grid
+            $("#tblAddOns tbody tr").each(function () {
+
+                var check = $(this).closest('tr').find('#chkAddOns').prop('checked');
+                if (check) {
+
+                        var fcode = $(this).closest('tr').find('#lblFID').text();
+                        var  fdesc = $(this).closest('tr').find('#lblFDesc').text();
+                        var  fPrice=$(this).closest('tr').find('#lblFPrice').text();
+
+                        var dt = $("#tblFeaturesDetail tbody").append('<tr id="FeatureListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                                              '<td>' + SNo++ + '</td>' +
+                                                                              '<td> <label id="lblBrandCode">' + brandCode + ' </label><input type="hidden" id="hdnBrandCode1" value="' + hdnbrandCode + '"/></td>' +
+                                                                              '<td> <label id="lblProdCode">' + prodDesc + ' </label><input type="hidden" id="hdnProdCode1" value="' + hdnprodCode + '"/> <input type="hidden" id="hdnVersionCode1" value="' + version + '"/></td>' +
+                                                                              '<td> <label id="lblVersion">' + versiondesc + ' </label></td>' +
+                                                                              '<td> <label id="lblColor">' + color + ' </label><input type="hidden" id="hdnColorCode1" value="' + hdnColorCode + '"/></td>' +
+                                                                              '<td> <label id="lblfdesc">' + fdesc + '</label><input type="hidden" id="hdnfcode" value="' + fcode + '"/><input type="hidden" id="hdnAddOnsPrice" value="' + fPrice + '"/></td>' +
+                                                                              '<td> <label id="lblfPrice">' + fPrice + ' </label></td>' +
+                                                                              '<td style="text-align:center;">' +
+                                                                              '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+                                                                              '</tr>');
+
+
+
+
+
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             clearFeilds();
-            
+
             $("#btnSave").prop('disabled', false);
             CalBalancedPayment();
 
         }
 
     }
+
+
+
+
+
+
     $("table#productDetail").on('click', '.selectItem', function () {
         rIndex = $(this).closest('tr');
         index = $(this).closest('tr')[0].rowIndex;
@@ -1683,11 +1957,23 @@
         var Model = $(rIndex).closest('tr').find("#lblModel").text().trim(); $("#txtModel").val(Model);
         var lblAddOnsDesc = $(rIndex).closest('tr').find("#lblAddOnsDesc").text();
         var hdnAddOnsCode = $(rIndex).closest('tr').find("#hdnAddOnsCode").val();
-        ;
+        debugger
+        var lblLedger = $(rIndex).closest('tr').find("#lblLedger").text().trim(); $("#ddlLedgerType").val(lblLedger);
         var hdnLocCode = $(rIndex).closest('tr').find("#hdnLocCode").val();
         var lblFrieght = $(rIndex).closest('tr').find("#lbFrieght").text();
         var lblTotalAmount = $(rIndex).closest('tr').find("#lblTotalAmount").text();
+       
         getFeature(lblProdCode, hdnAddOnsCode);
+       
+            var fbrand=$(rIndex).closest('tr').find("#hdnBrandCode").val();
+            var fprod=$(rIndex).closest('tr').find("#hdnProdCode").val();
+            var fversion=$(rIndex).closest('tr').find("#hdnVersionCode").val();;
+            var fcolor=$(rIndex).closest('tr').find("#hdnColorCode").val();;
+           // removefeaturerow(fbrand,fprod,fversion,fcolor);
+        
+        
+        
+
         $("#ddlLocation").val(hdnLocCode);
         $("#txtFrieght").val(lblFrieght);
         $("#txtTotalAmount").val(lblTotalAmount);
@@ -1699,11 +1985,33 @@
         SNo--;
 
     });
+    function removefeaturerow(fbrand,fprod,fversion,fcolor){
+    debugger
+        $("#tblFeaturesDetail tbody tr").each(function () {
+            var tblbrand=$(this).closest('tr').find("#hdnBrandCode1").val();
+            var tblprod=$(this).closest('tr').find("#hdnProdCode1").val();
+            var tblversion=$(this).closest('tr').find("#hdnVersionCode1").val();
+            var tblcolor=$(this).closest('tr').find("#hdnColorCode1").val();
+            if(tblbrand==fbrand && tblprod==fprod && tblversion==fversion && tblcolor==fcolor){
+                $(this).closest('tr').remove();
+            }
+
+             
+        });
+    }
     $("table#productDetail").on('click', '.deleteItem', function () {
         rIndex = $(this).closest('tr');
+        var lblBrandCode = $(this).closest('tr').find("#hdnBrandCode").val();
+        var lblProdCode = $(this).closest('tr').find("#hdnProdCode").val(); 
+      
+        var lblVersionCode = $(this).closest('tr').find("#hdnVersionCode").val();
+        var lblColor = $(this).closest('tr').find("#hdnColorCode").val(); $("#ddlColor").val(lblColor);
+        
+        removefeaturerow(lblBrandCode,lblProdCode,lblVersionCode,lblColor);
         index = $(this).closest('tr')[0].rowIndex;
         $(this).closest('tr').remove();
-
+        
+     
         CalBalancedPayment();
 
         $("#" + tempRow).find('.remove').show();
@@ -1715,6 +2023,7 @@
         CalBalancedPayment();
 
     });
+    
     function CalBalancedPayment() {
         var check1 = 0;
         var amount = 0;
@@ -1726,8 +2035,8 @@
             }
             check1 = check1 + parseFloat(amount);
 
-           
-           
+
+
         });
    $("#txtTotalVehicleAmount").val(check1);
 
@@ -1847,11 +2156,11 @@
             $("#txtBookRefNo").val('');
 
         } else {
-        
+
             $("#ddlBookingNo").prop('disabled', false);
             $("#ddlCustomers").prop('disabled', false);
             $("#ddlBrandCode").prop('disabled', false);
-          
+
         }
     });
 
@@ -1873,12 +2182,17 @@
         $("#ddlCustomers").val("0");
         $("#ddlBookingNo").val("0");
         $("#ddlVehLoc").val("0");
-        $("#txtModel").val("");
+       
         $("#txtAmount").val("");
         $("#txtFrieght").val("0");
         $("#txtTotalAmount").val("0");
         $("#tblAddOns tbody tr").remove();
         $("#ddlLocation").val("0");
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        $("#txtModel").val(yyyy);
 
     }
 
@@ -1893,6 +2207,7 @@
         var category = $("#ddlCategory").val();
         var usage = $("#ddlUsage").val();
         var docNo = $("#txtDocNo").val();
+
 
         if (vehType == "0") {
             $("#ddlVehType").css("border-color", "red");
@@ -1979,12 +2294,12 @@
         return check;
     }
     function ValidDeliveryOrder() {
-       
+
         $("#productDetail tbody tr").each(function () {
-            debugger;
+            ;
             var Chassis = $(this).closest('tr').find("#lblChassisNo").text();
-          
-       
+
+
 
         $.ajax({
             dataType: "json",
@@ -1996,21 +2311,21 @@
 
                 if (data) {
                     if (data.Success == true) {
-                    debugger
+
                         $("#modalMessage").css("background-color", "#e46457");
                         $("#lblMessage").text(data.Message);
                         $("#section-message").modal('show');
                         setTimeout(function () {
                             $('#section-message').modal('hide')
                         }, 4000);
-                        
+
                         $("#txtChassisNo").css("border-color", "red");
 
                         $("#btnSave").prop('disabled', false);
                         isExistDeliveryFlag = false;
 
                     } else {
-                       
+
                         isExistDeliveryFlag = true;
                     }
                 }
@@ -2020,9 +2335,9 @@
         return isExistDeliveryFlag;
     }
     $("#btnSave").click(function () {
-    debugger
+
     var receip = $("#ddlRecNo").val();
-        
+
         var check = ProdRecMaster();
         var DO=ValidDeliveryOrder();
         if (receip != "0") {
@@ -2042,7 +2357,7 @@
                 $("#section-confirm").modal("show");
             }
         }
-       
+
 
     })
 
@@ -2145,7 +2460,7 @@
                         //ProductDetail
                         if (item.length > 0) {
                             $.each(item, function (value, item) {
-                                
+
                                 $("#productDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
                                                         '<td>' + SNo++ + '</td>' +
                                                         '<td> <label id="lblBrandCode">' + item.BrandDesc.trim() + ' </label><input type="hidden" id="hdnBrandCode" value="' + item.BrandCode.trim() + '"/></td>' +
@@ -2170,14 +2485,15 @@
                                                         '<td> <label id="lblAddOnsDesc">' + item.FDesc + '</label><input type="hidden" id="hdnAddOnsCode" value="' + item.FCode + '"/></td>' +
                                                         '<td> <label id="lbFrieght">' + item.FreightCharge + ' </label></td>' +
                                                         '<td> <label id="lblTotalAmount">' + item.StockValue + ' </label></td>' +
+                                                        '<td> <label id="lblLedger">' + item.LedgerType + ' </label></td>' +
                                                         '<td style="text-align:center;">' +
                                                          '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
 
                                                         '</tr>');
 
                             });
-
-                            getDeliveryCheckList(id)
+                            getVehicleReceiptFeatureDetail(id);
+                           
 
                         }
                     }
@@ -2190,6 +2506,62 @@
         }
 
     }
+
+    function getVehicleReceiptFeatureDetail(id) {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/VehicleReceipt/Select_VehicleReceiptFeatureDetail")',
+                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+                success: function (data) {
+                    ;
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        $("#tblFeaturesDetail tbody tr").remove()
+                        //ProductDetail
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+                            
+                                $("#tblFeaturesDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblBrandCode">' + item.BrandDesc.trim() + ' </label><input type="hidden" id="hdnBrandCode1" value="' + item.BrandCode.trim() + '"/></td>' +
+                                                        '<td> <label id="lblProdCode">' + item.ProdDesc.trim() + ' </label><input type="hidden" id="hdnProdCode1" value="' + item.ProdCode.trim() + '"/><input type="hidden" id="hdnVersionCode1" value="' + item.VersionCode.trim() + '"/></td>' +
+                                                        '<td> <label id="lblVersion">' + item.VersionDesc + ' </label></td>' +
+                                                        '<td> <label id="lblColor">' + item.ColorDesc.trim() + ' </label><input type="hidden" id="hdnColorCode1" value="' + item.ColorCode.trim() + '"/></td>' +
+                                                        '<td> <label id="lblfdesc">' + item.FDesc + '</label><input type="hidden" id="hdnfcode" value="' + item.FCode + '"/></td>' +
+                                                        '<td> <label id="lblfPrice">' + item.FPrice + '</label><input type="hidden" id="hdnAddOnsCode" value="' + item.FCode + '"/></td>' +
+                                                       
+                                                        '<td style="text-align:center;">' +
+                                                         '<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+
+                                                        '</tr>');
+
+                            });
+                            
+                            getDeliveryCheckList(id);
+
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+
 
     function getDeliveryCheckList(id) {
 
@@ -2282,7 +2654,7 @@
                 complete: function () {
                     if (tempProduct != "") {
                         $("#ddlProdCode").val(tempProduct);
-                       
+
                     }
 
                 },
@@ -2399,9 +2771,9 @@
                         $("#txtTotalAmount").val(item[0].TotalAmt);
                         $("#hdnFCode").val(item[0].FID);
                         $("#hdnFDesc").val(item[0].FDesc);
+
+                        getFeatureFromBookingOrder(tempProduct, item[0].FID);
                         
-                        
-                        getFeature(tempProduct, item[0].FID);
 
                     }
                 },
@@ -2422,10 +2794,10 @@
             //    location.reload();
             //} else {
             getFactoryPriceFromColor(Color);
-            
+
 
            // }
-        
+
     });
 
     function getFactoryPriceFromColor(id) {
@@ -2460,7 +2832,35 @@
         }
 
     }
+    function getDefaultVendor() {
+     
 
+      
+
+      
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/VehicleReceipt/Select_DefaultVendor")',
+              
+                success: function (data) {
+                    if (data.Success == true) {
+                      
+
+                        $("#ddlVendor").val(data.Response);
+                      
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+      
+
+    }
     function SaveEnquiry() {
 
         var dto = {};
@@ -2480,7 +2880,7 @@
         dto.OEMAnnounceDate = $("#txtOEMDate").val();
         dto.TransportID = $("#ddlTranspoter").val();
         dto.TotalVehicleAmount = $("#txtTotalVehicleAmount").val();
-        
+
 
         $.ajax({
             dataType: "json",
@@ -2549,9 +2949,35 @@
             dto.ModelYear = $(this).closest('tr').find('#lblModel').text().trim();
 
             dto.FCode = $(this).closest('tr').find('#hdnAddOnsCode').val();
+            dto.FPrice = $(this).closest('tr').find('#hdnAddOnsPrice').val();
             dto.FreightLoc = $(this).closest('tr').find('#hdnLocCode').val();
             dto.FreightCharge = $(this).closest('tr').find('#lbFrieght').text();
             dto.StockValue = $(this).closest('tr').find('#lblTotalAmount').text();
+            dto.LedgerType = $(this).closest('tr').find('#lblLedger').text();
+
+            obj.push(dto);
+        });
+
+        return obj;
+    }
+    function insertRecordFeatures() {
+        var obj = [];
+
+        $("#tblFeaturesDetail tbody tr").each(function () {
+            debugger;
+
+            var dto = {};
+
+            dto.DealerCode = "@Session["DealerCode"].ToString()";
+            dto.RecNo = $("#ddlRecNo").val();
+            dto.BrandCode = $(this).closest('tr').find('#hdnBrandCode1').val();
+            dto.ProdCode = $(this).closest('tr').find('#hdnProdCode1').val();
+            dto.VersionCode = $(this).closest('tr').find('#hdnVersionCode1').val();
+            dto.ColorCode = $(this).closest('tr').find('#hdnColorCode1').val();
+            dto.FCode = $(this).closest('tr').find('#hdnfcode').val();
+            dto.FPrice = $(this).closest('tr').find('#lblfPrice').text();
+
+
             obj.push(dto);
         });
 
@@ -2571,6 +2997,45 @@
             type: 'POST',
             url: '@Url.Content("~/VehicleReceipt/Insert_ProdRecDetail")',
             data: objects,
+            success: function (data) {
+
+                if (data) {
+                    if (data.Success == true) {
+                        saveProdRecFeature();
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+              //  location.reload();
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+    }
+    function saveProdRecFeature() {
+
+
+        var objectsFeatures=[];
+        objectsFeatures = JSON.stringify({ 'objectsFeatures': insertRecordFeatures() });
+        debugger
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            //async: true,
+            type: 'POST',
+            url: '@Url.Content("~/VehicleReceipt/Insert_ProdRecFeatures")',
+            data:  objectsFeatures,
             success: function (data) {
 
                 if (data) {
@@ -2598,7 +3063,6 @@
         });
     }
 
-
     function saveCheckList() {
         var checkedValues = $('input:checkbox:checked').map(function () {
             if (this.value != "on") {
@@ -2622,6 +3086,9 @@
                         $("#modalMessage").css("background-color", "#64c344");
                         $("#lblMessage").text(data.Message)
                         $("#section-message").modal('show');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 4000);
                     }
                     else {
                         $("#section-confirm").modal("hide")
@@ -2632,7 +3099,7 @@
                 }
             },
             complete: function () {
-                location.reload();
+              
             },
             error: function (data) {
                 $("#section-confirm").modal("hide")

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CRM.Models.Classes;
+using Core.CRM.Helper;
 
 namespace CRM_V3.Controllers
 {
@@ -19,6 +20,10 @@ namespace CRM_V3.Controllers
         static string dealerCode = string.Empty;
         SysFunction grl = new SysFunction();
         SecurityBll common = new SecurityBll();
+        sngonclo_BMSEntities BMS = new sngonclo_BMSEntities();
+      
+        static Transaction ObjTrans = new Transaction();
+        static SqlTransaction Trans;
         // GET: DeliveryOrder
         public ActionResult DOMain(string EnquiryId = "")
         {
@@ -78,6 +83,12 @@ namespace CRM_V3.Controllers
             ViewBag.Vendor = ddlVendor;
 
             ViewBag.UrlLeadId = EnquiryId;
+
+                List<SelectListItem> BookingList = new List<SelectListItem>();
+                BookingList = BookingOrderMethods.GetDataFromSPWithDealerCode("sp_DelCheckList",dealerCode);
+
+                ViewBag.BookingList = BookingList;
+
             }
             else
             {
@@ -311,15 +322,36 @@ namespace CRM_V3.Controllers
 
             return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
         }
+        #region
+
+        //[HttpPost]
+        //public JsonResult Insert_VehChkList(string strCheckedValues)
+        //{
+        //    bool result = false;
+        //    int count = 0;
+        //    string msg = "Failed to save record..";
+
+        //    result = DeliveryOrderMethods.Insert_VehChkList(strCheckedValues, Session["DealerCode"].ToString());
+
+        //    if (result)
+        //    {
+        //        msg = "Successfully Added";
+        //    }
+
+        //    return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        //}
+        #endregion
 
         [HttpPost]
-        public JsonResult Insert_VehChkList(string strCheckedValues)
+        public JsonResult Insert_VehChkList(List<DocumentCheckList> objects)
         {
+            //string strCheckedValues
             bool result = false;
             int count = 0;
             string msg = "Failed to save record..";
 
-            result = DeliveryOrderMethods.Insert_VehChkList(strCheckedValues, Session["DealerCode"].ToString());
+            // result = BookingOrderMethods.Insert_VehChkList(strCheckedValues, Session["DealerCode"].ToString());
+            result = DeliveryOrderMethods.Insert_VehChkLists(objects, Session["DealerCode"].ToString(), ref msg);
 
             if (result)
             {
@@ -328,16 +360,44 @@ namespace CRM_V3.Controllers
 
             return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult Delete_DeliveryOrder(string EnquiryId)
         {
             bool result = false;
-
             string msg = "Vehicle is Delivered , Data can't be deleted";
+            try
+            {
+              
+                string DealerCode = Session["DealerCode"].ToString();
+                var DetailList = BMS.VehicleDeliveryDetail.Where(g => g.DealerCode == DealerCode && g.DeliveryNo == EnquiryId).ToList();
+                if (ObjTrans.BeginTransaction(ref Trans) == true)
+                {
+                    foreach (var item in DetailList)
+                    {
+                       
+                            result = DeliveryOrderMethods.Delete_DeliveryOrder_Record(item.ChasisNo, DealerCode, EnquiryId, Trans);
+                        
+                       
 
-            result = DeliveryOrderMethods.Delete_DeliveryOrder_Record(EnquiryId, Session["DealerCode"].ToString());
+                    }
+                    if (result == true)
+                    {
+                       
+                        ObjTrans.CommittTransaction(ref Trans);
+                    }
 
-            if (result)
+
+                    msg = "Deleted Successfully...!";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ObjTrans.RollBackTransaction(ref Trans);
+                msg = "Something went wrong with server! /n" + ex;
+            }
+
+           if (result)
             {
                 msg = "Successfully Deleted";
             }
@@ -445,5 +505,24 @@ namespace CRM_V3.Controllers
 
 
         }
+
+        //// Check hold Vehicle
+        [HttpGet]
+        public JsonResult Check_Hold(string EnquiryId)
+        {
+            string msg = "";
+            bool result = false;
+            //result = VehReceiptMethods.Check_ChassisNo(chassisNo,engineNo, DealerCode);
+            string DealerCode = Session["DealerCode"].ToString();
+            if (DeliveryOrderMethods.Check_Hold(EnquiryId, DealerCode))
+            {
+                msg = "This Vehicle is Hold For Delivery You Can Not Create its Delivery Order";
+                result = true;
+            }
+
+            return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

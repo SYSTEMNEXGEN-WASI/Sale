@@ -72,33 +72,47 @@
                                     <select class="form-control m-bot15" id="ddlService" onchange="ChangeColor(this)">
                                         <option value="0">Select</option>
                                         <option value="BO">Booking Order</option>
-                                        <option value="TL">Technician Labor </option>
+                                        @*<option value="TL">Technician Labor </option>
                                         <option value="JC">JobCard</option>
                                         <option value="EW">Extended Warranty</option>
-                                        <option value="UV">Used Vehicle Sales</option>
+                                        <option value="UV">Used Vehicle Sales</option>*@
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Type</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                    @*<input type="text" class="form-control" id="" maxlength="3" onblur="" name="formfield1" onkeypress="return isNumberKey(event)" />*@
+                                    <select class="form-control m-bot15" id="ddlType" onchange="ChangeColor(this)">
+                                        <option value="0">Select</option>
+                                        <option value="Emp">Employee</option>
+                                        <option value="other">Other Comission </option>
+                                        
                                     </select>
                                 </div>
                                 <div class="makespace"></div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <label class="form-label">Commission Month</label>
                                 <div class="input-group controls">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     <select class="form-control m-bot15" id="ddlMonth" onchange="ChangeColor(this)">
                                         <option value="0">Select</option>
-                                        <option value="01">01</option>
-                                        <option value="02">02</option>
-                                        <option value="03">03</option>
-                                        <option value="04">04</option>
-                                        <option value="04">05</option>
-                                        <option value="06">06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
+                                        <option value="01">January</option>
+                                        <option value="02">Feburary</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
                                     </select>
                                 </div>
                                 <div class="makespace"></div>
@@ -136,6 +150,7 @@
                                             <th>Commision %</th>
                                             <th>Commision Amount</th>
                                             <th>Action</th>
+                                            <th>Remove</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -367,11 +382,12 @@
 
         var service = $("#ddlService").val();
         var month = $("#ddlMonth").val();
-        getMonthlyCommision(service, month)
+        var Type = $("#ddlType").val();
+        getMonthlyCommision(service, month,Type)
 
     });
 
-    function getMonthlyCommision(service, month) {
+    function getMonthlyCommision(service, month,Type) {
         var dealerCode = "@Session["DealerCode"].ToString()";
 
         var rowCount = 1;
@@ -384,7 +400,7 @@
                 async: true,
                 type: 'GET',
                 url: '@Url.Content("~/MonthlyCommision/Get_MonthlyCommision")',
-                data: { 'Service': service, 'Month': month,'DealerCode': dealerCode },
+                data: { 'Service': service, 'Month': month,'DealerCode': dealerCode,'Type':Type },
                 success: function (data) {
                     if (data.Success == true) {
                         var item = JSON.parse(data.Response)
@@ -407,9 +423,10 @@
                                                         '<td> <label id="lblCommPerc">' + item.CommPerc + ' </label> <input type="text" style="display:none;" class="form-control" id="txtCommPerctbl" onchange="GetAmount(this)" maxlength="5"/></td>' +
                                                         '<td> <label id="lblCommAmt">' + item.CommisionAmount + ' </label><input type="text" style="display:none;" class="form-control" id="txtCommAmttbl"  onchange="GetPercentage(this)" maxlength="8" /></td>' +
                                                         '<td><button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditData(this)"><i class="fa fa-plus fa-lg"></i></button>' +
-                                                             '<button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>' +
-                                                             '<button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
-                                                        '</tr>');
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                        '<td><a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+                                                       '</tr>');
 
                             });
                         }
@@ -424,7 +441,12 @@
         }
 
     }
+    $("table#MCDetail").on('click', '.deleteItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        $(this).closest('tr').remove();
 
+    });
     function EditData(value) {
 
         $(value).closest('tr').find("#txtCommPerctbl").show();
@@ -695,9 +717,10 @@
                                                         '<td> <label id="lblCommPerc">' + item.CommPerc + ' </label> <input type="text" style="display:none;" class="form-control" id="txtCommPerctbl" maxlength="5" /></td>' +
                                                         '<td> <label id="lblCommAmt">' + item.CommisionAmount + ' </label><input type="text" style="display:none;" class="form-control" id="txtCommAmttbl" maxlength="8" /></td>' +
                                                         '<td><button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditData(this)"><i class="fa fa-plus fa-lg"></i></button>' +
-                                                             '<button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>' +
-                                                             '<button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
-                                                        '</tr>');
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                        '<td><a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+                                                       '</tr>');
 
                             });
                         }

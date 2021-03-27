@@ -190,10 +190,10 @@ namespace Core.CRM.ADO
 			return json;
 		}
 
-		public static bool Insert_ProdDetail(List<ProdReceiptDetailVM> model2 , string dealerCode, ref string msg)
+		public static bool Insert_ProdDetail(List<ProdReceiptDetailVM> model2, string dealerCode, ref string msg)
 		{
             int count = 0;
-            string[] a;
+            string[] a,b;
             try
 			{
                 foreach (var item in model2)
@@ -222,7 +222,7 @@ namespace Core.CRM.ADO
                                   new SqlParameter("@FreightCharge",float.Parse(item.FreightCharge)),//16
                                   new SqlParameter("@FCode",item.FCode),//17
                                   new SqlParameter("@StockValue",float.Parse(item.StockValue)),//18
-                                 
+                                 new SqlParameter("@LedgerType",item.LedgerType),//17
                         };
 
                         if (item.StockType != "Open")
@@ -235,41 +235,8 @@ namespace Core.CRM.ADO
 
                         if (sysfun.ExecuteSP_NonQuery("SP_ProdRecDetail_Insert", param2, Trans) == true)
                         {
-                            if (item.FCode != "" && item.FCode != null)
-                            {
-                                a = item.FCode.Split('|');
-                                if (a.Length>=1)
-                                {
-                                    foreach (var i in a)
-                                    {
-                                        SqlParameter[] param3 = {
-                                 new SqlParameter("@DealerCode",dealerCode),//0
-								 new SqlParameter("@BookRefNo",strAutoCode),//1
-								 new SqlParameter("@BrandCode",item.BrandCode),//2								 
-								 new SqlParameter("@ProdCode",item.ProdCode.Trim()),//3								 
-								 new SqlParameter("@VersionCode",item.VersionCode),//4                            
-                                 new SqlParameter("@ColorCode1",item.ColorCode),//9
-                                 new SqlParameter("@FID",i),//9
-
-
-                                    };
-                                        if (sysfun.ExecuteSP_NonQuery("SP_Insert_ProdRecFeature", param3, Trans) == true)
-                                        {
-                                            IsSaved = true;
-
-                                        }
-                                        else
-                                        {
-                                            IsSaved = false;
-                                        }
-                                    }
-
-                                }
-                                
-
-                            }
-                            //
-                            // IsSaved = true;
+                            
+                             IsSaved = true;
                         }
                         else
                         {
@@ -293,6 +260,58 @@ namespace Core.CRM.ADO
 
 			return IsSaved;
 		}
+        public static bool Insert_ProdFeature(List<ProdReceiptDetailVM> model2, string dealerCode, ref string msg)
+        {
+            int count = 0;
+            string[] a, b;
+            try
+            {
+                foreach (var item in model2)
+                {
+                    if (count >= 1 || item.BrandCode != null)
+                    {
+
+
+                        SqlParameter[] param3 = {
+                                 new SqlParameter("@DealerCode",dealerCode),//0
+								 new SqlParameter("@BookRefNo",strAutoCode),//1
+								 new SqlParameter("@BrandCode",item.BrandCode),//2								 
+								 new SqlParameter("@ProdCode",item.ProdCode.Trim()),//3								 
+								 new SqlParameter("@VersionCode",item.VersionCode),//4                            
+                                 new SqlParameter("@ColorCode1",item.ColorCode),//5
+                                 new SqlParameter("@FID",item.FCode),//6
+                                 new SqlParameter("@FPrice", SysFunction.CustomCDBL(item.FPrice)),//7
+                                           
+
+
+                                    };
+
+                        if (sysfun.ExecuteSP_NonQuery("SP_Insert_ProdRecFeature", param3, Trans) == true)
+                        {
+                            IsSaved = true;
+                        }
+                        else
+                        {
+                            ObjTrans.RollBackTransaction(ref Trans);
+                            IsSaved= false;
+                        }
+                    }
+                    count++;
+                }
+
+                //ObjTrans.CommittTransaction(ref Trans);
+
+            }
+            catch (Exception ex)
+            {
+
+                ObjTrans.RollBackTransaction(ref Trans);
+                msg = ex.Message;
+                IsSaved= false;
+            }
+
+            return IsSaved;
+        }
 
         public static bool Insert_VehChkList(string strCheckedValues, string dealerCode , ref string msg)
         {
@@ -386,6 +405,34 @@ namespace Core.CRM.ADO
 
 			return json;
 		}
+        public static string Get_VehicleReceiptFeatureDetailData(string enquiryId, string dealerCode)
+        {
+            string json = "";
+            var Serializer = new JavaScriptSerializer();
+            List<RequestVehicleReceiptVM> lst = new List<RequestVehicleReceiptVM>();
+            try
+            {
+                SqlParameter[] sqlParam = {
+                                    new SqlParameter("@DealerCode",dealerCode),//1
+									new SqlParameter("@RecNo",enquiryId)//0
+									
+									};
+
+                dt = DataAccess.getDataTable("SP_Select_ProdRecFeatureDetail", sqlParam, General.GetBMSConString());
+                if (dt.Rows.Count > 0)
+                {
+                    lst = EnumerableExtension.ToList<RequestVehicleReceiptVM>(dt);
+                }
+                json = Serializer.Serialize(lst);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return json;
+        }
 
         public static bool Check_ChassisNo(string chassisNo, string dealerCode)
         {

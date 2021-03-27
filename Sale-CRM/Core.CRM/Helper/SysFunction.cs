@@ -244,7 +244,28 @@ public class SysFunction
         return functionReturnValue;
     }
 
-
+    public bool ExecuteQuery(string sQuery, SqlTransaction Trans)
+    {
+        bool flag;
+        try
+        {
+            int i = SqlHelper.ExecuteNonQuery(Trans, CommandType.Text, sQuery);
+            if (i > 0)
+            {
+                flag = true;
+            }
+            else
+            {
+                flag = false;
+            }
+        }
+        catch (Exception exception)
+        {
+            flag = false;
+            throw exception;
+        }
+        return flag;
+    }
     public bool ExecuteQuery(string sQuery, ref SqlDataReader dr)
 	{
 		bool flag;
@@ -547,8 +568,51 @@ public class SysFunction
 				ddl.SelectedIndex = -1;
 		}
 	}
+    public void UpdateJV(string CompanyCode, string delNo)
+    {
+        // string pcName = System.Net.Dns.GetHostEntry(HttpContext.Current.Request.ServerVariables["REMOTE_HOST"]).HostName.ToString();
+        string connstring = CConnection.GetFAMSConnectionString();
+        using (SqlConnection conn = new SqlConnection(connstring))
+        {
+            using (SqlCommand cmd = new SqlCommand("Sp_update", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                conn.Open();
+                cmd.Parameters.AddWithValue("@CompCode", CompanyCode);
+                cmd.Parameters.AddWithValue("@VouchNo", delNo);
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
+    public bool CheckVoucherPostFlag(string dealercode, string voucher)
+    {
+        try
+        {
+            SqlDataAdapter dta = new SqlDataAdapter("Select Post from GVouMaster where CompCode = '" + dealercode + "' and VouchNo = '" + voucher + "'", CConnection.GetFAMSConnectionString());
 
-	public bool ExecuteSP(string SP_Name, SqlParameter[] param, ref SqlDataReader dr)
+            DataTable dt = new DataTable();
+            dta.Fill(dt);
+
+            if (dt == null)
+            {
+                return false;
+            }
+
+            if (dt.Rows.Count > 0 && dt.Rows[0]["Post"].ToString() == "Y")
+            {
+
+                return true;
+            }
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
+    }
+    public bool ExecuteSP(string SP_Name, SqlParameter[] param, ref SqlDataReader dr)
 	{
 		bool flag;
 

@@ -20,6 +20,7 @@ namespace CRM_V3.Controllers
         static string DealerCode = string.Empty;
         static SysFunction sysfun = new SysFunction();
         SecurityBll common = new SecurityBll();
+        sngonclo_BMSEntities BMS = new sngonclo_BMSEntities();
         // GET: VehicleReceipt
         public ActionResult Main()
         {
@@ -273,7 +274,7 @@ namespace CRM_V3.Controllers
         }
 
         [HttpPost]
-        public JsonResult Insert_ProdRecDetail( List<ProdReceiptDetailVM> objects)
+        public JsonResult Insert_ProdRecDetail( List<ProdReceiptDetailVM> objects,List<ProdReceiptDetailVM> objectFeatures)
         {
             bool result = false;
             string msg = "Failed to save record..";
@@ -288,7 +289,22 @@ namespace CRM_V3.Controllers
 
             return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult Insert_ProdRecFeatures(List<ProdReceiptDetailVM> objectsFeatures)
+        {
+            bool result = false;
+            string msg = "Failed to save record..";
+            DealerCode = Session["DealerCode"].ToString();
 
+            result = VehReceiptMethods.Insert_ProdFeature(objectsFeatures, DealerCode, ref msg);
+
+            if (result)
+            {
+                msg = "Successfully Added";
+            }
+
+            return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public JsonResult Insert_VehChkList(string strCheckedValues)
         {
@@ -381,7 +397,21 @@ namespace CRM_V3.Controllers
 
             return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult Select_VehicleReceiptFeatureDetail(string EnquiryId, string DealerCode)
+        {
+            string data = "";
+            bool result = false;
+            DealerCode = Session["DealerCode"].ToString();
+            data = VehReceiptMethods.Get_VehicleReceiptFeatureDetailData(EnquiryId, DealerCode);
 
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public JsonResult Select_DeliveryCheckList(string EnquiryId)
         {
@@ -444,5 +474,22 @@ namespace CRM_V3.Controllers
         //    return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
 
         //}
+        [HttpGet]
+        public JsonResult Select_DefaultVendor(string EnquiryId)
+        {
+            string data;
+            bool result = false;
+            DealerCode = Session["DealerCode"].ToString();
+            data=BMS.Vendor.Where(i =>i.DealerCode == DealerCode && i.DeafultVendor=="Y").Select(k=>k.VendorCode).FirstOrDefault().ToString();
+        
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

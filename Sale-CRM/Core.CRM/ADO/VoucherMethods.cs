@@ -773,7 +773,8 @@ namespace Core.CRM.ADO
             //  newVouch = newVouch;
             return true;
         }
-        public static List<VoucherVM> LoadCSI(string leadId,string vouchno, string dealerCode, string ChassisNo)
+
+        public static List<VoucherVM> LoadCSI(string leadId, string dealerCode, string ChassisNo)
         {
             List<VoucherVM> lst = new List<VoucherVM>();
 
@@ -800,7 +801,7 @@ namespace Core.CRM.ADO
             dsParamInv[0].Value = dealerCode;
             dsParamInv[1].Value = leadId;
             dsParamInv[2].Value = ChassisNo;
-
+            ReceiptNo = leadId;
             totCredit = totDebit = 0;
 
             DataSet dsReceipt = new DataSet();
@@ -829,38 +830,29 @@ namespace Core.CRM.ADO
                 double SalePrice = Convert.ToDouble(dsReceipt.Tables[0].Rows[0]["FactoryPrice"]);
                 double market = Convert.ToDouble(MarketRate);
                 double discount = Convert.ToDouble(Discount);
-                if(discount > 0 && market > 0)
+                if (market > 0)
+                {
+                    //AddCustomerDebitAmount(ReceiptAmount, Acc, CusDesc, Naration);
+                    AddCustomerDebitAmount(market, Acc, CusDesc, Naration);
+                    // AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
+                   // AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
+                    AddCreditAmount(market, Own, Naration, "Own Money");
+                }
+                if (discount > 0)
+                {
+                    //AddCustomerDebitAmount(ReceiptAmount, Acc, CusDesc, Naration);
+                    AddCustomerDebitAmount(discount, Acc, CusDesc, Naration);
+                    AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
+                    //AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
+                    // AddCreditAmount(market, Own, Naration, "Own Money");
+                }
+                if (discount == 0 && market == 0)
                 {
                     AddCustomerDebitAmount(ReceiptAmount, Acc, CusDesc, Naration);
+                    //AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
                     AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
-                    AddCreditAmount(market, Own, Naration, "Own Money");
-                    AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
+                    // AddCreditAmount(market, Own, Naration, "Own Money");
                 }
-                else{
-                    if (market > 0)
-                    {
-
-                        // AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
-                        AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
-                        AddCreditAmount(market, Own, Naration, "Own Money");
-                    }
-                    if (discount > 0)
-                    {
-                        AddCustomerDebitAmount(ReceiptAmount, Acc, CusDesc, Naration);
-                        AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
-                        AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
-                        // AddCreditAmount(market, Own, Naration, "Own Money");
-                    }
-                    if (discount == 0 && market == 0)
-                    {
-                        AddCustomerDebitAmount(ReceiptAmount, Acc, CusDesc, Naration);
-                        //AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
-                        AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
-                        // AddCreditAmount(market, Own, Naration, "Own Money");
-                    }
-                }
-               
-              
 
 
                 return lst = EnumerableExtension.ToList<VoucherVM>(ds.Tables[0]);
@@ -869,6 +861,102 @@ namespace Core.CRM.ADO
             return lst;
 
         }
+        //public static List<VoucherVM> LoadCSI(string leadId,string vouchno, string dealerCode, string ChassisNo)
+        //{
+        //    List<VoucherVM> lst = new List<VoucherVM>();
+
+
+        //    ReceiptNo = leadId;
+        //    //ReceiptNo = Session["leadId"];
+
+        //    ds = new DataSet();
+
+        //    ds.Tables.Add();
+
+        //    ds.Tables[0].Columns.Add(new DataColumn("AccountCode", typeof(string)));
+        //    ds.Tables[0].Columns.Add(new DataColumn("AccountTitle", typeof(string)));
+        //    ds.Tables[0].Columns.Add(new DataColumn("Debit", typeof(string)));
+        //    ds.Tables[0].Columns.Add(new DataColumn("Credit", typeof(string)));
+        //    ds.Tables[0].Columns.Add(new DataColumn("Narration", typeof(string)));
+
+        //    SqlParameter[] dsParamInv = {
+        //        new SqlParameter("@DealerCode",SqlDbType.Char,5),
+        //        new SqlParameter("@TransCode",SqlDbType.Char,8),
+        //        new SqlParameter("@ChasisNo",SqlDbType.Char,25)
+        //    };
+
+        //    dsParamInv[0].Value = dealerCode;
+        //    dsParamInv[1].Value = leadId;
+        //    dsParamInv[2].Value = ChassisNo;
+
+        //    totCredit = totDebit = 0;
+
+        //    DataSet dsReceipt = new DataSet();
+
+
+        //    dsReceipt = sysfun.FillDataSet("SP_Get_VehicleSaleAccountCode", dsParamInv);
+
+        //    if (dsReceipt.Tables[0].Rows.Count > 0)
+        //    {
+
+        //        //  string Customer = dsReceipt.Tables[0].Rows[0]["CusDesc"].ToString().Trim();
+        //        //DataRow[] dr = dsReceipt.Tables[0].Compute("SUM(ReceiptAmount)","");
+        //        double ReceiptAmount = Convert.ToDouble(dsReceipt.Tables[0].Compute("SUM(TotalAmount)", ""));
+        //        //double ReceiptAmount = Convert.ToDouble(dsReceipt.Tables[0].Rows[0]["ReceiptAmount"]);
+        //        string Naration = "Type  : " + dsReceipt.Tables[0].Rows[0]["StockType"].ToString().Trim()
+        //        + " | " + "Chassis No : " + dsReceipt.Tables[0].Rows[0]["ChassisNo"].ToString().Trim()
+        //        + " | " + "Product : " + dsReceipt.Tables[0].Rows[0]["ProdDesc"].ToString().Trim();
+        //        string Acc = dsReceipt.Tables[0].Rows[0]["CusAccountCode"].ToString().Trim();
+        //        string CusDesc = dsReceipt.Tables[0].Rows[0]["CusDesc"].ToString().Trim();
+        //        string MarketRate = dsReceipt.Tables[0].Rows[0]["MarketRate"].ToString().Trim();
+        //        string Discount = dsReceipt.Tables[0].Rows[0]["Discount"].ToString().Trim();
+        //        string Own = dsReceipt.Tables[0].Rows[0]["OwnMoney"].ToString().Trim();
+        //        string DownMoney = dsReceipt.Tables[0].Rows[0]["DownMoney"].ToString().Trim();
+        //        string AccountCode = dsReceipt.Tables[0].Rows[0]["VendorPayable"].ToString();
+        //        string VendorDesc = dsReceipt.Tables[0].Rows[0]["VendorDesc"].ToString().Trim();
+        //        double SalePrice = Convert.ToDouble(dsReceipt.Tables[0].Rows[0]["FactoryPrice"]);
+        //        double market = Convert.ToDouble(MarketRate);
+        //        double discount = Convert.ToDouble(Discount);
+        //        if(discount > 0 && market > 0)
+        //        {
+        //            AddCustomerDebitAmount(ReceiptAmount, Acc, CusDesc, Naration);
+        //            AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
+        //            AddCreditAmount(market, Own, Naration, "Own Money");
+        //            AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
+        //        }
+        //        else{
+        //            if (market > 0)
+        //            {
+
+        //                 AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
+        //                AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
+        //                AddCreditAmount(market, Own, Naration, "Own Money");
+        //            }
+        //            if (discount > 0)
+        //            {
+        //                AddCustomerDebitAmount(ReceiptAmount, Acc, CusDesc, Naration);
+        //                AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
+        //                AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
+        //                // AddCreditAmount(market, Own, Naration, "Own Money");
+        //            }
+        //            if (discount == 0 && market == 0)
+        //            {
+        //                AddCustomerDebitAmount(ReceiptAmount, Acc, CusDesc, Naration);
+        //                //AddCustomerDebitAmount(discount, DownMoney, "Down Money", Naration);
+        //                AddCreditAmount(SalePrice, AccountCode, Naration, VendorDesc);
+        //                // AddCreditAmount(market, Own, Naration, "Own Money");
+        //            }
+        //        }
+
+
+
+
+        //        return lst = EnumerableExtension.ToList<VoucherVM>(ds.Tables[0]);
+        //    }
+
+        //    return lst;
+
+        //}
         public static List<VoucherVM> LoadBookingOrderGrid(string leadId, string dealerCode, string ChassisNo)
         {
             List<VoucherVM> lst = new List<VoucherVM>();
@@ -1159,6 +1247,164 @@ namespace Core.CRM.ADO
 
         }
 
+        public static List<VoucherVM> LoadPRGrid(string leadId, string dealerCode, string ChassisNo)
+        {
+            List<VoucherVM> lst = new List<VoucherVM>();
+
+            DealerCode = dealerCode;
+            ReceiptNo = leadId;
+            SqlParameter[] dsParamInv = {
+                new SqlParameter("@DealerCode",SqlDbType.Char,5),
+                new SqlParameter("@ReceiptNo",SqlDbType.Char,8)
+            };
+
+            dsParamInv[0].Value = dealerCode;
+            dsParamInv[1].Value = leadId;
+
+            totCredit = totDebit = 0;
+            string[] itemsToDisable = { "CP", "BP" };
+          
+            DataSet ds0 = new DataSet();
+            ds0 = sysfun.FillDataSet("sp_W2_PaymentReceipt_GL", dsParamInv);
+
+            if (ds0.Tables[0].Rows.Count > 0)
+            {
+
+                string AccountCode = ds0.Tables[0].Rows[0]["AccountCode"].ToString();
+                string IsAdvAdj = ds0.Tables[0].Rows[0]["IsAdjustAdvance"].ToString();
+                double AmountPaid = Convert.ToDouble(ds0.Tables[0].Rows[0]["AmountPaid"]);
+                double TotalAmtCustomer = Convert.ToDouble(ds0.Tables[0].Rows[0]["NetAmountCustomer"]);
+                double AdvanceAmount = Convert.ToDouble(ds0.Tables[0].Rows[0]["AdvanceAmount"]);
+                double AdvanceAdjustedAmount = Convert.ToDouble(ds0.Tables[0].Rows[0]["AdvanceAdjustedAmount"]);
+                double cashDiscount = Math.Round(Convert.ToDouble(ds0.Tables[0].Rows[0]["CashDiscount"]), 2);
+                double ServiceCharges = Math.Round(Convert.ToDouble(ds0.Tables[0].Rows[0]["ServiceCharges"]), 2);
+                double INCOMETAX10 = Math.Round(Convert.ToDouble(ds0.Tables[0].Rows[0]["INCOMETAX10%"]), 2);
+                double INCOMETAX4 = Math.Round(Convert.ToDouble(ds0.Tables[0].Rows[0]["INCOMETAX4.50%"]), 2);
+                double WHT20 = Math.Round(Convert.ToDouble(ds0.Tables[0].Rows[0]["WHT20%"]), 2);
+                double OtherCharges = Math.Round(Convert.ToDouble(ds0.Tables[0].Rows[0]["OtherCharges"]), 2);
+                double WHT3 = Math.Round(Convert.ToDouble(ds0.Tables[0].Rows[0]["WHT3.5%"]), 2);
+                
+                string Naration = "Receipt : " + ds0.Tables[0].Rows[0]["ReceiptNo"].ToString().Trim() + " | " +
+                                  //"Invoice : " + ds.Tables[0].Rows[0]["InvoiceNo"].ToString().Trim() + " | " +
+                                  "Customer : " + ds0.Tables[0].Rows[0]["CusDesc"].ToString().Trim();
+
+             
+
+                ds = new DataSet();
+
+                ds.Tables.Add();
+
+                ds.Tables[0].Columns.Add(new DataColumn("AccountCode", typeof(string)));
+                ds.Tables[0].Columns.Add(new DataColumn("AccountTitle", typeof(string)));
+                ds.Tables[0].Columns.Add(new DataColumn("Debit", typeof(string)));
+                ds.Tables[0].Columns.Add(new DataColumn("Credit", typeof(string)));
+                ds.Tables[0].Columns.Add(new DataColumn("Narration", typeof(string)));
+
+              
+
+
+
+
+
+                if (ds0.Tables[0].Rows[0]["TransType"].ToString() == "Advance")
+                {
+                    if (AdvanceAmount > 0)
+                    {
+                        string code;
+                        if (ds0.Tables[0].Rows[0]["InvoiceType"].ToString() == "Insurance")
+                        {
+                            code = GetAccountCode("AdvanceReceiptToInsurance");
+                        }
+                        else
+                        {
+                            code = GetAccountCode("AdvanceReceiptToCustomer");
+                        }
+                        AddDebitAmount(AdvanceAmount, "", "Advance " + Naration,dealerCode);
+                        AddCreditAmount(AdvanceAmount, code, "Advance " + Naration,GetAccounttitle(code,dealerCode));
+                    }
+                }
+                else if (ds0.Tables[0].Rows[0]["IsAdjustAdvance"].ToString() == "Y")
+                {
+                    if (AmountPaid > 0)
+                    {
+                        AddDebitAmount(AmountPaid, "", Naration,dealerCode);
+                    }
+                    if (AdvanceAdjustedAmount > 0)
+                    {
+                        string code;
+                        if (ds0.Tables[0].Rows[0]["InvoiceType"].ToString() == "Insurance")
+                        {
+                            code = GetAccountCode("AdvanceReceiptToInsurance");
+                        }
+                        else
+                        {
+                            code = GetAccountCode("AdvanceReceiptToCustomer");
+                        }
+                        AddDebitAmount(AdvanceAdjustedAmount, code, "Advance " + Naration,dealerCode);
+
+                    }
+
+                }
+                else
+                {
+                    if (AmountPaid > 0)
+                    {
+                        AddDebitAmount(AmountPaid, "", Naration,dealerCode);
+                    }
+
+                }
+                if (ds0.Tables[0].Rows.Count > 0)
+                {
+
+                    if (SysFunction.CustomCDBL(ds0.Tables[0].Rows[0]["AdvReceiptCount"].ToString()) > 0)
+                    {
+                        for (int i = 0; i < ds0.Tables[0].Rows.Count; i++)
+                        {
+                            AddDebitAmount(SysFunction.CustomCDBL(ds0.Tables[0].Rows[i]["Amount"].ToString()), ds0.Tables[0].Rows[i]["ReceiptAcc"].ToString(), Naration,dealerCode);
+
+                        }
+                        //if (AdvanceAdjustedAmount > 0)
+                        //{
+                        //    string code = GetAccountCode("AdvanceReceiptToCustomer");
+                        //    AddDebitAmount(AdvanceAdjustedAmount, code, "Advance " + Naration);
+
+                        //}
+                        if (TotalAmtCustomer > 0)
+                        {
+                            string code = GetAccountCode(AccountCode);
+                            AddCreditAmount(TotalAmtCustomer, AccountCode, Naration,GetAccounttitle(code,dealerCode));
+                        }
+
+                    }
+                    else
+                    {
+
+
+                        if (TotalAmtCustomer > 0)
+                        {
+                            string code = GetAccountCode(AccountCode);
+                            AddCreditAmount(TotalAmtCustomer, AccountCode, Naration,dealerCode);
+                        }
+                    }
+
+                }
+
+
+
+                return lst = EnumerableExtension.ToList<VoucherVM>(ds.Tables[0]);
+
+
+            }
+
+
+
+
+
+
+
+            return lst;
+
+        }
         private static string GetAccountCode(string code)
         {
             DataTable dt = new DataTable();

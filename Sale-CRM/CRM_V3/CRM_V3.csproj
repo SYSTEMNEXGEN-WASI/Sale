@@ -227,10 +227,31 @@
     <Compile Include="assets\PaymentMode.cs">
       <DependentUpon>ExpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="assets\PaymentReceiptDetail.cs">
+      <DependentUpon>ExpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="assets\PaymentReceiptMaster.cs">
+      <DependentUpon>ExpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="assets\PaymentReceiptTaxDetail.cs">
+      <DependentUpon>ExpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="assets\ReceiptHead.cs">
       <DependentUpon>ExpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="assets\SQLHelper.cs" />
+    <Compile Include="assets\VehicleDeliveryDetail.cs">
+      <DependentUpon>ExpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="assets\VehicleDeliveryMaster.cs">
+      <DependentUpon>ExpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="assets\VehicleStock.cs">
+      <DependentUpon>ExpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="assets\Vendor.cs">
+      <DependentUpon>ExpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingNoController.cs" />
     <Compile Include="Controllers\BookingOrderController.cs" />
@@ -672,6 +693,7 @@
     <Content Include="assets\images\apple-touch-icon-144-precomposed.png" />
     <Content Include="assets\images\apple-touch-icon-57-precomposed.png" />
     <Content Include="assets\images\apple-touch-icon-72-precomposed.png" />
+    <Content Include="assets\images\defaultImage.jpg" />
     <Content Include="assets\images\DMS_Folded.png" />
     <Content Include="assets\images\DMS_Logo_Fav.png" />
     <Content Include="assets\images\DMS_Logo_small.png" />
@@ -1606,6 +1628,19 @@
     <Content Include="assets\plugins\datetimepicker\js\locales\bootstrap-datetimepicker.uk.js" />
     <Content Include="assets\plugins\datetimepicker\js\locales\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="assets\plugins\datetimepicker\js\locales\bootstrap-datetimepicker.zh-TW.js" />
+    <Content Include="assets\plugins\dropify\dist\css\demo.css" />
+    <Content Include="assets\plugins\dropify\dist\css\dropify.css" />
+    <Content Include="assets\plugins\dropify\dist\css\dropify.min.css" />
+    <Content Include="assets\plugins\dropify\dist\fonts\dropify.svg" />
+    <Content Include="assets\plugins\dropify\dist\js\dropify.js" />
+    <Content Include="assets\plugins\dropify\dist\js\dropify.min.js" />
+    <Content Include="assets\plugins\dropify\gulpfile.js" />
+    <Content Include="assets\plugins\dropify\index.html" />
+    <Content Include="assets\plugins\dropify\src\fonts\dropify.svg" />
+    <Content Include="assets\plugins\dropify\src\images\cover.jpg" />
+    <Content Include="assets\plugins\dropify\src\images\test-image-1.jpg" />
+    <Content Include="assets\plugins\dropify\src\images\test-image-2.jpg" />
+    <Content Include="assets\plugins\dropify\src\js\dropify.js" />
     <Content Include="assets\plugins\dropzone\css\basic.css" />
     <Content Include="assets\plugins\dropzone\css\basic.min.css" />
     <Content Include="assets\plugins\dropzone\css\dropzone.css" />
@@ -2964,6 +2999,26 @@
     <Content Include="Models\SDDM.edmx.diagram">
       <DependentUpon>SDDM.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\plugins\dropify\.gitignore" />
+    <Content Include="assets\plugins\dropify\dist\fonts\dropify.eot" />
+    <Content Include="assets\plugins\dropify\dist\fonts\dropify.ttf" />
+    <Content Include="assets\plugins\dropify\dist\fonts\dropify.woff" />
+    <Content Include="assets\plugins\dropify\package.json" />
+    <Content Include="assets\plugins\dropify\README.md" />
+    <Content Include="assets\plugins\dropify\src\fonts\dropify.eot" />
+    <Content Include="assets\plugins\dropify\src\fonts\dropify.ttf" />
+    <Content Include="assets\plugins\dropify\src\fonts\dropify.woff" />
+    <Content Include="assets\plugins\dropify\src\sass\demo.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\demo\helpers\_grid.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\demo\helpers\_mixins.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\demo\helpers\_shortcuts.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\demo\_grid.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\demo\_normalize.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\demo\_reset.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\demo\_typo.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\demo\_variables.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\dropify.scss" />
+    <Content Include="assets\plugins\dropify\src\sass\_dropify-font.scss" />
     <None Include="Properties\PublishProfiles\CRMV3_Published.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

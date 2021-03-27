@@ -654,6 +654,7 @@ namespace Core.CRM.ADO
                                  new SqlParameter("@SONo",model.SONo),//28
                                  new SqlParameter("@FormName","Advance/Service charges"),//28
                                  new SqlParameter("@TransType",model.TransType),//28
+                                  new SqlParameter("@TotalAmount",model.TotalAmount),//28
 
                             };
 

@@ -13,18 +13,20 @@
 <link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.min.css")' rel="stylesheet" />
 <link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
 
+
 <link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
 <link href='@Url.Content("~/assets/css/chosen.css")' rel="stylesheet" type="text/css"/>
 <link href='@Url.Content("~/assets/css/bootstrap-select.css")' rel="stylesheet" type="text/css" />
- 
-   
+    <link href='@Url.Content("~/assets/plugins/dropify/dist/css/dropify.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/plugins/dropify/dist/css/dropify.min.css")' rel="stylesheet" type="text/css" />
    
 
-
+    
+   
   
 
-
-
+    
+    
 </head>
 
 <style>
@@ -257,7 +259,7 @@
                                 <div class="makespace"></div>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label">3rd Party Commission</label>
+                                <label class="form-label">3rd Party Com.</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-car"></i></span>
                                     <input type="text" class="form-control" id="txtCommission"  />
@@ -290,6 +292,7 @@
                                             <i class="fa fa-file-o"></i> Document Check List
                                         </a>
                                     </li>
+                                   
                                 </ul>
 
                                 <div class="tab-content primary">
@@ -311,7 +314,9 @@
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Customer')" style="color:blue"><i class="fa fa-search"></i></a></span>
-                                                    @Html.DropDownList("ddlCustomers", new SelectList((IEnumerable<SelectListItem>)ViewBag.Customers, "Value", "Text", "0"), new { @class = "form-control", @id = "ddlCustomers", @onchange = "ChangeColor(this)" })
+                                                    @*@Html.DropDownList("ddlCustomers", new SelectList((IEnumerable<SelectListItem>)ViewBag.Customers, "Value", "Text", "0"), new { @class = "form-control", @id = "ddlCustomers", @onchange = "ChangeColor(this)" })*@
+                                                    <input type="text" id="ddlCustomers" class="form-control" readonly  style="width:30%" />
+                                                     <input type="text" id="txtCusDesc" class="form-control" readonly   style="width:65%" />
                                                 </div>
                                                 <div class="makespace"></div>
                                             </div>
@@ -320,8 +325,10 @@
                                                 <label class="form-label">A/C of</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('AccountOf')" style="color:blue"><i class="fa fa-search"></i></a></span>
-                                                    @Html.DropDownList("ddlACof", new SelectList((IEnumerable<SelectListItem>)ViewBag.AccountOf, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlACof", @onchange = "ChangeColor(this)" })
-                                                </div>
+                                                    @*@Html.DropDownList("ddlACof", new SelectList((IEnumerable<SelectListItem>)ViewBag.AccountOf, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlACof", @onchange = "ChangeColor(this)" })*@
+                                                    <input type="text" id="ddlACof"  class="form-control"      readonly  style="width:30%" />
+                                                    <input type="text" id="txtAccCusDesc" class="form-control" readonly  style="width:65%"/>
+                                                 </div>
                                                 <div class="makespace"></div>
                                             </div>
 
@@ -424,7 +431,7 @@
                                                 <label class="form-label">Brand</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-car"></i></span>
-                                                    @Html.DropDownList("ddlBrandCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.BrandCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlBrandCode", @onchange = "ChangeColor(this)" })
+                                                    @Html.DropDownList("ddlBrandCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.BrandCode, "Value", "Text", "001"), new { @class = "form-control m-bot15", @id = "ddlBrandCode", @onchange = "ChangeColor(this)" })
                                                 </div>
                                                 <div class="makespace"></div>
                                             </div>
@@ -565,7 +572,7 @@
                                                 <div class="makespace"></div>
                                             </div>
                                             <div class="col-md-2">
-                                                <label class="form-label">Advance Tax Amount</label>
+                                                <label class="form-label">Adv.Tax Amount</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon">
                                                         <span class="arrow"></span>
@@ -865,10 +872,40 @@
                                         </div>
 
                                     </div>
+                                    
                                     <div class="tab-pane fade" id="profile-7">
                                         <div class="row">
-
-                                            <div class="col-md-12">
+                                            <div class="col-md-4">
+                                                <label class="form-label">Document</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <span class="arrow"></span>
+                                                        <i class="fa fa-users"></i>
+                                                    </span>
+                                                    @Html.DropDownList("ddlDocument", new SelectList((IEnumerable<SelectListItem>)ViewBag.BookingList, "Value", "Text"), new { @class = "form-control m-bot15", @id = "ddlDocument" })
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Document Image</label>
+                                                <div class="input-group">
+                                                 <input type="file" id="Updfile" class="dropzone"  data-default-file="~/assets/images/defaultImage.jpg" />
+                                                 
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+                                            <div class="col-md-2 pull-right">
+                                                <div class="input-group">
+                                                    <button class="btn btn-success btn-sm" type="button" style="width: 100%;padding: 8px; margin-top: 20px; right: 15px;" onclick="AddDocument(this)">
+                                                        <i class="fa fa-plus fa-4x"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        <div class="row">
+                                            @*<input type="file" id="Updfile" class="dropzone" onchange="loadFile(event)" data-default-file="~/assets/images/defaultImage.jpg" />*@
+                                            @*<input type="image" id="output" width="200" />*@	
+                                          
+                                              <div class="col-md-12">
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered table-striped display" id="tblDelChkList">
                                                         <thead>
@@ -876,6 +913,7 @@
                                                                 <th>SR</th>
                                                                 <th>Check List Code</th>
                                                                 <th>Check List Desc</th>
+                                                                <th>Document</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
@@ -931,7 +969,7 @@
                                     }
                                     <button type="button" class="btn btn-warning" id="btnVoucher" style="margin-top:27px; width:100px; border-radius:0px;">Voucher</button>
                                    
-
+                                  
                                 </div>
                             </div>
                         </div>
@@ -1203,6 +1241,10 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- Product Modal End -->
+
+
+
+
     </section>
 </body>
 
@@ -1220,7 +1262,7 @@
         if (brandCode == "0") {
             location.reload();
         } else {
-           
+            saveCheckList();
             getProduct(brandCode);
 
         }
@@ -1248,10 +1290,10 @@
                         //$(data.Response).each(function (index, item) { // GETTING ERROR HERE
                         //    $("#ddlProdCode").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
                         //});
-                       
+
                         $("#ProductTable tbody tr").remove()
                         if (data.Response.length > 0) {
-                         
+
                             $.each(data.Response, function (value, data) {
 
                                 var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="ProductSelect(this)">' +
@@ -1287,7 +1329,7 @@
         var prodDesc = $(value).closest('tr').find('#lblProdDesc').text();
         var version = $(value).closest('tr').find('#lblVersionCode').text();
         var versionDesc = $(value).closest('tr').find("#hdnVersionDesc").val();
-        
+
         document.getElementById("ddlProdCode").value = prodCode;
         $("#ddlProdCode").css("border-color", "#e1e1e1");
         document.getElementById("txtProdDesc").value = prodDesc;
@@ -1300,9 +1342,10 @@
     IssueFunc = function (value) {
 
         var lblBrandCode = $(value).closest('tr').find("#hdnCusCode").val();
-        var lblCusDesc = $(value).closest('tr').find('#lblCusDesc').val();
+        var lblCusDesc = $(value).closest('tr').find('#lblCusDesc').text();
 
         document.getElementById("ddlCustomers").value = lblBrandCode;
+        document.getElementById("txtCusDesc").value = lblCusDesc;
         $("#ddlCustomers").css("border-color", "#e1e1e1");
 
         $("#CustomerModal").modal("hide");
@@ -1339,12 +1382,12 @@
 
         var prodcode = '';
 
-        Get_DelChkListData();
+        //Get_DelChkListData();
         Get_CustomerModalData();
         Get_AccountOfModalData();
         Get_BookingOrderModalData();
         Get_EnquiryModalData();
-
+        getProduct("001");
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
@@ -1406,15 +1449,20 @@
 
     function ShowModal(type){
         if(type == 'Customer'){
+            Get_CustomerModalData();
             $('#CustomerModal').modal("show");
         }else
-        if(type == 'AccountOf'){
+            if(type == 'AccountOf'){
+                Get_CustomerModalData();
             $('#AccountOfModal').modal("show");
         }else if(type == 'BookRefNo'){
             $('#BookRefNoModal').modal("show");
         }
         else if (type == 'Product') {
             $('#ProductModal').modal("show");
+        }
+        else if (type == 'Image') {
+            $('#myModal').modal("show");
         }
         else {
             $('#EnquiryNoModal').modal("show");
@@ -1540,7 +1588,7 @@
                           '<td class="tdDiv" style="overflow:auto"><label id="lblBookRefDate">' + item.BookRefDate + '</label></td>' +
                           '<td class="tdDiv" style="overflow:auto"><label id="lblCustomer">' + item.CusDesc + '</label></td>';
                           if( item.BookingNo==null){
-                           temp+=   '<td class="tdDiv" style="overflow:auto"><label id="lblAddress">' + "" + '</label></td>' 
+                           temp+=   '<td class="tdDiv" style="overflow:auto"><label id="lblAddress">' + "" + '</label></td>'
                               }
                         else{
                               temp += '<td class="tdDiv" style="overflow:auto"><label id="lblAddress">' + item.BookingNo + '</label></td>'
@@ -1551,7 +1599,7 @@
                     else{
                                temp += '<td class="tdDiv" style="overflow:auto"><label id="lblPhone">' + item.PhoneNo + '</label></td>'
                          }
-                         
+
                            temp += '</tr>';
 
                             $("#BookRefTable tbody").append(temp);
@@ -1734,16 +1782,21 @@
                                                     '<td> <label id="lblDelChkListDesc">' + item.DelChkListDesc.trim() + ' </label>' +
                                                         '<input type="text" style="display:none;" class="form-control" id="txtDocTypeDesctbl"></td>';
                             if (item.OptFlag == "M") {
-                                test2 = '<td style="text-align:center;">' +
+                                test2 = '<td> <img id="output" width="200" style="display:none;width:100px;height:100px;" />	 </td>' +
+                                '<td style="text-align:center;">' +
                                         '<input type="checkbox" id="chkOptFlag" class="chkBank icheckbox_minimal-blue" checked="true" value="' + item.DelChkListCode.trim() + '" >' +
                                         '<input type="hidden" id="hdnDocCode" value="' + item.DelChkListCode.trim() + '"/>' +
                                     '</td>' +
+
                                     '</tr>';
                             } else {
-                                test2 = '<td style="text-align:center;">' +
+
+                                test2 = '<td> <img id="output"  style="display:none;width:100px;height:100px; " /><input type="hidden" id="hdnoutput"/> </td>' +
+                                '<td style="text-align:center;">' +
                                        '<input type="checkbox" id="chkOptFlag" class="chkBank icheckbox_minimal-blue" value="' + item.DelChkListCode.trim() + '" >' +
                                        '<input type="hidden" id="hdnDocCode" value="' + item.DelChkListCode.trim() + '"/>' +
                                    '</td>}' +
+
                                    '</tr>'
                             }
 
@@ -1759,8 +1812,96 @@
             },
         });
     }
+    function AddDocument(value) {
+        var imgSrc="";
+        var model = @Html.Raw(Json.Encode(Model));
+        var files = document.getElementById('Updfile').files;
 
-    $("#ddlACof").change(function () {
+        if (files.length > 0) {
+            if (window.FormData !== undefined) {
+                ;
+                var data = new FormData();
+                for (var x = 0; x < files.length; x++) {
+                    data.append("file" + x, files[x]);
+                }
+            }}
+        //else {
+        //    alert("This browser doesn't support HTML5 file uploads!");
+        //}
+                var no="Pic1";
+
+                $.ajax({
+                    type: "POST",
+
+                    url: '/BookingOrder/AddImage_List/'+ model+ '?EnquiryId=' +no,
+
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (data) {
+
+
+                         imgSrc = data.Response;
+
+                       // var image = $(value).closest('tr').find("#output").attr('src', imgSrc);
+
+
+                    },
+                    error: function (xhr, status, p3, p4) {
+                        var err = "Error " + " " + status + " " + p3 + " " + p4;
+                        if (xhr.responseText && xhr.responseText[0] == "{")
+                            err = JSON.parse(xhr.responseText).Message;
+                        console.log(err);
+                    },
+                    complete:function(){
+                    debugger
+                        var DocCode = $("#ddlDocument").val();
+                        var DocDesc = $("#ddlDocument :selected").text();
+                        rowCount = 1;
+                        dataCount = 1;
+
+                        SNo = 1;
+                        var x = document.createElement("IMG");
+                        x.setAttribute("src", imgSrc);
+                        x.setAttribute("width", "100");
+                        x.setAttribute("height", "100");
+                        x.setAttribute("alt", "The Pulpit Rock");
+
+                        var img =new Image();
+                        img.src=imgSrc;
+
+                        // document.getElementById("IMG").appendChild(x);
+                        var dt = $("#tblDelChkList tbody").append('<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                '<td>' + SNo++ + '</td>' +
+                                '<td> <label id="lblDelChkListCode">' + DocCode + ' </label></td>' +
+                                '<td> <label id="lblDelChkListDesc">' + DocDesc + ' </label></td>' +
+
+                                '<td ><img id="DocImg" src="'+imgSrc+'" style="width:100px;height:100px;"/><input type="Hidden" id="hdnImgDoc" value="'+imgSrc+'"/></td>' +
+                                 '<td style="text-align:center;">' +
+                                    '<a class= "deleteDocumentRow" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+                                   '</tr>');
+                        clearDocumentFeilds();
+                    }
+                });
+
+
+
+
+  }
+    $("table#tblDelChkList").on('click', '.deleteDocumentRow', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        $(this).closest('tr').remove();
+
+    });
+
+    function clearDocumentFeilds()
+    {
+        $("#ddlDocument").val("0");
+        document.getElementById('Updfile').value="";
+
+    }
+        $("#ddlACof").change(function () {
 
         var accOf = $("#ddlACof").val();
         if (accOf == "0") {
@@ -1785,9 +1926,9 @@
 
                     if (data.Success == true) {
                         var item = JSON.parse(data.Response)
-
+                        debugger
                         //Event Information
-
+                        $("#txtAccCusDesc").val(item[0].CusDesc);
                         $("#txtFHName").val(item[0].FatherHusName);
                         $("#txtCity").val(item[0].CityCode);
                         $("#txtState").val(item[0].StateCode);
@@ -1854,9 +1995,9 @@
         $("#ddlColor").prop('disabled',false);
 
     });
-    //// Freight Charges 
+    //// Freight Charges
     $("#ddlLocation").change(function () {
-    
+
         var Product = $("#ddlProdCode").val();
         if (Product == "") {
             return;
@@ -1906,7 +2047,7 @@
                         else {
                             $("#txtFactoryPrice").val(item[0].SalePrice);
                         }
-                       
+
 
                     }
                 },
@@ -1920,10 +2061,10 @@
     }
 
 
-    /// Frieght Charges 
+    /// Frieght Charges
     function getFreightChargesLocWise() {
-       
-       
+
+
         var prod = $("#ddlProdCode").val();
         var Location = $("#ddlLocation").val();
         var dealerCode = "@Session["DealerCode"].ToString()";
@@ -1945,7 +2086,7 @@
                         else {
                             $("#txtFrieght").val(item[0].Frieght);
                         }
-                       
+
 
                     }
                 },
@@ -2013,7 +2154,7 @@
                 url: '@Url.Content("~/BookingOrder/Select_VehicleDetail")',
                 data: { 'EnquiryId': leadId },
                 success: function (data) {
-             
+
                     if (data.Success == true) {
                         var item = JSON.parse(data.Response)
 
@@ -2035,9 +2176,9 @@
                         $("#txtFrieght").val(item[0].FreightCharge);
                         $("#hdnFCode").val(item[0].FCode);
                         $("#hdnFDesc").val(item[0].FDesc);
-                        
-                        debugger;
-                        getFeature(item[0].ProdCode, item[0].FCode);
+
+                        ;
+                        getFeaturefromStock(item[0].ProdCode, item[0].FCode,item[0].ChasisNo);
 
 
                     }
@@ -2052,7 +2193,7 @@
     }
 
     var tempProduct = "";
-   
+
     @*function getProduct(id) {
 
 
@@ -2091,7 +2232,7 @@
         }
     }*@
     //ProductSelect = function (value) {
-    //    
+    //
     //    var prodCode = $(value).closest('tr').find("#hdnProdCode").val();
     //    var prodDesc = $(value).closest('tr').find('#lblProdDesc').text();
     //    var version = $(value).closest('tr').find('#lblVersionCode').text();
@@ -2239,15 +2380,15 @@
         if (dis == "" || dis == null) {
             dis = 0;
         }
-       
+
         if (tax == ""|| tax==null) {
             tax = 0;
         }
         var disamt = res * dis / 100;
         var total = (parseFloat(res) - parseFloat(disamt)) + parseFloat(tax);
-        
+
         $('#txtTotalPrice').val(CalTotalVehiclePrice());
-        
+
     })
     $("#txtDiscount").change(function () {
         ;
@@ -2287,7 +2428,7 @@
         var total = (parseFloat(res) - parseFloat(disamt)) + parseFloat(tax);
         CalTotalVehiclePrice();
         $('#txtTotalPrice').val(CalTotalVehiclePrice());
-        
+
     })
     $("#txtFactoryPrice").change(function () {
         ;
@@ -2326,12 +2467,12 @@
         }
         var disamt = res * dis / 100;
         var total = (parseFloat(res) - parseFloat(disamt)) + parseFloat(tax);
-       
+
         $('#txtTotalPrice').val(CalTotalVehiclePrice());
-      
+
     })
     function CalTotalVehiclePrice() {
-    
+
         var dis = $('#txtDiscount').val();
 
         var amt = $('#txtFactoryPrice').val();
@@ -2358,12 +2499,12 @@
         res = QTY * amt;
         var disamt = res * dis / 100;
         $("#tblAddOns tbody tr").each(function () {
-           
-            
+
+
             var check = $(this).closest('tr').find('#chkAddOns').prop('checked');
             if (check) {
                 FeatureAmount = FeatureAmount+parseFloat($(this).closest('tr').find('#lblPrice').text());
-             
+
             }
         });
         var total = (parseFloat(res) - parseFloat(disamt)) + parseFloat(tax) + parseFloat(Frieght) + (FeatureAmount * QTY);
@@ -2387,10 +2528,10 @@
 
         var version = $("#txtVersionCode").val();
         var versionDesc = $("#txtVersionDesc").val();
-     
-        
+
+
         $("#VehicleDetail tbody tr").each(function () {
-            
+
             var b = $(this).closest('tr').find('#hdnBrandCode').val();
             if (brandCode == $(this).closest('tr').find('#hdnBrandCode').val()) {
                 if (prodCode == $(this).closest('tr').find('#hdnProdCode').val()) {
@@ -2408,124 +2549,217 @@
         });
         return check;
     }
-
+    var ishold=false;
     function AddProduct(value) {
         var check = ValidateVehicleDetail();
+        var hold=$("#ddlChassisNo").val();
         //var check = true;
         if (IsExistProductList()) {
             return;
         }
-        if (check == true) {
-
-            var brandCode = $("#ddlBrandCode").val();
-            var brandDesc = $("#ddlBrandCode :selected").text();
-            var colorCode = $("#ddlColor").val();
-            var colorDesc = $("#ddlColor :selected").text();
-            var prodCode = $("#ddlProdCode").val();
-            var prodDesc = $("#txtProdDesc").val();
-            var FCode = $("#hdnFCode").val();
-            var FDesc = $("#hdnFDesc").val();
-            
-            
-            var version = $("#txtVersionCode").val();
-            var versionDesc = $("#txtVersionDesc").val();
-            if($("#ddlChassisNo").val() == "0"){
-                var chassisNo = "";
-            }else{
-            var chassisNo = $("#ddlChassisNo").val();
-            }
-            $("#ddlChassisNo").css("border-color", "#ccc");
-            var engineNo = $("#txtEngineNo").val(); $("#txtEngineNo").css("border-color", "#ccc");
-
-            var qty = $("#txtQty").val();
-            var recNo = $("#txtRecNo").val();
-            var factPrice = $("#txtFactoryPrice").val();
-
-            var discount = $("#txtDiscount").val();
-            var advTaxAmt = $("#txtAdvTaxAmt").val();
-            var totalPrice = $("#txtTotalPrice").val();
-
-            var warranty = $("#ddlWarranty").val();
-            var InstalmentPlan = $("#ddlInstalmentPlan").val();
-            var LocCode = $("#ddlLocation").val();
-            var LocDesc = $("#ddlLocation :selected").text();
-            var Frieght = $("#txtFrieght").val();
-            var txtTotalQty = $("#txtTotalQty").val();
-            if (txtTotalQty == "") {
-                totalQty = 0;
-                
-            }
-            else {
-                totalQty = txtTotalQty;
-            }
-            
-            $("#VehicleDetail tbody tr").each(function () {
-                
-                var b = $(this).closest('tr').find('#hdnBrandCode').val();
-                if (brandCode == $(this).closest('tr').find('#hdnBrandCode').val()) {
-                    if (prodCode == $(this).closest('tr').find('#hdnProdCode').val()) {
-                        if (version == $(this).closest('tr').find('#hdnVersionCode').val()) {
-                            if (colorCode == $(this).closest('tr').find('#hdnColorCode').val()) {
-                                $("#modalMessage").css("background-color", "#e46457");
-                                $("#lblMessage").text("This Product is Already Exist in the List");
-                                $("#section-message").modal('show');
-                                return;
-                            }
-                        }
-                    }
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/BookingOrder/Check_Hold")',
+            data: { 'EnquiryId': hold },
+            success: function (data) {
+                if(data.Success==true){
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#64c344");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                    ishold=true;
                 }
 
+            },
+            complete:function(){
+                if (check == true) {
+
+                    var brandCode = $("#ddlBrandCode").val();
+                    var brandDesc = $("#ddlBrandCode :selected").text();
+                    var colorCode = $("#ddlColor").val();
+                    var colorDesc = $("#ddlColor :selected").text();
+                    var prodCode = $("#ddlProdCode").val();
+                    var prodDesc = $("#txtProdDesc").val();
+                    var FCode = $("#hdnFCode").val();
+                    var FDesc = $("#hdnFDesc").val();
+
+
+                    var version = $("#txtVersionCode").val();
+                    var versionDesc = $("#txtVersionDesc").val();
+                    if($("#ddlChassisNo").val() == "0"){
+                        var chassisNo = "";
+                    }else{
+                        var chassisNo = $("#ddlChassisNo").val();
+                    }
+                    $("#ddlChassisNo").css("border-color", "#ccc");
+                    var engineNo = $("#txtEngineNo").val(); $("#txtEngineNo").css("border-color", "#ccc");
+
+                    var qty = $("#txtQty").val();
+                    var recNo = $("#txtRecNo").val();
+                    var factPrice = $("#txtFactoryPrice").val();
+
+                    var discount = $("#txtDiscount").val();
+                    var advTaxAmt = $("#txtAdvTaxAmt").val();
+                    var totalPrice = $("#txtTotalPrice").val();
+
+                    var warranty = $("#ddlWarranty").val();
+                    var InstalmentPlan = $("#ddlInstalmentPlan").val();
+                    var LocCode = $("#ddlLocation").val();
+                    var LocDesc = $("#ddlLocation :selected").text();
+                    var Frieght = $("#txtFrieght").val();
+                    var txtTotalQty = $("#txtTotalQty").val();
+                    if (txtTotalQty == "") {
+                        totalQty = 0;
+
+                    }
+                    else {
+                        totalQty = txtTotalQty;
+                    }
+
+                    $("#VehicleDetail tbody tr").each(function () {
+
+                        var b = $(this).closest('tr').find('#hdnBrandCode').val();
+                        if (brandCode == $(this).closest('tr').find('#hdnBrandCode').val()) {
+                            if (prodCode == $(this).closest('tr').find('#hdnProdCode').val()) {
+                                if (version == $(this).closest('tr').find('#hdnVersionCode').val()) {
+                                    if (colorCode == $(this).closest('tr').find('#hdnColorCode').val()) {
+                                        $("#modalMessage").css("background-color", "#e46457");
+                                        $("#lblMessage").text("This Product is Already Exist in the List");
+                                        $("#section-message").modal('show');
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+
+                    });
+                    finalPrice = parseInt(finalPrice) + parseInt(totalPrice);
+                    totalQty = parseInt(totalQty) + parseInt(qty);
+
+                    var row = $(value).parent().parent().html();
+                    var dt = $("#VehicleDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                                '<td>' + SNo++ + '</td>' +
+                                                                '<td> <label id="lblBrandCode">' + brandDesc + ' </label><input type="hidden" id="hdnBrandCode" value="' + brandCode + '"/></td>' +
+                                                                '<td> <label id="lblProdCode">' + prodDesc + ' </label><input type="hidden" id="hdnProdCode" value="' + prodCode + '"/></td>' +
+                                                                '<td> <label id="lblVersion">' + versionDesc + ' </label><input type="hidden" id="hdnVersionCode" value="' + version + '"/></td>' +
+
+                                                                '<td> <label id="lblChassisNo">' + chassisNo + ' </label></td>' +
+                                                                '<td> <label id="lblEngineNo">' + engineNo + ' </label></td>' +
+                                                                '<td> <label id="lblColor">' + colorDesc + ' </label><input type="hidden" id="hdnColorCode" value="' + colorCode + '"/></td>' +
+
+                                                                '<td> <label id="lblQty">' + qty + ' </label><input type="text" id="HdnQty" style="display:none;" /></td>' +
+                                                                '<td> <label id="lblRecNo">' + recNo + ' </label></td>' +
+                                                                '<td> <label id="lblFactPrice">' + factPrice + ' </label></td>' +
+
+                                                                '<td> <label id="lblDiscount">' + discount + ' </label></td>' +
+                                                                '<td> <label id="lblAdvTaxAmt">' + advTaxAmt + ' </label></td>' +
+                                                                '<td> <label id="lblTotPrice">' + totalPrice + ' </label></td>' +
+
+                                                                '<td style="display:none"> <label id="lblWarranty">' + warranty + ' </label></td>' +
+                                                                '<td style="display:none"> <label id="lblInstalmentPlan">' + InstalmentPlan + ' </label></td>' +
+                                                                 '<td> <label id="lblAddOnsDesc">' + FDesc + '</label><input type="hidden" id="hdnAddOnsCode" value="' + FCode + '"/></td>' +
+                                                                  '<td> <label id="lblLocDesc">' + LocDesc + '</label><input type="hidden" id="hdnLocCode" value="' + LocCode + '"/></td>' +
+                                                                   '<td> <label id="lbFrieght">' + Frieght + ' </label></td>' +
+                                                              '<td style="text-align:center;">' +
+
+                                                                    '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+                                                               '</tr>');
+                    //multiple data-role="tagsinput"
+                    $('#ddlChassisNo').find('option:selected').remove().end();
+                    $("#txtFinalAmount").val(finalPrice);
+                    $("#txtTotalQty").val(totalQty);
+                    CalBalancedPayment();
+                    clearVehilceFeilds();
+
+                }
+            }
             });
-            finalPrice = parseInt(finalPrice) + parseInt(totalPrice);
-            totalQty = parseInt(totalQty) + parseInt(qty);
-
-            var row = $(value).parent().parent().html();
-            var dt = $("#VehicleDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
-                                                        '<td>' + SNo++ + '</td>' +
-                                                        '<td> <label id="lblBrandCode">' + brandDesc + ' </label><input type="hidden" id="hdnBrandCode" value="' + brandCode + '"/></td>' +
-                                                        '<td> <label id="lblProdCode">' + prodDesc + ' </label><input type="hidden" id="hdnProdCode" value="' + prodCode + '"/></td>' +
-                                                        '<td> <label id="lblVersion">' + versionDesc + ' </label><input type="hidden" id="hdnVersionCode" value="' + version + '"/></td>' +
-
-                                                        '<td> <label id="lblChassisNo">' + chassisNo + ' </label></td>' +
-                                                        '<td> <label id="lblEngineNo">' + engineNo + ' </label></td>' +
-                                                        '<td> <label id="lblColor">' + colorDesc + ' </label><input type="hidden" id="hdnColorCode" value="' + colorCode + '"/></td>' +
-
-                                                        '<td> <label id="lblQty">' + qty + ' </label><input type="text" id="HdnQty" style="display:none;" /></td>' +
-                                                        '<td> <label id="lblRecNo">' + recNo + ' </label></td>' +
-                                                        '<td> <label id="lblFactPrice">' + factPrice + ' </label></td>' +
-
-                                                        '<td> <label id="lblDiscount">' + discount + ' </label></td>' +
-                                                        '<td> <label id="lblAdvTaxAmt">' + advTaxAmt + ' </label></td>' +
-                                                        '<td> <label id="lblTotPrice">' + totalPrice + ' </label></td>' +
-
-                                                        '<td style="display:none"> <label id="lblWarranty">' + warranty + ' </label></td>' +
-                                                        '<td style="display:none"> <label id="lblInstalmentPlan">' + InstalmentPlan + ' </label></td>' +
-                                                         '<td> <label id="lblAddOnsDesc">' + FDesc + '</label><input type="hidden" id="hdnAddOnsCode" value="' + FCode + '"/></td>' +
-                                                          '<td> <label id="lblLocDesc">' + LocDesc + '</label><input type="hidden" id="hdnLocCode" value="' + LocCode + '"/></td>' +
-                                                           '<td> <label id="lbFrieght">' + Frieght + ' </label></td>' +
-                                                      '<td style="text-align:center;">' +
-                                                           
-                                                            '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
-                                                       '</tr>');
-            //multiple data-role="tagsinput"
-            $('#ddlChassisNo').find('option:selected').remove().end();
-            $("#txtFinalAmount").val(finalPrice);
-            $("#txtTotalQty").val(totalQty);
-            CalBalancedPayment();
-            clearVehilceFeilds();
-
-        }
-        else {
-
-        }
     }
     function EditProdRecDetail(value) {
-    
+
 
         var ddlAddOns = $(value).closest('tr').find("#ddlAddOns").val();
         $(value).closest('tr').find("#hdnOpCode").val(ddlAddOns);
         var lblAddOn = $(value).closest('tr').find("#ddlAddOns :selected").text();
         $(value).closest('tr').find("#lblAddOns").text(lblAddOn);
+
+    }
+    function getFeaturefromStock(id,hdnAddOnsCode,Chassis) {
+        var leadId = id;
+
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Select_OptionalFeatures_VS")',
+                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode,'Chassis':Chassis },
+                success: function (data) {
+
+                    if (data.Success == true) {
+
+                        var item = JSON.parse(data.Response);
+
+                        //$("#ddlProdCode").val(item[0].ProdCode.trim());
+                        //$("#ddlAddOns").find('option').remove();
+                        $("#tblAddOns tbody tr").remove();
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+
+                                //$("#ddlAddOns").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                                //var checkbox = '<label class="class="form-label" for=' + item.Value + '>' + item.Text + '</label>&nbsp;&nbsp;<input class="icheckbox_minimal-blue" type="checkbox" id=' + item.Value + ' value=' + item.Value + ' name=' + item.Value + '><br>'
+
+                                //$("#container").append($(checkbox));
+
+                                var code = hdnAddOnsCode.split('|');
+                                if (code.length > 1) {
+
+                                    code = code[rowCount];
+                                }
+
+                                var test2 = "";
+                                var test = '<tr onclick="clickonchkbox(this)" id="OptChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblFID">' + item.FID + ' </label></td>' +
+                                                        '<td> <label id="lblFDesc">' + item.FDesc + ' </label></td>' +
+                                                        '<td> <label id="lblPrice">' + item.Price + ' </label></td>';
+
+
+
+                                test2 = '<td style="text-align:center;">' +
+                                           '<input type="checkbox" id="chkAddOns" class="chkBank icheckbox_minimal-blue"  value="' + item.FID.trim() + '" >' +
+
+                                       '</td>'+'</tr>';
+
+
+                                $("#tblAddOns tbody").append(test + test2);
+
+                            });
+                            if (hdnAddOnsCode.length > 1) {
+                                CheckedFeatureOnEdit(hdnAddOnsCode);
+                            }
+
+                        }
+
+                        //// next iterate thru your object adding each option to the drop down\
+                        //$(data.Response).each(function (index, item) { // GETTING ERROR HERE
+                        //    $("#ddlAddOns").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                        //});
+
+
+
+                    }
+                },
+                complete: function () {
+
+
+                },
+            });
+
+        }
 
     }
     function getFeature(id,hdnAddOnsCode) {
@@ -2542,7 +2776,7 @@
                 success: function (data) {
 
                     if (data.Success == true) {
-                        
+
                         var item = JSON.parse(data.Response);
 
                         //$("#ddlProdCode").val(item[0].ProdCode.trim());
@@ -2550,7 +2784,7 @@
                         $("#tblAddOns tbody tr").remove();
                         if (item.length > 0) {
                             $.each(item, function (value, item) {
-                                
+
                                 //$("#ddlAddOns").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
                                 //var checkbox = '<label class="class="form-label" for=' + item.Value + '>' + item.Text + '</label>&nbsp;&nbsp;<input class="icheckbox_minimal-blue" type="checkbox" id=' + item.Value + ' value=' + item.Value + ' name=' + item.Value + '><br>'
 
@@ -2558,24 +2792,24 @@
 
                                 var code = hdnAddOnsCode.split('|');
                                 if (code.length > 1) {
-                                    
+
                                     code = code[rowCount];
                                 }
-                               
+
                                 var test2 = "";
                                 var test = '<tr onclick="clickonchkbox(this)" id="OptChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
                                                         '<td>' + SNo++ + '</td>' +
                                                         '<td> <label id="lblFID">' + item.FID + ' </label></td>' +
                                                         '<td> <label id="lblFDesc">' + item.FDesc + ' </label></td>' +
                                                         '<td> <label id="lblPrice">' + item.Price + ' </label></td>';
-                                 
-                                
-                              
+
+
+
                                     test2 = '<td style="text-align:center;">' +
                                                '<input type="checkbox" id="chkAddOns" class="chkBank icheckbox_minimal-blue"  value="' + item.FID.trim() + '" >' +
 
                                            '</td>'+'</tr>';
-                                
+
 
                                     $("#tblAddOns tbody").append(test + test2);
 
@@ -2590,13 +2824,13 @@
                         //$(data.Response).each(function (index, item) { // GETTING ERROR HERE
                         //    $("#ddlAddOns").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
                         //});
-                       
-                       
+
+
 
                     }
                 },
                 complete: function () {
-                   
+
 
                 },
             });
@@ -2612,10 +2846,10 @@
         var lblPrice = $(value).closest('tr').find('#lblPrice').text();
         var fdesc = "";
         var fcode = "";
-      
-        
+
+
         $("#tblAddOns tbody tr").each(function () {
-           
+
             var check = $(this).closest('tr').find('#chkAddOns').prop('checked');
             if (check) {
 
@@ -2632,16 +2866,16 @@
         $("#txtTotalPrice").val(CalTotalVehiclePrice());
 
        // alert(fdesc);
-        
+
         $("#hdnFCode").val(fcode);
         $("#hdnFDesc").val(fdesc);
 
     }
-   
+
     $("table#VehicleDetail").on('click', '.selectItem', function () {
         rIndex = $(this).closest('tr');
         index = $(this).closest('tr')[0].rowIndex;
-        
+
 
         var BrandCode = $(rIndex).closest('tr').find("#hdnBrandCode").val();
         var ProdCode = $(rIndex).closest('tr').find("#hdnProdCode").val();
@@ -2659,12 +2893,12 @@
         var TotalPrice = $(rIndex).closest('tr').find("#lblTotPrice").text();
         var Warranty = $(rIndex).closest('tr').find("#lblWarranty").text().trim();
         var InstrumentPlan = $(rIndex).closest('tr').find("#lblInstalmentPlan").text().trim();
-        
+
         var lblAddOnsDesc = $(rIndex).closest('tr').find("#lblAddOnsDesc").text();
         var hdnAddOnsCode = $(rIndex).closest('tr').find("#hdnAddOnsCode").val();
         var hdnLocCode = $(rIndex).closest('tr').find("#hdnLocCode").val();
         var lbFrieght = $(rIndex).closest('tr').find("#lbFrieght").val();
-       
+
 
 
         if (BrandCode == "" || BrandCode == null || BrandCode == 0 || BrandCode == undefined) {
@@ -2673,7 +2907,7 @@
         else {
             $("#ddlBrandCode").val(BrandCode);
         }
-        
+
         $("#ddlColor").val(ColorCode);
         $("#ddlProdCode").val(ProdCode);
         $("#txtProdDesc").val(ProdDesc);
@@ -2681,11 +2915,13 @@
         $("#txtVersionCode").val(VersionCode);
         if (Chassis == "" || Chassis == null || Chassis == 0 || Chassis == undefined || Chassis == "null") {
             $("#ddlChassisNo").val("0");
+            getFeature(ProdCode,hdnAddOnsCode);
         }
         else {
             $("#ddlChassisNo").val(Chassis);
+            getFeaturefromStock(ProdCode,hdnAddOnsCode,Chassis);
         }
-       
+
         $("#txtEngineNo").val(Engine);
         $("#txtRecNo").val(RecNo);
         $("#txtFactoryPrice").val(FacPrice);
@@ -2706,8 +2942,8 @@
             $("#ddlInstalmentPlan").val("0");
         }
 
-        getFeature(ProdCode,hdnAddOnsCode);
-        
+
+
         var tempQty = $("#txtTotalQty").val();
         var tempAmt = $("#txtFinalAmount").val();
 
@@ -2765,7 +3001,7 @@
 
         //var i;
         //for (i = 0; i < tablelength.length; i++) {
-        // 
+        //
         //}
 
         $("#tblAddOns tbody tr").each(function () {
@@ -2775,11 +3011,12 @@
                     $(this).closest('tr').find('#chkAddOns').prop('checked', true);
 
                 }
-                
+
             }
         });
 
-        chassis=$("ddlChassisNo").val();
+
+
         if (chassis != "0") {
 
             $("#tblAddOns tbody tr").each(function () {
@@ -2799,19 +3036,19 @@
 
 
     function CalBalancedPayment() {
-    
+
         var finalamount = $("#txtFinalAmount").val();
 
         var check = 0,check1=0;
         $("#VehicleDetail tbody tr").each(function () {
-            
+
 
             //var check = $(this).closest('tr').find('#lblEngineNo').text();
             check1 = check1 + parseFloat($(this).closest('tr').find('td:eq(12)').text());
 
         });
         $("#PaymentDetail tbody tr").each(function () {
-            
+
 
             //var check = $(this).closest('tr').find('#lblEngineNo').text();
             check = check + parseFloat($(this).closest('tr').find('td:eq(8)').text());
@@ -2992,15 +3229,15 @@
                                                      '<td style="text-align:center;">' +
                                                         '<a class= "deletePaymentRow" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
                                                        '</tr>');
-                                                   
+
         var finalamount = $("#txtFinalAmount").val();
         var check = 0;
         $("#PaymentDetail tbody tr").each(function () {
-            
+
 
             //var check = $(this).closest('tr').find('#lblEngineNo').text();
              check = check+parseFloat($(this).closest('tr').find('td:eq(8)').text());
-           
+
         });
         CalBalancedPayment();
       ///  var remainingAmount = parseFloat(finalamount) - parseFloat(check);
@@ -3013,7 +3250,7 @@
         $(this).closest('tr').remove();
 
 
-       
+
         CalBalancedPayment();
 
     });
@@ -3103,7 +3340,7 @@
         var branch = $("#txtBranch").val();
         var city = $("#ddlCity").val();
         var amount = $("#txtAmount").val();
-     
+
         if (payMode == 0) {
             $("#ddlPaymentMode").css("border-color", "red");
             count++;
@@ -3161,20 +3398,43 @@
         return false;
 
     }
+    var Post=false;
+    function ValidPost(Bno) {
 
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/BookingOrder/Check_Post")',
+            data: { 'Bo': Bno },
+            success: function (data) {
+
+                if (data) {
+                    if (data.Success == true) {
+
+                        Post = true;
+                    }
+                    else {
+                        Post = false;
+                    }
+                }
+            },
+        });
+
+    }
     function AddPayment(value) {
-    
+
         var check = ValidatePaymentDetail();
         var finalamount = $("#txtFinalAmount").val();
         var payamt = $("#txtAmount").val();
         var checkamt = 0;
-       
+
         $("#PaymentDetail tbody tr").each(function () {
-            
+
             checkamt = checkamt + parseFloat($(this).closest('tr').find('td:eq(8)').text());
-         
+
         });
-        
+
         if (parseFloat(finalamount) < parseFloat(checkamt)) {
             $("#lblMessage").text("Payments are exceeding more than total!payment total must be less r equal to total vehicle price");
             $("#section-message").modal("show");
@@ -3190,15 +3450,21 @@
         }
         var bal = $("#txtBalance").val();
         if (bal < 0) {
-           
+
                 $("#lblMessage").text("Balance can not be less than zero");
                 $("#section-message").modal("show");
                 // $("#btnSave").prop('disabled', true);
                 return;
         }
+
+
         var boNo = $("#txtBONo").val();
-        if(check == true && boNo != null){
-            saveBalancedPaymentDetail(boNo);
+        var post = ValidPost(boNo);
+        if (check == true && post == true) {
+            if ( boNo != "") {
+                saveBalancedPaymentDetail(boNo);
+            }
+
         }else
         if (check == true) {
 
@@ -3353,7 +3619,7 @@
         var checkamt = 0;
 
         $("#PaymentDetail tbody tr").each(function () {
-            
+
             checkamt = checkamt + parseFloat($(this).closest('tr').find('td:eq(8)').text());
 
         });
@@ -3390,7 +3656,7 @@
             $("#section-message").modal("show");
             return false;
         }
-        
+
         else {
             return true;
         }
@@ -3460,7 +3726,8 @@
 
                 if (data) {
                     if (data.Success == true) {
-                        saveVehicleDetail();
+                         saveVehicleDetail();
+
 
                     }
                     else {
@@ -3504,11 +3771,11 @@
             dto.Warranty = $(this).closest('tr').find('#lblWarranty').text().trim();
             dto.InstalmentPlan = $(this).closest('tr').find('#lblInstalmentPlan').text().trim();
             dto.EnquiryNo = $("#txtEnquiry").val();
-            
+
             dto.FID = $(this).closest('tr').find('#hdnAddOnsCode').val().trim();
             dto.LocCode = $(this).closest('tr').find('#hdnLocCode').val().trim();
             dto.Frieght = $(this).closest('tr').find('#lbFrieght').text().trim();
-           
+
             obj.push(dto);
         });
 
@@ -3585,12 +3852,35 @@
         return obj;
     }
 
+    function insertChkListRecord() {
+        var obj = [];
+
+        $("#tblDelChkList tbody tr").each(function () {
+            var dto = {};
+            var images=  $(this).closest('tr').find('#hdnImgDoc').val();
+            debugger;
+            if($(this).closest('tr').find('#lblDelChkListCode').text()!=""){
+
+                dto.RefNo = $("#txtBONo").val();
+                dto.DocChkListCode = $(this).closest('tr').find('#lblDelChkListCode').text();
+                dto.Image = images;
+
+
+                obj.push(dto);
+            }
+
+
+        });
+
+        return obj;
+    }
+
     function savePaymentDetail(){
 
         var objects = [];
 
         objects = JSON.stringify({ 'objects' : insertPaymentRecord()});
-
+        debugger
         $.ajax({
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
@@ -3629,28 +3919,37 @@
 
 
     function saveCheckList(){
-        var checkedValues = $('input:checkbox:checked').map(function() {
-            if(this.value != "on"){
-                return this.value;
-            }
+        //var checkedValues = $('input:checkbox:checked').map(function() {
+        //    if(this.value != "on"){
+        //        return this.value;
+        //    }
 
-        }).get();
-        var strCheckedValues = checkedValues.toString();
+        //}).get();
+        //var strCheckedValues = checkedValues.toString();
+        // data: { 'strCheckedValues' : strCheckedValues } ,
+        var objects = [];
+        debugger
+        objects = JSON.stringify({ 'objects': insertChkListRecord()});
 
         $.ajax({
+            contentType: 'application/json; charset=utf-8',
             dataType: "json",
-            async: true,
-            type: 'POST',
+            // async: true,
+             type: 'POST',
             url: '@Url.Content("~/BookingOrder/Insert_VehChkList")',
-            data: { 'strCheckedValues' : strCheckedValues } ,
+            data:  objects,
             success: function (data) {
 
                 if (data) {
+
                     if (data.Success == true) {
                         $("#section-confirm").modal("hide")
                         $("#modalMessage").css("background-color", "#64c344");
                         $("#lblMessage").text(data.Message)
                         $("#section-message").modal('show');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 4000);
                     }
                     else {
                         $("#section-confirm").modal("hide")
@@ -3661,7 +3960,7 @@
                 }
             },
             complete: function () {
-                location.reload();
+               
             },
             error: function (data) {
                 $("#section-confirm").modal("hide")
@@ -3752,6 +4051,7 @@
         var leadId = $("#txtBONo").val();
         if (leadId != "0") {
             getData(leadId);
+
             document.getElementById("btnDelete").disabled = false;
         }
 
@@ -3771,7 +4071,7 @@
                         var item = JSON.parse(data.Response)
 
                         //Event Information
-
+                        debugger;
                         $("#txtBODate").val(item[0].BookRefDate);
                         $("#txtEnquiry").val(item[0].EnquiryNo);
                         $("#ddlCusType").val(item[0].CusTypeCode);
@@ -3789,7 +4089,7 @@
                         $("#ddlpayment").val(item[0].PaymentTerms);
                         $("#ddlLocation").val(item[0].DeliveryLocation);
                         $("#ddlCustomers").val(item[0].CusCode);
-                        $("#ddlACof").val(item[0].AccountOf);
+                        $("#ddlACof").val(item[0].CusCode);
                         $("#txtFHName").val(item[0].FHName);
                         $("#txtBalance").val(item[0].RemainingTotal);
 
@@ -3797,7 +4097,11 @@
                         //var splitColor = address2.split(' ', address2.length);
                         //var State = splitColor[1];
                         //var City = splitColor[0];
-
+                        $("#txtCusDesc").val(item[0].CusDesc);
+                        $("#txtAccCusDesc").val(item[0].CusDesc);
+                        
+                        $("#txtCity").val(item[0].City);
+                        
                         $("#txtCity").val(item[0].City);
                         $("#txtState").val(item[0].State);
                         $("#txtCountry").val(item[0].Country);
@@ -3816,7 +4120,7 @@
                             document.getElementById("btnDelete").disabled = true;
                             document.getElementById("btnSave").disabled = true;
                         }
-
+                        //saveCheckList();
                         getVehicleData(id);
                     }
                 },
@@ -3874,7 +4178,7 @@
                                                           '<td> <label id="lblLocDesc">' + item.LocDesc + '</label><input type="hidden" id="hdnLocCode" value="' + item.LocCode + '"/></td>' +
                                                            '<td> <label id="lbFrieght">' + item.Frieght + ' </label></td>' +
                                                          '<td style="text-align:center;">' +
-                                                            
+
                                                             '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
                                                        '</tr>');
                                 qty = qty + parseInt(item.Qty);
@@ -3976,19 +4280,39 @@
                         if (item.length > 0) {
                             $.each(item, function (value, item) {
 
-                                $("#tblDelChkList tbody tr").each(function () {
+
+                                var dt = $("#tblDelChkList tbody").append('<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                    '<td>' + SNo++ + '</td>' +
+                                    '<td> <label id="lblDelChkListCode">' + item.BookChkListCode + ' </label></td>' +
+                                    '<td> <label id="lblDelChkListDesc">' + item.DelChkListDesc + ' </label></td>' +
+
+                                    '<td ><img id="DocImg" src="'+item.Image+'" style="width:100px;height:100px;"/><input type="Hidden" id="hdnImgDoc" value="'+item.Image+'"/></td>' +
+                                     '<td style="text-align:center;">' +
+                                        '<a class= "deleteDocumentRow" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+                                       '</tr>');
+
+                                //$("#tblDelChkList tbody tr").each(function () {
 
 
-                                    var check = $(this).closest('tr').find('#hdnDocCode').val();
+                                //    //var check = $(this).closest('tr').find('#hdnDocCode').val();
 
-                                    if(item.BookChkListCode == check ){
-                                        $(this).closest('tr').find('#chkOptFlag').prop('checked', true);
-                                        //$('#chkOptFlag').prop('checked', true);
+                                //    //if(item.BookChkListCode == check ){
+                                //    //    var x = document.createElement("IMG");
 
+                                //    //    x.setAttribute("src", item.DocImage);
+                                //    //    x.setAttribute("width", "100");
+                                //    //    x.setAttribute("height", "100");
+                                //    //    x.setAttribute("alt", "The Pulpit Rock");
+                                //    //    document.getElementById("output").appendChild(x);
 
-                                    }
+                                //      //  $(this).closest('tr').find('#chkOptFlag').prop('checked', true);
+                                //        //$('#chkOptFlag').prop('checked', true);
+                                //    //    document.getElementById('output').style.display = 'inline';
+                                //     //   document.getElementById('Updfile').style.display = 'none';
 
-                                });
+                                //    }
+
+                                //});
 
                             });
 
@@ -4003,11 +4327,12 @@
         }
 
     }
+
     $("#lknCreateCustomer").click(function () {
-      
+
 
        var baseurl = '@Url.Action("Customer", "Customer")';
-        
+
         var url = baseurl ;
         window.open(url, "_blank", "width=1200,height=600");
         //window.location.href = baseurl;

@@ -77,7 +77,7 @@
                                 <label class="form-label">Customer Code</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Customer')" style="color:blue"><i class="fa fa-search"></i></a></span>
-                                    <input type="text" class="form-control" id="ddlCustomers" name="CusCode" readonly />
+                                    <input type="text" class="form-control" id="ddlCustomers" name="CusCode" placeholder="No" readonly />
                                     @*@Html.DropDownList("ddlCustomers", new SelectList((IEnumerable<SelectListItem>)ViewBag.Customers, "Value", "Text", "0"), new { @class = "form-control", @id = "ddlCustomers" })*@
                                 </div>
                                 <div class="makespace"></div>
@@ -108,7 +108,15 @@
                                 <label class="form-label">Customer<span class="mandatory">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('CustomerProsPect')" style="color:blue"><i class="fa fa-search"></i></a></span>
-                                    <input type="text" class="form-control" id="txtCusDesc" name="CusDesc" maxlength="50" />
+                                    <input type="text" class="form-control" id="txtCusDesc" name="CusDesc" maxlength="50" placeholder="Name" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">F/H Name.</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input type="text" class="form-control" id="txtFHName" placeholder="Father or Husband" />
                                 </div>
                                 <div class="makespace"></div>
                             </div>
@@ -145,7 +153,16 @@
                                 </div>
                                 <div class="makespace"></div>
                             </div>
+                           
                             <div class="col-md-4">
+                                <label class="form-label">Account Code*</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Account')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                    <input type="text" class="form-control" id="txtAccountCode" name="FaxNo" onblur="ChangeColor(this)" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-2">
                                 <label class="form-label">Customer Distance</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-plane"></i></span>
@@ -153,27 +170,12 @@
                                 </div>
                                 <div class="makespace"></div>
                             </div>
+
                             <div class="col-md-2">
-                                <label class="form-label">Auto Customer No.</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input type="text" class="form-control" id="txtCustomerNoMan" readonly />
-                                </div>
-                                <div class="makespace"></div>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">Manual Customer No. </label>
+                                <label class="form-label">Manual No. </label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                     <input type="text" class="form-control" id="txtMCNo" maxlength="20" />
-                                </div>
-                                <div class="makespace"></div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Account Code*</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Account')" style="color:blue"><i class="fa fa-search"></i></a></span>
-                                    <input type="text" class="form-control" id="txtAccountCode" name="FaxNo" onblur="ChangeColor(this)" />
                                 </div>
                                 <div class="makespace"></div>
                             </div>
@@ -955,8 +957,8 @@
         dto.CusCode = $("#ddlCustomers").val();
         dto.CusTypeCode = $("#ddlCusType").val();
         dto.Title         = $("#ddlCusTitle").val();
-        dto.CusDesc       = $("#txtCusDesc").val();
-
+        dto.CusDesc = $("#txtCusDesc").val(); 
+        dto.FatherHusName = $("#txtFHName").val();
         if($("#ddlCusType").val() == '001')
             dto.NIC           = $("#txtNICNTN").val();
         else
@@ -1126,6 +1128,7 @@
                         //Customer Information
 
                         $("#ddlCustomers").val(item[0].CusCode);
+                        $("#txtFHName").val(item[0].FatherHusName);
                         $("#ddlCusType").val(item[0].CusTypeCode);
                         $("#ddlCusTitle").val(item[0].Title);
                         $("#txtCusDesc").val(item[0].CusDesc);

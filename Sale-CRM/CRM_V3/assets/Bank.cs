@@ -18,8 +18,8 @@ namespace CRM_V3.assets
         public string BankCode { get; set; }
         public string BankDesc { get; set; }
         public string UpdUser { get; set; }
-        public System.DateTime UpdDate { get; set; }
-        public System.DateTime UpdTime { get; set; }
+        public Nullable<System.DateTime> UpdDate { get; set; }
+        public Nullable<System.DateTime> UpdTime { get; set; }
         public string UpdTerm { get; set; }
         public string BankStatus { get; set; }
         public Nullable<bool> OEMFinance { get; set; }

@@ -46,7 +46,8 @@ namespace Core.CRM.ADO.ViewModel
         public string VersionDesc { get; set; }
         public string ModelYear { get; set; }
         public string FCode { get; set; }
-       
+        public string FPrice { get; set; }
+
         public string FreightLoc { get; set; }
         public string FreightCharge { get; set; }
         public string StockValue { get; set; }
@@ -55,6 +56,7 @@ namespace Core.CRM.ADO.ViewModel
         public string OEMAnnounceDate { get; set; }
         public string TransportID { get; set; }
         public string VoucherNo { get; set; }
-        
+        public string LedgerType { get; set; }
+
     }
 }

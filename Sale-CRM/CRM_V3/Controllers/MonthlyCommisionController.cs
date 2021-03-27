@@ -40,22 +40,22 @@ namespace CRM_V3.Controllers
         }
 
         [HttpGet]
-        public JsonResult Get_MonthlyCommision(string Service,string Month, string DealerCode)
+        public JsonResult Get_MonthlyCommision(string Service,string Month, string DealerCode,string Type)
         {
             string data = "";
             bool result = false;
 
             if(Service == "BO")
             {
-                data = MonthlyCommisionMethods.Get_MonthlyCommisionForEmp("SP_Select_MonthlyCommisionForEmp", Month, DealerCode);
+                data = MonthlyCommisionMethods.Get_MonthlyCommisionForEmp("SP_Select_MonthlyCommisionForEmp", Month, DealerCode,Type);
             }
             else if(Service == "JC")
             {
-                data = MonthlyCommisionMethods.Get_MonthlyCommisionForEmp("SP_MonthlyCommisionForJobCard", Month, DealerCode);
+                data = MonthlyCommisionMethods.Get_MonthlyCommisionForEmp("SP_MonthlyCommisionForJobCard", Month, DealerCode, Type);
             }
             else
             {
-                data = MonthlyCommisionMethods.Get_MonthlyCommisionForEmp("SP_MonthlyCommisionForTechnician", Month, DealerCode);
+                data = MonthlyCommisionMethods.Get_MonthlyCommisionForEmp("SP_MonthlyCommisionForTechnician", Month, DealerCode, Type);
             }
 
 

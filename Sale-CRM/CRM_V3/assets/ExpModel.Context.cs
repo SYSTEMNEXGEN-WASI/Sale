@@ -37,6 +37,13 @@ namespace CRM_V3.assets
         public virtual DbSet<CostCenterSetup> CostCenterSetups { get; set; }
         public virtual DbSet<DailyExpenseDetail> DailyExpenseDetails { get; set; }
         public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<PaymentReceiptMaster> PaymentReceiptMaster { get; set; }
+        public virtual DbSet<PaymentReceiptDetail> PaymentReceiptDetail { get; set; }
+        public virtual DbSet<PaymentReceiptTaxDetail> PaymentReceiptTaxDetail { get; set; }
+        public virtual DbSet<VehicleDeliveryDetail> VehicleDeliveryDetail { get; set; }
+        public virtual DbSet<VehicleDeliveryMaster> VehicleDeliveryMaster { get; set; }
+        public virtual DbSet<VehicleStock> VehicleStock { get; set; }
+        public virtual DbSet<Vendor> Vendor { get; set; }
     
         public virtual ObjectResult<string> sp_ExpInvNo_DailyExpenseMaster()
         {

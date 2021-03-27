@@ -130,26 +130,62 @@ namespace Core.CRM.ADO
 		{
 			string json = "";
 			var Serializer = new JavaScriptSerializer();
+            SqlDataReader rder = null; ;
 			List<DeliveryCheckListVM> lst = new List<DeliveryCheckListVM>();
-			try
-			{
-				string sql = "Select DelChkListCode from VehicleDelChkList where DeliveryNo = '" + enquiryId + "' and DealerCode ='"+ dealerCode + "' and Type = '"+ type + "'";
+            try
+            {
 
-				dt = sysfun.GetData(sql);
+                SqlParameter[] sqlParam = {
+                    new SqlParameter("@DealerCode",dealerCode),//1
+                    new SqlParameter("@JobCardCode",enquiryId)//1
+                                        };
+                if (sysfun.ExecuteSP("sp_DeliveryDocList", sqlParam, ref rder))
+                {
 
-                if (dt != null && dt.Rows.Count > 0)
-				{
-					lst = EnumerableExtension.ToList<DeliveryCheckListVM>(dt);
-				}
-				json = Serializer.Serialize(lst);
-			}
-			catch (Exception ex)
-			{
+                    while (rder.Read())
+                    {
+                          byte[] myimg = (byte[])rder["DocImage"];
+                        lst.Add(new DeliveryCheckListVM
+                        {
+                            BookChkListCode = rder["DelChkListCode"].ToString(),
+                            DelChkListDesc = rder["DelChkListDesc"].ToString(),
+                            //ContentType = sdr["ContentType"].ToString(),
+                            Image = "data:image/png;base64," + Convert.ToBase64String(myimg, 0, myimg.Length),
+                        });
+                        // Session["Image"] = "data:image/png;base64," + Convert.ToBase64String(myimg, 0, myimg.Length);
 
-				throw;
-			}
 
-			return json;
+                    }
+
+
+
+                }
+                  json = Serializer.Serialize(lst);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            //try
+            //{
+            //	string sql = "Select DelChkListCode from VehicleDelChkList where DeliveryNo = '" + enquiryId + "' and DealerCode ='"+ dealerCode + "' and Type = '"+ type + "'";
+
+            //	dt = sysfun.GetData(sql);
+
+            //             if (dt != null && dt.Rows.Count > 0)
+            //	{
+            //		lst = EnumerableExtension.ToList<DeliveryCheckListVM>(dt);
+            //	}
+            //	json = Serializer.Serialize(lst);
+            //}
+            //catch (Exception ex)
+            //{
+
+            //	throw;
+            //}
+
+            return json;
 
 		}
 
@@ -335,49 +371,50 @@ namespace Core.CRM.ADO
 			return json;
 		}
 
-		public static bool Insert_VehChkList(string strCheckedValues, string dealerCode)
-		{
+		//public static bool Insert_VehChkList(string strCheckedValues, string dealerCode)
+		//{
 
-			try
-			{
-				SqlParameter[] param2 = {
-								 new SqlParameter("@DealerCode",dealerCode),//0
-								 new SqlParameter("@Delivery",strAutoCode),//1
-								 new SqlParameter("@DelChkListCode",strCheckedValues),//2								 
-								 new SqlParameter("@Type","DO")//3
-							};
+		//	try
+		//	{
+		//		SqlParameter[] param2 = {
+		//						 new SqlParameter("@DealerCode",dealerCode),//0
+		//						 new SqlParameter("@Delivery",strAutoCode),//1
+		//						 new SqlParameter("@DelChkListCode",strCheckedValues),//2								 
+		//						 new SqlParameter("@Type","DO")//3
+		//					};
 
-				if (sysfun.ExecuteSP_NonQuery("SP_VehicleChkList_Insert", param2))
-				{
-					ObjTrans.CommittTransaction(ref Trans);
-					IsSaved = true;
-				}
-				else
-				{
-					ObjTrans.RollBackTransaction(ref Trans);
-					IsSaved = false;
-				}
+		//		if (sysfun.ExecuteSP_NonQuery("SP_VehicleChkList_Insert", param2))
+		//		{
+		//			ObjTrans.CommittTransaction(ref Trans);
+		//			IsSaved = true;
+		//		}
+		//		else
+		//		{
+		//			ObjTrans.RollBackTransaction(ref Trans);
+		//			IsSaved = false;
+		//		}
 
-			}
-			catch (Exception)
-			{
-				ObjTrans.RollBackTransaction(ref Trans);
-				throw;
-			}
+		//	}
+		//	catch (Exception)
+		//	{
+		//		ObjTrans.RollBackTransaction(ref Trans);
+		//		throw;
+		//	}
 
-			return IsSaved;
-		}
+		//	return IsSaved;
+		//}
 
-		public static bool Delete_DeliveryOrder_Record(string enquiryId, string dealerCode)
+		public static bool Delete_DeliveryOrder_Record(string enquiryId, string dealerCode,string Chassis,SqlTransaction Trans)
 		{
 			DataSet ds = new DataSet();
 
 			SqlParameter[] param = {
 				new SqlParameter("@DealerCode",dealerCode),
-				new SqlParameter("@DONo",enquiryId)
-			};
+				new SqlParameter("@DONo",enquiryId),
+                new SqlParameter("@ChassisNo",Chassis)
+            };
 		   
-				if (sysfun.ExecuteSP_NonQuery("sp_DeliveryOrder_Delete", param))
+				if (sysfun.ExecuteSP_NonQuery("sp_DeliveryOrder_Delete", param,Trans))
 				{
 					IsDeleted = true;
 				}
@@ -544,5 +581,99 @@ namespace Core.CRM.ADO
 
             return IsSaved;
         }
+
+
+
+        public static bool Insert_VehChkLists(List<DocumentCheckList> model, string dealerCode, ref string msg)
+        {
+            string[] a;
+            byte[] imageBytes=null;
+
+            try
+            {
+                if (model != null)
+                {
+
+
+                    foreach (var item in model)
+                    {
+                        if (item.DocChkListCode != "" || item.DocChkListCode != null)
+
+                        {
+                            if(item.Image!="" && item.Image != null)
+                            {
+                                a = item.Image.Split(',');
+                                imageBytes = Convert.FromBase64String(a[1]);
+                            }
+                           
+                            SqlParameter[] param2 = {
+                                 new SqlParameter("@DealerCode",dealerCode),//0
+								 new SqlParameter("@Delivery",strAutoCode),//1
+								 new SqlParameter("@DelChkListCode",item.DocChkListCode),//2								 
+                                 new SqlParameter("@DocImage",imageBytes)//2
+							};
+                            // SP_DeliveryChkList_Insert
+                            if (sysfun.ExecuteSP_NonQuery("SP_DeliveryChkList_Insert", param2))
+                            {
+                                IsSaved = true;
+                            }
+                            else
+                            {
+                                ObjTrans.RollBackTransaction(ref Trans);
+                                IsSaved = false;
+                            }
+                        }
+                        else
+                        {
+                            ObjTrans.CommittTransaction(ref Trans);
+                            IsSaved = true;
+                        }
+
+
+                    }
+                    if (IsSaved == true)
+                    {
+                        ObjTrans.CommittTransaction(ref Trans);
+                    }
+                    
+
+                }
+                else
+                {
+                    if (Trans.Connection != null)
+                    {
+                        ObjTrans.CommittTransaction(ref Trans);
+                    }
+                    
+                    IsSaved = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ObjTrans.RollBackTransaction(ref Trans);
+                // throw;
+                msg = ex.Message;
+            }
+
+            return IsSaved;
+        }
+
+
+        /// hold Vehicle
+        /// 
+        public static bool Check_Hold(string chassisNo, string dealerCode)
+        {
+            DataSet ds = new DataSet();
+
+            if (sysfun.IsExist("ChasisNo", chassisNo, "VehicleStock", dealerCode, "and HoldFlag='Y' and HoldAt='DeliveryOr' "))
+            {
+                return true;
+
+            }
+
+            return false;
+        }
+
     }
 }

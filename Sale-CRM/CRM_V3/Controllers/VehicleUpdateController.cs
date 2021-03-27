@@ -82,7 +82,7 @@ namespace CRM_V3.Controllers
 
             string msg = "Failed to save record..";
 
-            result = VehicleUpdateMethods.Insert_VSMaster(VehStockVM, Session["DealerCode"].ToString());
+            result = VehicleUpdateMethods.Insert_VSMaster(VehStockVM, Session["DealerCode"].ToString(),ref msg);
 
             if (result)
             {
@@ -93,5 +93,54 @@ namespace CRM_V3.Controllers
         }
 
 
+        public JsonResult Insert_VSMasterInv(VehicleStockVM VehStockVM)
+        {
+            bool result = false;
+
+            string msg = "Failed to save record..";
+
+            result = VehicleUpdateMethods.Insert_VSMaster(VehStockVM, Session["DealerCode"].ToString(),ref msg);
+
+            if (result)
+            {
+                msg = "Successfully Added";
+            }
+
+            return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult Insert_ProdRecDetail(List<VehicleStockVM> objects)
+        {
+            bool result = false;
+            string msg = "Failed to save record..";
+          
+
+            result = VehicleUpdateMethods.Insert_InvDetail(objects, ref msg);
+
+            if (result)
+            {
+                msg = "Successfully Added";
+            }
+
+            return Json(new { Success = result, Message = msg }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public JsonResult Select_InvoiceDetail(string EnquiryId)
+        {
+            string data;
+            bool result = false;
+
+            data = VehicleUpdateMethods.GetInvoiceDetail(EnquiryId, Session["DealerCode"].ToString());
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                result = true;
+            }
+
+            return Json(new { Success = result, Response = data }, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

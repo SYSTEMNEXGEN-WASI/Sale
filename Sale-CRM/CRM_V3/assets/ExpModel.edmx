@@ -13,10 +13,10 @@
           <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="BankCode" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="BankDesc" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="UpdUser" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="UpdDate" Type="datetime" Nullable="false" />
-          <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdTerm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" />
+          <Property Name="UpdDate" Type="datetime" />
+          <Property Name="UpdTime" Type="datetime" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" />
           <Property Name="BankStatus" Type="varchar" MaxLength="25" />
           <Property Name="OEMFinance" Type="bit" />
         </EntityType>
@@ -163,11 +163,87 @@
           <Property Name="PayModeCode" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="PayModeDesc" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UpdUser" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="UpdDate" Type="datetime" Nullable="false" />
-          <Property Name="UpdTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdDate" Type="datetime" />
+          <Property Name="UpdTime" Type="datetime" />
           <Property Name="UpdTerm" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Version" Type="char" MaxLength="8" />
           <Property Name="PayModeCodeOEM" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HondaHK.dbo.PaymentReceiptDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PaymentReceiptDetail">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ReceiptNo" />
+            <PropertyRef Name="InvoiceNo" />
+            <PropertyRef Name="InvoiceDate" />
+            <PropertyRef Name="InvAmount" />
+            <PropertyRef Name="OutStAmount" />
+            <PropertyRef Name="AdjAmount" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ReceiptNo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="InvoiceType" Type="varchar" MaxLength="20" />
+          <Property Name="InvoiceNo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+          <Property Name="InvAmount" Type="float" Nullable="false" />
+          <Property Name="OutStAmount" Type="float" Nullable="false" />
+          <Property Name="AdjAmount" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentReceiptMaster">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ReceiptNo" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ReceiptNo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="ReceiptDate" Type="datetime" Nullable="false" />
+          <Property Name="InvoiceType" Type="varchar" MaxLength="20" />
+          <Property Name="CusCode" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="InsCompCode" Type="char" MaxLength="4" />
+          <Property Name="BranchCode" Type="char" MaxLength="4" />
+          <Property Name="InsCusFlag" Type="char" MaxLength="1" />
+          <Property Name="Remarks" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PayModeCode" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="InsNo" Type="varchar" MaxLength="15" />
+          <Property Name="InsDate" Type="datetime" />
+          <Property Name="AmountPaid" Type="float" Nullable="false" />
+          <Property Name="BankCode" Type="char" MaxLength="5" />
+          <Property Name="Branch" Type="varchar" MaxLength="50" />
+          <Property Name="AdvanceAmount" Type="float" />
+          <Property Name="InvTotal" Type="float" Nullable="false" />
+          <Property Name="OutSTTotal" Type="float" Nullable="false" />
+          <Property Name="InvAdjTotal" Type="float" Nullable="false" />
+          <Property Name="DelFlag" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VoucherNo" Type="varchar" MaxLength="50" />
+          <Property Name="VoucherFlag" Type="char" MaxLength="1" />
+          <Property Name="AdvancePaid" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TransType" Type="varchar" MaxLength="30" />
+          <Property Name="IsAdjustAdvance" Type="char" MaxLength="1" />
+          <Property Name="AdvanceReceiptNo" Type="char" MaxLength="8" />
+          <Property Name="AdvanceAdjustedAmount" Type="float" />
+          <Property Name="AdvanceBalanceAmount" Type="float" />
+          <Property Name="DocumentNo" Type="varchar" MaxLength="50" />
+          <Property Name="RefundPayment" Type="char" MaxLength="8" />
+          <Property Name="RefundAmount" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HondaHK.dbo.PaymentReceiptTaxDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PaymentReceiptTaxDetail">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ReceiptNo" Type="char" MaxLength="8" />
+          <Property Name="ReceiptHead" Type="varchar" MaxLength="50" />
+          <Property Name="AccountCode" Type="char" MaxLength="16" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="TaxID" Type="char" MaxLength="2" />
+          <Property Name="TaxPerc" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ReceiptHead">
           <Key>
@@ -178,6 +254,177 @@
           <Property Name="ReceiptHeadCode" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="ReceiptHeadDesc" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="VehicleDeliveryDetail">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="DeliveryNo" />
+            <PropertyRef Name="BrandCode" />
+            <PropertyRef Name="ProdCode" />
+            <PropertyRef Name="VersionCode" />
+            <PropertyRef Name="EngineNo" />
+            <PropertyRef Name="ChasisNo" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="DeliveryNo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="BrandCode" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="ProdCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="VersionCode" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="EngineNo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="ChasisNo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="ExFactPrice" Type="float" />
+          <Property Name="ColorCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="ProdRecNo" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="LocCode" Type="char" MaxLength="5" />
+          <Property Name="EnquiryNo" Type="varchar" MaxLength="10" />
+          <Property Name="StockType" Type="varchar" MaxLength="15" />
+          <Property Name="BookingNo" Type="varchar" MaxLength="15" />
+          <Property Name="DocumentNo" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="VehicleDeliveryMaster">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="DeliveryNo" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="DeliveryNo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="DeliveryDate" Type="datetime" Nullable="false" />
+          <Property Name="BookingNo" Type="varchar" MaxLength="15" />
+          <Property Name="BookRefNo" Type="char" MaxLength="8" />
+          <Property Name="CusCode" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="DelFlag" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Reciever" Type="varchar" MaxLength="50" />
+          <Property Name="DeliveryTime" Type="datetime" />
+          <Property Name="Type" Type="varchar" MaxLength="15" />
+          <Property Name="ReceiverCode" Type="varchar" MaxLength="8" />
+          <Property Name="IsSalePerson" Type="char" MaxLength="3" />
+          <Property Name="DONotCode" Type="char" MaxLength="3" />
+          <Property Name="Remarks" Type="varchar" MaxLength="200" />
+          <Property Name="PSFFlag" Type="char" MaxLength="1" />
+          <Property Name="PSFDate" Type="datetime" />
+          <Property Name="PSFDFlag" Type="char" MaxLength="1" />
+          <Property Name="PSFDDate" Type="datetime" />
+          <Property Name="TransferStatus" Type="char" MaxLength="1" />
+          <Property Name="EnquiryNo" Type="varchar" MaxLength="10" />
+          <Property Name="EmpCode" Type="char" MaxLength="3" />
+          <Property Name="DOType" Type="varchar" MaxLength="15" />
+          <Property Name="Segment" Type="varchar" MaxLength="15" />
+          <Property Name="Usage" Type="varchar" MaxLength="25" />
+          <Property Name="VehTypeCode" Type="char" MaxLength="5" />
+          <Property Name="VehRecCode" Type="char" MaxLength="5" />
+          <Property Name="CusContNo" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="VehicleStock">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="EngineNo" />
+            <PropertyRef Name="ChasisNo" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="LocCode" Type="char" MaxLength="5" />
+          <Property Name="BrandCode" Type="char" MaxLength="3" />
+          <Property Name="ProdCode" Type="varchar" MaxLength="20" />
+          <Property Name="VersionCode" Type="char" MaxLength="3" />
+          <Property Name="ColorCode" Type="char" MaxLength="5" />
+          <Property Name="EngineNo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="ChasisNo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="RegNo" Type="varchar" MaxLength="15" />
+          <Property Name="Remarks" Type="char" MaxLength="100" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="ModelYear" Type="varchar" MaxLength="10" />
+          <Property Name="DeliveryFlag" Type="char" MaxLength="1" />
+          <Property Name="InStockFlag" Type="char" MaxLength="1" />
+          <Property Name="CusCode" Type="char" MaxLength="8" />
+          <Property Name="InvoiceNo" Type="varchar" MaxLength="15" />
+          <Property Name="InvoiceDate" Type="datetime" />
+          <Property Name="BookingNo" Type="varchar" MaxLength="15" />
+          <Property Name="BookingRefNo" Type="varchar" MaxLength="15" />
+          <Property Name="InDate" Type="datetime" />
+          <Property Name="OutDate" Type="datetime" />
+          <Property Name="BookingRefDate" Type="datetime" />
+          <Property Name="ColorDesc" Type="varchar" MaxLength="50" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="50" />
+          <Property Name="CusDesc" Type="varchar" MaxLength="50" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="RegDate" Type="datetime" />
+          <Property Name="InsCompCode" Type="char" MaxLength="4" />
+          <Property Name="InsPolicyNo" Type="varchar" MaxLength="15" />
+          <Property Name="LossNo" Type="varchar" MaxLength="15" />
+          <Property Name="InsDate" Type="datetime" />
+          <Property Name="BookRecDate" Type="datetime" />
+          <Property Name="BookIssueDate" Type="datetime" />
+          <Property Name="Type" Type="varchar" MaxLength="15" />
+          <Property Name="Blocked" Type="bit" />
+          <Property Name="BlockedBy" Type="varchar" MaxLength="50" />
+          <Property Name="BlockedDate" Type="datetime" />
+          <Property Name="SaleAble" Type="char" MaxLength="2" />
+          <Property Name="EnquiryNo" Type="varchar" MaxLength="25" />
+          <Property Name="RecNo" Type="char" MaxLength="8" />
+          <Property Name="OrderNo" Type="varchar" MaxLength="15" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="HoldFlag" Type="char" MaxLength="1" />
+          <Property Name="HoldBy" Type="char" MaxLength="3" />
+          <Property Name="HoldTill" Type="varchar" MaxLength="10" />
+          <Property Name="HoldAmount" Type="float" />
+          <Property Name="HoldDate" Type="datetime" />
+          <Property Name="FreightLoc" Type="char" MaxLength="5" />
+          <Property Name="FreightCharge" Type="float" />
+          <Property Name="FCode" Type="varchar" MaxLength="50" />
+          <Property Name="StockValue" Type="float" />
+          <Property Name="FeaturePrice" Type="float" />
+          <Property Name="TransportDelivery" Type="datetime" />
+          <Property Name="LedgerType" Type="varchar" MaxLength="15" />
+          <Property Name="HoldAt" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="VendorCode" />
+          </Key>
+          <Property Name="DealerCode" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="VendorCode" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="VendorDesc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Add1" Type="varchar" MaxLength="50" />
+          <Property Name="Add2" Type="varchar" MaxLength="50" />
+          <Property Name="Add3" Type="varchar" MaxLength="50" />
+          <Property Name="ContPerson" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone1" Type="varchar" MaxLength="50" />
+          <Property Name="Phone2" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Fax" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="URL" Type="varchar" MaxLength="50" />
+          <Property Name="GSTno" Type="varchar" MaxLength="50" />
+          <Property Name="NTN" Type="varchar" MaxLength="50" />
+          <Property Name="PaymentTerm" Type="varchar" MaxLength="50" />
+          <Property Name="AccountCode" Type="varchar" MaxLength="50" />
+          <Property Name="AdvanceGiven" Type="float" />
+          <Property Name="UpdUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdTerm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreditLimit" Type="float" />
+          <Property Name="Title" Type="varchar" MaxLength="10" />
+          <Property Name="VendorRecievable" Type="char" MaxLength="16" />
+          <Property Name="VendorPayable" Type="char" MaxLength="16" />
+          <Property Name="DeafultVendor" Type="char" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK_VehicleDeliveryDetail_VehicleDeliveryMaster">
+          <End Role="VehicleDeliveryMaster" Type="Self.VehicleDeliveryMaster" Multiplicity="1" />
+          <End Role="VehicleDeliveryDetail" Type="Self.VehicleDeliveryDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleDeliveryMaster">
+              <PropertyRef Name="DealerCode" />
+              <PropertyRef Name="DeliveryNo" />
+            </Principal>
+            <Dependent Role="VehicleDeliveryDetail">
+              <PropertyRef Name="DealerCode" />
+              <PropertyRef Name="DeliveryNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="sp_ExpInvNo_DailyExpenseMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="sngonclo_BMSModelStoreContainer">
           <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
@@ -189,7 +436,39 @@
           <EntitySet Name="DealerEmp" EntityType="Self.DealerEmp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpenseHead" EntityType="Self.ExpenseHead" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentMode" EntityType="Self.PaymentMode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentReceiptMaster" EntityType="Self.PaymentReceiptMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReceiptHead" EntityType="Self.ReceiptHead" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleDeliveryDetail" EntityType="Self.VehicleDeliveryDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleDeliveryMaster" EntityType="Self.VehicleDeliveryMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleStock" EntityType="Self.VehicleStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentReceiptDetail" EntityType="Self.PaymentReceiptDetail" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PaymentReceiptDetail].[DealerCode] AS [DealerCode], 
+    [PaymentReceiptDetail].[ReceiptNo] AS [ReceiptNo], 
+    [PaymentReceiptDetail].[InvoiceType] AS [InvoiceType], 
+    [PaymentReceiptDetail].[InvoiceNo] AS [InvoiceNo], 
+    [PaymentReceiptDetail].[InvoiceDate] AS [InvoiceDate], 
+    [PaymentReceiptDetail].[InvAmount] AS [InvAmount], 
+    [PaymentReceiptDetail].[OutStAmount] AS [OutStAmount], 
+    [PaymentReceiptDetail].[AdjAmount] AS [AdjAmount]
+    FROM [dbo].[PaymentReceiptDetail] AS [PaymentReceiptDetail]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PaymentReceiptTaxDetail" EntityType="Self.PaymentReceiptTaxDetail" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PaymentReceiptTaxDetail].[DealerCode] AS [DealerCode], 
+    [PaymentReceiptTaxDetail].[ReceiptNo] AS [ReceiptNo], 
+    [PaymentReceiptTaxDetail].[ReceiptHead] AS [ReceiptHead], 
+    [PaymentReceiptTaxDetail].[AccountCode] AS [AccountCode], 
+    [PaymentReceiptTaxDetail].[Amount] AS [Amount], 
+    [PaymentReceiptTaxDetail].[TaxID] AS [TaxID], 
+    [PaymentReceiptTaxDetail].[TaxPerc] AS [TaxPerc]
+    FROM [dbo].[PaymentReceiptTaxDetail] AS [PaymentReceiptTaxDetail]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_VehicleDeliveryDetail_VehicleDeliveryMaster" Association="Self.FK_VehicleDeliveryDetail_VehicleDeliveryMaster">
+            <End Role="VehicleDeliveryMaster" EntitySet="VehicleDeliveryMaster" />
+            <End Role="VehicleDeliveryDetail" EntitySet="VehicleDeliveryDetail" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -203,10 +482,10 @@
           <Property Name="DealerCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="BankCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="BankDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UpdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UpdDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BankStatus" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="OEMFinance" Type="Boolean" />
         </EntityType>
@@ -305,8 +584,8 @@
           <Property Name="PayModeCode" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="PayModeDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UpdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UpdDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Precision="3" />
           <Property Name="UpdTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Version" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
           <Property Name="PayModeCodeOEM" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
@@ -332,6 +611,17 @@
           <EntitySet Name="CostCenterSetups" EntityType="sngonclo_BMSModel.CostCenterSetup" />
           <EntitySet Name="DailyExpenseDetails" EntityType="sngonclo_BMSModel.DailyExpenseDetail" />
           <EntitySet Name="Cities" EntityType="sngonclo_BMSModel.City" />
+          <EntitySet Name="PaymentReceiptMaster" EntityType="sngonclo_BMSModel.PaymentReceiptMaster" />
+          <EntitySet Name="PaymentReceiptDetail" EntityType="sngonclo_BMSModel.PaymentReceiptDetail" />
+          <EntitySet Name="PaymentReceiptTaxDetail" EntityType="sngonclo_BMSModel.PaymentReceiptTaxDetail" />
+          <EntitySet Name="VehicleDeliveryDetail" EntityType="sngonclo_BMSModel.VehicleDeliveryDetail" />
+          <EntitySet Name="VehicleDeliveryMaster" EntityType="sngonclo_BMSModel.VehicleDeliveryMaster" />
+          <EntitySet Name="VehicleStock" EntityType="sngonclo_BMSModel.VehicleStock" />
+          <AssociationSet Name="FK_VehicleDeliveryDetail_VehicleDeliveryMaster" Association="sngonclo_BMSModel.FK_VehicleDeliveryDetail_VehicleDeliveryMaster">
+            <End EntitySet="VehicleDeliveryMaster" Role="VehicleDeliveryMaster" />
+            <End EntitySet="VehicleDeliveryDetail" Role="VehicleDeliveryDetail" />
+          </AssociationSet>
+          <EntitySet Name="Vendor" EntityType="sngonclo_BMSModel.Vendor" />
         </EntityContainer>
         <EntityType Name="CostCenterSetup">
           <Key>
@@ -380,6 +670,251 @@
           <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdTerm" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StateCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PaymentReceiptMaster">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ReceiptNo" />
+          </Key>
+          <Property Name="DealerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ReceiptNo" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InvoiceType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CusCode" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="InsCompCode" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="BranchCode" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="InsCusFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Remarks" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PayModeCode" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="InsNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="InsDate" Type="DateTime" Precision="3" />
+          <Property Name="AmountPaid" Type="Double" Nullable="false" />
+          <Property Name="BankCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdvanceAmount" Type="Double" />
+          <Property Name="InvTotal" Type="Double" Nullable="false" />
+          <Property Name="OutSTTotal" Type="Double" Nullable="false" />
+          <Property Name="InvAdjTotal" Type="Double" Nullable="false" />
+          <Property Name="DelFlag" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="UpdUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTerm" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VoucherNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VoucherFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="AdvancePaid" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TransType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="IsAdjustAdvance" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="AdvanceReceiptNo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="AdvanceAdjustedAmount" Type="Double" />
+          <Property Name="AdvanceBalanceAmount" Type="Double" />
+          <Property Name="DocumentNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RefundPayment" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="RefundAmount" Type="Double" />
+        </EntityType>
+        <EntityType Name="PaymentReceiptDetail">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="ReceiptNo" />
+            <PropertyRef Name="InvoiceNo" />
+            <PropertyRef Name="InvoiceDate" />
+            <PropertyRef Name="InvAmount" />
+            <PropertyRef Name="OutStAmount" />
+            <PropertyRef Name="AdjAmount" />
+          </Key>
+          <Property Name="DealerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ReceiptNo" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceNo" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InvAmount" Type="Double" Nullable="false" />
+          <Property Name="OutStAmount" Type="Double" Nullable="false" />
+          <Property Name="AdjAmount" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentReceiptTaxDetail">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+          </Key>
+          <Property Name="DealerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ReceiptNo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="ReceiptHead" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCode" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="TaxID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="TaxPerc" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="VehicleDeliveryDetail">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="DeliveryNo" />
+            <PropertyRef Name="BrandCode" />
+            <PropertyRef Name="ProdCode" />
+            <PropertyRef Name="VersionCode" />
+            <PropertyRef Name="EngineNo" />
+            <PropertyRef Name="ChasisNo" />
+          </Key>
+          <Property Name="DealerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="DeliveryNo" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="BrandCode" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="ProdCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VersionCode" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="EngineNo" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ChasisNo" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ExFactPrice" Type="Double" />
+          <Property Name="ColorCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ProdRecNo" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="LocCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="EnquiryNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="StockType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BookingNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="VehicleDeliveryMaster" Relationship="sngonclo_BMSModel.FK_VehicleDeliveryDetail_VehicleDeliveryMaster" FromRole="VehicleDeliveryDetail" ToRole="VehicleDeliveryMaster" />
+        </EntityType>
+        <EntityType Name="VehicleDeliveryMaster">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="DeliveryNo" />
+          </Key>
+          <Property Name="DealerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="DeliveryNo" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="DeliveryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BookingNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BookRefNo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="CusCode" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="DelFlag" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="UpdUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTerm" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reciever" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryTime" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ReceiverCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="IsSalePerson" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="DONotCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PSFFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="PSFDate" Type="DateTime" Precision="3" />
+          <Property Name="PSFDFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="PSFDDate" Type="DateTime" Precision="3" />
+          <Property Name="TransferStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="EnquiryNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmpCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="DOType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Segment" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Usage" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="VehTypeCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="VehRecCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="CusContNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="VehicleDeliveryDetail" Relationship="sngonclo_BMSModel.FK_VehicleDeliveryDetail_VehicleDeliveryMaster" FromRole="VehicleDeliveryMaster" ToRole="VehicleDeliveryDetail" />
+        </EntityType>
+        <EntityType Name="VehicleStock">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="EngineNo" />
+            <PropertyRef Name="ChasisNo" />
+          </Key>
+          <Property Name="DealerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="LocCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="BrandCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="ProdCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VersionCode" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="ColorCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="EngineNo" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ChasisNo" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="RegNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="ModelYear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="InStockFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CusCode" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
+          <Property Name="BookingNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BookingRefNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="InDate" Type="DateTime" Precision="3" />
+          <Property Name="OutDate" Type="DateTime" Precision="3" />
+          <Property Name="BookingRefDate" Type="DateTime" Precision="3" />
+          <Property Name="ColorDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CusDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="RegDate" Type="DateTime" Precision="3" />
+          <Property Name="InsCompCode" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="InsPolicyNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LossNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="InsDate" Type="DateTime" Precision="3" />
+          <Property Name="BookRecDate" Type="DateTime" Precision="3" />
+          <Property Name="BookIssueDate" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Blocked" Type="Boolean" />
+          <Property Name="BlockedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BlockedDate" Type="DateTime" Precision="3" />
+          <Property Name="SaleAble" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="EnquiryNo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="RecNo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="OrderNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="HoldFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="HoldBy" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="HoldTill" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HoldAmount" Type="Double" />
+          <Property Name="HoldDate" Type="DateTime" Precision="3" />
+          <Property Name="FreightLoc" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="FreightCharge" Type="Double" />
+          <Property Name="FCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StockValue" Type="Double" />
+          <Property Name="FeaturePrice" Type="Double" />
+          <Property Name="TransportDelivery" Type="DateTime" Precision="3" />
+          <Property Name="LedgerType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="HoldAt" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_VehicleDeliveryDetail_VehicleDeliveryMaster">
+          <End Type="sngonclo_BMSModel.VehicleDeliveryMaster" Multiplicity="1" Role="VehicleDeliveryMaster" />
+          <End Type="sngonclo_BMSModel.VehicleDeliveryDetail" Multiplicity="*" Role="VehicleDeliveryDetail" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleDeliveryMaster">
+              <PropertyRef Name="DealerCode" />
+              <PropertyRef Name="DeliveryNo" />
+            </Principal>
+            <Dependent Role="VehicleDeliveryDetail">
+              <PropertyRef Name="DealerCode" />
+              <PropertyRef Name="DeliveryNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="DealerCode" />
+            <PropertyRef Name="VendorCode" />
+          </Key>
+          <Property Name="DealerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="VendorCode" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="VendorDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Add1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Add2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Add3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContPerson" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone2" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GSTno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NTN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdvanceGiven" Type="Double" />
+          <Property Name="UpdUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTerm" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreditLimit" Type="Double" />
+          <Property Name="Title" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="VendorRecievable" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+          <Property Name="VendorPayable" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+          <Property Name="DeafultVendor" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -560,6 +1095,225 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PaymentReceiptMaster">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.PaymentReceiptMaster">
+              <MappingFragment StoreEntitySet="PaymentReceiptMaster">
+                <ScalarProperty Name="RefundAmount" ColumnName="RefundAmount" />
+                <ScalarProperty Name="RefundPayment" ColumnName="RefundPayment" />
+                <ScalarProperty Name="DocumentNo" ColumnName="DocumentNo" />
+                <ScalarProperty Name="AdvanceBalanceAmount" ColumnName="AdvanceBalanceAmount" />
+                <ScalarProperty Name="AdvanceAdjustedAmount" ColumnName="AdvanceAdjustedAmount" />
+                <ScalarProperty Name="AdvanceReceiptNo" ColumnName="AdvanceReceiptNo" />
+                <ScalarProperty Name="IsAdjustAdvance" ColumnName="IsAdjustAdvance" />
+                <ScalarProperty Name="TransType" ColumnName="TransType" />
+                <ScalarProperty Name="AdvancePaid" ColumnName="AdvancePaid" />
+                <ScalarProperty Name="VoucherFlag" ColumnName="VoucherFlag" />
+                <ScalarProperty Name="VoucherNo" ColumnName="VoucherNo" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+                <ScalarProperty Name="InvAdjTotal" ColumnName="InvAdjTotal" />
+                <ScalarProperty Name="OutSTTotal" ColumnName="OutSTTotal" />
+                <ScalarProperty Name="InvTotal" ColumnName="InvTotal" />
+                <ScalarProperty Name="AdvanceAmount" ColumnName="AdvanceAmount" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="InsDate" ColumnName="InsDate" />
+                <ScalarProperty Name="InsNo" ColumnName="InsNo" />
+                <ScalarProperty Name="PayModeCode" ColumnName="PayModeCode" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="InsCusFlag" ColumnName="InsCusFlag" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="InsCompCode" ColumnName="InsCompCode" />
+                <ScalarProperty Name="CusCode" ColumnName="CusCode" />
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentReceiptDetail">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.PaymentReceiptDetail">
+              <MappingFragment StoreEntitySet="PaymentReceiptDetail">
+                <ScalarProperty Name="AdjAmount" ColumnName="AdjAmount" />
+                <ScalarProperty Name="OutStAmount" ColumnName="OutStAmount" />
+                <ScalarProperty Name="InvAmount" ColumnName="InvAmount" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentReceiptTaxDetail">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.PaymentReceiptTaxDetail">
+              <MappingFragment StoreEntitySet="PaymentReceiptTaxDetail">
+                <ScalarProperty Name="TaxPerc" ColumnName="TaxPerc" />
+                <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="ReceiptHead" ColumnName="ReceiptHead" />
+                <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleDeliveryDetail">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.VehicleDeliveryDetail">
+              <MappingFragment StoreEntitySet="VehicleDeliveryDetail">
+                <ScalarProperty Name="DocumentNo" ColumnName="DocumentNo" />
+                <ScalarProperty Name="BookingNo" ColumnName="BookingNo" />
+                <ScalarProperty Name="StockType" ColumnName="StockType" />
+                <ScalarProperty Name="EnquiryNo" ColumnName="EnquiryNo" />
+                <ScalarProperty Name="LocCode" ColumnName="LocCode" />
+                <ScalarProperty Name="ProdRecNo" ColumnName="ProdRecNo" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="ExFactPrice" ColumnName="ExFactPrice" />
+                <ScalarProperty Name="ChasisNo" ColumnName="ChasisNo" />
+                <ScalarProperty Name="EngineNo" ColumnName="EngineNo" />
+                <ScalarProperty Name="VersionCode" ColumnName="VersionCode" />
+                <ScalarProperty Name="ProdCode" ColumnName="ProdCode" />
+                <ScalarProperty Name="BrandCode" ColumnName="BrandCode" />
+                <ScalarProperty Name="DeliveryNo" ColumnName="DeliveryNo" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleDeliveryMaster">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.VehicleDeliveryMaster">
+              <MappingFragment StoreEntitySet="VehicleDeliveryMaster">
+                <ScalarProperty Name="CusContNo" ColumnName="CusContNo" />
+                <ScalarProperty Name="VehRecCode" ColumnName="VehRecCode" />
+                <ScalarProperty Name="VehTypeCode" ColumnName="VehTypeCode" />
+                <ScalarProperty Name="Usage" ColumnName="Usage" />
+                <ScalarProperty Name="Segment" ColumnName="Segment" />
+                <ScalarProperty Name="DOType" ColumnName="DOType" />
+                <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
+                <ScalarProperty Name="EnquiryNo" ColumnName="EnquiryNo" />
+                <ScalarProperty Name="TransferStatus" ColumnName="TransferStatus" />
+                <ScalarProperty Name="PSFDDate" ColumnName="PSFDDate" />
+                <ScalarProperty Name="PSFDFlag" ColumnName="PSFDFlag" />
+                <ScalarProperty Name="PSFDate" ColumnName="PSFDate" />
+                <ScalarProperty Name="PSFFlag" ColumnName="PSFFlag" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="DONotCode" ColumnName="DONotCode" />
+                <ScalarProperty Name="IsSalePerson" ColumnName="IsSalePerson" />
+                <ScalarProperty Name="ReceiverCode" ColumnName="ReceiverCode" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+                <ScalarProperty Name="Reciever" ColumnName="Reciever" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+                <ScalarProperty Name="CusCode" ColumnName="CusCode" />
+                <ScalarProperty Name="BookRefNo" ColumnName="BookRefNo" />
+                <ScalarProperty Name="BookingNo" ColumnName="BookingNo" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="DeliveryNo" ColumnName="DeliveryNo" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleStock">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.VehicleStock">
+              <MappingFragment StoreEntitySet="VehicleStock">
+                <ScalarProperty Name="HoldAt" ColumnName="HoldAt" />
+                <ScalarProperty Name="LedgerType" ColumnName="LedgerType" />
+                <ScalarProperty Name="TransportDelivery" ColumnName="TransportDelivery" />
+                <ScalarProperty Name="FeaturePrice" ColumnName="FeaturePrice" />
+                <ScalarProperty Name="StockValue" ColumnName="StockValue" />
+                <ScalarProperty Name="FCode" ColumnName="FCode" />
+                <ScalarProperty Name="FreightCharge" ColumnName="FreightCharge" />
+                <ScalarProperty Name="FreightLoc" ColumnName="FreightLoc" />
+                <ScalarProperty Name="HoldDate" ColumnName="HoldDate" />
+                <ScalarProperty Name="HoldAmount" ColumnName="HoldAmount" />
+                <ScalarProperty Name="HoldTill" ColumnName="HoldTill" />
+                <ScalarProperty Name="HoldBy" ColumnName="HoldBy" />
+                <ScalarProperty Name="HoldFlag" ColumnName="HoldFlag" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="RecNo" ColumnName="RecNo" />
+                <ScalarProperty Name="EnquiryNo" ColumnName="EnquiryNo" />
+                <ScalarProperty Name="SaleAble" ColumnName="SaleAble" />
+                <ScalarProperty Name="BlockedDate" ColumnName="BlockedDate" />
+                <ScalarProperty Name="BlockedBy" ColumnName="BlockedBy" />
+                <ScalarProperty Name="Blocked" ColumnName="Blocked" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="BookIssueDate" ColumnName="BookIssueDate" />
+                <ScalarProperty Name="BookRecDate" ColumnName="BookRecDate" />
+                <ScalarProperty Name="InsDate" ColumnName="InsDate" />
+                <ScalarProperty Name="LossNo" ColumnName="LossNo" />
+                <ScalarProperty Name="InsPolicyNo" ColumnName="InsPolicyNo" />
+                <ScalarProperty Name="InsCompCode" ColumnName="InsCompCode" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="CusDesc" ColumnName="CusDesc" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ColorDesc" ColumnName="ColorDesc" />
+                <ScalarProperty Name="BookingRefDate" ColumnName="BookingRefDate" />
+                <ScalarProperty Name="OutDate" ColumnName="OutDate" />
+                <ScalarProperty Name="InDate" ColumnName="InDate" />
+                <ScalarProperty Name="BookingRefNo" ColumnName="BookingRefNo" />
+                <ScalarProperty Name="BookingNo" ColumnName="BookingNo" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="CusCode" ColumnName="CusCode" />
+                <ScalarProperty Name="InStockFlag" ColumnName="InStockFlag" />
+                <ScalarProperty Name="DeliveryFlag" ColumnName="DeliveryFlag" />
+                <ScalarProperty Name="ModelYear" ColumnName="ModelYear" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="ChasisNo" ColumnName="ChasisNo" />
+                <ScalarProperty Name="EngineNo" ColumnName="EngineNo" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="VersionCode" ColumnName="VersionCode" />
+                <ScalarProperty Name="ProdCode" ColumnName="ProdCode" />
+                <ScalarProperty Name="BrandCode" ColumnName="BrandCode" />
+                <ScalarProperty Name="LocCode" ColumnName="LocCode" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendor">
+            <EntityTypeMapping TypeName="sngonclo_BMSModel.Vendor">
+              <MappingFragment StoreEntitySet="Vendor">
+                <ScalarProperty Name="DeafultVendor" ColumnName="DeafultVendor" />
+                <ScalarProperty Name="VendorPayable" ColumnName="VendorPayable" />
+                <ScalarProperty Name="VendorRecievable" ColumnName="VendorRecievable" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CreditLimit" ColumnName="CreditLimit" />
+                <ScalarProperty Name="UpdTerm" ColumnName="UpdTerm" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="UpdDate" ColumnName="UpdDate" />
+                <ScalarProperty Name="UpdUser" ColumnName="UpdUser" />
+                <ScalarProperty Name="AdvanceGiven" ColumnName="AdvanceGiven" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="PaymentTerm" ColumnName="PaymentTerm" />
+                <ScalarProperty Name="NTN" ColumnName="NTN" />
+                <ScalarProperty Name="GSTno" ColumnName="GSTno" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="ContPerson" ColumnName="ContPerson" />
+                <ScalarProperty Name="Add3" ColumnName="Add3" />
+                <ScalarProperty Name="Add2" ColumnName="Add2" />
+                <ScalarProperty Name="Add1" ColumnName="Add1" />
+                <ScalarProperty Name="VendorDesc" ColumnName="VendorDesc" />
+                <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+                <ScalarProperty Name="DealerCode" ColumnName="DealerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -574,8 +1328,8 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

@@ -147,6 +147,10 @@ body.boxed {
     border-radius:0px;
      width:100px;
     }
+    .add-scroll {
+        overflow-y: scroll;
+        height: 200px;
+    }
 body.boxed .page-topbar {
     max-width: 90%;
     width: 90%;
@@ -1039,7 +1043,7 @@ a:hover, a:focus {
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     font-weight: 400;
     color: #757575;
-    font-size: 19px;
+    font-size: 12px;
     line-height: 23px;
     text-decoration: none;
 }
@@ -3958,7 +3962,7 @@ a.cke_button_off:hover, .cke_hc a.cke_button_off:focus, .cke_hc a.cke_button_off
     DropZone File Uploader (Drag n Drop)
 ----------------------------------------------*/
 .dropzone {
-    min-height: 200px;
+    min-height: 50px;
     border: 1px solid rgba(33, 33, 33, 0.1);
     background: white;
     padding: 20px 20px;

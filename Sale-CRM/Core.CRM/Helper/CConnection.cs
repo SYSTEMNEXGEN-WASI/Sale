@@ -29,6 +29,10 @@ namespace CConn
         {
             return ConfigurationManager.ConnectionStrings["BMS0517ConnectionString"].ToString();
         }
+        public static string GetFAMSConnectionString()
+        {
+            return ConfigurationManager.ConnectionStrings["FAMSConnectionString"].ToString();
+        }
 
         public static string GetMCDMainDBConnectionString()
         {

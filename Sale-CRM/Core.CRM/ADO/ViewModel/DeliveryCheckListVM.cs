@@ -15,5 +15,7 @@ namespace Core.CRM.ADO.ViewModel
         public string Type { get; set; }
         public string IsActive { get; set; }
         public string OptFlag { get; set; }
+        public byte DocImage { get; set; }
+        public string Image { get; set; }
     }
 }

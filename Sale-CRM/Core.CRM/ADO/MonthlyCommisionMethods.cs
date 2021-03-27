@@ -26,7 +26,7 @@ namespace Core.CRM.ADO
         static SqlTransaction Trans;
 
 
-        public static string Get_MonthlyCommisionForEmp(string sp , string Month, string dealerCode)
+        public static string Get_MonthlyCommisionForEmp(string sp , string Month, string dealerCode, string Type)
         {
             string json = "";
             var Serializer = new JavaScriptSerializer();
@@ -34,9 +34,10 @@ namespace Core.CRM.ADO
             try
             {
                 SqlParameter[] sqlParam = {
-                                    new SqlParameter("@DealerCode",dealerCode),//1
-									new SqlParameter("@Month",Month)//0
-									
+                                    new SqlParameter("@DealerCode",dealerCode),//0
+									new SqlParameter("@Month",Month),//1
+                                    new SqlParameter("@Type",Type)//2
+
 									};
 
                 dt = DataAccess.getDataTable(sp, sqlParam, General.GetBMSConString());
@@ -96,7 +97,8 @@ namespace Core.CRM.ADO
                     {
                         msg = "Monthly Commision for the Month " + model.CommMonth + " for the selected Service is already exists ";
 
-                        return false;
+                        //return false;
+                        strAutoCode = sysfun.GetNewMaxID("MonthlyCommision", "TransCode", 8, model.DealerCode);
                     }
                     else
                     {

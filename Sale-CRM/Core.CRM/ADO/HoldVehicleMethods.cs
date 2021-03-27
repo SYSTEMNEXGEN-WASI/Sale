@@ -76,7 +76,8 @@ namespace Core.CRM.ADO
 								 new SqlParameter("@HoldBy",model.HoldBy),//7
 								 new SqlParameter("@HoldTill",model.HoldTill),//8
 								 new SqlParameter("@HoldAmount",model.HoldAmount),//9
-                                 new SqlParameter("@Hold",model.HoldFlag)//9
+                                 new SqlParameter("@Hold",model.HoldFlag),//9
+                                  new SqlParameter("@HoldAt",model.HoldAt)//10
 								 
 							};               
                 

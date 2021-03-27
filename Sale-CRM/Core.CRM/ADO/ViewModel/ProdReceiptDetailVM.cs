@@ -37,6 +37,10 @@ namespace Core.CRM.ADO.ViewModel
         public string StockValue { get; set; }
         public string FDesc { get; set; }
         public string FreightLocDesc { get; set; }
+        public string LedgerType { get; set; }
+        public string FPrice { get; set; }
+        public string VersionDesc { get; set; }
+
     }
     
     public class ProdRecDetailResponseModel

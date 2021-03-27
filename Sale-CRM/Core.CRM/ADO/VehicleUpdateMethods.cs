@@ -93,14 +93,45 @@ namespace Core.CRM.ADO
             }
             return json;
         }
+        public static string GetInvoiceDetail(string chassisNo, string dealerCode)
+        {
+            string json = "";
+            List<SelectListItem> item = new List<SelectListItem>();
 
-        public static bool Insert_VSMaster(VehicleStockVM model, string dealerCode)
+            var Serializer = new JavaScriptSerializer();
+            List<VehicleStockVM> lst = new List<VehicleStockVM>();
+            try
+            {
+                //var Serializer = new JavaScriptSerializer();
+                SqlParameter[] sqlParam =
+                {
+                    new SqlParameter("@DealerCode",dealerCode),
+                    new SqlParameter("@ChassisNo",chassisNo)
+                };
+                dt = DataAccess.getDataTable("SP_Select_InvoiceByChassisNo", sqlParam, General.GetBMSConString());
+
+                if (dt.Rows.Count > 0)
+                {
+                    lst = EnumerableExtension.ToList<VehicleStockVM>(dt);
+                }
+                json = Serializer.Serialize(lst);
+
+            }
+            catch (Exception ex)
+            {
+
+                //throw;
+            }
+            return json;
+        }
+
+        public static bool Insert_VSMaster(VehicleStockVM model, string dealerCode,ref string msg)
         {
 
             try
             {
-               
-                SqlParameter[] param = {
+                strAutoCode = model.ChasisNo;
+                 SqlParameter[] param = {
                                  new SqlParameter("@DealerCode",dealerCode),//0
 								 new SqlParameter("@ChasisNo",model.ChasisNo),//1
 								 new SqlParameter("@EngineNo",model.EngineNo),//2								 
@@ -125,25 +156,71 @@ namespace Core.CRM.ADO
 
                             };
 
-                //if (ObjTrans.BeginTransaction(ref Trans) == true)
-                //{
-                //    sysfun.ExecuteSP_NonQuery("SP_Update_VehicleStock", param, Trans);
-
-
-                //    IsSaved = true;
-                //}
-
-                if (sysfun.ExecuteSP_NonQuery("SP_Update_VehicleStock", param))
+                if (ObjTrans.BeginTransaction(ref Trans) == true)
                 {
+                    if (sysfun.ExecuteSP_NonQuery("SP_Update_VehicleStock", param))
+                    {
 
-                    IsSaved = true;
+                        IsSaved = true;
 
+                    }
                 }
 
+               
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                msg = ex.Message;
+            }
+
+            return IsSaved;
+        }
+
+        public static bool Insert_InvDetail(List<VehicleStockVM> model2,ref string msg)
+        {
+            int count = 0;
+            try
+            {
+                foreach (var item in model2)
+                {
+                    if (count >= 1 || item.InvoiceNo != null)
+                    {
+                        SqlParameter[] param2 = {
+                                 new SqlParameter("@DealerCode",item.DealerCode),//0
+								 new SqlParameter("@ChassisNo",strAutoCode),//1
+								 new SqlParameter("@InvoiceNo",item.InvoiceNo),//2								 
+								 new SqlParameter("@InvoiceDate",item.InvoiceDate == null ?(object) DBNull.Value : sysfun.SaveDate(item.InvoiceDate) ),//22
+
+                                 new SqlParameter("@Type",item.Type),//4
+								 new SqlParameter("@DeliveredTOCustomer",item.DeliveredTOCustomer.Trim()),//5
+								 new SqlParameter("@ReceiveFromOEM",item.ReceiveFromOEM.Trim()),//6
+								
+								 
+							};
+
+                        if (sysfun.ExecuteSP_NonQuery("SP_VehicleInvoiceDetail_Insert", param2, Trans) == true)
+                        {
+                         IsSaved = true;
+                        }
+                        else
+                        {
+                            ObjTrans.RollBackTransaction(ref Trans);
+                            IsSaved = false;
+                        }
+                    }
+                    count++;
+                }
+
+                ObjTrans.CommittTransaction(ref Trans);
+                IsSaved = true;
+
+            }
+            catch (Exception ex)
+            {
+                ObjTrans.RollBackTransaction(ref Trans);
+                msg=ex.Message;
+                IsSaved = false;
             }
 
             return IsSaved;
@@ -175,5 +252,9 @@ namespace Core.CRM.ADO
             }
             return lst;
         }
+
+
+
+
     }
 }

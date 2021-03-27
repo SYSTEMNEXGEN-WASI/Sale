@@ -103,6 +103,7 @@
     <Compile Include="ADO\InstallmentSaleInvoiceMethods.cs" />
     <Compile Include="ADO\MasterMethods.cs" />
     <Compile Include="ADO\MonthlyCommisionMethods.cs" />
+    <Compile Include="ADO\PaymentReceiptMethods.cs" />
     <Compile Include="ADO\PriceOfferNegotiationMethods.cs" />
     <Compile Include="ADO\ProfessionMethods.cs" />
     <Compile Include="ADO\ReversalMethods.cs" />
@@ -160,6 +161,9 @@
     <Compile Include="ADO\ViewModel\MonthlyCommisionVM.cs" />
     <Compile Include="ADO\ViewModel\NameValueClass.cs" />
     <Compile Include="ADO\ViewModel\OptionalFeatureVM.cs" />
+    <Compile Include="ADO\ViewModel\PaymentReceiptDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\PaymentReceiptTaxDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\PaymentReceiptVM.cs" />
     <Compile Include="ADO\ViewModel\PrdouctVM.cs" />
     <Compile Include="ADO\ViewModel\ProdReceiptDetailVM.cs" />
     <Compile Include="ADO\ViewModel\ProdReceiptVM.cs" />
