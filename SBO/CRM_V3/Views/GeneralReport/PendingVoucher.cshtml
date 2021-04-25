@@ -1,0 +1,350 @@
+﻿
+@{
+    ViewBag.Title = "PendingVoucher";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<h2>Pending Voucher</h2>
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .border {
+        display: inline-block;
+        width: 70px;
+        height: 70px;
+        margin: 6px;
+    }
+</style>
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+        <fieldset>
+            <div class="col-xs-12">
+                <section class="box">
+                    <header class="panel_header">
+                        <lengend><h2 class="title pull-left"> Pending Voucher </h2></lengend>
+                    </header>
+                    <div class="content-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <ul class="nav nav-tabs primary" style="border-radius:0px; border-bottom: 0px;">
+                                    <li class="active">
+                                        <a href="#home-7" data-toggle="tab" style="border-radius:0px;">
+                                            <i class="fa fa-car"></i>Cash Sale Invoice
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#profile-7" data-toggle="tab" style="border-radius:0px;">
+                                            <i class="fa fa-car"></i> Advance Service Receipt
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#tabVehReceipt" data-toggle="tab" style="border-radius:0px;">
+                                            <i class="fa fa-car"></i>Vehicle Receipt
+                                        </a>
+                                    </li>
+                                    @*<li>
+                        <a href="#messages-7" data-toggle="tab">
+                            <i class="fa fa-event"></i> Document Check List
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#settings-7" data-toggle="tab">
+                            <i class="fa fa-car"></i> Vehicle Location
+                        </a>
+                    </li>*@
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="home-7">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group row">
+                                                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                                                    <div class="col-md-12">
+                                                        <input type="text" id="txtCSISearch" class="form-control" aria-controls="tblSaleInvoice" placeholder="Search . . . ">
+                                                    </div>
+                                                </div>
+
+                                                <table id="CSIDetail" class="table table-striped dt-responsive display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S.No</th>
+                                                            <th>Transction No</th>
+                                                            <th>Transction Date</th>
+                                                            <th>Customer</th>
+                                                            <th>Chassis No</th>
+                                                            <th>Voucher</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                               @{ int i = 1; }
+                                                                   @if (ViewBag.CSIVoucher != null)
+                                                                   {
+                                                             
+                                                                       foreach (var item in ViewBag.CSIVoucher)
+                                                                       {
+                                                             
+                                                                           <tr style="text-align: left">
+                                                                               <td> @i</td> @{ i++; }
+                                                                               <td class="tdDiv">
+                                                                                   <a href="#" style="color:black">@item.TransctionCode</a>
+                                                                               </td>
+                                                                               <td class="tdDiv">
+                                                                                   <a href="#" style="color:black">@item.TransctionDate</a>
+                                                                               </td>
+                                                                               <td class="tdDiv">
+                                                                                   <a href="#" style="color:black">@item.ChassisNo</a>
+                                                                               </td>
+                                                                               <td class="tdDiv">
+                                                                                   <a href="#" style="color:black">@item.Customer</a>
+                                                                               </td>
+                                                                               <td class="tdDiv">
+                                                                                   <a href="#" style="color:black">@item.VoucherFlag</a>
+                                                                               </td>
+                                                                           </tr>
+                                                                       }
+                                                                   }
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="tab-pane fade" id="profile-7">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group row">
+                                                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                                                    <div class="col-md-12">
+                                                        <input type="text" id="txtASRSearch" class="form-control" aria-controls="tblSaleInvoice" placeholder="Search . . . ">
+                                                    </div>
+                                                </div>
+
+                                                <table id="ASRDetail" class="table table-striped dt-responsive display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S.No</th>
+                                                            <th>Transction No</th>
+                                                            <th>Transction Date</th>
+                                                            <th>Customer</th>
+                                                            <th>Chassis No</th>
+                                                            <th>Voucher</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{ int j = 1; }
+                                                        @if (ViewBag.ASRVoucher != null)
+                                                        {
+
+                                                            foreach (var item in ViewBag.ASRVoucher)
+                                                            {
+
+                                                                <tr style="text-align: left">
+                                                                    <td> @j</td> @{ j++; }
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.TransctionCode</a>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.TransctionDate</a>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.ChassisNo</a>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.Customer</a>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.VoucherFlag</a>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="messages-7">
+
+
+
+                                    </div>
+                                    <div class="tab-pane fade" id="tabVehReceipt">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group row">
+                                                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                                                    <div class="col-md-12">
+                                                        <input type="text" id="AccountSearchSO" class="form-control" aria-controls="tblSaleInvoice" placeholder="Search . . . ">
+                                                    </div>
+                                                </div>
+
+                                                <table id="VehReceiptDetail" class="table table-striped dt-responsive display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S.No</th>
+                                                            <th>Rec No</th>
+                                                            <th>Rec Date</th>
+                                                            <th>Chassis No</th>
+                                                            <th>Vendor</th>
+                                                            <th>Voucher</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{ int K = 1; }
+                                                        @if (ViewBag.VehReceipt != null)
+                                                        {
+
+                                                            foreach (var item in ViewBag.VehReceipt)
+                                                            {
+
+                                                                <tr style="text-align: left">
+                                                                    <td> @K</td> @{ K++; }
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.TransctionCode</a>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.TransctionDate</a>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.ChassisNo</a>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.Customer</a>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <a href="#" style="color:black">@item.VoucherFlag</a>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                     
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                        </div>
+                </section>
+            </div>
+        </fieldset>
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveMasterEnquiry()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <div class="modal" id="section-confirm-Delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to Delete ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-danger" type="button" onclick="DeleteEnquiry()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Popup box modal start -->
+    
+    <!-- modal end -->
+    <!-- Lookup Modal Start -->
+
+   
+    <!-- Book Ref No Modal End -->
+
+</section>
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/datatables/js/jquery.dataTables.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/table-paginator-master/paginator.js")' type="text/javascript"></script>
+
+<script>
+    //$(document).ready(function () {
+    //    $('#VehReceiptDetail').DataTable();
+    //    $('.dataTables_length').addClass('bs-select');
+    //});
+    //$(document).ready(function () {
+    //    $("VehReceiptDetail")
+    //    .tablesorter({ widthFixed: true, widgets: ['zebra'] })
+    //    .tablesorterPager({ container: $("#pager") });
+    //});
+    $(document).ready(function () {
+        $("#txtCSISearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#CSIDetail tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    $(document).ready(function () {
+        $("#txtASRSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#ASRDetail tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    $(document).ready(function () {
+        $("#AccountSearchSO").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#VehReceiptDetail tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    paginator({
+        table: document.getElementById("VehReceiptDetail").getElementsByTagName("table")[0],
+        box: document.getElementById("box"),
+    });
+</script>
+
+
+

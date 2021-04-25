@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+
+<link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+
+<section class="wrapper main-wrapper row">
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align:center"><strong><span class=""></span>Customer Installment Ledger</strong></div>
+                    <div class="panel-body">
+
+                        <div class="row" style="margin-bottom:1rem">
+                            <div class="form-group row container-fluid">
+
+                                
+                                <div class="col-md-4">
+                                    <label class="form-label">ISI No</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalISI" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                        <input type="text" class="form-control" id="txtISINo" readonly>
+                                    </div>
+                                </div>
+
+                                @*<div class="col-md-4">
+                                    <label class="form-label">Sales Person</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                        <input type="text" class="form-control" id="txtSalePersonCode" readonly style="width:30%" />
+                                        <input type="text" class="form-control" id="txtSalePerson" readonly style="width:70%" />
+
+                                    </div>
+                                </div>*@
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Model</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                        <input type="text" class="form-control" id="txtModel" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Chassis</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                                        <input type="text" class="form-control" id="txtChassis" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Engine</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-cab"></i></span>
+                                        <input type="text" class="form-control" id="txtEngine" name="Engine" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Customer</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                                        <input type="text" class="form-control" id="txtCustomerCode" name="Customer" readonly style="width:30%; padding-left: 0; padding-right: 0;" />
+                                        <input type="text" class="form-control" id="txtCustomer" name="Customer" readonly style="width:70%" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-primary" id="btnPrint" style="margin-top: 2.4rem; margin-right:20px; width: 100px">Print</button>
+                                    <button type="reset" class="btn btn-default" style="margin-top: 2.4rem; margin-right:20px; width: 100px">Clear</button>
+                                </div>
+                            </div>
+                        </div>                       
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </form>
+
+
+
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalISI" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:150px; height:500px;width:800px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Installment Receipt Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-left:10px">
+                        <div class="table-responsive table-Scroll" style="overflow: scroll; height:280px;width:750px">
+                            <table id="AccountTableSO" class="table color-table info-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th class="tdDiv" style="text-align:left">ISI No</th>
+                                        <th class="tdDiv" style="text-align:left">ISI Date</th>
+                                        <th class="tdDiv" style="text-align:left">Customer Name</th>
+                                        <th class="tdDiv" style="text-align:left">Customer Contact</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+                                    @if (ViewBag.ISIIRDetail != null)
+                                    {
+                                        foreach (var item in ViewBag.ISIIRDetail)
+                                        {
+                                            <tr style="text-align: left" onclick="RevClickISIDetail('@item.TransCode','@item.CusCode','@item.CusDesc','@item.EngineNo','@item.ChasisNo','@item.ProdCode','@item.CellNo')">
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.TransCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.TransDate</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.CusDesc</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.CellNo</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+   
+</section>
+
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+
+<script>
+    RevClickISIDetail = function (TransCode,  CusCode, CusDesc, EngineNo, ChasisNo, ProdCode, CellNo) {
+
+        debugger
+        document.getElementById('txtISINo').value = TransCode;
+        //document.getElementById('txtSalePersonCode').value = EmpCode;
+        //document.getElementById('txtSalePerson').value = EmpName;
+        document.getElementById('txtEngine').value = EngineNo;
+        document.getElementById('txtChassis').value = ChasisNo;
+        document.getElementById('txtCustomerCode').value = CusCode;
+        document.getElementById('txtCustomer').value = CusDesc;
+        document.getElementById('txtModel').value = ProdCode;
+
+        $('#POModalISI').modal('hide');
+    }
+
+    $("#btnPrint").click(function () {
+
+        var baseurl = '@Url.Action("Export")';
+        var url = baseurl + '?EnquiryId=' + $('#txtCustomerCode').val() + '&DealerCode=@Session["DealerCode"].ToString()';
+        //window.location.href = url;
+        window.open(url, '_blank');
+
+    })
+</script>

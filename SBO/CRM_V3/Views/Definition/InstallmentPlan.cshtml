@@ -1,0 +1,1068 @@
+﻿
+@{
+    ViewBag.Title = "SaleOrder";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+
+
+<style>
+    .makespace {
+        margin-bottom: 0.5rem;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+
+
+
+<section class="wrapper main-wrapper row">
+    <div class="col-xs-12">
+        <section class="box">
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="text-align:center"><strong>Installment Plan</strong></div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Plan Code</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalIPlan" style="color:blue"><span><i class="fa fa-search"></i></span></a></div>
+                                <input type="text" class="form-control" id="txtPlanCode" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Plan Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                <input type="text" class="form-control" id="txtPlanDate" value="@ViewBag.CurrentDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Plan Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-anchor"></i></span>
+                                <select class="form-control input-md m-bot15" id="ddlPlanType">
+                                    <option value="0">Select</option>
+                                    <option>Regular</option>
+                                    <option>Standard</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label class="form-label">Is Active</label>
+                            <div class="input-group">
+                                <input type="checkbox" id="chkIsActive">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <input type="hidden" class="form-control" id="txtBrandCd" readonly>
+                        <div class="row"></div>
+                        <div class="col-md-4">
+                            <label class="form-label">Brand</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalBrand" style="color:blue"><span><i class="fa fa-search"></i></span></a></div>
+                                <input type="text" class="form-control" id="txtBrandDesc" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Product</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalProd" style="color:blue"><span><i class="fa fa-search"></i></span></a></div>
+                                <input type="text" class="form-control" id="txtProdCode" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Model</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-qrcode"></i></span>
+                                <input type="text" class="form-control" id="txtModel" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="form-group row container-fluid">
+                            <div class="col-md-4">
+                                <label class="form-label">Product Description</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-tasks"></i></span>
+                                    <input type="text" class="form-control" id="txtProdDesc" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <input type="hidden" class="form-control" id="txtColorCd" />
+                            <div class="col-md-4">
+                                <label class="form-label">Color</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-tint"></i></span>
+                                    <input type="text" class="form-control" id="txtColorDesc" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Monthly Installment</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-sort-amount-asc"></i></span>
+                                    <input class="form-control" id="txtMonthlyInstallment" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           type="number"
+                                           maxlength="5" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Down Payment</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-sort-amount-desc"></i></span>
+                                    <input class="form-control" id="txtDownPayment" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           type="number"
+                                           maxlength="7" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">No of Installment</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-leaf"></i></span>
+                                    <select class="form-control input-md m-bot15" id="ddlNoOfInstallment">
+                                        <option value="6">6</option>
+                                        <option value="12">12</option>
+                                        <option value="18">18</option>
+                                        <option value="24">24</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Markup %</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                    <input class="form-control" id="txtMarkup" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           type="number"
+                                           maxlength="2" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Start Effected Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="date" class="form-control datepicker" id="txtStartEffectedDate" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">End Effected Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="date" class="form-control datepicker" id="txtEndEffectedDate" />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-info" id="btnAddItem" style="margin-top:25px ; width:60px">+</button>
+                            </div>
+                            @using (Html.BeginForm("Import", "Definition", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" style="margin-top:25px;font-size:100%;color:blue ; width:240px" id="btnFile" name="excelfile" />
+                                        <input type="submit" value="Import" class="btn btn-info" id="btnImport" style="margin-top:25px;margin-left:5px ; width:80px" />
+                                    </div>
+                                </div>
+                            }
+
+
+                            <div class="col-md-12" style="margin-top:15px">
+                                <div class="table-respon table-bordered" style="overflow:scroll; height:300px; width:100%">
+                                    <table class="table success color-bordered-table info-bordered-table" id="tblIPData">
+                                        <thead>
+                                            <tr class="bg-primary">
+                                                <th>Plan Code</th>
+                                                <th>Plan Type</th>
+                                                <th>Brand</th>
+                                                <th>Product</th>
+                                                <th>Model</th>
+                                                <th>Color</th>
+                                                <th>Monthly Installment</th>
+                                                <th>Down Payment</th>
+                                                <th>No of Installment</th>
+                                                <th>Markup</th>
+                                                <th>Start Eff. Date</th>
+                                                <th>End Eff. Date</th>
+                                                <th style="text-align : right">Action</th>
+                                                <th style="display:none"> Color Code</th>
+                                                <th style="display:none"> Active</th>
+                                                <th style="display:none"> Transfer Status</th>
+                                                <th style="display:none"> Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (ViewBag.InstallmentPlanData != null)
+                                            {
+                                                foreach (var item in ViewBag.InstallmentPlanData)
+                                                {
+                                                    <tr style="text-align: left">
+                                                        <td class="tdDiv">
+                                                            @item.PlanID
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.PlanType
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.BrandCode
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.ProdCode
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.VersionCode
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.Color
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.MonthlyInstallment
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.DownPayment
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.NoOfInstallment
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.InstallmentPercentage
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.StartEffectiveDate
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            @item.EndEffectiveDate
+                                                        </td>
+
+                                                        <td style="text-align:right"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="deleteItem" style="color:blue"><i class="fa fa-trash"></i></a></td>
+
+                                                        <td style="display:none">
+                                                            @item.Active
+                                                        </td>
+                                                        <td style="display:none">
+                                                            @item.TransferStatus
+                                                        </td>
+                                                        <td style="display:none">
+                                                            @item.Remarks
+                                                        </td>
+                                                        <td style="display:none">
+                                                            @item.ColorCode
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            }
+
+                                            @*---------------------------------------------------------------------------*@
+
+
+
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="pull-right" style="margin-right:15px">
+
+                            <button type="button" class="btn btn-info" id="btnSave" onclick="ShowConfirm()" style="margin-top:27px; width:100px">Save</button>
+
+                            <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px; width:100px">Delete</button>
+
+                            <button type="button" class="btn btn-default" id="btnClear" style="margin-top:27px; width:100px">Clear</button>
+
+                            <button type="button" class="btn btn-success" id="btnPrint" style="margin-top:27px; width:100px">Print</button>
+
+                        </div>
+
+
+                        <!--copy till this-->
+                    </div>
+                </div>
+        </section>
+    </div>
+
+
+</section>
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalProd" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 150px; height:600px;width:1050px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Product Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchPro" class="form-control" aria-controls="AccountTablePro" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;width:1000px">
+                        <table id="AccountTablePro" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Brand</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Product</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Model</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Product Desc</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Color</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Segment</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @*@if (ViewBag.AssignPro != null)
+                                    {
+                                        foreach (var item in ViewBag.AssignPro)
+                                        {
+                                            <tr style="text-align: left" onclick="RevClick3('@item.BrandCode','@item.ProdCode','@item.VersionCode','@item.Color','@item.ColorCode','@item.ProdDesc','@item.Segment')">
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.BrandCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.ProdCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.VersionCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.ProdDesc</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.Color</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.Segment</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*Brand Lookup*@
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalBrand" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 150px; height:600px;width:1050px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Brand Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchBrand" class="form-control" aria-controls="AccountTableBrand" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;width:1000px">
+                        <table id="AccountTableBrand" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Brand Code</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Brand Name</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.BrandCode != null)
+                                {
+                                    foreach (var item in ViewBag.BrandCode)
+                                    {
+                                        <tr style="text-align: left" onclick="RevClickBrand('@item.Value','@item.Text')">
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.Value</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.Text</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalIPlan" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top:150px; height:500px;width:800px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Installment Plan Detail</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:280px;width:750px">
+                        <table id="tblInstallmentPlan" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Plan Id</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Product Code</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Start Eff. Date</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">End Eff. Date</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.InstallmentPlanData != null)
+                                {
+                                    foreach (var item in ViewBag.InstallmentPlanData)
+                                    {
+                                        <tr style="text-align: left" onclick="RevClickDetail('@item.PlanID','@item.BrandCode','@item.ProdCode','@item.VersionCode','@item.ColorCode','@item.Color','@item.MonthlyInstallment','@item.DownPayment','@item.NoOfInstallment','@item.InstallmentPercentage','@item.StartEffectiveDate','@item.EndEffectiveDate')">
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.PlanID</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.ProdCode</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.StartEffectiveDate</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.EndEffectiveDate</a>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal" id="section-Grid" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red">
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Please Add the Grid Data</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-danger" onclick="scrollWin(0, 50)" id="btnGrid" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Plan Detail Modaaaal*@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalIPlanDetail" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top:100px; height:600px;width:1050px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Installment Plan Schedule</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-10">
+                        <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:380px;width:1000px">
+                        <table id="tblPlanDetail" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width="10%">Sr #</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Dealer Code</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Invoice No</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Customer</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Product | Version </th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Ins. Date</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Princ at Begin</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Monthly Ins.</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">No Of Ins.</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success waves-effect text-left" onclick="printData()">Print</button>
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Are you sure to want save ?</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-success" type="button" onclick="SaveData();">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header" id="modalMessage">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5 id="lblMessage"></h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="section-confirmRemove" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Are you sure to want Delete ?</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-danger" type="button" onclick="RemoveRecord();">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+
+    function printData() {
+        var divToPrint = document.getElementById("tblPlanDetail");
+        newWin = window.open("");
+        newWin.document.write(divToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+    }
+
+
+
+
+
+    $("table#tblIPData").on('click', '.deleteItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        $(this).closest('tr').remove();
+
+    });
+
+
+    $("table#tblIPData").on('click', '.selectItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        //rIndex = this.rowIndex;
+        console.log(index);
+        var PlanCode = rIndex.find('td:eq(0)').text().replace(/\s+/g, " ");
+        var PlanType = rIndex.find('td:eq(1)').text().replace(/\s+/g, " ");
+        var BrandCode = rIndex.find('td:eq(2)').text().replace(/\s+/g, "");
+        var ProdCode = rIndex.find('td:eq(3)').text().replace(/\s+/g, " ");
+        var Model = rIndex.find('td:eq(4)').text().replace(/\s+/g, " ");
+        var ColorDesc = rIndex.find('td:eq(5)').text().replace(/\s+/g, " ");
+        var MonthlyInstallment = rIndex.find('td:eq(6)').text().replace(/\s+/g, " ");
+        var DownPayment = rIndex.find('td:eq(7)').text().replace(/\s+/g, " ");
+        var NoOfInstallment = rIndex.find('td:eq(8)').text().replace(/\s+/g, " ");
+        var Markup = rIndex.find('td:eq(9)').text().replace(/\s+/g, " ");
+        var StartEffectedDate = rIndex.find('td:eq(10)').text().replace(/\s+/g, " ");
+        var EndEffectedDate = rIndex.find('td:eq(11)').text().replace(/\s+/g, " ");
+
+
+        document.getElementById('txtPlanCode').value = PlanCode;
+        document.getElementById('ddlPlanType').value = PlanType;
+        document.getElementById('txtBrandCode').value = BrandCode;
+        document.getElementById('txtProdCode').value = ProdCode;
+        document.getElementById('txtProdDesc').value = ProdCode;
+        document.getElementById('txtColorDesc').value = ColorDesc;
+        document.getElementById('txtMonthlyInstallment').value = MonthlyInstallment;
+        document.getElementById('txtDownPayment').value = DownPayment;
+        document.getElementById('ddlNoOfInstallment').value = NoOfInstallment;
+        document.getElementById('txtMarkup').value = Markup;
+        document.getElementById('txtStartEffectedDate').value = StartEffectedDate;
+        document.getElementById('txtEndEffectedDate').value = EndEffectedDate;
+
+
+        $(this).closest('tr').remove();
+
+    });
+
+
+    $("#btnDelete").click(function () {
+        $("#section-confirmRemove").modal("show");
+    })
+
+    $("#btnAddItem").click(function () {
+
+
+            $("#txtPlanCode").css("border-color", "#ccc");
+            $("#txtPlanDate").css("border-color", "#ccc");
+            $("#ddlPlanType").css("border-color", "#ccc");
+            $("#txtBrandDesc").css("border-color", "#ccc");
+            $("#txtProdDesc").css("border-color", "#ccc");
+            $("#txtProdCode").css("border-color", "#ccc");
+            $("#txtModel").css("border-color", "#ccc");
+            $("#txtColorDesc").css("border-color", "#ccc");
+            $("#txtMonthlyInstallment").css("border-color", "#ccc");
+            $("#txtDownPayment").css("border-color", "#ccc");
+            $("#ddlNoOfInstallment").css("border-color", "#ccc");
+            $("#txtMarkup").css("border-color", "#ccc");
+            $("#txtStartEffectedDate").css("border-color", "#ccc");
+            $("#txtEndEffectedDate").css("border-color", "#ccc");
+
+
+            var PlanCode = $("#txtPlanCode").val();
+            var PlanDate = $("#txtPlanDate").val();
+            var PlanType = $("#ddlPlanType").val();
+            var BrandDesc = $("#txtBrandDesc").val();
+            var ProdDesc = $("#txtProdDesc").val();
+            var ProdCode = $("#txtProdCode").val();
+            var Model = $("#txtModel").val();
+            var ColorDesc = $("#txtColorDesc").val();
+            var MonthlyInstallment = $("#txtMonthlyInstallment").val();
+            var DownPayment = $("#txtDownPayment").val();
+            var NoOfInstallment = $("#ddlNoOfInstallment").val();
+            var Markup = $("#txtMarkup").val();
+            var StartEffectedDate = $("#txtStartEffectedDate").val();
+            var EndEffectedDate = $("#txtEndEffectedDate").val();
+
+
+
+
+            //if (SoNo == "" || SoNo == " ") {
+            //    $("#txtSoNo").css("border-color", "red");
+            //    return;
+            //}
+            if (PlanDate == "" || PlanDate == " ") {
+                $("#txtPlanDate").css("border-color", "red");
+                return;
+            }
+            if (PlanType == 0 || PlanType == "") {
+                $("#ddlPlanType").css("border-color", "red");
+                return;
+            }
+            if (BrandDesc == "" || BrandDesc == " ") {
+                $("#txtBrandDesc").css("border-color", "red")
+                return;
+            }
+
+            if (ProdCode == "") {
+                $("#txtProdCode").css("border-color", "red");
+                return;
+            }
+
+            if (ProdDesc == null || ProdDesc == "") {
+                $("#txtProdDesc").css("border-color", "red");
+                return;
+            }
+
+            if (Model == "") {
+                $("#txtModel").css("border-color", "red");
+                return;
+            }
+
+            if (ColorDesc == "") {
+                $("#txtColorDesc").css("border-color", "red");
+                return;
+            }
+            if (MonthlyInstallment == "") {
+                $("#txtMonthlyInstallment").css("border-color", "red");
+                return;
+            }
+            if (DownPayment == "") {
+                $("#txtDownPayment").css("border-color", "red");
+                return;
+            }
+            if (NoOfInstallment == "") {
+                $("#ddlNoOfInstallment").css("border-color", "red");
+                return;
+            }
+            if (Markup == "" || Markup == 0) {
+                $("#txtMarkup").css("border-color", "red");
+                return;
+            }
+            if (StartEffectedDate == "") {
+                $("#txtStartEffectedDate").css("border-color", "red");
+                return;
+            }
+            if (EndEffectedDate == "") {
+                $("#txtEndEffectedDate").css("border-color", "red");
+                return;
+            }
+
+
+        $("table#tblIPData tbody").empty();
+
+        $("table#tblIPData tbody").append(
+       '<tr><td style="min-width:100px">'  + $("#txtPlanCode").val() + '</td><td style="min-width:100px">' + $("#ddlPlanType").val() + '</td><td style="min-width:100px">' + $("#txtBrandCd").val() + '</td><td>' + $("#txtProdCode").val() + '</td><td style="text-align:left">' + $("#txtModel").val() +
+       '</td><td style="text-align:left">' + $("#txtColorDesc").val() + '</td><td style="text-align:left">' + $("#txtMonthlyInstallment").val() +
+       '</td><td style="text-align:left">' + $("#txtDownPayment").val() + '</td><td style="text-align:left">' + $("#ddlNoOfInstallment").val() + '</td><td style="text-align:left">' + $("#txtMarkup").val() +
+       '</td><td style="text-align:left">' + $("#txtStartEffectedDate").val() + '</td><td style="text-align:left">' + $("#txtEndEffectedDate").val() + '</td>' +
+       '<td style="text-align:left"><a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp; | &nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+       '<td style="display:none">' + "" + '</td><td style="display:none">' + "" + '</td><td style="display:none">' + "" + '</td><td style="display:none">' + $("#txtColorCd").val() + '</td></tr>');
+        //clearItem();
+
+
+        $("#ddlPlanType").val("");
+        $("#txtBrandCd").val("");
+        $("#txtBrandDesc").val("");
+        $("#txtProdCode").val("");
+        $("#txtModel").val("");
+        $("#txtProdDesc").val("");
+        $("#txtColorCd").val("");
+        $("#txtColorDesc").val("");
+        $("#txtMonthlyInstallment").val("");
+        $("#txtDownPayment").val("");
+        $("#ddlNoOfInstallment").val(6);
+        $("#txtMarkup").val("");
+        $("#txtStartEffectedDate").val("");
+        $("#txtEndEffectedDate").val("");
+
+    })
+
+    $("#btnClear").click(function () {
+
+        $("#ddlPlanType").val("");
+        $("#txtBrandCd").val("");
+        $("#txtBrandDesc").val("");
+        $("#txtProdCode").val("");
+        $("#txtModel").val("");
+        $("#txtProdDesc").val("");
+        $("#txtColorCd").val("");
+        $("#txtColorDesc").val("");
+        $("#txtMonthlyInstallment").val("");
+        $("#txtDownPayment").val("");
+        $("#ddlNoOfInstallment").val(6);
+        $("#txtMarkup").val("");
+        $("#txtStartEffectedDate").val("");
+        $("#txtEndEffectedDate").val("");
+
+        $("table#tblIPData tbody").empty();
+
+    })
+
+    $("#btnUpload").click(function () {
+        $("#btnFile").click();
+    })
+
+
+
+
+    function ShowConfirm() {
+
+        var x = document.getElementById("tblIPData").rows.length;
+
+        if (x == 1) {
+            $("#section-Grid").modal("show");
+            return;
+        }
+
+        $("#section-confirm").modal("show");
+    }
+
+    RevClickDetail = function (PlanID, BrandCode, ProdCode, VersionCode, ColorCode,Color, MonthlyInstallment, DownPayment, NoOfInstallment, InstallmentPercentage, StartEffectiveDate, EndEffectiveDate) {
+
+        $("table#tblPlanDetail tbody").empty();
+
+        var ColorDesc = Color;
+
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Content("~/Definition/InstallmentPlanSchedule")',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({ BrandCode:BrandCode, ProdCode:ProdCode, VersionCode:VersionCode, Color:Color}),
+            success: function (data) {
+                if (data.length > 0) {
+                    $.each(data, function (Index, obj) {
+
+                        $("table#tblPlanDetail").append('<tr><td>' + Index +
+                                        '</td><td style="min-width:20px">' + obj.DealerCode + '</td><td style="min-width:50px">' + obj.RecNo + '</td><td style="min-width:100px">' + obj.CusName + '</td><td style="min-width:70px">' + obj.ProdCode + '    |    ' + obj.VersionCode +
+                                        '</td><td style="min-width:100px">' + obj.InstallmentDate + '</td><td style="text-align:left">' + obj.PrincipleAtBegin + '</td><td style="text-align:left">' + obj.MonthlyInstallment +
+                                        '</td><td style="text-align:left">' + obj.NoOfInstallment + '</td></tr>');
+
+
+
+
+                    })
+                }
+            },
+
+
+
+        });
+
+
+        $("#POModalIPlanDetail").modal("show");
+
+    }
+
+</script>
+
+
+<script type="text/javascript">
+
+    RevClickBrand = function (Value, Text) {
+
+        $("table#AccountTablePro tbody").empty();
+
+
+        document.getElementById('txtBrandDesc').value = Text;
+        document.getElementById('txtBrandCd').value = Value;
+        $("#POModalBrand").modal("hide");
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Content("~/Definition/BrandMethod")',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({ BrandCode: Value }),
+            success: function (data) {
+                if (data.length > 0) {
+                    $.each(data, function (Index, obj) {
+
+                        $("table#AccountTablePro").append('<tr class=SelectRow ><td>' + obj.BrandCode +
+                                        '</td><td style="min-width:100px">' + obj.ProdCode + '</td><td style="min-width:100px">' + obj.VersionCode + '</td><td>' + obj.ProdDesc + '</td><td style="text-align:left; display:none">' + obj.ColorCode  + '</td><td style="text-align:left">' +obj.Color +
+                                        '</td><td style="text-align:left">' + obj.Segment + '</td></tr>');
+
+
+                    })
+
+                }
+
+            },
+
+
+
+        });
+
+        $("table#AccountTablePro").on('click', '.SelectRow', function () {
+
+            rIndex = $(this).closest('tr');
+
+            index = $(this).closest('tr')[0].rowIndex;
+            //rIndex = this.rowIndex;
+            console.log(index);
+
+            var ProdCode = rIndex.find('td:eq(1)').text().replace(/\s+/g, " ");
+            var VersionCode = rIndex.find('td:eq(2)').text().replace(/\s+/g, " ");
+            var ProdDesc = rIndex.find('td:eq(3)').text().replace(/\s+/g, " ");
+            var ColorCode = rIndex.find('td:eq(4)').text().replace(/\s+/g, " ");
+            var Color = rIndex.find('td:eq(5)').text().replace(/\s+/g, " ");
+            var Segment = rIndex.find('td:eq(6)').text().replace(/\s+/g, " ");
+
+
+
+            document.getElementById('txtProdCode').value = ProdCode;
+            document.getElementById('txtModel').value = VersionCode;
+            document.getElementById('txtProdDesc').value = ProdDesc;
+            document.getElementById('txtColorCd').value = ColorCode;
+            document.getElementById('txtColorDesc').value = Color;
+            //document.getElementById('txtSegment').value = Segment;
+            $("#POModalProd").modal("hide");
+
+
+
+        });
+
+        $("#POModalSP").modal("hide");
+
+
+    }
+
+
+
+</script>
+
+
+<script type="text/javascript">
+
+    function SaveData() {
+
+        var ItemTable = [];
+        var tableItem = document.getElementById('tblIPData');
+        SaveDetail();
+
+        function ItemRows() {
+
+            //itemCount = 0;
+            var itemCount = tableItem.rows.length;
+            $("table#tblIPData tbody").find('tr').each(function () {
+                if (itemCount != 0) {
+                    var itemList = $(this).find("td");
+                    // check empty row
+                    var rows = tableItem.rows;
+                    var firstRow = rows[1];
+                    var NFound = '';
+                    //if (firstRow != undefined) {
+                    //    NFound = firstRow.cells[0].innerHTML;
+                    //}
+                    //else {
+                    //    NFound = "1";
+                    //}
+                    NFound = NFound.trim();
+                    if (NFound.substring(0, 2) != 'NO') {
+                        var vouch = {
+                            PlanID: $(itemList[0]).html().trim(),                 PlanType: $(itemList[1]).html().trim(),             BrandCode: $(itemList[2]).html().trim(),
+                            ProdCode: $(itemList[3]).html().trim(),               VersionCode: $(itemList[4]).html().trim(),          Color: $(itemList[5]).html().trim(),
+                            MonthlyInstallment: $(itemList[6]).html().trim(),     DownPayment: $(itemList[7]).html().trim(),          NoOfInstallment: $(itemList[8]).html().trim(),
+                            InstallmentPercentage: $(itemList[9]).html().trim(),  StartEffectiveDate: $(itemList[10]).html().trim(),  EndEffectiveDate: $(itemList[11]).html().trim(),
+                            Active: $(itemList[13]).html().trim(),                TransferStatus: $(itemList[14]).html().trim(),      Remarks: $(itemList[15]).html().trim(),
+                            ColorCode: $(itemList[16]).html().trim(),
+                        };
+                        ItemTable.push(vouch);
+                    }
+                }
+                itemCount++;
+            })
+        }
+        function SaveDetail() {
+
+
+            ItemRows();
+            // check empty row
+            var rows = tableItem.rows;
+            var firstRow = rows[1];
+            var NFound = '';
+
+            NFound = NFound.trim();
+
+            if (NFound.substring(0, 2) != 'NO') {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Definition/Insert_IPData",
+                    dataType: "json",
+                    contentType: 'application/json',
+                    data: JSON.stringify({ modelDetail: ItemTable }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data) {
+                            if (data.Success == true) {
+                                $("#section-confirm").modal("hide")
+                                $("#modalMessage").css("background-color", "#64c344");
+                                $("#lblMessage").text(data.Message)
+                                $("#section-message").modal('show');
+                            }
+                            else {
+                                $("#section-confirm").modal("hide")
+                                $("#modalMessage").css("background-color", "#e46457");
+                                $("#lblMessage").text(data.Message)
+                                $("#section-message").modal('show');
+                            }
+                        }
+                    },
+                    complete: function () {
+
+                    },
+                    error: function (data) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                });
+            }
+            else {
+                alert("Table should not be empty");
+            }
+
+
+        }
+
+    }
+
+
+</script>
+

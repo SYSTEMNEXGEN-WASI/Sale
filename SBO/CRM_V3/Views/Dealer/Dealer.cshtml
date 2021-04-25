@@ -1,0 +1,986 @@
+﻿
+@{
+    ViewBag.Title = "Dealer";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<h2>Dealer</h2>
+
+<style>
+    .bacground-color-hthelper {
+        background-color: #c4e66d;
+    }
+
+    .table > tbody > tr > td {
+        padding: 5px;
+    }
+
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .mandatory {
+        color: red;
+        margin-left: 5px;
+    }
+
+    #VendorTable thead, #VendorTable tbody, #VendorTable tr, #VendorTable td, #VendorTable th {
+        display: block;
+    }
+
+        #VendorTable tr:after {
+            content: ' ';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+
+        #VendorTable thead th {
+            height: 40px;
+        }
+
+    #VendorTable tbody {
+        height: 350px;
+        overflow-y: auto;
+    }
+
+    thead {
+        /* fallback */
+    }
+
+    #VendorTable tbody td, #VendorTable thead th {
+        /*width: 10%;*/
+        float: left;
+    }
+</style>
+<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2-bootstrap.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/css/chosen.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/bootstrap-select.css")' rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<section class="wrapper main-wrapper row" style="margin-top:0px;">
+
+
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Dealer Profile</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                    </div>
+                </header>
+
+
+                <div class="content-body">
+                    <div class="row" style="margin-bottom:1rem;">
+                        <div class="row" style="margin-bottom:1rem;margin-left:0px;">
+                            <div class="col-md-4">
+                                <label class="form-label">Dealer Code</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Vendor')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                    <input type="text" class="form-control" id="txtDealerCode"  />
+                                    @*@Html.DropDownList("ddlVendors", new SelectList((IEnumerable<SelectListItem>)ViewBag.Vendors, "Value", "Text", "0"), new { @class = "form-control", @id = "ddlVendors" })*@
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Dealer<span class="mandatory">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input type="text" class="form-control" id="txtDealerDesc" maxlength="50" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Address</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                <input type="text" class="form-control" id="txtAddress"   maxlength="50" />
+                                @*@Html.TextBoxFor(model => model.Address1, new { @class = "form-control", @id = "Address1ID" })*@
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Country</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+                                @Html.DropDownList("ddlCountry", new SelectList((IEnumerable<SelectListItem>)ViewBag.Country, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlCountry" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        @*<div class="col-md-2">
+                            <label class="form-label">Near City</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+
+                                @Html.DropDownList("ddlCity", new SelectList((IEnumerable<SelectListItem>)ViewBag.City, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlCity" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>*@
+                        <div class="col-md-4">
+                            <label class="form-label">Fax</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-fax"></i></span>
+                                <input type="text" class="form-control" id="txtFaxNo" name="FaxNo"  maxlength="15" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                                <input type="text" class="form-control" id="txtEmail" name="Email"  maxlength="25" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Phone Number 1<span class="mandatory">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
+                                <input type="text" class="form-control" id="txtPhone1" name="Phone1" maxlength="15"   onkeypress="return isCellNumberKey(event)" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Phone Number 2</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+                                <input type="text" class="form-control" id="txtCellNo" name="CellNo" maxlength="15" onkeypress="return isCellNumberKey(event)" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">S. Tax Reg No:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-whatsapp"></i></span>
+                                <input type="text" class="form-control" id="txtTaxReg" name="Phone2"  maxlength="15"  onkeypress="return isCellNumberKey(event)" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+
+                        <div class="col-md-2">
+                            <label class="form-label">NTN:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-anchor"></i></span>
+                                <input type="text" class="form-control" id="txtNTN" name="URL"   maxlength="50" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Credit Limit</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                <input type="text" class="form-control" id="txtCreditLimit" name="CreditLimit" maxlength="10" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">PST %</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                <input type="text" class="form-control" id="txtPST" name="ContPerson" maxlength="50" />
+                                @*@Html.TextBoxFor(model => model.ContPerson, new { @class = "form-control", @id = "ContPersonID" })*@
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                       <div class="col-md-4">
+                                <label class="form-label">Company Logo </label>
+
+                                <div class="input-group">
+
+                                    <input id="CompLogo" type="file"  name="files"  class="upload" />
+
+                                    <div class="makespace"></div>
+                                </div>
+                            </div>
+                        
+
+
+                    </div>
+                    <div class="row">
+                        @*<div class="col-xs-12">
+                            <div class="panel-group" id="accordion">
+
+                                <div class="row">
+                                    <div class="col-xs-12"></div>
+                                    <ul class="nav nav-tabs primary" style="border-radius:0px;border-bottom: 0px;">
+                                        <li class="active">
+                                            <a href="#home-7" data-toggle="tab" style="border-radius:0px;">
+                                                <i class="fa fa-car"></i> Contact Details
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#OtherDetail" data-toggle="tab" style="border-radius:0px;">
+                                                <i class="fa fa-car"></i> Other Details
+                                            </a>
+                                        </li>
+                                        @*<li>
+                                                <a href="#messages-7" data-toggle="tab">
+                                                    <i class="fa fa-event"></i> Document Check List
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#settings-7" data-toggle="tab">
+                                                    <i class="fa fa-car"></i> Vehicle Location
+                                                </a>
+                                            </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="home-7">
+
+                                        </div>
+                                        <div class="tab-pane fade" id="OtherDetail">
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>*@
+                        <div class="pull-right">
+
+                            @if (DXBMS.SecurityBll.UserRights("2504", "002"))
+                            {
+                                <button type="button" class="btn btn-primary" id="btnSave" style="margin-top:25px;width:100px; margin-right:0px; border-radius:0px;">Save</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-primary" id="btnSave" style="margin-top:25px;width:100px; margin-right:0px; border-radius:0px;" disabled>Save</button>
+                            }
+
+                            @if (DXBMS.SecurityBll.UserRights("2504", "004"))
+                            {
+                                <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:25px; width:100px; margin-right:0px; border-radius:0px;">Delete</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:25px; width:100px; margin-right:0px; border-radius:0px;" disabled>Delete</button>
+                            }
+
+                              <button type="reset" class="btn btn-default" id="btnCancel" style="margin-top:25px; width:100px; margin-right:0px; border-radius:0px;">Clear</button>
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-danger" type="button">No</button>
+                    <button class="btn btn-primary" type="button" onclick="SaveMasterEnquiry()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <div class="modal" id="section-confirm-Delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to Delete ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">No</button>
+                    <button class="btn btn-danger" type="button" onclick="DeleteEnquiry()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script src="~/assets/js/jquery-1.11.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        getData();
+
+    });
+    $("#btnSave").click(function () {
+
+        //var check = true;
+        var check = ValidateVendor();
+        if (check == true) {
+            $("#section-confirm").modal("show");
+        }
+    })
+
+    function ValidateVendor() {
+
+        var count = 0;
+
+        var DealerDesc = $("#txtDealerDesc").val();
+        var CellNo = $("#txtPhone1").val();
+        var Address = $("#txtAddress").val();
+        var DealerCode = $("#txtDealerCode").val();
+
+
+        if (DealerCode == "" || DealerCode == null) {
+            $("#txtDealerCode").css("border-color", "red");
+            count++;
+        }
+
+        if (DealerDesc == "" || DealerDesc == null) {
+            $("#txtDealerDesc").css("border-color", "red");
+            count++;
+        }
+
+        if (CellNo == "" || CellNo == null) {
+            $("#txtPhone1").css("border-color", "red");
+            count++;
+        }
+        if (Address == "" || Address == null) {
+            $("#txtAddress").css("border-color", "red");
+            count++;
+        }
+
+        if (count > 0) {
+
+            $("#lblMessage").html("Please fill the Required feilds These are Mandatory");
+            $("#section-message").modal("show");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    var model = @Html.Raw(Json.Encode(Model));
+
+    $('#CompLogo').on('change', function (e) {
+        var files = e.target.files;
+
+        if (files.length > 0) {
+            if (window.FormData !== undefined) {
+                debugger;
+                var data = new FormData();
+                for (var x = 0; x < files.length; x++) {
+                    data.append("file" + x, files[x]);
+                }
+                var no="Pic1";
+
+                $.ajax({
+                    type: "POST",
+
+                    url: '/Dealer/UploadFile/'+ model+ '?EnquiryId=' +no,
+
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (result) {
+                        $('#image').attr('src', '@Url.Content("~/Images/")' + result.fileName);
+                    },
+                    error: function (xhr, status, p3, p4) {
+                        var err = "Error " + " " + status + " " + p3 + " " + p4;
+                        if (xhr.responseText && xhr.responseText[0] == "{")
+                            err = JSON.parse(xhr.responseText).Message;
+                        console.log(err);
+                    }
+                });
+            } else {
+                alert("This browser doesn't support HTML5 file uploads!");
+            }
+        }
+    });
+
+    function SaveMasterEnquiry() {
+
+        var dto = {};
+
+
+        dto.DealerCode =      $("#txtDealerCode").val();
+        dto.DealerDesc     =  $("#txtDealerDesc").val();
+        dto.NTN          =    $("#txtNTN").val();
+        dto.SaleTaxNo        =$("#txtTax").val();
+        dto.CreditLimit     = $("#txtCreditLimit").val();
+        dto.Address1        = $("#txtAddress").val();
+        dto.Phone1          = $("#txtPhone1").val();
+        dto.Phone2          = $("#txtPhone1").val();
+        dto.Fax           =   $("#txtFaxNo").val();
+        dto.Email           = $("#txtEmail").val();
+        dto.PST           =   $("#txtPST").val();
+        dto.CountryCode           = $("#ddlCountry").val();
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Dealer/Insert_Dealer")',
+            data: dto,
+            success: function (data) {
+                debugger
+                if (data) {
+                    if (data.Success == true) {
+
+
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    }
+
+                }
+
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+
+            },
+
+        });
+    }
+
+    function getData(id) {
+        var leadId = id;
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Dealer/Select_Dealer")',
+                data: { 'EnquiryId': leadId},
+                success: function (data) {
+                    debugger;
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        //Vendor Information
+                        $("#txtDealerCode").val(item[0].DealerCode);
+                        $("#txtDealerDesc").val(item[0].DealerDesc);
+                        $("#txtNTN").val(item[0].NTN);
+                        $("#txtTax").val(item[0].SaleTaxNo);
+                        $("#txtCreditLimit").val(item[0].CreditLimit);
+                        $("#txtAddress").val(item[0].Address1);
+                        $("#txtPhone1").val(item[0].Phone1);
+                        $("#txtCellNo").val(item[0].Phone2);
+                        $("#txtFaxNo").val(item[0].Fax);
+                        $("#txtEmail").val(item[0].Email);
+                        $("#txtPST").val(item[0].PST);
+                   
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+
+
+</script>
+@*<script type="text/javascript">
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    $(document).ready(function () {
+        $("#AccountSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#AccountTableSO tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+    });
+    $(document).ready(function () {
+        $("#AccountSearchPay").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#AccountTablePay tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+    });
+    $(document).ready(function () {
+        $("#AccountSearchRev").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#AccountTableRev tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+    });
+    function isCellNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+
+        if (charCode != 45  && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+    function ChangeColor(value) {
+
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    function ShowModal(type) {
+
+        if (type == 'Vendor') {
+            $('#VendorModal').modal("show");
+        } else if (type == 'SMSSetup') {
+            $('#SMSSetupModal').modal("show");
+        } else if (type == 'Account') {
+            $('#POModalActCode').modal("show");
+        }
+        else if (type == 'AccountPay') {
+            $('#POModalActPayable').modal("show");
+        }
+        else if (type == 'AccountRecieve') {
+            $('#POModalActRecieve').modal("show");
+        }
+    }
+
+    //function ShowModal(type) {
+
+    //}
+
+
+    ClickAccount = function (AccountCode,AccountDesc) {
+        $('#txtAccountCode').val(AccountCode);
+
+       // $('#txtAccountDesc').val(AccountDesc);
+        $('#txtAccountCode').css("border-color", "#e1e1e1");
+       //// $('#txtAccountDesc').css("border-color", "#e1e1e1");
+
+        $("#POModalActCode").modal("hide");
+    }
+    ClickAccountRecievable = function (AccountCode, AccountDesc) {
+
+        $('#txtVendorRecievable').val(AccountCode);
+
+        // $('#txtAccountDesc').val(AccountDesc);
+        $('#txtAccountCode').css("border-color", "#e1e1e1");
+        //// $('#txtAccountDesc').css("border-color", "#e1e1e1");
+
+        $("#POModalActRecieve").modal("hide");
+    }
+    ClickAccountPayable = function (AccountCode, AccountDesc) {
+
+        $('#txtVendorPayable').val(AccountCode);
+        // $('#txtAccountDesc').val(AccountDesc);
+        $('#txtAccountCode').css("border-color", "#e1e1e1");
+        //// $('#txtAccountDesc').css("border-color", "#e1e1e1");
+
+        $("#POModalActPayable").modal("hide");
+    }
+    $("#VendorSearch").on("keyup", function () {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#VendorTable tbody tr").each(function () {
+            debugger
+            $row = $(this);
+            var id = $(this).closest('tr').find('#lblCusDesc').text();
+            var desc = $(this).closest('tr').find('#lblNIC').text();
+            var nic = $(this).closest('tr').find('#lblAddress').text();
+            var phone = $(this).closest('tr').find('#lblPhone').text();
+
+            if (id.indexOf(value) !== 0 && desc.indexOf(value) !== 0 && nic.indexOf(value) !== 0 && phone.indexOf(value) !== 0) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+
+
+
+
+
+    function clearPaymentFeilds() {
+        $("#ddlPaymentMode").val("0");
+        $("#txtInstrumentNo").val("");
+        $("#ddlPaymentType")[0].selectedIndex = 0;
+        $("#ddlBank").val("0");
+        $("#txtBranch").val("");
+        $("#ddlCity").val("0");
+        $("#txtAmount").val("");
+    }
+
+    var rowCount = 1;
+    var dataCount = 1;
+    var SNo = 1;
+
+
+
+
+    IssueFunc = function (value) {
+        debugger;
+        var leadId = value;
+
+        getData(leadId);
+        $("#VendorModal").modal("hide");
+    }
+
+    $("#chkSameAs").change(function () {
+        debugger
+        var FFS = $("#chkSameAs").is(":checked");
+        if (FFS) {
+            $("#txtContPerson").prop('readonly',true);
+        }else
+        {
+            $("#txtContPerson").prop('readonly',false);
+        }
+
+    })
+
+    $("#btnSave").click(function () {
+
+        //var check = true;
+        var check = ValidateVendor();
+        if (check == true) {
+            $("#section-confirm").modal("show");
+        }
+    })
+
+    function ValidateVendor() {
+
+        var count = 0;
+
+        var CusDesc = $("#txtCusDesc").val();
+        var CellNo = $("#txtPhone1").val();
+        var Address = $("#txtAddress").val();
+         var ContPerson = $("#txtContPerson").val();
+
+
+         if (ContPerson == "" || ContPerson == null) {
+             $("#txtContPerson").css("border-color", "red");
+            count++;
+        }
+
+        if (CusDesc == "" || CusDesc == null) {
+            $("#txtCusDesc").css("border-color", "red");
+            count++;
+        }
+
+        if (CellNo == "" || CellNo == null) {
+            $("#txtPhone1").css("border-color", "red");
+            count++;
+        }
+        if (Address == "" || Address == null) {
+            $("#txtAddress").css("border-color", "red");
+            count++;
+        }
+
+        if (count > 0) {
+
+            $("#lblMessage").html("Please fill the Required feilds These are Mandatory");
+            $("#section-message").modal("show");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    function SaveMasterEnquiry() {
+
+        var dto = {};
+
+
+        dto.DealerCode    = "@Session["DealerCode"].ToString()";
+        dto.VendorCode       = $("#ddlVendors").val();
+       // dto.VendorType   = $("#ddlCusType").val();
+        dto.Title        = $("#ddlCusType").val();
+        dto.VendorDesc     = $("#txtCusDesc").val();
+        dto.NTN          = $("#txtNICNTN").val();
+        dto.GSTno         = $("#txtGSTno").val();
+        dto.PaymentTerm      = $("#txtCreditDays").val();
+        dto.CreditLimit     = $("#txtCreditLimit").val();
+        dto.Add1        = $("#txtAddress").val();
+        dto.Phone1          = $("#txtPhone1").val();
+        dto.Phone2          = $("#txtPhone1").val();
+        dto.Fax           = $("#txtFaxNo").val();
+        dto.Email           = $("#txtEmail").val();
+        dto.URL             = $("#txtURL").val();
+        dto.ContPerson      = $("#txtContPerson").val();
+        dto.AccountCode = $("#txtAccountCode").val();
+        dto.VendorRecievable = $("#txtVendorRecievable").val();
+        dto.VendorPayable = $("#txtVendorPayable").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Vendor/Insert_Vendor")',
+            data: dto,
+            success: function (data) {
+                debugger
+                if (data) {
+                    if (data.Success == true) {
+
+                        var rowCount = $('#GuarantorDetail >tbody  >tr').length;
+                        if (rowCount > 0) {
+                            saveGuarantor();
+                        } else {
+                            $("#section-confirm").modal("hide")
+                            $("#modalMessage").css("background-color", "#64c344");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                            setTimeout(function () {
+                                location.reload();
+                            }, 4000);
+                        }
+
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+    }
+
+
+
+
+    $("#ddlVendors").change(function () {
+        var leadId = $("#ddlVendors").val();
+        if (leadId == "0") {
+            location.reload();
+        }
+        else {
+            getData(leadId);
+            document.getElementById("btnDelete").disabled = false;
+        }
+
+    });
+    function getData(id) {
+        var leadId = id;
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Vendor/Select_Vendor")',
+                data: { 'EnquiryId': leadId},
+                success: function (data) {
+                    debugger;
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        //Vendor Information
+
+                        $("#ddlVendors").val(item[0].VendorCode);
+                        $("#ddlCusType").val(item[0].Title);
+                        //$("#ddlCusTitle").val(item[0].Title);
+                        $("#txtCusDesc").val(item[0].VendorDesc);
+                        $("#txtNICNTN").val(item[0].NTNno);
+                        $("#txtGSTno").val(item[0].GSTno);
+                        $("#txtCreditDays").val(item[0].PaymentTerm);
+                        $("#txtCreditLimit").val(item[0].CreditLimit);
+                        $("#txtAddress").val(item[0].Add1);
+                        $("#txtPhone1").val(item[0].Phone1);
+                        $("#txtPhone2").val(item[0].Phone2);
+                        $("#txtFaxNo").val(item[0].FaxNo);
+                        $("#txtEmail").val(item[0].Email);
+                        $("#txtURL").val(item[0].URL);
+                        $("#txtContPerson").val(item[0].ContPerson);
+                        $("#txtAccountCode").val(item[0].AccountCode);
+                        $("#txtVendorRecievable").val(item[0].VendorRecievable);
+                        $("#txtVendorPayable").val(item[0].VendorPayable);
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+
+    $("#btnDelete").click(function () {
+        $("#section-confirm-Delete").modal("show");
+    })
+
+    function DeleteEnquiry() {
+        var leadId = $("#ddlVendors").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/Vendor/Delete_Vendor")',
+            data: { 'EnquiryId': leadId },
+            success: function (data) {
+                if (data) {
+                    if (data.success == true) {
+                        $("#section-confirm-Delete").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide')
+                        }, 4000);
+                    } else {
+                        $("#section-confirm-Delete").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide')
+                        }, 4000);
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+    @*
+    $(function(){
+    $("#btnSave").click(function(e){
+    e.preventDefault();
+    var VendorList = [];
+    var count = 0;
+    var VendorCode = $("#CusCodeID").val();
+    var VendorType = $('#CusTypeCode').val();
+    var VendorTitle = $('#CusTitleID').val();
+    var CustomrDescription = $('#CusDescID').val();
+    var VendorCNIC = $('#NICID').val();
+    var VendorContact = $('#ContPersonID').val();
+    var CustomrAddress = $('#Address1ID').val();
+    var Country = $('#CountryCode').val();
+    var State = $('#StateDescID').val();
+    var City = $('#CityCode').val();
+    var VendorPhone = $('#Phone1ID').val();
+    var VendorCellNo = $('#CellNoID').val();
+    var VendorWhatssapNo = $('#Phone2ID').val();
+    var VendorFaxNo = $('#FaxNoID').val();
+    var VendorEmail = $('#EmailID').val();
+    var VendorURL = $('#URLID').val();
+    var CutomerNTNno = $('#NTNnoID').val();
+    var VendorSalesTaxNo = $('#SalesTaxRegNoID').val();
+    var VendorPaymentTerm = $('#CreditDaysID').val();
+    var VendorPaymentLimit = $('#CreditLimitID').val();
+    var VendorDistance = $('#DistanceID').val();
+
+
+
+    if(count==0)
+    {
+        var VendorVariable =
+    {
+        CusCode: VendorCode, CusTypeCode: VendorType, CusTitle: VendorTitle, CusDesc: CustomrDescription, NIC: VendorCNIC,
+        ContPerson: VendorContact, Address1: CustomrAddress, CountryCode: Country, StateCode: State, CityCode: City,
+        Phone1: VendorPhone, CellNo: VendorCellNo, Phone2: VendorWhatssapNo, FaxNo: VendorFaxNo, Email: VendorEmail,
+        URL: VendorURL, NTNno: CutomerNTNno, SalesTaxRegNo: VendorSalesTaxNo, CreditDays: VendorPaymentTerm,
+        CreditLimit: VendorPaymentLimit, Distance: VendorDistance
+    };
+    VendorList.push(VendorVariable);
+
+
+    }
+    count++;
+    $.ajax({
+    type: "POST",
+    url: "/Vendor/SaveData",
+    dataType: "json",
+    contentType: 'application/json',
+    data: JSON.stringify({ VendorList: VendorList }),
+    contentType: "application/json; charset=utf-8",
+    complete: function (result) {
+
+        //document.forms["Vendor"].submit();
+        window.location.href = '@Url.Action("Vendor", "Vendor")';
+    }
+    });
+    });
+    })
+</script>*@
+
+

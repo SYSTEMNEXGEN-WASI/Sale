@@ -1,0 +1,10 @@
+﻿.accordion-toggle:hover {
+    text-decoration: none;
+}
+.panel-title .glyphicon-chevron-right:before {
+    
+    color: #155A8F;
+}
+.panel-title .glyphicon-remove:before {
+    color: #d9534f;
+}

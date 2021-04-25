@@ -1,0 +1,336 @@
+﻿
+@{
+    ViewBag.Title = "HVMain";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+
+    .table>thead>tr>th{
+        font-weight: bold;
+        font-size : 14px;
+        background-color: #3F51B5;
+        color: white;
+    }
+
+    .table > tbody > tr > td{
+        font-size : 14px;
+    }
+
+
+    .red{
+        background-color: #ff000073;
+    }
+
+    
+</style>
+
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.css")' rel="stylesheet" />
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.min.css")' rel="stylesheet" />
+<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2-bootstrap.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/css/chosen.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/bootstrap-select.css")' rel="stylesheet" type="text/css" />
+
+<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/daterangepicker/css/daterangepicker-bs3.css")' rel="stylesheet" type="text/css" media="screen" />
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Vehicle Hold</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                    </div>
+                </header>
+                <div class="content-body">                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="tblVehicleStock" style="white-space: nowrap; FONT-SIZE: 10px;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Brand</th>
+                                            <th>Product</th>
+                                            <th>Model</th>
+                                            <th>Chassis No</th>
+                                            <th>Engine No</th>
+                                            <th>Color</th>
+                                            <th>Hold</th>
+                                            <th>Hold By</th>
+                                            <th>Hold Till</th>
+                                            <th>Hold Amount</th>
+                                            <th>Hold Date</th>
+                                            <th>Sction</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="col-md-4" style="float:right;">
+                            <div class="makespace"></div>
+                            <label>Total Hold Vehicle</label>
+                                <input type="text" required id="txtHoldVehicle" readonly style="text-align: right;"/>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+</section>
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.js")' type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        Get_VehiclesForHold();
+        
+    })
+
+
+    function Get_VehiclesForHold() {
+
+        var HoldCount = 0;
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/HoldVehicle/Select_HoldVehicle")',
+            data: { 'DealerCode' : dealerCode },
+            success: function (data) {
+                ;
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#tblVehicleStock tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+                        $.each(item, function (value, item) {
+                            $("#tblVehicleStock tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblBrandCode">' + item.Brand + ' </label><input type="hidden" id="hdnBrandCode" value="' + item.BrandCode + '"/></td>' +
+                                                    '<td> <label id="lblProdCode">' + item.ProdDesc + ' </label><input type="hidden" id="hdnProdCode" value="' + item.ProdCode + '"/></td>' +
+                                                    '<td> <label id="lblVersion">' + item.versionCode + ' </label></td>' +
+                                                    '<td> <label id="lblChassisNo">' + item.ChasisNo + ' </label></td>' +
+                                                    '<td> <label id="lblEngineNo">' + item.EngineNo + ' </label></td>' +
+                                                    '<td> <label id="lblColor">' + item.Color + ' </label><input type="hidden" id="hdnColorCode" value="' + item.ColorCode + '"/></td>' +
+                                                    '<td> <label id="lblHold">' + (item.HoldFlag == 'Y' ? "Hold" : "Un Hold") + '</label><select class="m-bot15 ddlHold" id="ddlHold" name="ddlHold" style="display: none;" ><option value="Hold">Hold</option><option value="UnHold">Un Hold</option></select></td>' +
+                                                    '<td> <label id="lblHoldBy">' + (item.DealerEmp == null ? '' : item.DealerEmp) + ' </label><input type="hidden" id="hdnHoldBy" value="' + item.HoldBy + '"/>' +
+                                                        '<select class=" m-bot15 ddlAssignTo" id="ddlAssignTo" name="ddlAssignTo" style="display: none;"></select>' +
+                                                    '</td>' +
+                                                    '<td> <label id="lblholdTill" >' + (item.HoldTill == null ? '' : item.HoldTill) + ' </label><input placeholder="Minutes" type="text" style="display:none;" class="datepicker" id="txtholdTill"/></td>' +
+                                                    '<td> <label id="lblHoldAmount">' + item.HoldAmount + ' </label><input type="text" style="display:none;"  id="txtHoldAmount"/></td>' +
+                                                    '<td> <label id="lblHoldDate">' + item.HoldDate + ' </label><label style="display: none;" id="hdnRowColor">' + item.RowColor + '</label></td>' +
+                                                    '<td style="text-align:center;">'+
+                                                        '<button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditVehType(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)" ><i class="fa fa-close fa-lg"></i></button>'+
+                                                    '</td>' +
+                                                    '</tr>');
+                            if (item.HoldFlag == 'Y') {
+                                HoldCount ++
+                            }
+
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+                $("#txtHoldVehicle").val(HoldCount);
+                debugger
+                var rows = document.getElementById("tblVehicleStock").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+                for (i = 0 ; i < rows.length; i++) {
+                    row = rows[i].getElementsByTagName('Label');
+                    var cell = getText(row[11]);
+                    if (cell === 'Color1') rows[i].className = "red";
+                }
+
+                function getText(cell) {
+                    return (cell.innerText == undefined) ? cell.textContent : cell.innerText;
+                }
+            },
+        });
+    }
+
+
+    function getEmployee(value) {
+
+        var dealerCode = "@Session["DealerCode"].ToString()";
+
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/HoldVehicle/Select_Emp")',
+                data: { 'DealerCode': dealerCode },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        $(".ddlAssignTo").find('option').remove();
+
+                        $(data.Response).each(function (index, item) { // GETTING ERROR HERE
+                            $(".ddlAssignTo").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                        });
+
+                    }
+                },
+                complete: function () {
+
+                    debugger
+                    if (hdnHoldBy.trim() != '') {
+                        $(value).closest('tr').find("#ddlAssignTo").val(hdnHoldBy);
+                    }
+                    
+                },
+            });
+
+    }
+
+    var hdnHoldBy = '';
+
+    function EditVehType(value) {
+
+
+        $(value).closest('tr').find("#ddlAssignTo").show();
+        $(value).closest('tr').find("#txtholdTill").show();
+        $(value).closest('tr').find("#txtHoldAmount").show();
+        $(value).closest('tr').find("#ddlHold").show();
+        
+        $(value).closest('tr').find("#lblHold").hide();
+        $(value).closest('tr').find("#lblHoldBy").hide();
+        $(value).closest('tr').find("#lblHoldAmount").hide();
+        $(value).closest('tr').find("#lblholdTill").hide();
+        $(value).closest('tr').find("#btnUpdate").show();
+        $(value).closest('tr').find("#btnCancel").show();
+        $(value).closest('tr').find("#btnEdit").hide();
+        $(value).closest('tr').find("#btnDelete").hide();
+
+        getEmployee(value);
+
+        var lblHoldAmount = $(value).closest('tr').find("#lblHoldAmount").text().trim();
+        $(value).closest('tr').find("#txtHoldAmount").val(lblHoldAmount);
+        var lblholdTill = $(value).closest('tr').find("#lblholdTill").text().trim();
+        $(value).closest('tr').find("#txtholdTill").val(lblholdTill);
+        hdnHoldBy = $(value).closest('tr').find("#hdnHoldBy").val();
+       
+        
+    }
+
+    function CancelEvent(_this) {
+        $(_this).closest('tr').find("#ddlAssignTo").hide();
+        $(_this).closest('tr').find("#txtholdTill").hide();
+        $(_this).closest('tr').find("#txtHoldAmount").hide();
+        $(_this).closest('tr').find("#ddlHold").hide();
+
+        $(_this).closest('tr').find("#lblHold").show();
+        $(_this).closest('tr').find("#lblHoldBy").show();
+        $(_this).closest('tr').find("#lblHoldAmount").show();
+        $(_this).closest('tr').find("#lblholdTill").show();
+        $(_this).closest('tr').find("#btnUpdate").hide();
+        $(_this).closest('tr').find("#btnCancel").hide();
+        $(_this).closest('tr').find("#btnEdit").show();
+        $(_this).closest('tr').find("#btnDelete").show();
+
+    }
+
+    function UpdateData(_this) {
+
+        debugger
+
+        var HoldAmount = $(_this).closest('tr').find("#txtHoldAmount").val();
+        var holdTill = $(_this).closest('tr').find("#txtholdTill").val();
+        var AssignToCode = $(_this).closest('tr').find("#ddlAssignTo").val();       
+        var AssignToValue = $(_this).closest('tr').find("#ddlAssignTo :selected").text();
+        var BrandCode = $(_this).closest('tr').find("#hdnBrandCode").val();
+        var ProdCode = $(_this).closest('tr').find("#hdnProdCode").val();
+        var Version = $(_this).closest('tr').find("#lblVersion").text();
+        var ChassisNo = $(_this).closest('tr').find("#lblChassisNo").text();
+        var EngineNo = $(_this).closest('tr').find("#lblEngineNo").text();
+        var Color = $(_this).closest('tr').find("#hdnColorCode").val();
+        var hold = $(_this).closest('tr').find("#ddlHold").val();
+
+        //$(_this).closest('tr').find("#lblHoldBy").text(AssignToValue);
+        //$(_this).closest('tr').find("#lblHoldAmount").text(HoldAmount);
+        //$(_this).closest('tr').find("#lblholdTill").text(holdTill);
+
+        //CancelEvent(_this);
+
+        SaveEnquiry(BrandCode, ProdCode, Version, ChassisNo, EngineNo, Color, HoldAmount, holdTill, AssignToCode, hold);
+        $(_this).closest('tr').css("background-color", '#d4b0b0');
+
+    }
+
+    function SaveEnquiry(BrandCode, ProdCode, Version, ChassisNo, EngineNo, Color, HoldAmount, holdTill, AssignToCode, hold) {
+
+
+        debugger
+        var dto = {};
+
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.BrandCode = BrandCode;
+        dto.ProdCode = ProdCode;
+        dto.versionCode = Version;
+        dto.EngineNo = EngineNo;
+        dto.ChasisNo = ChassisNo;
+        dto.ColorCode = Color;
+        dto.HoldBy = AssignToCode;
+        dto.HoldTill = holdTill;
+        dto.HoldAmount = HoldAmount;
+        if (hold == 'Hold') {
+            dto.HoldFlag = 'Y';
+        } else {
+            dto.HoldFlag = 'N';
+        }
+        
+
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/HoldVehicle/Update_Vehicle")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                Get_VehiclesForHold();
+            },
+
+        });
+        
+    }
+
+</script>

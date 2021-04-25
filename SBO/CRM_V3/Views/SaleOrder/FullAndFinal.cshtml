@@ -1,0 +1,1268 @@
+﻿@{
+    ViewBag.Title = "VehicleSalesInvoice";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+<section class="wrapper main-wrapper row">
+    <form method="post">
+        <div class="col-md-12">
+            <section class="box">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align:center"><strong><span class=""></span>Full And Final</strong></div>
+                    <div class="panel-body">
+
+                        <div class="row" style="margin-bottom:1rem">
+                            <div class="form-group row container-fluid">
+                                <div class="col-md-3">
+                                    <label class="form-label">Receipt No</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="cursor:pointer;"><a data-toggle="modal" data-target="#FullAndFinalModal" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                        <input type="text" class="form-control" id="txtReceiptNo" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Receipt Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control datepicker" id="txtReceiptDate" placeholder="dd/mm/yyyy" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Invoice No</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><a data-toggle="modal" data-target="#POModalIR" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                        <input type="text" class="form-control" id="txtISINo" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Invoice Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id="txtSoDate" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Sales Person</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                        <input type="text" class="form-control" id="txtSalePersonCode" readonly style="width:30%" />
+                                        <input type="text" class="form-control" id="txtSalePerson" readonly style="width:70%" />
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Customer</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                                        <input type="text" class="form-control" id="txtCustomerCode" readonly style="width:30%" />
+                                        <input type="text" class="form-control" id="txtCustomer" readonly style="width:70%" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Brand</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                        <input type="text" class="form-control" id="txtBrand" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Product</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                        <input type="text" class="form-control" id="txtProduct" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Version</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                        <input type="text" class="form-control" id="txtVersion" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Color</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                        <input type="text" class="form-control" id="txtColor" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Chassis</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                                        <input type="text" class="form-control" id="txtChassis" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Engine</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-cab"></i></span>
+                                        <input type="text" class="form-control" id="txtEngine" readonly />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Total Receiveable</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input type="text" class="form-control" id="txtTotalReceivable" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Actual in Full and Final</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-adjust"></i></span>
+                                        <input type="text" class="form-control" id="txtActFulFinal" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Net Full and Final</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-compressed"></i></span>
+                                        <input type="text" class="form-control" id="txtNetFulFinal" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Penality Due</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input type="text" class="form-control" id="txtPenaltyDue" readonly />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Discount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input type="text" class="form-control" id="txtDiscount" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Remarks</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-comments"></i></span>
+                                        <input type="text" class="form-control" id="txtRemarks" maxlength="50"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                        Instrument Payment Detail
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="row container-fluid" style="margin-bottom:1rem;">
+                                            <div class="form-group row">
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Instrument Type</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        @Html.DropDownList("ddlPayMode", new SelectList((IEnumerable<SelectListItem>)ViewBag.PayMode, "Value", "Text", "C"), new { @class = "form-control", @id = "ddlPayMode", @onchange = "ChangeColor(this)" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Instrument No</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                        <input type="text" class="form-control" id="txtInsNo" onblur="ChangeColor(this)" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Instrment Date</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <input type="text" class="form-control datepicker" id="txtInsDate" placeholder="dd/mm/yyyy" onblur="ChangeColor(this)"/>
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Instrument Amount</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                        <input type="text" class="form-control" id="txtInsAmount" onkeypress="return isNumberKey(event)" maxlength="8" onblur="ChangeColor(this)"/>
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Bank</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><a data-toggle="modal" data-target="#BankAccountModal" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                        <input type="text" class="form-control" id="txtBankCode" readonly style="width:30%" />
+                                                        <input type="text" class="form-control" id="txtBankDesc" readonly style="width:70%" />
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Branch</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                                        <input type="text" class="form-control" id="txtBranch" maxlength="50" onblur="ChangeColor(this)" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">City</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><a data-toggle="modal" data-target="#CityModal" style="color:blue"><i class="fa fa-search"></i></a></div>
+                                                        <input type="text" class="form-control" id="txtCityCode" readonly style="width:30%" />
+                                                        <input type="text" class="form-control" id="txtCityDesc" readonly style="width:70%" />
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Penality Amount</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                                                        <input type="text" class="form-control" id="txtPenaltyAmt" onkeypress="return isNumberKey(event)" maxlength="8" onblur="ChangeColor(this)"/>
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="input-group" style="width:23%;float: right;">
+                                                        <button class="btn btn-success btn-sm" type="button" style="width: 100%;padding: 8px; margin-top: 20px; right: 15px;" onclick="AddPayment(this)">
+                                                            <i class="fa fa-plus fa-2x"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="makespace"></div>
+                                                </div>
+
+                                                <div class="form-group row container-fluid">
+                                                    <div class="col-md-12" style="margin-top:20px">
+                                                        <div class="table-respon">
+                                                            <table id="tblInstrument" class="table success color-bordered-table info-bordered-table">
+                                                                <thead class="">
+                                                                    <tr>
+                                                                        <th>Sr.</th>
+                                                                        <th>Instrument Type</th>
+                                                                        <th>Instrument No</th>
+                                                                        <th>Instrument Date</th>                                                                        
+                                                                        <th>Bank</th>
+                                                                        <th>Branch</th>
+                                                                        <th>City</th>
+                                                                        <th>Instrument Amount</th>
+                                                                        <th>Penalty Amount</th>
+                                                                        <th >Tr Type</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                    <label class="form-label">Total</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                        <input type="text" class="form-control" id="txtTotalAmount" readonly/>
+                                    </div>
+                                    <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="pull-right">
+
+                                    <button type="button" class="btn btn-info" id="btnSave" style="margin-top:27px; width:100px">Save</button>
+
+                                   @* <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px; width:100px">Delete</button>*@
+
+                                    <button type="button" class="btn btn-default" id="btnClear" style="margin-top:27px; width:100px">Clear</button>
+
+                                    <button type="button" class="btn btn-success" id="btnPrint" style="margin-top:27px; width:100px">Print</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+        <style>
+            .border-for {
+                border: 1px solid blue;
+            }
+
+            .label-heading {
+                margin: 0.5rem;
+            }
+
+            .divider {
+                width: 5px;
+                height: auto;
+                display: inline-block;
+            }
+        </style>
+
+    </form>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" id="BankAccountModal" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg" style="width:fit-content">
+            <div class="modal-content" style="margin-top:100px; height:500px;width:800px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Bank Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="txtBankSearch" class="form-control" aria-controls="tblBankModal" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-left:10px">
+                        <div class="table-responsive table-Scroll" style="overflow: scroll; height:280px;width:750px">
+                            <table id="tblBankModal" class="table color-table info-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Bank Code</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Bank Desc</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+                                    @if (ViewBag.Bank != null)
+                                    {
+                                    foreach (var item in ViewBag.Bank)
+                                    {
+                                    <tr style="text-align: left" onclick="ClickBank('@item.BankCode','@item.BankDesc')">
+                                        <td class="tdDiv">
+                                            <label id="lblBankCode" >@item.BankCode</label>
+                                        </td>
+                                        <td class="tdDiv">
+                                            <label id="lblBankDesc">@item.BankDesc</label>
+                                        </td>
+                                    </tr>
+                                    }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" id="CityModal" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg" style="width:fit-content">
+            <div class="modal-content" style="margin-top:100px; height:500px;width:800px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">City Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="txtCitySearch" class="form-control" aria-controls="tblCityModal" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-left:10px">
+                        <div class="table-responsive table-Scroll" style="overflow: scroll; height:280px;width:750px">
+                            <table id="tblCityModal" class="table color-table info-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">City Code</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">City Desc</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+                                    @if (ViewBag.City != null)
+                                    {
+                                        foreach (var item in ViewBag.City)
+                                        {
+                                            <tr style="text-align: left" onclick="ClickCity('@item.CityCode','@item.CityDesc')">
+                                                <td class="tdDiv">
+                                                    <label id="lblCityCode">@item.CityCode</label>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <label id="lblCityDesc">@item.CityDesc</label>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" id="FullAndFinalModal" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="height:500px;width:800px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Full And Final Receipt Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="AccountSearchSO" class="form-control" aria-controls="AccountTableSO" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-left:10px">
+                        <div class="table-responsive table-Scroll" style="overflow: scroll; height:350px;">
+                            <table id="AccountTableSO" class="table color-table info-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th class="tdDiv" style="text-align:left">Receipt No</th>
+                                        <th class="tdDiv" style="text-align:left">Receipt Date</th>
+                                        <th class="tdDiv" style="text-align:left">Customer Name</th>
+                                        <th class="tdDiv" style="text-align:left">Customer Contact</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+                                    @if (ViewBag.FNFDetail != null)
+                                    {
+                                    foreach (var item in ViewBag.FNFDetail)
+                                    {
+                                    <tr style="text-align: left" onclick="RevClickDetail('@item.ReceiptNo','@item.ReceiptDate','@item.InvoiceNo','@item.Type','@item.Remarks')">
+                                        <td class="tdDiv">
+                                            <a href="#" style="color:black">@item.ReceiptNo</a>
+                                        </td>
+                                        <td class="tdDiv">
+                                            <a href="#" style="color:black">@item.ReceiptDate</a>
+                                        </td>
+                                        <td class="tdDiv">
+                                            <a href="#" style="color:black">@item.CusDesc</a>
+                                        </td>
+                                        <td class="tdDiv">
+                                            <a href="#" style="color:black">@item.CellNo</a>
+                                        </td>
+                                    </tr>
+                                    }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalIR" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Receipt Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="AccountSearchSO" class="form-control" aria-controls="tblReceiptModal" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="tblReceiptModal" class="table color-table info-table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">IR No</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">IR Date</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Customer</th>
+                                        <th class="tdDiv" style="text-align:left" width:"30%">Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+
+                                    @{ int i = 1; }
+                                    
+                                    @if (ViewBag.ISIIRDetail != null)
+                                    {
+                                        foreach (var item in ViewBag.ISIIRDetail)
+                                        {
+                                            <tr style="text-align: left" onclick="RevClickISIDetail('@item.TransCode','@item.TransDate','@item.EmpCode','@item.EmpName','@item.CusCode','@item.CusDesc','@item.EngineNo','@item.ChasisNo','@item.VersionCode','@item.CellNo','@item.TotalReceiveable','@item.Discount','@item.Penalty','@item.BrandDesc','@item.ColorDesc','@item.ProdCode')">
+                                                <td> @i</td> @{ i++; }
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.TransCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.TransDate</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.CusDesc</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.CellNo</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true" style="z-index : 10000!important;">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown" style="margin-top:60px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure to want save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveMasterEnquiry()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script>
+
+    $(document).ready(function () {
+        CurrentDate();
+    })
+
+    function CurrentDate() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtReceiptDate").val(today);
+    }
+
+
+    function ChangeColor(value) {
+
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+    $("#txtBankSearch").on("keyup", function () {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#tblBankModal tbody tr").each(function () {
+
+            $row = $(this);
+            var code = $(this).closest('tr').find('#lblBankCode').text();
+            var desc = $(this).closest('tr').find('#lblBankDesc').text();
+
+            if (code.indexOf(value) !== 0 && desc.indexOf(value) !== 0 ) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+
+    $("#txtCitySearch").on("keyup", function () {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#tblCityModal tbody tr").each(function () {
+
+            $row = $(this);
+            var code = $(this).closest('tr').find('#lblCityCode').text();
+            var desc = $(this).closest('tr').find('#lblCityDesc').text();
+
+            if (code.indexOf(value) !== 0 && desc.indexOf(value) !== 0) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+
+    RevClickISIDetail = function (TransCode, TransDate, EmpCode, EmpName, CusCode, CusDesc, EngineNo, ChasisNo, VersionCode, CellNo, TotalReceiveable,Discount,Penalty,BrandDesc,ColorDesc,ProdCode) {
+
+        debugger
+        document.getElementById('txtISINo').value = TransCode;
+        document.getElementById('txtSoDate').value = TransDate;
+        document.getElementById('txtSalePersonCode').value = EmpCode;
+        document.getElementById('txtSalePerson').value = EmpName;
+        document.getElementById('txtEngine').value = EngineNo;
+        document.getElementById('txtChassis').value = ChasisNo;
+        document.getElementById('txtCustomerCode').value = CusCode;
+        document.getElementById('txtCustomer').value = CusDesc;
+        document.getElementById('txtTotalReceivable').value = TotalReceiveable;
+        document.getElementById('txtActFulFinal').value = TotalReceiveable - Discount - Penalty;
+        document.getElementById('txtNetFulFinal').value = TotalReceiveable - Discount;
+        document.getElementById('txtPenaltyDue').value = Penalty;
+        document.getElementById('txtDiscount').value = Discount;
+        document.getElementById('txtVersion').value = VersionCode;
+        document.getElementById('txtBrand').value = BrandDesc;
+        document.getElementById('txtProduct').value = ProdCode;
+        document.getElementById('txtColor').value = ColorDesc;
+        //document.getElementById('txtActFulFinal').value = TotalActualReceived;
+
+        $('#POModalIR').modal('hide');
+    }
+
+    ClickBank = function (BankCode, BankDesc) {
+
+        document.getElementById('txtBankCode').value = BankCode;
+        document.getElementById('txtBankDesc').value = BankDesc;
+
+        $("#txtBankCode").css("border-color", "#e1e1e1");
+        $("#BankAccountModal").modal('hide');
+    }
+
+    ClickCity= function (CityCode, CityDesc) {
+
+        document.getElementById('txtCityCode').value = CityCode;
+        document.getElementById('txtCityDesc').value = CityDesc;
+        $("#CityModal").modal('hide');
+    }
+
+    var rowCount = 1;
+    var dataCount = 1;
+    var SNo = 1;
+
+    function AddPayment(value) {
+        debugger
+        var check = ValidateDetail();
+        if (check == true) {
+            var totalAmt = $("#txtTotalAmount").val();
+            var PayModeCode = $("#ddlPayMode").val();
+            var PayModeDesc = $("#ddlPayMode :selected").text();
+            var InsNo = $("#txtInsNo").val();
+            var insDate = $("#txtInsDate").val();
+
+            if ($("#txtBankCode").val() == "") {
+                var bankCode = '';
+                var bankDesc = '';
+            } else {
+                var bankCode = $("#txtBankCode").val();
+                var bankDesc = $("#txtBankDesc").val();
+            }
+
+            var branch = $("#txtBranch").val();
+            if ($("#txtBankCode").val() == "") {
+                var cityCode = '';
+                var cityDesc = '';
+            } else {
+                var cityCode = $("#txtCityCode").val();
+                var cityDesc = $("#txtCityDesc").val();
+            }
+
+            var PenaltyAmount = $("#txtPenaltyAmt").val();
+            //var account = $("#txtAccountCode").val();
+            var insamount = $("#txtInsAmount").val();
+
+
+            var row = $(value).parent().parent().html();
+
+            if (insamount != "") {
+                var dt = $("#tblInstrument tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblPayMode">' + PayModeDesc + ' </label><input type="hidden" id="hdnPayModeCode" value="' + PayModeCode + '"/></td>' +
+                                                        '<td> <label id="lblInsNo">' + InsNo.toUpperCase() + ' </label></td>' +
+                                                        '<td> <label id="lblInsDate">' + insDate + ' </label></td>' +
+
+                                                        '<td> <label id="lblBank">' + bankDesc + ' </label><input type="hidden" id="hdnBankCode" value="' + bankCode + '"/></td>' +
+                                                        '<td> <label id="lblBranch">' + branch.toUpperCase() + ' </label></td>' +
+                                                        '<td> <label id="lblCity">' + cityDesc + ' </label><input type="hidden" id="hdnCityCode" value="' + cityCode + '"/></td>' +
+                                                        '<td> <label id="lblInsAmount">' + insamount + ' </label></td>' +
+                                                        //'<td> <label id="lblAccount">' + account + ' </label></td>' +
+                                                        //'<td> <label id="lblInstallmentAmount">' + InstallmentAmount + ' </label></td>' +
+                                                        '<td> <label id="lblPenaltyAmount"></label></td>' +
+                                                        '<td><label id="lblTrType">I</label></td>' +
+                                                        '</tr>');
+            }
+
+            if (PenaltyAmount != "") {
+                var dt = $("#tblInstrument tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblPayMode">' + PayModeDesc + ' </label><input type="hidden" id="hdnPayModeCode" value="' + PayModeCode + '"/></td>' +
+                                                        '<td> <label id="lblInsNo">' + InsNo.toUpperCase() + ' </label></td>' +
+                                                        '<td> <label id="lblInsDate">' + insDate + ' </label></td>' +
+
+                                                        '<td> <label id="lblBank">' + bankDesc + ' </label><input type="hidden" id="hdnBankCode" value="' + bankCode + '"/></td>' +
+                                                        '<td> <label id="lblBranch">' + branch.toUpperCase() + ' </label></td>' +
+                                                        '<td> <label id="lblCity">' + cityDesc + ' </label><input type="hidden" id="hdnCityCode" value="' + cityCode + '"/></td>' +
+                                                        '<td> <label id="lblInsAmount"></label></td>' +
+                                                        '<td> <label id="lblPenaltyAmount">' + PenaltyAmount + ' </label></td>' +
+                                                        '<td><label id="lblTrType">P</label></td>' +
+                                                        '</tr>');
+            }
+
+            $("#txtTotalAmount").val(parseInt(totalAmt == "" ? "0" : totalAmt) + parseInt(insamount == "" ? "0" : insamount) + parseInt(PenaltyAmount == "" ? "0" : PenaltyAmount));
+            clearPaymentFeilds();
+        }
+        else {
+
+        }
+    }
+
+    function clearPaymentFeilds() {
+        // clear input text
+        document.getElementById('ddlPayMode').value = 'C';
+        document.getElementById('txtInsNo').value = '';
+        document.getElementById('txtInsDate').value = '';
+        document.getElementById('txtInsAmount').value = '';
+        document.getElementById('txtBankCode').value = '';
+        document.getElementById('txtBankDesc').value = '';
+        document.getElementById('txtCityCode').value = '';
+        document.getElementById('txtCityDesc').value = '';
+        document.getElementById('txtBranch').value = '';
+        $("#txtPenaltyAmt").val('');
+    }
+
+    function ValidateDetail() {
+
+        var count = 0;
+
+        var PayModeCode = $("#ddlPayMode").val();
+        var installmentAmount = $("#txtInsAmount").val();
+
+
+        var InsNo = $("#txtInsNo").val();
+        var InsDate = $("#txtInsDate").val();
+        var BankCode = $("#txtBankCode").val();
+        var Branch = $("#txtBranch").val();
+
+
+        var penaltyAmt = $("#txtPenaltyAmt").val();
+
+        if (PayModeCode == "0") {
+            $("#ddlPayMode").css("border-color", "red");
+            count++;
+        } else if (PayModeCode != "C") {
+
+            if (InsNo == "") {
+                $("#txtInsNo").css("border-color", "red");
+                count++;
+            }
+            if (InsDate == "") {
+                $("#txtInsDate").css("border-color", "red");
+                count++;
+            }
+            if (BankCode == "") {
+                $("#txtBankCode").css("border-color", "red");
+                count++;
+            }
+            if (Branch == "") {
+                $("#txtBranch").css("border-color", "red");
+                count++;
+            }
+        }
+        debugger
+        if ((installmentAmount == "" && penaltyAmt == "")) {
+            $("#txtInsAmount").css("border-color", "red");
+            $("#txtPenaltyAmt").css("border-color", "red");
+            $("#lblMessage").text('Please enter Instrument Amount or Penalty Amount');
+            $("#section-message").modal('show');
+            count++;
+        }
+
+        if (count == 0) {
+            return true;
+        } else {
+            $("#lblMessage").text('Please filled the required fields');
+            $("#section-message").modal('show');
+        }
+        return false;
+    }
+
+
+    function PageValidation() {
+
+
+        var count = 0;
+
+        if ($("#txtISINo").val() == '' || $("#txtISINo").val() == null) {
+            $("#txtISINo").css("border-color", "red");
+            $("#txtISINo").focus();
+            count++;
+        }
+
+        var row = $('#tblInstrument >tbody  >tr').length;
+
+        if (count > 0 || row == 0) {
+
+            $("#lblMessage").html("Please fill the Required feilds");
+            $("#section-message").modal("show");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    $("#btnClear").click(function () {
+        document.getElementById('txtReceiptNo').value = "";
+        document.getElementById('txtISINo').value = "";
+        document.getElementById('txtSoDate').value = "";
+        document.getElementById('txtSalePersonCode').value = "";
+        document.getElementById('txtSalePerson').value = "";
+        document.getElementById('txtEngine').value = "";
+        document.getElementById('txtChassis').value = "";
+        document.getElementById('txtCustomerCode').value = "";
+        document.getElementById('txtCustomer').value = "";
+        document.getElementById('txtTotalReceivable').value = "";
+        document.getElementById('txtActFulFinal').value = "";
+        document.getElementById('txtNetFulFinal').value ="";
+        document.getElementById('txtPenaltyDue').value = "";
+        document.getElementById('txtDiscount').value = "";
+        document.getElementById('txtVersion').value = "";
+        document.getElementById('txtBrand').value = "";
+        document.getElementById('txtProduct').value = "";
+        document.getElementById('txtColor').value = "";
+        document.getElementById('txtRemarks').value = "";
+        document.getElementById('txtTotalAmount').value = "";
+        clearPaymentFeilds();
+        CurrentDate();
+        $("#tblInstrument tbody tr").remove();
+    })
+
+    $("#btnSave").click(function () {
+        debugger
+        if (!PageValidation()) {
+            return false;
+        }
+
+        $("#section-confirm").modal("show");
+    })
+
+    function SaveMasterEnquiry() {
+        debugger
+        var dto = {}
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.ReceiptNo = $("#txtReceiptNo").val();
+        dto.ReceiptDate = $("#txtReceiptDate").val();
+        dto.InvoiceNo = $("#txtISINo").val();
+        dto.InvoiceDate = $("#txtSoDate").val();
+        dto.EmpCode = $("#txtSalePersonCode").val();
+        dto.EmpDesc = $("#txtSalePerson").val();
+        dto.ProdDesc = $("#txtProduct").val();
+        dto.ChasisNo = $("#txtChassis").val();
+        dto.EngineNo = $("#txtEngine").val();
+        dto.Remarks = $("#txtRemarks").val();
+        dto.CusCode = $("#txtCustomerCode").val();
+        dto.Type = 'F';
+        dto.FormName = "Full And Final";
+        dto.FullAndFinalReceiveable = $("#txtTotalAmount").val();
+
+        //--------------------------------------------------------------------
+
+
+        $.ajax({
+            //contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/SaleOrder/Insert_ReceiptMasterFullAndFinal")',
+            data: dto,
+            success: function (data) {
+
+                debugger
+                if (data) {
+                    debugger
+                    if (data.Success == true) {
+                        saveReceiptDetail();
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+    }
+
+    function insertRecord() {
+        var obj = [];
+
+        $("#tblInstrument tbody tr").each(function () {
+            var dto = {};
+            dto.ReceiptDate = $("#txtReceiptDate").val();
+            dto.InstrumentTypeCode = $(this).closest('tr').find('#hdnPayModeCode').val();
+            dto.InstrumentNo = $(this).closest('tr').find('#lblInsNo').text();
+            dto.InstrumentDate = $(this).closest('tr').find('#lblInsDate').text().trim();
+            dto.BankCode = $(this).closest('tr').find('#hdnBankCode').val();
+            dto.Branch = $(this).closest('tr').find('#lblBranch').text().trim();
+            dto.CityCode = $(this).closest('tr').find('#hdnCityCode').val();
+            //dto.VehExpCode = $(this).closest('tr').find('#hdnServiceCode').val();
+            //dto.AccountCode = $(this).closest('tr').find('#lblAccount').text().trim();
+
+            var type = $(this).closest('tr').find('#lblTrType').text().trim();
+
+            if (type == 'P') {
+                dto.ReceiptAmount = $(this).closest('tr').find('#lblPenaltyAmount').text().trim();
+            } else {
+                dto.ReceiptAmount = $(this).closest('tr').find('#lblInsAmount').text().trim();
+            }
+            dto.InvoiceNo = $("#txtISINo").val();
+            dto.CusCode = $("#txtCustomerCode").val();
+            dto.DealerCode = "@Session["DealerCode"].ToString()";
+            dto.TrType = type;
+
+            obj.push(dto);
+        });
+
+        return obj;
+    }
+
+    function saveReceiptDetail() {
+
+        var objects = [];
+        debugger
+        objects = JSON.stringify({ 'objects': insertRecord() });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            //async: true,
+            type: 'POST',
+            url: '@Url.Content("~/SaleOrder/Insert_ReceiptDetailFullAndFinal")',
+            data: objects,
+            success: function (data) {
+
+                if (data.Success == true) {
+                    saveAccTrans();
+                }
+                else {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+
+                }
+            },
+            complete: function () {
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+
+    }
+
+    function insertAccRecord() {
+        var obj = [];
+
+        $("#tblInstrument tbody tr").each(function () {
+            var dto = {};
+
+            dto.DealerCode = "@Session["DealerCode"].ToString()";
+            dto.TransactionDate = $("#txtReceiptDate").val();
+            dto.CusCode = $("#txtCustomerCode").val();
+            dto.InvType = $(this).closest('tr').find('#hdnPayModeCode').val();
+
+            var Amount = $(this).closest('tr').find('#lblInsAmount').text().trim();
+
+            if (Amount == '') {
+                dto.TrType = 'P';
+                dto.Credit = $(this).closest('tr').find('#lblPenaltyAmount').text().trim();
+            } else {
+                dto.TrType = 'I';
+                dto.Credit = $(this).closest('tr').find('#lblInsAmount').text().trim();
+            }
+            //dto.Narration = $(this).closest('tr').find('#lblNaration').text().trim();
+            dto.Reference = $("#txtISINo").val();
+            dto.Remarks = $("#txtNaration").val();
+
+            obj.push(dto);
+        });
+
+        return obj;
+    }
+
+    function saveAccTrans() {
+
+        var objects = [];
+
+        objects = JSON.stringify({ 'objects': insertAccRecord() });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            //async: true,
+            type: 'POST',
+            url: '@Url.Content("~/SaleOrder/Insert_AccountTransFullAndFinal")',
+            data: objects,
+            success: function (data) {
+
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 4000);
+                    } else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 4000);
+                    }
+
+
+            },
+            complete: function () {
+
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+
+    }
+
+
+    RevClickDetail = function (ReceiptNo, ReceiptDate, InvoiceNo, Type,Remarks) {
+        debugger
+
+
+        document.getElementById('txtReceiptNo').value = ReceiptNo;
+        document.getElementById('txtReceiptDate').value = ReceiptDate;
+        document.getElementById('txtRemarks').value = Remarks;
+        var TransCode = InvoiceNo;
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Content("~/SaleOrder/GetFNFData")',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({ TransCode: TransCode }),
+            success: function (data) {
+                if (data.length > 0) {
+                    document.getElementById('txtISINo').value = data[0].TransCode;
+                    document.getElementById('txtSoDate').value = data[0].TransDate;
+                    document.getElementById('txtSalePersonCode').value = data[0].EmpCode;
+                    document.getElementById('txtSalePerson').value = data[0].EmpName;
+                    document.getElementById('txtEngine').value = data[0].EngineNo;
+                    document.getElementById('txtChassis').value = data[0].ChasisNo;
+                    document.getElementById('txtCustomerCode').value = data[0].CusCode;
+                    document.getElementById('txtCustomer').value = data[0].CusDesc;
+                    document.getElementById('txtTotalReceivable').value = data[0].TotalReceiveable;
+                    document.getElementById('txtActFulFinal').value = data[0].TotalReceiveable - data[0].Discount - data[0].Penalty;
+                    document.getElementById('txtNetFulFinal').value = data[0].TotalReceiveable - data[0].Discount;
+                    document.getElementById('txtPenaltyDue').value = data[0].Penalty;
+                    document.getElementById('txtDiscount').value = data[0].Discount;
+                    document.getElementById('txtVersion').value = data[0].VersionCode;
+                    document.getElementById('txtBrand').value = data[0].BrandDesc;
+                    document.getElementById('txtProduct').value = data[0].ProdCode;
+                    document.getElementById('txtColor').value = data[0].ColorDesc;
+                }
+            },
+        });
+
+        getVehicleData(ReceiptNo, Type);
+
+        $("#FullAndFinalModal").modal("hide");
+    }
+
+    function getVehicleData(id, Type) {
+
+        $("#txtTotalAmount").val('');
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+        var total = 0;
+        var totalAmt = $("#txtTotalAmount").val();
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/SaleOrder/Select_ReceiptDetail")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        var temp2 = "";
+                        $("#tblInstrument tbody tr").remove()
+                        //ProductDetail
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+
+                                var temp = '<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblPayMode">' + item.PayModeDesc + ' </label><input type="hidden" id="hdnPayModeCode" value="' + item.InstrumentTypeCode + '"/></td>' +
+                                                        '<td> <label id="lblInsNo">' + item.InstrumentNo + ' </label></td>' +
+                                                        '<td> <label id="lblInsDate">' + item.InstrumentDate + ' </label></td>' +
+
+                                                        '<td> <label id="lblBank">' + item.BankDesc + ' </label><input type="hidden" id="hdnBankCode" value="' + item.BankCode + '"/></td>' +
+                                                        '<td> <label id="lblBranch">' + item.Branch + ' </label></td>' +
+                                                        '<td> <label id="lblCity">' + item.CityDesc + ' </label><input type="hidden" id="hdnCityCode" value="' + item.CityCode + '"/></td>';
+
+                                                        //'<td> <label id="lblAccount">' + item.ServicesAccountCode + ' </label></td>';
+                                if (item.ISFullAndFinal == "Y" && item.ISPenalty == "N") {
+
+                                    temp2 = '<td> <label id="lblInstallmentAmount">' + item.ReceiptAmount + ' </label></td>' +
+                                                        '<td> <label id="lblPenaltyAmount"></label></td>' +
+                                                        '<td><label id="lblTrType">I</label></td>' +
+                                                        '</tr>'
+
+                                } else {
+                                    temp2 = '<td> <label id="lblInstallmentAmount"></label></td>' +
+                                                        '<td> <label id="lblPenaltyAmount">' + item.ReceiptAmount + ' </label></td>' +
+                                                        '<td><label id="lblTrType">P</label></td>' +
+                                                        '</tr>'
+                                }
+
+                                $("#tblInstrument tbody").append(temp + temp2);
+                                total = $("#txtTotalAmount").val();
+                                debugger
+                                $("#txtTotalAmount").val(parseInt(total == "" ? "0" : total) + parseInt(item.ReceiptAmount));
+                            });
+
+
+                        }
+                    }
+                },
+                complete: function () {
+                },
+            });
+
+        }
+
+    }
+
+    $("#btnPrint").click(function () {
+
+        var baseurl = '@Url.Action("FNFExport")';
+        var url = baseurl + '?ReceiptNo=' + $('#txtReceiptNo').val() + '&DealerCode=@Session["DealerCode"].ToString()';
+        window.open(url, '_blank');
+
+    })
+
+</script>
+
+
+
+

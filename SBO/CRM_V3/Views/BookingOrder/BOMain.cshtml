@@ -1,0 +1,3405 @@
+﻿
+@{
+    ViewBag.Title = "BOMain";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+    string prodcode = string.Empty;
+    string leadID = ViewBag.UrlLeadId;
+}
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+
+    .tabborder {
+        border-radius: 0px;
+        /*border-color:#aaaaaa;*/
+    }
+
+    .btnborder {
+        margin-top: 27px;
+        border-radius: 0px;
+        width: 100px;
+    }
+</style>
+
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.css")' rel="stylesheet" />
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.min.css")' rel="stylesheet" />
+<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2-bootstrap.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/css/chosen.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/bootstrap-select.css")' rel="stylesheet" type="text/css" />
+<!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
+<!-- CORE CSS TEMPLATE - START -->
+<link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/responsive.css" rel="stylesheet" type="text/css" />
+<!-- CORE CSS TEMPLATE - END -->
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Booking Order to OEM</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                    </div>
+                    <input type="hidden" value="@leadID" id="txtLeadID" />
+                </header>
+                <div class="content-body">
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <label class="form-label">Book Ref No</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('BookRefNo')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                @*@Html.DropDownList("txtBONo", new SelectList((IEnumerable<SelectListItem>)ViewBag.BONo, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "txtBONo" })*@
+                                <input type="text" class="form-control" id="txtBONo" readonly="readonly">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Book Ref Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtBODate" readonly="readonly">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Enquiry ID</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Enquiry')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                <input type="text" class="form-control" id="txtEnquiry" readonly="readonly" onblur="ChangeColor(this)">
+                                @*@Html.DropDownList("txtEnquiry", new SelectList((IEnumerable<SelectListItem>)ViewBag.Enquiry, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "txtEnquiry" })*@
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Customer Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                @Html.DropDownList("ddlCusType", new SelectList((IEnumerable<SelectListItem>)ViewBag.CusType, "Value", "Text", "001"), new { @class = "form-control m-bot15", @id = "ddlCusType" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Customer Tax Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <select class="form-control m-bot15" id="ddlCusTaxType">
+                                    <option value="0">Select</option>
+                                    <option value="Filer" selected="selected">Filer</option>
+                                    <option value="Non Filer">Non Filer</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Segment</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <select class="form-control m-bot15" id="ddlSegment">
+                                    <option value="0">Select</option>
+                                    <option value="2 wheels">2 wheels</option>
+                                    <option value="4 wheels" selected="selected">4 wheels</option>
+                                    <option value="6 wheels">6 wheels</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Stock Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                <select class="form-control m-bot15" id="ddlStkType">
+                                    <option value="0">Select</option>
+                                    <option value="Open">Open</option>
+                                    <option value="On Order">On Order</option>
+                                </select>
+
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Invoice Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-users"></i>
+                                </span>
+                                @Html.DropDownList("ddlInvType", new SelectList((IEnumerable<SelectListItem>)ViewBag.InvType, "Value", "Text", "004"), new { @class = "form-control m-bot15", @id = "ddlInvType" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Invoice Sub Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-users"></i>
+                                </span>
+                                @Html.DropDownList("ddlInvSubType", new SelectList((IEnumerable<SelectListItem>)ViewBag.InvSubType, "Value", "Text", "01"), new { @class = "form-control m-bot15", @id = "ddlInvSubType" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Price Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-users"></i>
+                                </span>
+                                @Html.DropDownList("ddlPriceType", new SelectList((IEnumerable<SelectListItem>)ViewBag.PriceType, "Value", "Text", "01"), new { @class = "form-control m-bot15", @id = "ddlPriceType" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Sales Person</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-users"></i>
+                                </span>
+                                @Html.DropDownList("ddlAssignTo", new SelectList((IEnumerable<SelectListItem>)ViewBag.AssignTo, "Value", "Text", Session["EmpCode"].ToString()), new { @class = "form-control m-bot15", @id = "ddlAssignTo" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Mode of Booking</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <select class="form-control m-bot15" id="ddlBookingMode">
+                                    <option value="0">Select</option>
+                                    <option value="self">self</option>
+                                    <option value="Finance" selected="selected">Finance</option>
+                                    <option value="Leasing">Leasing</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Payment Comitment</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <select class="form-control m-bot15" id="ddlpayment">
+                                    <option value="0">Select</option>
+                                    <option value="Partial">Partial</option>
+                                    <option value="Full" selected>Full</option>
+                                    <option value="Installment">Installment</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Delivery Location</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                @Html.DropDownList("ddlLocation", new SelectList((IEnumerable<SelectListItem>)ViewBag.Location, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlLocation" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Total Vehicle Price</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <input type="text" class="form-control" id="txtVehicleTotal" readonly />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Balance Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <input type="text" class="form-control" id="txtBalance" readonly />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <ul class="nav nav-tabs primary tabborder" style="border-radius: 0px;">
+                                <li class="active">
+                                    <a href="#home-7" data-toggle="tab" class="tabborder" style="border-radius: 0px;">
+                                        <i class="fa fa-user"></i> Customer
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#messages-7" data-toggle="tab" class="tabborder" style="border-radius: 0px;">
+                                        <i class="fa fa-car"></i> Vehicle
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#settings-7" data-toggle="tab" class="tabborder" style="border-radius: 0px;">
+                                        <i class="fa fa-credit-card"></i> Payments
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#profile-7" data-toggle="tab" class="tabborder" style="border-radius: 0px;">
+                                        <i class="fa fa-file-o"></i> Document Check List
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content primary">
+                                <div class="tab-pane fade in active" id="home-7">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="col-md-4 pull-right">
+                                                <span class="input-group-addon"><a class="" id="lknCreateCustomer">Create Customer<i class="fa fa-creative-commons"></i></a></span>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Customer</label>
+                                            <div class="input-group">
+
+                                                <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Customer')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                                @Html.DropDownList("ddlCustomers", new SelectList((IEnumerable<SelectListItem>)ViewBag.Customers, "Value", "Text", "0"), new { @class = "form-control", @id = "ddlCustomers", @onchange = "ChangeColor(this)" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">A/C of</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('AccountOf')" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                                @Html.DropDownList("ddlACof", new SelectList((IEnumerable<SelectListItem>)ViewBag.AccountOf, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlACof", @onchange = "ChangeColor(this)" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Father/Husband Name</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtFHName" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Country</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtCountry" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Province</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtState" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label class="form-label">City</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtCity" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+
+
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">CNIC</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtCNIC" readonly="readonly" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <label class="form-label">Address</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtAddress" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Phone</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtPhone" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Cell No</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtCellNo" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">NTN</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtNTN" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Email</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtEmail" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="messages-7">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Brand</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                @Html.DropDownList("ddlBrandCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.BrandCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlBrandCode", @onchange = "ChangeColor(this)" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        @*<div class="col-md-4">
+                                                <label class="form-label">Product</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                    @Html.DropDownList("ddlProdCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ProdCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlProdCode", @onchange = "ChangeColor(this)" })
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>*@
+                                        <div class="col-md-4">
+                                            <label class="form-label">Product Code<span class="mandatory">*</span></label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><a id="IssueClick" onclick="ShowModal('Product')" style="color:blue;cursor:pointer"><i class="fa fa-search"></i></a></span>
+                                                @*@Html.DropDownList("ddlProdCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ProdCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlProdCode", @onchange = "ChangeColor(this)" })*@
+                                                <input type="text" class="form-control" id="ddlProdCode" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Product</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" readonly="readonly" class="form-control" id="txtProdDesc" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">VIN / Chassis</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                @Html.DropDownList("ddlChassisNo", new SelectList((IEnumerable<SelectListItem>)ViewBag.ChassisNo, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlChassisNo" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Engine</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtEngineNo" maxlength="25" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Version</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="hidden" class="form-control" id="txtVersionDesc" />
+                                                <input type="text" class="form-control" id="txtVersionCode" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Color</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                                @Html.DropDownList("ddlColor", new SelectList((IEnumerable<SelectListItem>)ViewBag.Color, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlColor", @onchange = "ChangeColor(this)" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Quantity</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtQty" onblur="ChangeColor(this)" onkeypress="return isNumberKey(event)" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Receipt No</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                                <input type="text" class="form-control" id="txtRecNo" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Factory Price</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-file"></i>
+                                                </span>
+                                                <input type="text" required class="form-control" id="txtFactoryPrice" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Discount %</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-file"></i>
+                                                </span>
+                                                <input type="text" required class="form-control" id="txtDiscount" onblur="ChangeColor(this)" placeholder="%" />
+                                                @* onkeypress="return isNumberKey(event)" *@
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Advance Tax Amount</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-file"></i>
+                                                </span>
+                                                <input type="text" required class="form-control" id="txtAdvTaxAmt" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)" placeholder="Amount" value="0" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Total Price</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-file"></i>
+                                                </span>
+                                                <input type="text" required class="form-control" id="txtTotalPrice" readonly onblur="ChangeColor(this)" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Warranty Duration</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <select class="form-control m-bot15" id="ddlWarranty">
+                                                    <option value="0">Select</option>
+                                                    <option value="1 Year">1 Year</option>
+                                                    <option value="2 Year">2 Year</option>
+                                                    <option value="3 Year">3 Year</option>
+                                                    <option value="4 Year">4 Year</option>
+                                                </select>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Instalment Plan</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <select class="form-control m-bot15" id="ddlInstalmentPlan" disabled>
+                                                    <option value="0">Select</option>
+                                                    <option value="1 Year">12 month</option>
+                                                    <option value="2 Year">18 month</option>
+                                                    <option value="3 Year">24 month</option>
+                                                </select>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="input-group" style="width:100%;float: right;">
+                                                <button class="btn btn-success btn-sm" type="button" style="width: 100%;padding: 8px; margin-top: 20px; right: 15px;" onclick="AddProduct(this)">
+                                                    <i class="fa fa-plus fa-2x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped" id="VehicleDetail" style="white-space: nowrap; FONT-SIZE: 10px;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SR</th>
+                                                            <th>Brand </th>
+                                                            <th>Product</th>
+                                                            <th>Model</th>
+                                                            <th>Chassis No</th>
+                                                            <th>Engine No</th>
+                                                            <th>Color</th>
+                                                            <th>Quantity</th>
+                                                            <th>Rec No</th>
+                                                            <th>Factory Price</th>
+                                                            <th>Discount</th>
+                                                            <th>Advance Tax Amount</th>
+                                                            <th>Total Price</th>
+                                                            <th>Warranty</th>
+                                                            <th>Instalment Plan</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top: 15px;">
+                                        <div class="col-md-2">
+                                            <label>Total Quantity</label>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-file"></i>
+                                                </span>
+                                                <input type="text" required class="form-control" id="txtTotalQty" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label>Final Amount</label>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-file"></i>
+                                                </span>
+                                                <input type="text" required class="form-control" id="txtFinalAmount" readonly />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="tab-pane fade" id="settings-7">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Payment Mode</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                @Html.DropDownList("ddlPaymentMode", new SelectList((IEnumerable<SelectListItem>)ViewBag.PaymentMode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlPaymentMode", @onchange = "ChangeColor(this)" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Instrument</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" class="form-control" id="txtInstrumentNo" maxlength="25" onblur="ChangeColor(this)" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Instrument Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" class="form-control datepicker" id="txtInstDate">
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Payment Type</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <select class="form-control m-bot15" id="ddlPaymentType">
+                                                    <option value="Advance">Advance</option>
+                                                    <option value="Remaining">Remaining</option>
+                                                    <option value="Installment">Installment</option>
+                                                </select>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Bank</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-bank"></i></span>
+                                                @Html.DropDownList("ddlBank", new SelectList((IEnumerable<SelectListItem>)ViewBag.Bank, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlBank", @onchange = "ChangeColor(this)" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Branch</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                <input type="text" required class="form-control" id="txtBranch" maxlength="30" onblur="ChangeColor(this)" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">City</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                @Html.DropDownList("ddlCity", new SelectList((IEnumerable<SelectListItem>)ViewBag.City, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlCity", @onchange = "ChangeColor(this)" })
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Amount</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="arrow"></span>
+                                                    <i class="fa fa-file"></i>
+                                                </span>
+                                                <input type="text" required class="form-control" maxlength="10" id="txtAmount" onkeypress="return isNumberKey(event)" onblur="ChangeColor(this)" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="input-group" style="width:100%;float: right;">
+                                                <button class="btn btn-success btn-sm" type="button" style="width: 100%;padding: 8px; margin-top: 20px; right: 15px;" onclick="AddPayment(this)">
+                                                    <i class="fa fa-plus fa-2x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped" id="PaymentDetail" style="white-space: nowrap; FONT-SIZE: 10px;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SR</th>
+                                                            <th>Payment Mode</th>
+                                                            <th>Instrument</th>
+                                                            <th>Date</th>
+                                                            <th>Type</th>
+                                                            <th>Bank</th>
+                                                            <th>Branch</th>
+                                                            <th>City</th>
+                                                            <th>Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="profile-7">
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped display" id="tblDelChkList">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SR</th>
+                                                            <th>Check List Code</th>
+                                                            <th>Check List Desc</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="DelChkListRow1" data-tr-count="0"></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-default btnborder" id="btnCancel" onclick="location.reload()" style="margin-top:25px;">Clear</button>
+                                <button type="button" class="btn btn-primary btnborder" id="btnSave" style="margin-top:25px;">Save</button>
+                                <button type="button" class="btn btn-danger btnborder" id="btnDelete" style="margin-top:25px;">Delete</button>
+                                <a class="btn btn-success btnborder" id="btnPrint" style="margin-top:25px;" href="#">Print</a>
+                                <button type="button" class="btn btn-outline-secondary btnborder" id="btnProceed" style="margin-top:25px;">Proceed</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+
+    <!-- Account of Modal Start -->
+    <div class="modal" tabindex="-1" id="AccountOfModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Account Of</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="AccountOfSearch" class="form-control" aria-controls="AccountOfTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="AccountOfTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th>Customer ID</th>
+                                        <th>Customer Name</th>
+                                        <th>CNIC</th>
+                                        <th>Address</th>
+                                        <th>Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Account of Modal End -->
+    <!-- Customer Modal Start -->
+    <div class="modal" tabindex="-1" id="CustomerModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Customer</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="IssueNoSearch" class="form-control" aria-controls="CustomerTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="CustomerTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th>Customer ID</th>
+                                        <th>Customer Name</th>
+                                        <th>CNIC</th>
+                                        <th>Address</th>
+                                        <th>Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Customer Modal End -->
+    <!-- Book Ref No Modal Start -->
+    <div class="modal" tabindex="-1" id="BookRefNoModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Book Ref No</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="BookRefSearch" class="form-control" aria-controls="BookRefTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="BookRefTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th>Book Ref No</th>
+                                        <th>Book Ref Date</th>
+                                        <th>Customer</th>
+                                        <th>Booking No</th>
+                                        <th>Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>*@
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Book Ref No Modal End -->
+    <!-- Enquiry No Modal Start -->
+    <div class="modal" tabindex="-1" id="EnquiryNoModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Enquiries</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="EnquirySearch" class="form-control" aria-controls="EnquiryTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="EnquiryTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th>Enquiry No</th>
+                                        <th>Enquiry Date</th>
+                                        <th>Customer</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Enquiry No Modal End -->
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveMasterEnquiry()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <div class="modal" id="section-confirm-Delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to Delete ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-danger" type="button" onclick="DeleteEnquiry()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Alert</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- Product Modal Start -->
+    <div class="modal" tabindex="-1" id="ProductModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Product</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="ProductSearch" class="form-control" aria-controls="ProductTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:350px;">
+                            <table id="ProductTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th>Product Code</th>
+                                        <th>Version</th>
+                                        <th>Product Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Product Modal End -->
+</section>
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/Scripts/bootstrap.js")'></script>
+<script src='@Url.Content("~/Scripts/bootstrap.min.js")'></script>
+<script src='@Url.Content("~/assets/plugins/datatables/js/jquery.dataTables.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/datatables/js/jquery.dataTables.min.js")' type="text/javascript"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#ProductSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#ProductTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    $("#ddlBrandCode").change(function () {
+
+        var brandCode = $("#ddlBrandCode").val();
+        if (brandCode == "0") {
+            location.reload();
+        } else {
+
+            getProduct(brandCode);
+
+        }
+    });
+    function getProduct(id) {
+        var leadId = id;
+
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Select_BrandProduct")',
+                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        //var item = JSON.parse(data.Response)
+
+                        ////$("#ddlProdCode").val(item[0].ProdCode.trim());
+                        //$("#ddlProdCode").find('option').remove();
+
+                        //// next iterate thru your object adding each option to the drop down\
+                        //$(data.Response).each(function (index, item) { // GETTING ERROR HERE
+                        //    $("#ddlProdCode").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                        //});
+
+                        $("#ProductTable tbody tr").remove()
+                        if (data.Response.length > 0) {
+
+                            $.each(data.Response, function (value, data) {
+
+                                var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="ProductSelect(this)">' +
+                                    '<td>' + SNo++ + '</td>' +
+                              '<td class="tdDiv" style="overflow:auto"><label id="lblProdCode">' + data.ProdCode + '</label><input type="hidden" id="hdnProdCode" value="' + data.ProdCode + '"/></td>' +
+                              '<td class="tdDiv" style="overflow:auto"><label id="lblVersionCode">' + data.VersionCode + '</label><input type="hidden" id="hdnVersionDesc" value="' + data.VersionDesc + '"/></td>' +
+                              '<td class="tdDiv" style="overflow:auto"><label id="lblProdDesc">' + data.ProdDesc + '</label></td>' +
+                                '</tr>';
+
+                                $("#ProductTable tbody").append(temp);
+
+
+                            });
+
+                        }
+
+                    }
+                },
+                complete: function () {
+                    if (tempProduct != "") {
+                        $("#ddlProdCode").val(tempProduct);
+
+                    }
+
+                },
+            });
+
+        }
+
+    }
+    ProductSelect = function (value) {
+        var prodCode = $(value).closest('tr').find("#hdnProdCode").val();
+        var prodDesc = $(value).closest('tr').find('#lblProdDesc').text();
+        var version = $(value).closest('tr').find('#lblVersionCode').text();
+        var versionDesc = $(value).closest('tr').find("#hdnVersionDesc").val();
+
+        document.getElementById("ddlProdCode").value = prodCode;
+        $("#ddlProdCode").css("border-color", "#e1e1e1");
+        document.getElementById("txtProdDesc").value = prodDesc;
+        document.getElementById("txtVersionDesc").value = versionDesc;
+        document.getElementById("txtVersionCode").value = version;
+
+        $("#ProductModal").modal("hide");
+    }
+    IssueFunc = function (value) {
+
+        var lblBrandCode = $(value).closest('tr').find("#hdnCusCode").val();
+        var lblCusDesc = $(value).closest('tr').find('#lblCusDesc').val();
+
+        document.getElementById("ddlCustomers").value = lblBrandCode;
+        $("#ddlCustomers").css("border-color", "#e1e1e1");
+
+        $("#CustomerModal").modal("hide");
+    }
+
+    BookRef = function (value) {
+
+
+        var bookRefNo = $(value).closest('tr').find("#hdnBookRef").val();
+
+
+        document.getElementById("txtBONo").value = bookRefNo;
+
+        getData(bookRefNo);
+
+        $("#BookRefNoModal").modal("hide");
+    }
+
+    EnqNo = function (value) {
+
+
+        var EnqNo = $(value).closest('tr').find("#hdnEnqNo").val();
+
+
+        document.getElementById("txtEnquiry").value = EnqNo;
+        $("#txtEnquiry").css("border-color", "#e1e1e1");
+        $("#EnquiryNoModal").modal("hide");
+    }
+
+    var totalQty = 0;
+    var finalPrice = 0;
+
+    $(document).ready(function () {
+
+        var prodcode = '';
+
+        Get_DelChkListData();
+        Get_CustomerModalData();
+        Get_AccountOfModalData();
+        Get_BookingOrderModalData();
+        Get_EnquiryModalData();
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtBODate").val(today);
+        //$("#txtInstDate").val(today);
+
+
+        if ($.isFunction($.fn.select2)) {
+
+            $("#s2example-1").select2({
+                placeholder: 'Select your country...',
+                allowClear: true
+            }).on('select2-open', function() {
+                // Adding Custom Scrollbar
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+            });
+        }
+
+        AccountOf = function (value) {
+
+            var lblBrandCode = $(value).closest('tr').find("#hdnCusCode").val();
+            var lblCusDesc = $(value).closest('tr').find('#lblCusDesc').val();
+            $("#AccountOfModal").modal("hide");
+            $("#ddlACof").val(lblBrandCode);
+            $("#ddlACof").css("border-color", "#e1e1e1");
+            getAccountOfDetail(lblBrandCode);
+        }
+
+        var leadid = $("#txtLeadID").val();
+
+        if (leadid != "") {
+            getData(leadid);
+            $("#txtBONo").val(leadid);
+        }
+
+    })
+
+    function ChangeColor(value) {
+
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    function ShowModal(type){
+        if(type == 'Customer'){
+            $('#CustomerModal').modal("show");
+        }else
+        if(type == 'AccountOf'){
+            $('#AccountOfModal').modal("show");
+        }else if(type == 'BookRefNo'){
+            $('#BookRefNoModal').modal("show");
+        }
+        else if (type == 'Product') {
+            $('#ProductModal').modal("show");
+        }
+        else {
+            $('#EnquiryNoModal').modal("show");
+        }
+    }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+    function Get_AccountOfModalData(){
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/BookingOrder/Select_CustomerDetailModal")',
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#AccountOfTable tbody tr").remove()
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="AccountOf(this)">' +
+                                '<td>' + SNo++ + '</td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCusCode" >' + item.CusCode + '</label><input type="hidden" id="hdnCusCode" value="' + item.CusCode + '"/></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCusDesc">' + item.CusDesc + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblNIC">' + item.NIC + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblAddress">' + item.Address1 + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblPhone">' + item.Phone1 + '</label></td>' +
+                            '</tr>';
+
+                            $("#AccountOfTable tbody").append(temp);
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+    function Get_EnquiryModalData(){
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/BookingOrder/Get_EnquiryModal")',
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#EnquiryTable tbody tr").remove()
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="EnqNo(this)">' +
+                                '<td>' + SNo++ + '</td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblEnqNo">' + item.Enquiry_ID + '</label><input type="hidden" id="hdnEnqNo" value="' + item.Enquiry_ID + '"/></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblEnqDate">' + item.EnqDate + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCustomer">' + item.Name + '</label></td>' +
+                            '</tr>';
+
+                            $("#EnquiryTable tbody").append(temp);
+
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+
+    function Get_BookingOrderModalData(){
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/BookingOrder/Select_BookRefModal")',
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#BookRefTable tbody tr").remove()
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="BookRef(this)">' +
+                                '<td>' + SNo++ + '</td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblBookrefNo">' + item.BookRefNo + '</label><input type="hidden" id="hdnBookRef" value="' + item.BookRefNo + '"/></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblBookRefDate">' + item.BookRefDate + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCustomer">' + item.CusDesc + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblAddress">' + item.BookingNo + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblPhone">' + item.PhoneNo + '</label></td>' +
+                            '</tr>';
+
+                            $("#BookRefTable tbody").append(temp);
+
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+
+    function Get_CustomerModalData(){
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/BookingOrder/Select_CustomerDetailModal")',
+            success: function (data) {
+
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#CustomerTable tbody tr").remove()
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            var temp = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '" onclick="IssueFunc(this)">' +
+                                '<td>' + SNo++ + '</td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCusCode">' + item.CusCode + '</label><input type="hidden" id="hdnCusCode" value="' + item.CusCode + '"/></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblCusDesc">' + item.CusDesc + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblNIC">' + item.NIC + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblAddress">' + item.Address1 + '</label></td>' +
+                          '<td class="tdDiv" style="overflow:auto"><label id="lblPhone">' + item.Phone1 + '</label></td>' +
+                            '</tr>';
+
+                            $("#CustomerTable tbody").append(temp);
+
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+    $("#AccountOfSearch").on("keyup", function() {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#AccountOfTable tbody tr").each(function() {
+
+            $row = $(this);
+            var id = $(this).closest('tr').find('#hdnCusCode').val();
+            var desc = $(this).closest('tr').find('#lblCusDesc').text();
+            var address = $(this).closest('tr').find('#lblAddress').text();
+            var phone = $(this).closest('tr').find('#lblPhone').text();
+
+            if (id.indexOf(value) !== 0 && desc.indexOf(value) !== 0 && address.indexOf(value) !== 0 && phone.indexOf(value) !== 0 ) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+
+    $("#BookRefSearch").on("keyup", function() {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#BookRefTable tbody tr").each(function() {
+
+            $row = $(this);
+            var id = $(this).closest('tr').find('#hdnBookRef').val();
+            var desc = $(this).closest('tr').find('#lblCustomer').text();
+            var nic = $(this).closest('tr').find('#lblAddress').text();
+            var phone = $(this).closest('tr').find('#lblPhone').text();
+
+            if (id.indexOf(value) !== 0 && desc.indexOf(value) !== 0 && nic.indexOf(value) !== 0 && phone.indexOf(value) !== 0 ) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+
+    $("#EnquirySearch").on("keyup", function () {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#EnquiryTable tbody tr").each(function () {
+
+            $row = $(this);
+            var enqno = $(this).closest('tr').find('#lblEnqNo').val();
+            var enqdate = $(this).closest('tr').find('#lblEnqDate').text();
+            var customer = $(this).closest('tr').find('#lblCustomer').text().toUpperCase().trim();
+
+            if (enqno.indexOf(value) !== 0 && enqdate.indexOf(value) !== 0 && customer.indexOf(value) !== 0 ) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+
+    $("#IssueNoSearch").on("keyup", function() {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#CustomerTable tbody tr").each(function() {
+
+            $row = $(this);
+            var id = $(this).closest('tr').find('#hdnCusCode').val();
+            var desc = $(this).closest('tr').find('#lblCusDesc').text();
+            var nic = $(this).closest('tr').find('#lblNIC').text();
+            var phone = $(this).closest('tr').find('#lblPhone').text();
+
+            if (id.indexOf(value) !== 0 && desc.indexOf(value) !== 0 && nic.indexOf(value) !== 0 && phone.indexOf(value) !== 0 ) {
+                    $row.hide();
+                }
+                else {
+                    $row.show();
+                }
+
+        });
+    });
+
+    function Get_DelChkListData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/DeliveryOrder/Select_DelChkList")',
+            data: { 'Type': "BO" , 'DealerCode' : dealerCode },
+            success: function (data) {
+                 ;
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#tblDelChkList tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            var test2 = "";
+                            var test = '<tr id="DelChkListRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblDelChkListCode">' + item.DelChkListCode.trim() + ' </label></td>' +
+                                                    '<td> <label id="lblDelChkListDesc">' + item.DelChkListDesc.trim() + ' </label>' +
+                                                        '<input type="text" style="display:none;" class="form-control" id="txtDocTypeDesctbl"></td>';
+                            if (item.OptFlag == "M") {
+                                test2 = '<td style="text-align:center;">' +
+                                        '<input type="checkbox" id="chkOptFlag" class="chkBank icheckbox_minimal-blue" checked="true" value="' + item.DelChkListCode.trim() + '" >' +
+                                        '<input type="hidden" id="hdnDocCode" value="' + item.DelChkListCode.trim() + '"/>' +
+                                    '</td>' +
+                                    '</tr>';
+                            } else {
+                                test2 = '<td style="text-align:center;">' +
+                                       '<input type="checkbox" id="chkOptFlag" class="chkBank icheckbox_minimal-blue" value="' + item.DelChkListCode.trim() + '" >' +
+                                       '<input type="hidden" id="hdnDocCode" value="' + item.DelChkListCode.trim() + '"/>' +
+                                   '</td>}' +
+                                   '</tr>'
+                            }
+
+                            $("#tblDelChkList tbody").append(test + test2);
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    $("#ddlACof").change(function () {
+
+        var accOf = $("#ddlACof").val();
+        if (accOf == "0") {
+            location.reload();
+        } else {
+            getAccountOfDetail(accOf);
+        }
+    });
+
+    function getAccountOfDetail(accOf) {
+
+        var leadId = accOf;
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Select_CustomerDetail")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        //Event Information
+
+                        $("#txtFHName").val(item[0].FatherHusName);
+                        $("#txtCity").val(item[0].CityCode);
+                        $("#txtState").val(item[0].StateCode);
+                        $("#txtCountry").val(item[0].CountryCode);
+                        $("#txtCNIC").val(item[0].NIC);
+                        $("#txtAddress").val(item[0].Address1);
+                        $("#txtPhone").val(item[0].Phone1);
+                        $("#txtCellNo").val(item[0].CellNo);
+                        $("#txtNTN").val(item[0].NTNno);
+                        $("#txtEmail").val(item[0].Email);
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+    }
+
+    $("#ddlStkType").change(function () {
+
+        var stkType = $("#ddlStkType").val();
+        StockType(stkType);
+    });
+
+
+    function StockType(type){
+
+        if (type == "Open") {
+            $("#txtQty").prop('readonly', true);
+            $("#ddlChassisNo").prop('disabled', false);
+            $("#ddlColor").prop('disabled',true);
+            $("#ddlBrandCode").prop('disabled',true);
+            $("#ddlProdCode").prop('disabled',true);
+            $("#txtEngineNo").prop('readonly', true);
+            $("#txtVersionDesc").prop('readonly', true);
+            $("#txtQty").val("1");
+            $("#ddlpayment").val('Full');
+
+
+        } else {
+            $("#txtQty").prop('readonly', false);
+            $("#ddlChassisNo").prop('disabled', true);
+            $("#txtEngineNo").prop('readonly', true);
+            $("#ddlBrandCode").prop('disabled', false);
+            $("#ddlColor").prop('disabled', false);
+            $("#txtVersionDesc").prop('readonly', true);
+            //$("#ddlColor").prop('disabled',false);
+            //$("#ddlProdCode").prop('disabled',false);
+            $("#ddlpayment").val('Partial');
+        }
+
+    }
+
+    $("#ddlBrandCode").change(function () {
+
+        $("#ddlProdCode").prop('disabled',false);
+
+    });
+
+    $("#ddlProdCode").change(function () {
+
+        $("#ddlColor").prop('disabled',false);
+
+    });
+
+    $("#ddlColor").change(function () {
+
+        var chassisNo = $("#ddlStkType").val();
+        if (chassisNo != "Open") {
+            var Color = $("#ddlColor").val();
+            if (Color == "0") {
+                location.reload();
+            } else {
+                getFactoryPriceFromColor(Color);
+
+            }
+        }
+    });
+
+    function getFactoryPriceFromColor(id) {
+        var leadId = id;
+
+        var brand = $("#ddlBrandCode").val();
+        var prod = $("#ddlProdCode").val();
+        var version = $("#txtVersionCode").val();
+        var dealerCode = "@Session["DealerCode"].ToString()";
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Get_FactoryPrice")',
+                data: { 'Color': leadId , 'Brand': brand , 'Product': prod , 'Version': version , 'DealerCode': dealerCode},
+                success: function (data) {
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        if (item[0].SalePrice == "" || item[0].SalePrice == null || item[0].SalePrice == 0)
+                        {
+
+                        }
+                        else {
+                            $("#txtFactoryPrice").val(item[0].SalePrice);
+                        }
+
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    $("#btnPrint").click(function () {
+
+        var baseurl = '@Url.Action("Export")';
+        var url = baseurl + '?EnquiryId=' + $('#txtBONo').val() + '&DealerCode=@Session["DealerCode"].ToString()';
+        //window.location.href = url;
+        window.open(url, '_blank');
+
+    })
+
+    //$("#btnCancel").click(function () {
+
+    //    rowCount = 1;
+    //    dataCount = 1;
+    //    SNo = 1;
+
+
+    //})
+
+    @*$("#ddlRecNo").change(function () {
+
+        var recNo = $("#ddlRecNo").val();
+        if (recNo == "0") {
+            location.reload();
+        } else {
+            getChassisNo(recNo);
+
+        }
+
+    });
+
+    *@
+
+    $("#ddlChassisNo").change(function () {
+
+        var chassisNo = $("#ddlChassisNo").val();
+
+        if (chassisNo != "0") {
+
+            getVehicleDetail(chassisNo);
+        }
+    });
+
+    function getVehicleDetail(chassisNo) {
+
+
+        var leadId = chassisNo;
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Select_VehicleDetail")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        //Event Information
+
+                        $("#txtEngineNo").val(item[0].EngineNo);
+                        $("#ddlColor").val(item[0].ColorCode);
+                        $("#ddlBrandCode").val(item[0].BrandCode);
+
+                       // getProduct(item[0].BrandCode);
+                      //  prodcode = item[0].ProdCode
+                        $("#ddlProdCode").val(item[0].ProdCode);
+                        $("#txtProdDesc").val(item[0].ProdDesc);
+                        $("#txtVersionCode").val(item[0].VersionCode);
+                        $("#txtVersionDesc").val(item[0].VersionDesc);
+                        $("#txtFactoryPrice").val(item[0].SalePrice);
+                        $("#txtRecNo").val(item[0].RecNo);
+
+
+
+                    }
+                },
+                complete: function () {
+
+
+                },
+            });
+
+        }
+    }
+
+    var tempProduct = "";
+
+    @*function getProduct(id) {
+
+
+        var leadId = id;
+        var dealerCode = "@Session["DealerCode"].ToString()";
+
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Event/Select_BrandProduct")',
+                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        //var items = JSON.parse(data.Response)
+
+                        //$("#ddlProdCode").val(item[0].ProdCode.trim());
+                        $("#ddlProdCode").find('option').remove();
+
+                        // next iterate thru your object adding each option to the drop down\
+                        $(data.Response).each(function (index, item) { // GETTING ERROR HERE
+                            $("#ddlProdCode").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                        });
+
+                    }
+                },
+                complete: function () {
+                    //if (prodcode != '') {
+                    //    $("#ddlProdCode").val(prodcode);
+                    //}
+
+                },
+            });
+        }
+    }*@
+    //ProductSelect = function (value) {
+    //
+    //    var prodCode = $(value).closest('tr').find("#hdnProdCode").val();
+    //    var prodDesc = $(value).closest('tr').find('#lblProdDesc').text();
+    //    var version = $(value).closest('tr').find('#lblVersionCode').text();
+
+    //    document.getElementById("ddlProdCode").value = prodCode;
+    //    $("#ddlProdCode").css("border-color", "#e1e1e1");
+    //    document.getElementById("txtProdDesc").value = prodDesc;
+    //    document.getElementById("txtVersionCode").value = version;
+
+    //    $("#ProductModal").modal("hide");
+    //}
+    //$("#ddlProdCode").change(function () {
+
+    //    var skillsSelect = document.getElementById("ddlProdCode");
+    //    var selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
+
+    //    var prodCode = $("#ddlProdCode").val();
+
+    //    var version = selectedText.split('| ', selectedText.length);
+
+    //    $("#txtVersionCode").val(version[1]);
+
+    //});
+
+    $("#ddlInvType").change(function () {
+
+        var invType = $("#ddlInvType :selected").text();
+
+        if(invType == "Credit" || invType == "Instalment"){
+            $("#ddlInstalmentPlan").prop('disabled',false);
+        }else{
+            $("#ddlInstalmentPlan").prop('disabled',true);
+        }
+
+    });
+
+
+    $("#txtAdvTaxAmt").change(function () {
+        ;
+        var dis = $('#txtDiscount').val();
+
+        var amt = $('#txtFactoryPrice').val();
+        var QTY = $('#txtQty').val();
+        var tax = $('#txtAdvTaxAmt').val();
+        var res=0;
+        if(QTY==0 || QTY=="" || QTY==null){
+            $("#section-confirm").modal("hide")
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblMessage").text("Please Insert The Quantity")
+            $("#section-message").modal('show');
+
+        }
+        if (amt == 0 || amt == "" || amt == null) {
+            $("#section-confirm").modal("hide")
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblMessage").text("Please Insert The Amount")
+            $("#section-message").modal('show');
+
+        }
+        else {
+            res = QTY * amt;
+
+        }
+
+        if (dis == "" || dis == null) {
+            dis = 0;
+        }
+
+        if (tax == ""|| tax==null) {
+            tax = 0;
+        }
+        var disamt = res * dis / 100;
+        var total = (parseFloat(res) - parseFloat(disamt)) + parseFloat(tax);
+
+        $('#txtTotalPrice').val(total);
+        CalTotalVehiclePrice();
+    })
+    $("#txtDiscount").change(function () {
+        ;
+        var dis = $('#txtDiscount').val();
+
+        var amt = $('#txtFactoryPrice').val();
+        var QTY = $('#txtQty').val();
+        var tax = $('#txtAdvTaxAmt').val();
+        var res = 0;
+        if (QTY == 0 || QTY == "" || QTY == null) {
+            $("#section-confirm").modal("hide")
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblMessage").text("Please Insert The Quantity")
+            $("#section-message").modal('show');
+
+        }
+        if (amt == 0 || amt == "" || amt == null) {
+            $("#section-confirm").modal("hide")
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblMessage").text("Please Insert The Amount")
+            $("#section-message").modal('show');
+
+        }
+        else {
+            res = QTY * amt;
+
+        }
+
+        if (dis == "" || dis == null) {
+            dis = 0;
+        }
+
+        if (tax == "" || tax == null) {
+            tax = 0;
+        }
+        var disamt = res * dis / 100;
+        var total = (parseFloat(res) - parseFloat(disamt)) + parseFloat(tax);
+
+        $('#txtTotalPrice').val(total);
+        CalTotalVehiclePrice();
+    })
+    $("#txtFactoryPrice").change(function () {
+        ;
+        var dis = $('#txtDiscount').val();
+
+        var amt = $('#txtFactoryPrice').val();
+        var QTY = $('#txtQty').val();
+        var tax = $('#txtAdvTaxAmt').val();
+        var res = 0;
+        if (QTY == 0 || QTY == "" || QTY == null) {
+            $("#section-confirm").modal("hide")
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblMessage").text("Please Insert The Quantity")
+            $("#section-message").modal('show');
+
+        }
+        if (amt == 0 || amt == "" || amt == null) {
+            $("#section-confirm").modal("hide")
+            $("#modalMessage").css("background-color", "#e46457");
+            $("#lblMessage").text("Please Insert The Amount")
+            $("#section-message").modal('show');
+
+        }
+        else {
+            res = QTY * amt;
+
+        }
+
+        if (dis == "" || dis == null) {
+            dis = 0;
+        }
+
+        if (tax == "" || tax == null) {
+            tax = 0;
+        }
+        var disamt = res * dis / 100;
+        var total = (parseFloat(res) - parseFloat(disamt)) + parseFloat(tax);
+
+        $('#txtTotalPrice').val(total);
+        CalTotalVehiclePrice();
+    })
+    function CalTotalVehiclePrice() {
+        var dis = $('#txtDiscount').val();
+
+        var amt = $('#txtFactoryPrice').val();
+        var QTY = $('#txtQty').val();
+        var tax = $('#txtAdvTaxAmt').val();
+        var res = 0;
+        res = QTY * amt;
+        var disamt = res * dis / 100;
+        var total = (parseFloat(res) - parseFloat(disamt)) + parseFloat(tax);
+
+
+    }
+
+    var rowCount = 1;
+    var dataCount = 1;
+    var SNo = 1;
+    var totalQty = 0;
+
+    function AddProduct(value) {
+        var check = ValidateVehicleDetail();
+        //var check = true;
+
+        if (check == true) {
+
+            var brandCode = $("#ddlBrandCode").val();
+            var brandDesc = $("#ddlBrandCode :selected").text();
+            var colorCode = $("#ddlColor").val();
+            var colorDesc = $("#ddlColor :selected").text();
+            var prodCode = $("#ddlProdCode").val();
+            var prodDesc = $("#txtProdDesc").val();
+
+            var version = $("#txtVersionCode").val();
+            var versionDesc = $("#txtVersionDesc").val();
+            if($("#ddlChassisNo").val() == "0"){
+                var chassisNo = "";
+            }else{
+            var chassisNo = $("#ddlChassisNo").val();
+            }
+            $("#ddlChassisNo").css("border-color", "#ccc");
+            var engineNo = $("#txtEngineNo").val(); $("#txtEngineNo").css("border-color", "#ccc");
+
+            var qty = $("#txtQty").val();
+            var recNo = $("#txtRecNo").val();
+            var factPrice = $("#txtFactoryPrice").val();
+
+            var discount = $("#txtDiscount").val();
+            var advTaxAmt = $("#txtAdvTaxAmt").val();
+            var totalPrice = $("#txtTotalPrice").val();
+
+            var warranty = $("#ddlWarranty").val();
+            var InstalmentPlan = $("#ddlInstalmentPlan").val();
+            var txtTotalQty = $("#txtTotalQty").val();
+            if (txtTotalQty == "") {
+                totalQty = 0;
+
+            }
+            else {
+                totalQty = txtTotalQty;
+            }
+
+            finalPrice = parseInt(finalPrice) + parseInt(totalPrice);
+            totalQty = parseInt(totalQty) + parseInt(qty);
+
+            var row = $(value).parent().parent().html();
+            var dt = $("#VehicleDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblBrandCode">' + brandDesc + ' </label><input type="hidden" id="hdnBrandCode" value="' + brandCode + '"/></td>' +
+                                                        '<td> <label id="lblProdCode">' + prodDesc + ' </label><input type="hidden" id="hdnProdCode" value="' + prodCode + '"/></td>' +
+                                                        '<td> <label id="lblVersion">' + version + ' </label><input type="hidden" id="hdnVersionCode" value="' + version + '"/></td>' +
+
+                                                        '<td> <label id="lblChassisNo">' + chassisNo + ' </label></td>' +
+                                                        '<td> <label id="lblEngineNo">' + engineNo + ' </label></td>' +
+                                                        '<td> <label id="lblColor">' + colorDesc + ' </label><input type="hidden" id="hdnColorCode" value="' + colorCode + '"/></td>' +
+
+                                                        '<td> <label id="lblQty">' + qty + ' </label></td>' +
+                                                        '<td> <label id="lblRecNo">' + recNo + ' </label></td>' +
+                                                        '<td> <label id="lblFactPrice">' + factPrice + ' </label></td>' +
+
+                                                        '<td> <label id="lblDiscount">' + discount + ' </label></td>' +
+                                                        '<td> <label id="lblAdvTaxAmt">' + advTaxAmt + ' </label></td>' +
+                                                        '<td> <label id="lblTotPrice">' + totalPrice + ' </label></td>' +
+
+                                                        '<td> <label id="lblWarranty">' + warranty + ' </label>' +
+                                                        '<td> <label id="lblInstalmentPlan">' + InstalmentPlan + ' </label>' +
+                                                        '<td style="text-align:center;">' +
+
+                                                            '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+                                                       '</tr>');
+
+            $('#ddlChassisNo').find('option:selected').remove().end();
+            $("#txtFinalAmount").val(finalPrice);
+            $("#txtTotalQty").val(totalQty);
+            CalBalancedPayment();
+            clearVehilceFeilds();
+
+        }
+        else {
+
+        }
+    }
+    //  '<button class="btn btn-danger btn-xs" id="btnRemove" onclick="removeRow(this)"><i class="fa fa-minus fa-lg"></i></button>'+
+    $("table#VehicleDetail").on('click', '.selectItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+
+
+        var BrandCode = $(rIndex).closest('tr').find("#hdnBrandCode").val();
+        var ProdCode = $(rIndex).closest('tr').find("#hdnProdCode").val();
+        var ProdDesc = $(rIndex).closest('tr').find("#lblProdCode").text();
+        var VersionCode = $(rIndex).closest('tr').find("#hdnVersionCode").val();
+        var VersionDesc = $(rIndex).closest('tr').find("#lblVersion").text();
+        var Chassis = $(rIndex).closest('tr').find("#lblChassisNo").text().trim();
+        var Engine = $(rIndex).closest('tr').find("#lblEngineNo").text();
+        var ColorCode = $(rIndex).closest('tr').find("#hdnColorCode").val();
+        var Qty = $(rIndex).closest('tr').find("#lblQty").text();
+        var RecNo = $(rIndex).closest('tr').find("#lblRecNo").text();
+        var FacPrice = $(rIndex).closest('tr').find("#lblFactPrice").text();
+        var Discount = $(rIndex).closest('tr').find("#lblDiscount").text();
+        var AdvTax = $(rIndex).closest('tr').find("#lblAdvTaxAmt").text();
+        var TotalPrice = $(rIndex).closest('tr').find("#lblTotPrice").text();
+        var Warranty = $(rIndex).closest('tr').find("#lblWarranty").text().trim();
+        var InstrumentPlan = $(rIndex).closest('tr').find("#lblInstalmentPlan").text();
+        if (BrandCode == "" || BrandCode == null || BrandCode == 0 || BrandCode == undefined) {
+            $("#ddlBrandCode").val("0");
+        }
+        else {
+            $("#ddlBrandCode").val(BrandCode);
+        }
+
+        $("#ddlColor").val(ColorCode);
+        $("#ddlProdCode").val(ProdCode);
+        $("#txtProdDesc").val(ProdDesc);
+        $("#txtVersionDesc").val(VersionDesc);
+        $("#txtVersionCode").val(VersionCode);
+        if (Chassis == "" || Chassis == null || Chassis == 0 || Chassis == undefined || Chassis == "null") {
+            $("#ddlChassisNo").val("0");
+        }
+        else {
+            $("#ddlChassisNo").val(Chassis);
+        }
+
+        $("#txtEngineNo").val(Engine);
+        $("#txtRecNo").val(RecNo);
+        $("#txtFactoryPrice").val(FacPrice);
+        $("#txtDiscount").val(Discount);
+        $("#txtAdvTaxAmt").val(AdvTax);
+        $("#txtTotalPrice").val(TotalPrice);
+        $("#txtQty").val(Qty);
+        if (Warranty == "" || Warranty == null || Warranty == 0 || Warranty == undefined) {
+            $("#ddlWarranty").val(0);
+        }
+        else {
+            $("#ddlWarranty").val(Warranty);
+        }
+        if (InstrumentPlan == "" || InstrumentPlan == null || InstrumentPlan == 0 || InstrumentPlan == undefined) {
+            $("#ddlInstalmentPlan").val("0");
+        }
+        else {
+            $("#ddlInstalmentPlan").val("0");
+        }
+
+
+        var tempQty = $("#txtTotalQty").val();
+        var tempAmt = $("#txtFinalAmount").val();
+
+        tempQty = tempQty - Qty;
+        tempAmt = tempAmt - TotalPrice;
+
+
+        $("#txtTotalQty").val(tempQty);
+        $("#txtFinalAmount").val(tempAmt);
+        CalBalancedPayment();
+        $(this).closest('tr').remove();
+        dataCount--;
+        rowCount--;
+        SNo--;
+
+    });
+    $("table#VehicleDetail").on('click', '.deleteItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        $(this).closest('tr').remove();
+
+
+        var deleteQty = $(rIndex).closest('tr').find("#lblQty").text();
+        var deleteAmt = $(rIndex).closest('tr').find("#lblTotPrice").text();
+
+        var tempQty = $("#txtTotalQty").val();
+        var tempAmt = $("#txtFinalAmount").val();
+
+        tempQty = tempQty - deleteQty;
+        tempAmt = tempAmt - deleteAmt;
+
+
+        $("#txtTotalQty").val(tempQty);
+        $("#txtFinalAmount").val(tempAmt);
+
+        $("#" + tempRow).find('.remove').show();
+        $(value).parent().parent().remove();
+
+        dataCount--;
+        rowCount--;
+        SNo--;
+        CalBalancedPayment();
+
+    });
+    function CalBalancedPayment() {
+
+        var finalamount = $("#txtFinalAmount").val();
+
+        var check = 0,check1=0;
+        $("#VehicleDetail tbody tr").each(function () {
+
+
+            //var check = $(this).closest('tr').find('#lblEngineNo').text();
+            check1 = check1 + parseFloat($(this).closest('tr').find('td:eq(12)').text());
+
+        });
+        $("#PaymentDetail tbody tr").each(function () {
+
+
+            //var check = $(this).closest('tr').find('#lblEngineNo').text();
+            check = check + parseFloat($(this).closest('tr').find('td:eq(8)').text());
+
+        });
+        finalamount =check1;
+        $("#txtVehicleTotal").val(finalamount);
+        $("#txtFinalAmount").val(finalamount);
+        var remainingAmount = parseFloat(finalamount) - parseFloat(check);
+        $("#txtBalance").val(remainingAmount);
+
+
+
+    }
+    function insertBalancedPaymentRecord() {
+        var obj = [];
+
+            var dto = {};
+
+            dto.BookRefNo = $("#txtBONo").val();
+            dto.PaymentMode = $("#ddlPaymentMode").val();
+            dto.InstrumentNo =  $("#txtInstrumentNo").val();
+            dto.InstrumentDate = $("#txtInstDate").val();
+            dto.PaymentType = $("#ddlPaymentType").val();
+            dto.BankCode = $("#ddlBank").val();
+            dto.Branch = $("#txtBranch").val();
+            dto.CityCode = $('#ddlCity').val();
+            dto.InstrumentAmount = $("#txtAmount").val();
+
+            obj.push(dto);
+
+
+        return obj;
+    }
+
+    function saveBalancedPaymentDetail(){
+
+        var objects = [];
+
+        objects = JSON.stringify({ 'objects' : insertBalancedPaymentRecord()});
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            //async: true,
+            type: 'POST',
+            url: '@Url.Content("~/BookingOrder/Insert_BalancedPaymentDetail")',
+            data: objects ,
+            success: function (data) {
+
+                if (data) {
+                    addPaymentDetailtoTable();
+                    clearPaymentFeilds();
+                }
+                else {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+
+    }
+
+    function removeRow(value) {
+
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        var deleteQty = $(value).closest('tr').find("#lblQty").text();
+        var deleteAmt = $(value).closest('tr').find("#lblTotPrice").text();
+
+        var tempQty = $("#txtTotalQty").val();
+        var tempAmt = $("#txtFinalAmount").val();
+
+        tempQty = tempQty - deleteQty ;
+        tempAmt = tempAmt - deleteAmt ;
+
+
+        $("#txtTotalQty").val(tempQty);
+        $("#txtFinalAmount").val(tempAmt);
+
+        $("#" + tempRow).find('.remove').show();
+        $(value).parent().parent().remove();
+
+        dataCount--;
+        rowCount--;
+        SNo--;
+
+    }
+
+    function addPaymentDetailtoTable(value){
+
+
+        var payModeCode = $("#ddlPaymentMode").val();
+        var payModeDesc = $("#ddlPaymentMode :selected").text();
+
+        var instNo = $("#txtInstrumentNo").val();
+
+        var instDate = $("#txtInstDate").val();
+
+        var paymentType = $("#ddlPaymentType").val();
+
+        var bankCode = "";
+        var bankDesc = $("#ddlBank :selected").text().toUpperCase().trim();
+
+        if (bankDesc != "SELECT") {
+            bankCode = $("#ddlBank").val();
+
+        } else {
+            bankDesc = "";
+        }
+
+        var branch = $("#txtBranch").val();
+
+        var cityCode = "";
+        var cityDesc = $("#ddlCity :selected").text().toUpperCase().trim();
+
+        if (cityDesc != "SELECT") {
+            cityCode = $("#ddlCity").val();
+
+        } else {
+            cityDesc = "";
+        }
+
+        var amount = $("#txtAmount").val();
+
+        var row = $(value).parent().parent().html();
+        var dt = $("#PaymentDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblPaymentMode">' + payModeDesc + ' </label><input type="hidden" id="hdnPayModeCode" value="' + payModeCode + '"/></td>' +
+                                                    '<td> <label id="lblInstNo">' + instNo + ' </label></td>' +
+                                                    '<td> <label id="lblInstDate">' + instDate + ' </label></td>' +
+                                                    '<td> <label id="lblPaymentType">' + paymentType + ' </label></td>' +
+                                                    '<td> <label id="lblBank">' + bankDesc + ' </label><input type="hidden" id="hdnBankCode" value="' + bankCode + '"/></td>' +
+                                                    '<td> <label id="lblBranch">' + branch + ' </label></td>' +
+                                                    '<td> <label id="lblCity">' + cityDesc + ' </label><input type="hidden" id="hdnCityCode" value="' + cityCode + '"/></td>' +
+                                                    '<td> <label id="lblAmount">' + amount + ' </label>' +
+                                                    '</tr>');
+        var finalamount = $("#txtFinalAmount").val();
+        var check = 0;
+        $("#PaymentDetail tbody tr").each(function () {
+
+
+            //var check = $(this).closest('tr').find('#lblEngineNo').text();
+             check = check+parseFloat($(this).closest('tr').find('td:eq(8)').text());
+
+        });
+        CalBalancedPayment();
+      ///  var remainingAmount = parseFloat(finalamount) - parseFloat(check);
+      ///  $("#txtBalance").val(remainingAmount);
+
+    }
+
+    function ValidateVehicleDetail() {
+
+        var count = 0;
+
+        var brandCode = $("#ddlBrandCode").val();
+        var prodCode = $("#ddlProdCode").val();
+        var color = $("#ddlColor").val();
+        var chassisNo = $("#ddlChassisNo").val();
+        var engineNo = $("#txtEngineNo").val();
+        var factoryPrice = $("#txtFactoryPrice").val();
+        var discount = $("#txtDiscount").val();
+        var advTaxAmt = $("#txtAdvTaxAmt").val();
+        var totalPrice = $("#txtTotalPrice").val();
+        var qty = $("#txtQty").val();
+        var stockType = $("#ddlStkType").val();
+
+        if (brandCode == "0") {
+            $("#ddlBrandCode").css("border-color", "red");
+            count++;
+        }
+
+
+        if (prodCode == "0" || prodCode == null) {
+            $("#ddlProdCode").css("border-color", "red");
+            count++;
+        }
+
+        if (color == "0") {
+            $("#ddlColor").css("border-color", "red");
+            count++;
+        }
+
+        if (factoryPrice == "" || factoryPrice == undefined) {
+            $("#txtFactoryPrice").css("border-color", "red");
+            count++;
+        }
+
+        if (discount == "" || discount == undefined) {
+            $("#txtDiscount").css("border-color", "red");
+            count++;
+        }
+
+        if(stockType == "on Order"){
+            if (chassisNo == 0) {
+                $("#ddlChassisNo").css("border-color", "red");
+                count++;
+            }
+
+            if (engineNo == "" || engineNo == undefined) {
+                $("#txtEngineNo").css("border-color", "red");
+                count++;
+            }
+
+            if (qty == "" || qty == undefined) {
+                $("#txtQty").css("border-color", "red");
+                count++;
+            }
+        }
+        if (advTaxAmt == "" || advTaxAmt == undefined) {
+            $("#txtAdvTaxAmt").css("border-color", "red");
+            count++;
+        }
+
+        if (totalPrice == "" || totalPrice == undefined) {
+            $("#txtTotalPrice").css("border-color", "red");
+            count++;
+        }
+
+        if (count == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function ValidatePaymentDetail(){
+
+        var count = 0;
+
+        var payMode = $("#ddlPaymentMode").val();
+        var payModeDesc = $("#ddlPaymentMode :selected").text().toUpperCase().trim();
+        var instNo = $("#txtInstrumentNo").val();
+        var payType = $("#ddlPaymentType").val();
+        var bank = $("#ddlBank").val();
+        var branch = $("#txtBranch").val();
+        var city = $("#ddlCity").val();
+        var amount = $("#txtAmount").val();
+
+        if (payMode == 0) {
+            $("#ddlPaymentMode").css("border-color", "red");
+            count++;
+        } else {
+            $("#ddlPaymentMode").css("border-color", "#ccc")
+        }
+
+        if (payModeDesc != "CASH") {
+            if (payType == 0) {
+                $("#ddlPaymentType").css("border-color", "red");
+                count++;
+            } else {
+                $("#ddlPaymentType").css("border-color", "#ccc")
+            }
+            if (bank == 0) {
+                $("#ddlBank").css("border-color", "red");
+                count++;
+            } else {
+                $("#ddlBank").css("border-color", "#ccc")
+            }
+
+            if (city == 0) {
+                $("#ddlCity").css("border-color", "red");
+                count++;
+            } else {
+                $("#ddlCity").css("border-color", "#ccc")
+            }
+            if (instNo == "" || instNo == undefined) {
+                $("#txtInstrumentNo").css("border-color", "red");
+                count++;
+            } else {
+                $("#txtInstrumentNo").css("border-color", "#ccc")
+            }
+
+            if (branch == "" || branch == undefined) {
+                $("#txtBranch").css("border-color", "red");
+                count++;
+            } else {
+                $("#txtBranch").css("border-color", "#ccc")
+            }
+        }
+
+
+        if (amount == "" || amount == undefined) {
+            $("#txtAmount").css("border-color", "red");
+            count++;
+        } else {
+            $("#txtAmount").css("border-color", "#ccc")
+        }
+
+
+        if (count == 0) {
+            return true;
+        }
+        return false;
+
+    }
+
+    function AddPayment(value) {
+    debugger
+        var check = ValidatePaymentDetail();
+        var finalamount = $("#txtFinalAmount").val();
+        var payamt = $("#txtAmount").val();
+        var checkamt = 0;
+
+        $("#PaymentDetail tbody tr").each(function () {
+            debugger;
+            checkamt = checkamt + parseFloat($(this).closest('tr').find('td:eq(8)').text());
+
+        });
+
+        if (parseFloat(finalamount) < parseFloat(checkamt)) {
+            $("#lblMessage").text("Payments are exceeding more than total!payment total must be less r equal to total vehicle price");
+            $("#section-message").modal("show");
+            // $("#btnSave").prop('disabled', true);
+            return;
+        }
+        checkamt = checkamt + parseFloat(payamt);
+        if (parseFloat(finalamount) < parseFloat(checkamt)) {
+            $("#lblMessage").text("Payments are exceeding more than total!payment total must be less r equal to total vehicle price");
+            $("#section-message").modal("show");
+            // $("#btnSave").prop('disabled', true);
+            return;
+        }
+        var bal = $("#txtBalance").val();
+        if (bal < 0) {
+
+                $("#lblMessage").text("Balance can not be less than zero");
+                $("#section-message").modal("show");
+                // $("#btnSave").prop('disabled', true);
+                return;
+        }
+        var boNo = $("#txtBONo").val();
+        if(check == true && boNo != null){
+            saveBalancedPaymentDetail(boNo);
+        }else
+        if (check == true) {
+
+            addPaymentDetailtoTable(value);
+            clearPaymentFeilds();
+
+        }
+        else {
+
+        }
+    }
+
+    function clearPaymentFeilds(){
+        $("#ddlPaymentMode").val("0");
+        $("#txtInstrumentNo").val("");
+        $("#ddlPaymentType")[0].selectedIndex = 0;
+        $("#ddlBank").val("0");
+        $("#txtBranch").val("");
+        $("#ddlCity").val("0");
+        $("#txtAmount").val("");
+    }
+    function clearVehilceFeilds(){
+
+        $("#ddlBrandCode").val("0");
+        $("#ddlColor").val("0");
+        $("#ddlProdCode").val("");
+        $("#txtProdDesc").val("");
+        $("#txtVersionCode").val("");
+        $("#txtVersionDesc").val("");
+        $("#ddlChassisNo").val("0");
+        $("#txtEngineNo").val("");
+        $("#txtRecNo").val("");
+        $("#txtFactoryPrice").val("");
+        $("#txtDiscount").val("");
+        $("#txtAdvTaxAmt").val("");
+        $("#txtTotalPrice").val("");
+        $("#txtQty").val("0");
+
+
+    }
+
+    $("#btnSave").click(function () {
+
+        if (!PageValidation()) {
+            return false;
+        }
+
+        //var check = ValidateBOMaster();
+        //if (check == true) {
+        $("#section-confirm").modal("show");
+        //}
+    })
+
+    //function ValidateBOMaster(){
+    //    //var check = false;
+    //    //check = Validate("#txtEnquiry");
+    //    //check = Validate("#ddlCusType");
+    //    //check = Validate("#ddlCusTaxType");
+    //    //check = Validate("#ddlSegment");
+    //    //check = Validate("#ddlStkType");
+    //    //check = Validate("#ddlInvType");
+    //    //check = Validate("#ddlInvSubType");
+    //    //check = Validate("#ddlPriceType");
+    //    //check = Validate("#ddlpayment");
+    //    //check = Validate("#ddlCustomers");
+    //    //check = Validate("#ddlACof");
+
+
+
+    //    //var rowCount = $('#PaymentDetail >tbody  >tr').length;
+    //    //if (rowCount == 1) {
+    //    //    $("#PaymentDetail").css("border-color", "red");
+    //    //    return check;
+    //    //}
+
+    //    //var rowCount = $('#VehicleDetail >tbody  >tr').length;
+    //    //if (rowCount == 1) {
+    //    //    $("#VehicleDetail").css("border-color", "red");
+    //    //    return check;
+    //    //}
+
+    //    return check;
+    //}
+
+    function PageValidation() {
+
+
+        var count = 0;
+
+        //if ($("#txtEnquiry").val() == '' || $("#txtEnquiry").val() == null) {
+        //    $("#txtEnquiry").css("border-color", "red");
+        //    $("#txtEnquiry").focus();
+        //    count++;
+        //}
+        if ($("#ddlCusType").val() == '0' || $("#ddlCusType").val() == null) {
+            $("#ddlCusType").css("border-color", "red");
+            $("#ddlCusType").focus();
+            count++;
+        }
+        if ($("#ddlCusTaxType").val() == '0' || $("#ddlCusTaxType").val() == null) {
+            $("#ddlCusTaxType").css("border-color", "red");
+            $("#ddlCusTaxType").focus();
+            count++;
+        }
+
+        if ($("#ddlSegment").val() == '0' || $("#ddlSegment").val() == null) {
+            $("#ddlSegment").css("border-color", "red");
+            $("#ddlSegment").focus();
+            count++;
+        }
+
+        if ($("#ddlStkType").val() == '0' || $("#ddlStkType").val() == null) {
+            $("#ddlStkType").css("border-color", "red");
+            $("#ddlStkType").focus();
+            count++;
+        }
+        if ($("#ddlInvType").val() == '0' || $("#ddlInvType").val() == null) {
+            $("#ddlInvType").css("border-color", "red");
+            $("#ddlInvType").focus();
+            count++;
+        }
+        if ($("#ddlInvSubType").val() == '0' || $("#ddlInvSubType").val() == null) {
+            $("#ddlInvSubType").css("border-color", "red");
+            $("#ddlInvSubType").focus();
+            count++;
+        }
+        if ($("#ddlPriceType").val() == '0' || $("#ddlPriceType").val() == null) {
+            $("#ddlPriceType").css("border-color", "red");
+            $("#ddlPriceType").focus();
+            count++;
+        }
+        if ($("#ddlpayment").val() == '0' || $("#ddlpayment").val() == null) {
+            $("#ddlpayment").css("border-color", "red");
+            $("#ddlpayment").focus();
+            count++;
+        }
+
+        if ($("#ddlCustomers").val() == '0' || $("#ddlCustomers").val() == null) {
+            $("#ddlCustomers").css("border-color", "red");
+            $("#ddlCustomers").focus();
+            count++;
+        }
+        if ($("#ddlACof").val() == '0' || $("#ddlACof").val() == null) {
+            $("#ddlACof").css("border-color", "red");
+            $("#ddlACof").focus();
+            count++;
+        }
+        var finalamount = $("#txtFinalAmount").val();
+        var payamt = $("#txtAmount").val();
+        var checkamt = 0;
+
+        $("#PaymentDetail tbody tr").each(function () {
+            debugger;
+            checkamt = checkamt + parseFloat($(this).closest('tr').find('td:eq(8)').text());
+
+        });
+
+        if (parseFloat(finalamount) < parseFloat(checkamt)) {
+            $("#lblMessage").text("Payments are exceeding more than total!payment total must be less r equal to total vehicle price");
+            $("#section-message").modal("show");
+            // $("#btnSave").prop('disabled', true);
+            return;
+        }
+        checkamt = checkamt + parseFloat(payamt);
+        if (parseFloat(finalamount) < parseFloat(checkamt)) {
+            $("#lblMessage").text("Payments are exceeding more than total!payment total must be less r equal to total vehicle price");
+            $("#section-message").modal("show");
+            // $("#btnSave").prop('disabled', true);
+            return;
+        }
+        var bal = $("#txtBalance").val();
+        if (bal < 0) {
+
+            $("#lblMessage").text("Balance can not be less than zero");
+            $("#section-message").modal("show");
+            // $("#btnSave").prop('disabled', true);
+            return;
+        }
+
+        var row = $('#PaymentDetail >tbody  >tr').length;
+
+        var frow = $('#VehicleDetail >tbody  >tr').length;
+
+        if (count > 0 || row == 0 || frow == 0) {
+
+            $("#lblMessage").html("Please fill the Required feilds");
+            $("#section-message").modal("show");
+            return false;
+        }
+
+        else {
+            return true;
+        }
+
+    }
+
+
+    function Validate(item){
+        var val = $(item).val();
+        if (val == "0" ) {
+            $(item).css("border-color", "red");
+            $('html, body').animate({
+                scrollTop: $(item).scrollTop(500)
+            }, 800);
+            return false;
+        }
+        else {
+            $(item).css("border-color", "#ccc");
+            return true;
+        }
+    }
+
+    function SaveMasterEnquiry() {
+
+        var dto = {};
+
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.BookRefNo = $("#txtBONo").val();
+        dto.BookRefDate = $("#txtBODate").val();
+        dto.CusTypeCode = $("#ddlCusType").val();
+        dto.TaxType = $("#ddlCusTaxType").val();
+        dto.Segment = $("#ddlSegment").val();
+        dto.StockType = $("#ddlStkType").val();
+        dto.InvTypeCode = $("#ddlInvType").val();
+        dto.InvSubTypeCode = $("#ddlInvSubType").val();
+        dto.PriceTypeCode = $("#ddlPriceType").val();
+        dto.SalesPerson = $("#ddlAssignTo").val();
+        dto.BookMode = $("#ddlBookingMode").val();
+        dto.PaymentTerms = $("#ddlpayment").val();
+        dto.DeliveryLocation = $("#ddlLocation").val();
+        dto.CusCode = $("#ddlCustomers").val();
+        dto.AccountOf = $("#ddlACof").val();
+        dto.FHName = $("#txtFHName").val(); ;
+        dto.City = $("#txtCity").val();
+        dto.State = $("#txtState").val();
+        dto.Country = $("#txtCountry").val();
+        dto.NIC = $("#txtCNIC").val();
+        dto.Address1 = $("#txtAddress").val();
+        dto.PhoneNo = $("#txtPhone").val();
+        dto.CellNo = $("#txtCellNo").val();
+        dto.NTN = $("#txtNTN").val();
+        dto.Email = $("#txtEmail").val();
+        dto.VehicleTotal = $("#txtFinalAmount").val();
+        dto.VehicleQty = $("#txtTotalQty").val();
+        dto.EnquiryNo = $("#txtEnquiry").val();
+        dto.RemainingTotal = $("#txtBalance").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/bookingOrder/Insert_BOMaster")',
+            data: dto,
+            success: function (data) {
+
+                if (data) {
+                    if (data.Success == true) {
+                        saveVehicleDetail();
+
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+    }
+
+    function insertRecord() {
+        var obj = [];
+
+        $("#VehicleDetail tbody tr").each(function () {
+            var dto = {};
+
+            dto.BrandCode = $(this).closest('tr').find('#hdnBrandCode').val();
+            dto.ProdCode = $(this).closest('tr').find('#hdnProdCode').val();
+            dto.VersionCode = $(this).closest('tr').find('#hdnVersionCode').val();
+            dto.ChasisNo = $(this).closest('tr').find('#lblChassisNo').text().trim();
+            dto.EngineNo = $(this).closest('tr').find('#lblEngineNo').text().trim();
+            dto.ColorCode1 = $(this).closest('tr').find('#hdnColorCode').val();
+            dto.Qty = $(this).closest('tr').find('#lblQty').text();
+            dto.ReceiptNo = $(this).closest('tr').find('#lblRecNo').text().trim();
+            dto.ExFactPrice = $(this).closest('tr').find('#lblFactPrice').text().trim();
+            dto.SpecialDiscount = $(this).closest('tr').find('#lblDiscount').text().trim();
+            dto.AdvanceTaxAmt = $(this).closest('tr').find('#lblAdvTaxAmt').text().trim();
+            dto.TotalAmt = $(this).closest('tr').find('#lblTotPrice').text().trim();
+            dto.Warranty = $(this).closest('tr').find('#lblWarranty').text().trim();
+            dto.InstalmentPlan = $(this).closest('tr').find('#lblInstalmentPlan').text().trim();
+            dto.EnquiryNo = $("#txtEnquiry").val();
+            obj.push(dto);
+        });
+
+        return obj;
+    }
+
+    function saveVehicleDetail(){
+
+        var objects = [];
+
+        objects = JSON.stringify({ 'objects' : insertRecord()});
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            //async: true,
+            type: 'POST',
+            url: '@Url.Content("~/BookingOrder/Insert_BODetail")',
+            data: objects ,
+            success: function (data) {
+
+                if (data) {
+
+                    savePaymentDetail();
+                }
+                else {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+
+    }
+
+    function insertPaymentRecord() {
+        var obj = [];
+
+        $("#PaymentDetail tbody tr").each(function () {
+            var dto = {};
+
+            dto.BookRefNo = $("#txtBONo").val();
+            dto.ReceiptNo =  $(this).closest('tr').find('#hdnReceiptNo').val();
+            dto.PaymentMode = $(this).closest('tr').find('#hdnPayModeCode').val();
+            dto.InstrumentNo = $(this).closest('tr').find('#lblInstNo').text().trim();
+            dto.InstrumentDate = $(this).closest('tr').find('#lblInstDate').text().trim();
+            dto.PaymentType = $(this).closest('tr').find('#lblPaymentType').text().trim();
+            dto.BankCode = $(this).closest('tr').find('#hdnBankCode').val();
+            dto.Branch = $(this).closest('tr').find('#lblBranch').text().trim();
+            dto.CityCode = $(this).closest('tr').find('#hdnCityCode').val();
+            dto.InstrumentAmount = $(this).closest('tr').find('#lblAmount').text().trim();
+
+            obj.push(dto);
+        });
+
+        return obj;
+    }
+
+    function savePaymentDetail(){
+
+        var objects = [];
+
+        objects = JSON.stringify({ 'objects' : insertPaymentRecord()});
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            //async: true,
+            type: 'POST',
+            url: '@Url.Content("~/BookingOrder/Insert_PaymentDetail")',
+            data: objects ,
+            success: function (data) {
+
+                if (data) {
+
+                    saveCheckList();
+
+                }
+                else {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+
+    }
+
+
+    function saveCheckList(){
+        var checkedValues = $('input:checkbox:checked').map(function() {
+            if(this.value != "on"){
+                return this.value;
+            }
+
+        }).get();
+        var strCheckedValues = checkedValues.toString();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/BookingOrder/Insert_VehChkList")',
+            data: { 'strCheckedValues' : strCheckedValues } ,
+            success: function (data) {
+
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+                location.reload();
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+
+        });
+    }
+
+    function DeleteEnquiry() {
+        var leadId = $("#txtBONo").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/BOokingOrder/Delete_BookingOrder")',
+            data: { 'EnquiryId': leadId },
+            success: function (data) {
+                if (data) {
+                    if (data.success == true) {
+                        $("#section-confirm-Delete").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide')
+                        }, 4000);
+                    } else {
+                        $("#section-confirm-Delete").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide')
+                        }, 4000);
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+    $("#btnProceed").click(function () {
+        var leadId = $("#txtBONo").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/BookingOrder/Proceed_BookingOrder")',
+            data: { 'EnquiryId': leadId },
+            success: function (data) {
+                if (data) {
+                    if (data.success == true) {
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide')
+                            location.reload();
+                        }, 4000);
+                    } else {
+                        $("#section-confirm-Delete").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide')
+                        }, 4000);
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    })
+
+    $("#txtBONo").change(function () {
+        var leadId = $("#txtBONo").val();
+        if (leadId != "0") {
+            getData(leadId);
+            document.getElementById("btnDelete").disabled = false;
+        }
+
+    });
+
+    function getData(id) {
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Select_BookingOrder")',
+                data: { 'EnquiryId': leadId},
+                success: function (data) {
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        //Event Information
+
+                        $("#txtBODate").val(item[0].BookRefDate);
+                        $("#txtEnquiry").val(item[0].EnquiryNo);
+                        $("#ddlCusType").val(item[0].CusTypeCode);
+                        $("#ddlCusTaxType").val(item[0].TaxType);
+                        $("#ddlSegment").val(item[0].Segment);
+                        $("#ddlStkType").val(item[0].StockType);
+
+                        StockType(item[0].StockType);
+
+                        $("#ddlInvType").val(item[0].InvTypeCode);
+                        $("#ddlInvSubType").val(item[0].InvSubTypeCode);
+                        $("#ddlPriceType").val(item[0].PriceTypeCode);
+                        $("#ddlAssignTo").val(item[0].SalesPerson);
+                        $("#ddlBookingMode").val(item[0].BookMode);
+                        $("#ddlpayment").val(item[0].PaymentTerms);
+                        $("#ddlLocation").val(item[0].DeliveryLocation);
+                        $("#ddlCustomers").val(item[0].CusCode);
+                        $("#ddlACof").val(item[0].AccountOf);
+                        $("#txtFHName").val(item[0].FHName);
+                        $("#txtBalance").val(item[0].RemainingTotal);
+
+                        //var address2 = item[0].Address2;
+                        //var splitColor = address2.split(' ', address2.length);
+                        //var State = splitColor[1];
+                        //var City = splitColor[0];
+
+                        $("#txtCity").val(item[0].City);
+                        $("#txtState").val(item[0].State);
+                        $("#txtCountry").val(item[0].Country);
+                        $("#txtCNIC").val(item[0].NIC);
+                        $("#txtAddress").val(item[0].Address1);
+                        $("#txtPhone").val(item[0].PhoneNo);
+                        $("#txtCellNo").val(item[0].CellNo);
+                        $("#txtNTN").val(item[0].NTN);
+                        $("#txtEmail").val(item[0].Email);
+                        $("#txtVehicleTotal").val(item[0].VehicleTotal);
+                        $("#txtTotalQty").val(item[0].VehicleQty);
+
+                        if(item[0].PostFlag == 'Y'){
+
+                            document.getElementById("btnDelete").disabled = true;
+                            document.getElementById("btnSave").disabled = true;
+                        }
+
+                        getVehicleData(id);
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function getVehicleData(id) {
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+        var qty = 0;
+        var amount = 0;
+
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Select_BookOrdVehDetail")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        $("#VehicleDetail tbody tr").remove()
+                        //ProductDetail
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+                                $("#VehicleDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblBrandCode">' + item.BrandDesc + ' </label><input type="hidden" id="hdnBrandCode" value="' + item.BrandCode + '"/></td>' +
+                                                        '<td> <label id="lblProdCode">' + item.ProdDesc + ' </label><input type="hidden" id="hdnProdCode" value="' + item.ProdCode + '"/></td>' +
+                                                        '<td> <label id="lblVersion">' + item.VersionCode + ' </label><input type="hidden" id="hdnVersionCode" value="' + item.VersionCode + '"/></td>' +
+                                                        '<td> <label id="lblChassisNo">' + item.ChasisNo + ' </label></td>' +
+                                                        '<td> <label id="lblEngineNo">' + item.EngineNo + ' </label></td>' +
+                                                        '<td> <label id="lblColor">' + item.ColorDesc + ' </label><input type="hidden" id="hdnColorCode" value="' + item.ColorCode1 + '"/></td>' +
+                                                        '<td> <label id="lblQty">' + item.Qty + ' </label></td>' +
+                                                        '<td> <label id="lblRecNo">' + item.ReceiptNo + ' </label></td>' +
+                                                        '<td> <label id="lblFactPrice">' + item.ExFactPrice + ' </label></td>' +
+
+                                                        '<td> <label id="lblDiscount">' + item.SpecialDiscount + ' </label></td>' +
+                                                        '<td> <label id="lblAdvTaxAmt">' + item.AdvanceTaxAmt + ' </label></td>' +
+                                                        '<td> <label id="lblTotPrice">' + item.TotalAmt + ' </label></td>' +
+
+                                                        '<td> <label id="lblWarranty">' + item.Warranty + ' </label>' +
+                                                        '<td> <label id="lblInstalmentPlan">' + item.InstalmentPlan + ' </label>' +
+                                                          '<td style="text-align:center;">' +
+
+                                                            '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+                                                       '</tr>');
+                                qty = qty + parseInt(item.Qty);
+                                amount = amount + parseInt(item.TotalAmt);
+                                getPaymentData(id);
+
+                            });
+                        }
+                    }
+                },
+                //'<button class="btn btn-danger btn-xs" id="btnRemove" onclick="removeRow(this)"><i class="fa fa-minus fa-lg"></i></button>' +
+                complete: function () {
+                    $("#txtTotalQty").val(qty);
+                    $("#txtFinalAmount").val(amount);
+
+                },
+            });
+
+        }
+
+    }
+
+    function getPaymentData(id) {
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Select_BookingReceiptInstrumentDetail")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+                     ;
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        $("#PaymentDetail tbody tr").remove()
+                        //ProductDetail
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+                                $("#PaymentDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '<input type="hidden" id="hdnReceiptNo" value="' + item.ReceiptNo+ '"/></td>' +
+                                                        '<td> <label id="lblPaymentMode">' + item.PaymentModeDesc + ' </label><input type="hidden" id="hdnPayModeCode" value="' + item.PaymentMode + '"/></td>' +
+                                                        '<td> <label id="lblInstNo">' + item.InstrumentNo + ' </label></td>' +
+                                                        '<td> <label id="lblInstDate">' + item.InstrumentDate + ' </label></td>' +
+                                                        '<td> <label id="lblPaymentType">' + item.PaymentType + ' </label></td>' +
+                                                        '<td> <label id="lblBank">' + item.BankDesc + ' </label><input type="hidden" id="hdnBankCode" value="' + item.BankCode + '"/></td>' +
+                                                        '<td> <label id="lblBranch">' + item.Branch + ' </label></td>' +
+                                                        '<td> <label id="lblCity">' + item.CityDesc + ' </label><input type="hidden" id="hdnCityCode" value="' + item.CityCode + '"/></td>' +
+                                                        '<td> <label id="lblAmount">' + item.InstrumentAmount + ' </label>' +
+                                                        '</tr>');
+
+
+                                getBookingCheckList(id);
+
+                            });
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function getBookingCheckList(id) {
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingOrder/Select_BookingCheckList")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        //ProductDetail
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+
+                                $("#tblDelChkList tbody tr").each(function () {
+
+
+                                    var check = $(this).closest('tr').find('#hdnDocCode').val();
+
+                                    if(item.BookChkListCode == check ){
+                                        $(this).closest('tr').find('#chkOptFlag').prop('checked', true);
+                                        //$('#chkOptFlag').prop('checked', true);
+
+
+                                    }
+
+                                });
+
+                            });
+
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+    $("#lknCreateCustomer").click(function () {
+
+
+       var baseurl = '@Url.Action("Customer", "Customer")';
+
+        var url = baseurl ;
+        window.open(url, "_blank", "width=1200,height=600");
+        //window.location.href = baseurl;
+        //window.open(baseurl, '_blank');
+
+    })
+</script>

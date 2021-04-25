@@ -1,0 +1,197 @@
+﻿
+@{
+    ViewBag.Title = "VehicleSalesInvoice";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+<section class="wrapper main-wrapper row">
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Vehicle Sales Invoice Form</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="radio" name="product" value="product" /> Product
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="radio" name="product" value="nonproduct" /> Non Product
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:1rem;">
+                        <div class="col-md-4">
+                            <label class="form-label">Invoice No</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-clipboard"></i></span>
+                                <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                    <option value="Mr">Option</option>
+                                    <option value="Ms">Option</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Invoice Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtSoDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Sale Order No</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-file-text"></i></span>
+                                <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                    <option value="Mr">.</option>
+                                    <option value="Ms">.</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Bill To</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                    <option value="Mr">Mr.</option>
+                                    <option value="Ms">Ms.</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label">Ship To</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-plane"></i></span>
+                                <input type="text" class="form-control" id="FaxNoID" name="FaxNo" readonly />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Remarks</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                <input type="text" class="form-control" id="FaxNoID" name="FaxNo" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        
+                    </div>
+                    <style>
+                        .border-for
+                        {
+                            border:1px solid blue;
+                        }
+                        .label-heading 
+                        {
+                            margin:0.5rem;
+                            
+                        }
+                    </style>
+                    <div class="row border-for">
+                        <label class="form-label label-heading">Vehicle Sale Detail</label>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top:1rem;">
+                                    <div class="row" style="margin-top:1rem;">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped" id="productDetail" style="white-space: nowrap; FONT-SIZE: 13px;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Brand </th>
+                                                            <th>Product | Model</th>
+                                                            <th>Color</th>
+                                                            <th>Chassis No</th>
+                                                            <th>Engine No</th>
+                                                            <th>Reg No</th>
+                                                            <th>Reg Date</th>
+                                                            <th>Stock Type</th>
+                                                            <th>Milage</th>
+                                                            <th>Location</th>
+                                                            <th>Invoice</th>
+                                                            <th>Inv Date</th>
+                                                            <th>Insurance</th>
+                                                            <th>Customer</th>
+                                                            <th>Order No</th>
+                                                            <th>Action</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="fixedRow1" data-tr-count="0"></tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="row">
+                       <div class="col-md-4">
+                           @*<label class="form-label">Head</label>
+                           <div class="input-group">
+                               <span class="input-group-addon"><i class="fa fa-usd"></i></span>
+                               <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                   <option value="Mr">Option</option>
+                                   <option value="Ms">Option</option>
+                               </select>
+                           </div>
+                           <div class="makespace"></div>*@
+                       </div>
+                       <div class="col-md-4">
+                           @*<label class="form-label">Head</label>
+                           <div class="input-group">
+                               <span class="input-group-addon"><i class="fa fa-usd"></i></span>
+                               <select class="form-control m-bot15" id="CusTitleID" name="CusTitle">
+                                   <option value="Mr">Option</option>
+                                   <option value="Ms">Option</option>
+                               </select>
+                           </div>
+                           <div class="makespace"></div>*@
+                       </div>
+                       <div class="col-md-4">
+                           <label class="form-label">Total Recieveable</label>
+                           <div class="input-group">
+                               <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                               <input type="text" class="form-control" id="FaxNoID" name="FaxNo" readonly />
+                           </div>
+                           <div class="makespace"></div>
+                       </div>
+                   </div>
+                </div>
+            </section>
+        </div>
+    </form>
+</section>

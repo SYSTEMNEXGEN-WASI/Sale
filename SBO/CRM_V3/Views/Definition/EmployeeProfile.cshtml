@@ -1,0 +1,280 @@
+﻿@{
+    ViewBag.Title = "CostCenter";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.datepicker').datepicker();
+
+    });
+</script>
+<h2>CostCenter</h2>
+
+<section class="wrapper main-wrapper row">
+    <form method="post">
+            <section class="box" style="margin-left:40px">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" style="text-align:center"><strong><span class=""></span>Employee Master</strong></div>
+                        <div class="panel-body">
+                            <section>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><strong><span class="glyphicon glyphicon-circle-arrow-right"></span>Personal Details</strong> </div>
+                                    <div class="panel-body">
+                                       
+                                        <div class="">
+                                            <div class="col-md-2">
+                                                <img src="../data/profile/avatar-6.png" class="img-rounded" style="height:150px;width:150px"/>
+                                                <div>
+                                                    <input type="button" style="margin-left:40px; margin-top:5px" class="btn btn-upload" value="Upload" />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-3">
+                                                <label class="form-label">Employee Code</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dropbox"></i></span>
+                                                    <select class="form-control input-md m-bot15">
+                                                        <option>Select</option>
+                                                        <option>Cash</option>
+                                                        <option>Credit</option>
+                                                    </select>
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label">Manual Employee No</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="form-label">Employee Name</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="form-label">Date of Birth</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="form-label">Contact No</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="form-label">NIC</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="form-label">Email</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-mail-forward"></i></span>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            
+
+                            <section>
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading"><strong><span class="glyphicon glyphicon-circle-arrow-right"></span>Employee Details</strong> </div>
+                                    <div class="panel-body">
+                                        
+                                        <div class="col-md-4">
+                                            <label class="form-label">Joining Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Department Code</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-leaf"></i></span>
+                                                <select class="form-control input-md m-bot15">
+                                                    <option>Select</option>
+                                                    <option>Cash</option>
+                                                    <option>Credit</option>
+                                                </select>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Leaving Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Designation Code</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                                <select class="form-control input-md m-bot15">
+                                                    <option>Select</option>
+                                                    <option>Cash</option>
+                                                    <option>Credit</option>
+                                                </select>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Experience</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-bookmark"></i></span>
+                                                <input type="text" class="form-control" placeholder="Years" />
+                                            </div>
+                                            <label class="form-label pull-right" style="margin-top:1px">Active</label>
+                                            <input type="checkbox" class="pull-right" />
+                                            <div class="makespace"></div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Remarks</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-comment"></i></span>
+                                                <textarea class="form-control" cols="4" rows="3"></textarea>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+
+                            <section>
+                                <div class="panel panel-success">
+                                    <div class="panel-heading"><strong><span class="glyphicon glyphicon-circle-arrow-right"></span>Education Details</strong> </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Education</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-leaf"></i></span>
+                                                <select class="form-control input-md m-bot15">
+                                                    <option>Select</option>
+                                                    <option>Matric</option>
+                                                    <option>Intermedite</option>
+                                                    <option>Graduation</option>
+                                                    <option>Masters</option>
+                                                </select>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Start Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="date" class="form-control" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">End Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="date" class="form-control" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Diploma</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                               <input type="text"  class="form-control"/>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Start Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="date" class="form-control" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">End Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="date" class="form-control" />
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Others</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-comment-o"></i></span>
+                                                <input type="text" class="form-control" name="Date"/>
+                                            </div>
+                                            <div class="makespace"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-info" id="btnCancel" style="margin-top:27px; width:100px">Save</button>
+                                
+                                <button type="submit" class="btn btn-danger" id="btnCancel" style="margin-top:27px; width:100px">Delete</button>
+                                
+                                <button type="submit" class="btn btn-default" id="btnCancel" style="margin-top:27px; width:100px">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        <style>
+            .border-for {
+                border: 1px solid blue;
+            }
+
+            .label-heading {
+                margin: 0.5rem;
+            }
+
+            .divider {
+                width: 5px;
+                height: auto;
+                display: inline-block;
+            }
+        </style>
+
+    </form>
+</section>
+
+
+

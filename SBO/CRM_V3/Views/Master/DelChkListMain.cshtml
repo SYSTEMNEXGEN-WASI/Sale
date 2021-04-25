@@ -1,0 +1,506 @@
+﻿
+@model List<Core.CRM.ADO.ViewModel.DeliveryCheckListVM>
+
+@{
+    ViewBag.Title = "DelChkListMain";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    /*.icheckbox_minimal-blue {
+        top: 10px;
+    }*/
+</style>
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+
+
+        <div class="col-lg-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Delivery And Booking Check List</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                            <a class="box_close fa fa-times"></a>*@
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+
+                        <div class="col-xs-12">
+
+                            <ul class="nav nav-tabs nav-justified primary">
+                                <li class="active">
+                                    <a href="#home-7" data-toggle="tab">
+                                        <i class="fa fa-briefcase"></i> Expense Type
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content primary">
+                                <div class="tab-pane fade in active" id="home-7">
+
+                                    <div>
+                                        @* WORK TODO:  *@
+
+                                        <div class="row">
+
+                                            <div class="col-md-4">
+                                                <label class="form-label">Description</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-info"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="txtExpTypeDesc">
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label class="form-label">Type</label>
+                                                <div class="input-group">
+                                                    <label class="rdoBtn">
+                                                        <input type="radio" name="type" id="minimal-radio-1" value="DO" class="icheckbox_minimal-blue" checked style="margin-left: 5px;" />
+                                                        Delivery                                                     
+                                                    </label>
+                                                    <label class="rdoBtn">
+                                                        <input type="radio" name="type" id="minimal-radio-2" value="BO" class="icheckbox_minimal-blue" style="margin-left: 5px;" />
+                                                        Booking 
+                                                    </label>
+                                                    <label class="rdoBtn">
+                                                        <input type="radio" name="type" id="minimal-radio-2" value="VR" class="icheckbox_minimal-blue" style="margin-left: 5px;" />
+                                                        Receiving
+                                                    </label>
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-2" style="padding-right:0px">
+                                                <label class="form-label">Priority</label>
+                                                <div class="input-group">
+                                                    <label class="rdoBtn">
+                                                        <input type="checkbox" name="option" id="chkPriority" value="M" class="icheckbox_minimal-blue" style="margin-left: 5px;" />
+                                                        Mandatory
+                                                    </label>
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-1"  style="padding-left:0px">
+                                                <label class="form-label">State</label>
+                                                <div class="input-group">
+                                                    <label class="rdoBtn">
+                                                        <input type="checkbox" name="state" id="chkState" value="Y" class="icheckbox_minimal-blue" checked style="margin-left: 5px;" />
+                                                        Active
+                                                    </label>
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>                                           
+
+                                            <div class="col-md-1">
+                                                <div class="input-group pull-right">
+                                                    <button type="button" class="btn btn-success" id="addVehType" onclick="SaveEnquiry('','','','','')" style="margin-top:25px;">Add</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <table id="DelChkListTable" class="table table-striped dt-responsive display">
+                                                    <thead>
+                                                        <tr>
+                                                            @*<th>S/N</th>*@
+                                                            <th>Code</th>
+                                                            <th>Description</th>
+                                                            <th>Type</th>
+                                                            <th>Active</th>
+                                                            <th>Priority</th>
+                                                            <th style="text-align:center;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if (Model != null && Model.Count > 0)
+                                                        {
+                                                            foreach (var item in Model)
+                                                            {
+                                                                <tr style="text-align: left">
+
+                                                                    <td class="tdDiv">
+                                                                        <label id="lblExpCode">@item.DelChkListCode</label>
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <label id="lblExpDesc">@item.DelChkListDesc</label>
+                                                                        <input type="text" style="display:none;" class="form-control" id="txtExpDesctbl" />
+                                                                    </td>
+                                                                    <td class="tdDiv">
+                                                                        <label id="lblType">@item.Type</label>   
+                                                                        <div class="input-group CheckBox" style="display: none; margin-left:5px" id="CheckBox">
+                                                                            <label class="rdoBtn">
+                                                                                <input type="radio" name="type" id="rdoDO" value="DO" class="icheckbox_minimal-blue" style="margin-left: 5px;" />
+                                                                                DO                                                                                
+                                                                            </label>
+                                                                            <label class="rdoBtn">
+                                                                                <input type="radio" name="type" id="rdoBO" value="BO" class="icheckbox_minimal-blue" style="margin-left: 5px;" />
+                                                                                BO
+                                                                            </label>
+                                                                        </div>                                                                   
+                                                                    </td>
+                                                                    <td>
+                                                                        <label id="lblActive">@item.IsActive</label>
+                                                                        <div style="display : none;" class="CheckBox">
+                                                                            <input type="checkbox" name="state" id="chkActive" value="Y" class="icheckbox_minimal-blue" />
+                                                                        </div>
+                                                                        
+                                                                    </td>
+                                                                    <td>
+                                                                        <label id="lblOptFlag">@item.OptFlag</label>
+                                                                        <div style="display : none;" class="CheckBox">
+                                                                            <input type="checkbox" name="option" id="chkOptFlag" value="Y" class="icheckbox_minimal-blue"  />
+                                                                        </div>
+                                                                        
+                                                                    </td>
+                                                                    <td style="text-align:center;">
+                                                                        <button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditVehType(this)"><i class="fa fa-plus fa-lg"></i></button>
+                                                                        <button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>
+                                                                        <button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)"><i class="fa fa-minus fa-lg"></i></button>
+                                                                        <input type="hidden" id="hdnVehCode" value="@item.DelChkListCode" />
+                                                                        <button type="button" style="margin-left: 5px;" class="btn btn-danger btn-xs" id="btnDelete" onclick="removeVehicleType(this)"><i class="fa fa-close fa-lg"></i></button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }else{
+                                                            <tr>
+                                                                <td colspan="6">
+                                                                    No record found..
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <ul class="pagination">
+                                                    @{ int j = 1; }
+                                                    @if (Model != null && Model.Count > 0)
+                                                    {
+                                                        for (int item = 0; item < ViewBag.Pages; item++)
+                                                        {
+                                                            
+                                                            <li><a onclick="GetData(this,@j)" id="Row-@j" >@j</a></li> j++;   // href="@Url.Content("~/Master/DelChkListMain?PageNumber="+@j+"")"
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-2 pagination" style="text-align: right">
+                                                <label >Records/Page</label>
+                                            </div>
+                                            <div class="col-lg-2 pagination" >
+                                                <select class="form-control m-bot15" style="width:100%" id="ddlRecords" onchange="PageSize()">
+                                                    <option value="5" >5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="15">15</option>
+                                                    @*<option value="6 wheels">6 wheels</option>*@
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:10000;">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+
+    
+</section>
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $(".icheckbox_minimal-blue").iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+
+        $("#ddlRecords").val('@ViewBag.Records');
+
+        var page = '@ViewBag.PageNumber';
+
+        $("#Row-" + page).css("background-color", '#d4b0b0');
+    });
+
+    function GetData(type,page) {
+        debugger
+        var baseurl = '@Url.Action("DelChkListMain")';
+        var url = baseurl + '?PageNumber=' + page + '&RowsPerPage=' + $("#ddlRecords").val() + '';
+
+
+        $(type).css("background-color", '#d4b0b0');
+        window.location.href = url;
+    }
+
+    function PageSize() {
+        var page = '@ViewBag.PageNumber';
+        var baseurl = '@Url.Action("DelChkListMain")';
+        var url = baseurl + '?PageNumber=' + page + '&RowsPerPage=' + $("#ddlRecords").val() + '';
+        window.location.href = url;
+    }
+
+    var Control;
+
+    function EditVehType(value) {
+
+        //$(value).closest('tr').find("input[type='checkbox']:").prop('enabled',true);
+
+        $(value).closest('tr').find(".CheckBox").show();
+        $(value).closest('tr').find("#txtExpDesctbl").show();
+
+        $(value).closest('tr').find("#lblExpDesc").hide();
+        $(value).closest('tr').find("#lblType").hide();
+        $(value).closest('tr').find("#lblActive").hide();
+        $(value).closest('tr').find("#lblOptFlag").hide();
+
+        $(value).closest('tr').find("#btnUpdate").show();
+        $(value).closest('tr').find("#btnCancel").show();
+        $(value).closest('tr').find("#btnEdit").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblExpDesc").text().trim();
+        var lblType = $(value).closest('tr').find("#lblType").text().trim();
+        var lblActive = $(value).closest('tr').find("#lblActive").text().trim();
+        var lblOptFlag = $(value).closest('tr').find("#lblOptFlag").text().trim();
+
+        $(value).closest('tr').find("#txtExpDesctbl").val(lblVehDesc);
+
+        debugger
+
+        if(lblType == "DO"){
+            $(value).closest('tr').find("#rdoDO").iCheck('check');
+        } else {
+            $(value).closest('tr').find("#rdoBO").iCheck('check');
+        }
+
+        if (lblActive == "Y") {
+            $(value).closest('tr').find("#chkActive").iCheck('check');
+        } else {
+            $(value).closest('tr').find("#chkActive").iCheck('uncheck');
+        }
+
+        if (lblOptFlag == "M") {
+            $(value).closest('tr').find("#chkOptFlag").iCheck('check');
+        } else {
+            $(value).closest('tr').find("#chkOptFlag").iCheck('uncheck');
+        }
+
+    }
+
+    function CancelEvent(_this) {
+        $(_this).closest('tr').find(".CheckBox").hide();
+        $(_this).closest('tr').find("#txtExpDesctbl").hide();
+
+        $(_this).closest('tr').find("#lblExpDesc").show();
+        $(_this).closest('tr').find("#lblType").show();
+        $(_this).closest('tr').find("#lblActive").show();
+        $(_this).closest('tr').find("#lblOptFlag").show();
+
+        $(_this).closest('tr').find("#btnUpdate").hide();
+        $(_this).closest('tr').find("#btnCancel").hide();
+        $(_this).closest('tr').find("#btnEdit").show();
+
+    }
+
+    function UpdateData(_this) {
+        var DelChkLstState = "";
+        var DelChkLstOption = "";
+        debugger
+        var vehicleDesc = $(_this).closest('tr').find("#txtExpDesctbl").val();
+        var vehcleCode = $(_this).closest('tr').find("#hdnVehCode").val();
+        var type = $(_this).closest('tr').find("input[name='type']:checked").val();
+        var checkState = $(_this).closest('tr').find("#chkActive").is(':checked');
+        if (checkState == true) {
+            DelChkLstState = 'Y';
+        } else {
+            DelChkLstState = 'N';
+        }
+        var checkOption = $(_this).closest('tr').find("#chkOptFlag").is(':checked');
+        if (checkOption == true) {
+            DelChkLstOption = 'M';
+        } else {
+            DelChkLstOption = 'O';
+        }
+
+        SaveEnquiry(vehcleCode, vehicleDesc, type, DelChkLstState, DelChkLstOption);
+
+    }
+
+    ClickAccount = function (AccountDesc) {
+
+        if (control == null) {
+            $('#txtAccountCode').val(AccountDesc);
+            $('#txtAccountCode').css("border-color", "#e1e1e1");
+        } else {
+            $(control).closest('tr').find("#txtAccountbl").val(AccountDesc);
+        }
+        $("#POModalActCode").modal("hide");
+    }
+
+
+    function removeVehicleType(value) {
+
+        debugger
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        var ColumnCode = $(value).closest('tr').find("#hdnVehCode").val();
+
+        var Column = 'DelChkListCode';
+        var table = 'DelChkList'
+
+        DeleteEnquiry(table, Column, ColumnCode);
+
+        //$("#" + tempRow).find('.remove').show();
+        //$(value).parent().parent().remove();
+
+        //dataCount--;
+        //rowCount--;
+        //SNo--;
+    }
+
+    function DeleteEnquiry(table, Column, ColumnCode) {
+
+        var DealerCode = "@Session["DealerCode"].ToString()";
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Delete_VehicleType")',
+            data: { 'table': table, 'Column': Column, 'ColumnCode': ColumnCode, 'DealerCode': DealerCode },
+            success: function (data) {
+                debugger
+                if (data.Success == false) {
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                } else {
+                    location.reload();
+                }
+            },
+            complete: function () {
+            },
+
+        });
+    }
+
+    function SaveEnquiry(delchklstcode,expdesc,type,state,option) {
+
+        var dto = {};
+        debugger;
+        var DelChkLstDesc = "";
+        var DelChkLstType = "";
+        var DelChkLstState = "";
+        var DelChkLstOption = "";
+
+        if (expdesc == "") {
+            DelChkLstDesc = $("#txtExpTypeDesc").val();
+        }
+        else {
+
+            DelChkLstDesc = expdesc;
+        }
+
+        if (type == "") {
+            DelChkLstType = $("input[name='type']:checked").val();
+        }
+        else {
+            DelChkLstType = type;
+        }
+    debugger
+
+        if (state == "") {
+            //DelChkLstState = $("input[name='state']:checked").val();
+            var checkState = $("#chkState").is(':checked');
+            if (checkState == true) {
+                DelChkLstState = 'Y';
+            } else {
+                DelChkLstState = 'N';
+            }
+        }
+        else {
+                DelChkLstState = state;
+        }
+
+        if (option == "") {
+            var checkOption = $("#chkPriority").is(':checked');
+            if (checkOption == true) {
+                DelChkLstOption = 'M';
+            } else {
+                DelChkLstOption = 'O';
+            }
+        }
+        else {
+            DelChkLstOption = option;
+        }
+
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.DelChkListCode = delchklstcode;
+        dto.DelChkListDesc = DelChkLstDesc;
+        dto.Type = DelChkLstType;
+        dto.IsActive = DelChkLstState;
+        dto.OptFlag = DelChkLstOption;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_DeliveryCheckList")',
+            data: dto,
+            success: function (data) {
+                $("#txtExpTypeDesc").val('');
+            },
+            complete: function () {
+                //Get_VehicleTypeDetailData();
+                location.reload();
+
+            },
+
+        });
+
+    }
+
+</script>
+

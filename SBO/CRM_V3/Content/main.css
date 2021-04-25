@@ -1,0 +1,35 @@
+﻿body{
+    margin-top:65px;
+}
+
+.mytab-pane {
+    border-left: solid 1px #ddd;
+    border-right: solid 1px #ddd;
+    border-bottom: solid 1px #ddd;
+    padding: 15px;
+}
+
+
+.psum-item{
+    border: solid 1px #e5e5e5;
+    padding:5px;
+    text-align:center;
+    margin-top:30px;
+}
+
+.psum-item h2{
+    padding:10px 0px 5px 0px;
+    margin:0px;
+    font-size:140%;
+    font-weight:normal;
+}
+
+.psum-item a{
+    text-decoration:none;
+    color:#808080;
+}
+
+.dgicon{
+    width:20px;
+    height:20px;
+}

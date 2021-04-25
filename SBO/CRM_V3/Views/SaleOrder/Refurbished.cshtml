@@ -1,0 +1,476 @@
+﻿
+@{
+    ViewBag.Title = "Refurbished";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+</style>
+   
+       
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+<section class="wrapper main-wrapper row">
+    <div class="white-box">
+        <div class="panel panel-primary" style="margin-left:30px">
+            <div class="panel-heading" style="text-align:center"><strong><span class=""></span>Refurbished</strong></div>
+            <div class="panel-body container-fluid">
+                <form role="form" method="post" name="IncomingPayment">
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                               
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Refurbished Code</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                        <input type="text" class="form-control" id="txtRefurCode" readonly>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Refurbished Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id="txtRefurDate" placeholder="dd/mm/yyyy">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Buying Code</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                        <select class="form-control m-bot15" id="ddlBuyingCode" name="ddlBuyingCode" required>
+                                            <option value="Mr">Mr.</option>
+                                            <option value="Ms">Ms.</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Buying Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="date" class="form-control datepicker" id="txtBuyingDate">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Vehicle</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                        <input type="text" class="form-control" id="txtVehicle" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Color</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                        <input type="text" class="form-control" id="txtColor" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Chassis</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                                        <input type="text" class="form-control" id="txtChessis" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Engine</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-cab"></i></span>
+                                        <input type="text" class="form-control" id="txtEngine" name="FaxNo" readonly />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Reg. No</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                                        <input type="text" class="form-control" id="txtRegNo" name="RegNo" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">KM</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-adjust"></i></span>
+                                        <input type="text" class="form-control" id="txtKM" name="KM" readonly/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 pull-left">
+                                    <label class="form-label">Buying Price</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-compressed"></i></span>
+                                        <input type="text" class="form-control" id="txtBuyingPrice" name="BuyingPrice" readonly/>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                       
+                          <div class="row" style="margin-bottom:1rem; margin-top:2rem;margin-left:13px;margin-right:13px">
+                                            
+
+                              <div class="col-md-12 panel panel-primary">
+                                 
+                                      <ul class="nav nav-tabs" style="margin-top:10px">
+                                          <li class="active" style="color:blue"><a href="#general" data-toggle="tab"><span class="glyphicon glyphicon-grain"></span> Job Card Expanse</a></li>
+                                          <li><a href="#description" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span> Profit</a></li>
+                                          <li><a href="#images" data-toggle="tab"><span class="glyphicon glyphicon-picture"></span> Images</a></li>
+                                      </ul>
+                                 
+                                  <div class="form-group row panel-body">
+                                      <div class="tab-content">
+                                          <div id="general" class="tab-pane active">
+                                              <div style="height:250px;overflow:auto">
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">JC No</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                          <select class="form-control m-bot15" id="ddlJCNo" name="JCNo" required>
+                                                              <option value="Mr">Mr.</option>
+                                                              <option value="Ms">Ms.</option>
+                                                          </select>
+                                                      </div>
+                                                  </div>
+
+
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">Date</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                          <input type="text" class="form-control" id="txtDate" placeholder="dd/mm/yyyy">
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">CI</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                          <input type="text" class="form-control" id="txtCI">
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">CI Date</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                          <input type="text" class="form-control" id="txtCIDate" readonly>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">Labor Rate</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                                          <input type="text" class="form-control" id="txtLaborRate" readonly>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">Parts</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                                          <input type="text" class="form-control" id="txtParts" readonly>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">Lubricant</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                                                          <input type="text" class="form-control" id="txtLubricant" readonly />
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">Sublet</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-cab"></i></span>
+                                                          <input type="text" class="form-control" id="txtSublet" readonly />
+                                                      </div>
+                                                  </div>
+
+
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">GST</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                                                          <input type="text" class="form-control" id="txtGST" readonly />
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4">
+                                                      <label class="form-label">PST</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="fa fa-adjust"></i></span>
+                                                          <input type="text" class="form-control" id="txtPST" />
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4 pull-left">
+                                                      <label class="form-label">Discount</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="glyphicon glyphicon-compressed"></i></span>
+                                                          <input type="text" class="form-control" id="txtDiscount" />
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="col-md-4 pull-left">
+                                                      <label class="form-label">Total Cost</label>
+                                                      <div class="input-group">
+                                                          <span class="input-group-addon"><i class="glyphicon glyphicon-compressed"></i></span>
+                                                          <input type="text" class="form-control" id="txtTotalCost" />
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div id="description" class="tab-pane">
+                                              <div style="height:250px;">
+                                                  <div class="form-group row">
+
+                                                      <div class="col-md-4">
+                                                          <label class="form-label">Buying Price</label>
+                                                          <div class="input-group">
+                                                              <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                              <input type="text" class="form-control" id="txtBuyingPrice" readonly>
+                                                          </div>
+                                                      </div>
+
+
+                                                      <div class="col-md-4">
+                                                          <label class="form-label">Total JC Expanse</label>
+                                                          <div class="input-group">
+                                                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                              <input type="text" class="form-control" id="txtTotalJCExpense">
+                                                          </div>
+                                                      </div>
+
+                                                      <div class="col-md-4">
+                                                          <label class="form-label">Total Cost of JobCards</label>
+                                                          <div class="input-group">
+                                                              <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                              <input type="text" class="form-control" id="txtTotalCostOfJobCards">
+                                                          </div>
+                                                      </div>
+
+                                                      <div class="col-md-4">
+                                                          <label class="form-label">Suggest Price</label>
+                                                          <div class="input-group">
+                                                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                              <input type="text" class="form-control" id="txtSuggestPrice" readonly>
+                                                          </div>
+                                                      </div>
+
+
+                                                  </div>
+
+                                              </div>
+                                          </div>
+                                          <div id="images" class="tab-pane">
+                                              <div style="height:250px;overflow:auto">
+                                                  <div class="container-fluid">
+                                                      <div class="col-md-4">
+                                                          <div class="form-group">
+                                                              <label>Upload Image</label>
+                                                              <div class="input-group">
+                                                                  <span class="input-group-btn">
+                                                                      <span class="btn btn-default btn-file">
+                                                                          Browse… <input type="file" id="imgInp">
+                                                                      </span>
+                                                                  </span>
+                                                                  <input type="text" class="form-control" readonly>
+                                                              </div>
+                                                              <div class="col-md-4" style="margin-top:10px">
+                                                                  <img id='img-upload' class="img-rounded" style="height:170px; width:360px" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
+
+                                                      <div class="col-md-4">
+                                                          <div class="form-group">
+                                                              <label>Upload Image</label>
+                                                              <div class="input-group">
+                                                                  <span class="input-group-btn">
+                                                                      <span class="btn btn-default btn-file">
+                                                                          Browse… <input type="file" id="imgInp1">
+                                                                      </span>
+                                                                  </span>
+                                                                  <input type="text" class="form-control" readonly>
+                                                              </div>
+                                                              <div class="col-md-4" style="margin-top:10px">
+                                                                  <img id='img-upload1' class="img-rounded" style="height:170px; width:360px" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
+
+                                                      <div class="col-md-4">
+                                                          <div class="form-group">
+                                                              <label>Upload Image</label>
+                                                              <div class="input-group">
+                                                                  <span class="input-group-btn">
+                                                                      <span class="btn btn-default btn-file">
+                                                                          Browse… <input type="file" id="imgInp2">
+                                                                      </span>
+                                                                  </span>
+                                                                  <input type="text" class="form-control" readonly>
+                                                              </div>
+                                                              <div class="col-md-4" style="margin-top:10px">
+                                                                  <img id='img-upload2' class="img-rounded" style="height:170px; width:360px" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+
+
+                                  </div>
+                              </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="pull-right">
+
+                                        <button type="submit" class="btn btn-info" id="btnCancel" style="margin-top:27px; width:100px">Save</button>
+
+                                        <button type="submit" class="btn btn-danger" id="btnCancel" style="margin-top:27px; width:100px">Delete</button>
+
+                                        <button type="submit" class="btn btn-default" id="btnCancel" style="margin-top:27px; width:100px">Clear</button>
+
+                                        <button type="submit" class="btn btn-success" id="btnCancel" style="margin-top:27px; width:100px">Print</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.js")' type="text/javascript"></script>
+@*<script src='@Url.Content("~/Scripts/bootstrap.js")'></script>
+    <script src='@Url.Content("~/Scripts/bootstrap.min.js")'></script>*@
+@*<script src='@Url.Content("~/assets/js/scripts.js")' type="text/javascript"></script>*@
+<script src='@Url.Content("~/assets/plugins/daterangepicker/js/moment.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/daterangepicker/js/daterangepicker.js")' type="text/javascript"></script> 
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readURL1(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload1').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readURL2(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload2').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+       
+
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+
+
+        $("#imgInp1").change(function () {
+            readURL1(this);
+        });
+
+
+        $("#imgInp2").change(function () {
+            readURL2(this);
+        });
+
+    });
+
+</script>

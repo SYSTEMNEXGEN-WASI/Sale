@@ -1,0 +1,639 @@
+﻿
+@{
+    ViewBag.Title = "MasterSetup";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.css")' rel="stylesheet" />
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+
+
+        <div class="col-lg-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Profession</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                            <a class="box_close fa fa-times"></a>*@
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+
+                        <div class="col-xs-12">
+
+                            <ul class="nav nav-tabs nav-justified primary">
+                                <li class="active">
+                                    <a href="#home-7" data-toggle="tab">
+                                        <i class="fa fa-briefcase"></i> Profession Type
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content primary">
+                                <div class="tab-pane fade in active" id="home-7">
+
+                                    <div>
+                                        @* WORK TODO:  *@
+
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label class="form-label">Profession Description</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-info"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control" id="txtProfTypeDesc">
+
+                                                </div>
+                                                <div class="makespace"></div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="input-group pull-right">
+                                                    <button type="button" class="btn btn-success" id="addVehType" onclick="SaveEnquiry('','')" style="margin-top:25px;">Add</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+
+
+                                                <table id="VehicleTypeDetail" class="table table-striped dt-responsive display">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S/N</th>
+                                                            <th>Profession Code</th>
+                                                            <th>Profession Description</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="fixedRow1" data-tr-count="0"></tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                               
+                               
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+</section>
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/datatables/js/jquery.dataTables.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+
+        Get_VehicleTypeDetailData();
+        Get_VehReceiptData();
+        Get_DocChkListData();
+        Get_VehLocationData();
+
+
+        //$.noConflict();
+        //$('#VehicleTypeDetail').DataTable();
+
+        $("#VehicleTypeDetail").on('click', '#selectData', function () {
+            debugger
+            var id = $(this).closest('tr').find("#hdnVehCode").val();
+
+            alert(id);
+            //window.location.href = "/Enquiry/EnquiryDetail?leadId="+id;
+        })
+
+
+
+    })
+
+    $("#VehicleTypeDetail > tr").click(function () {
+        debugger
+        var i = $(this).index();
+    })
+
+
+
+    //----------------------- Vehicle Type Tab work start -----------------------------
+    function EditVehType(value) {
+        $(value).closest('tr').find("#txtProfTypeDesctbl").show();
+        $(value).closest('tr').find("#lblVehTypeDesc").hide();
+        $(value).closest('tr').find("#btnUpdate").show();
+        $(value).closest('tr').find("#btnCancel").show();
+        $(value).closest('tr').find("#btnEdit").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblVehTypeDesc").text().trim();
+        $(value).closest('tr').find("#txtProfTypeDesctbl").val(lblVehDesc);
+    }
+
+    function CancelEvent(_this)
+    {
+        $(_this).closest('tr').find("#txtProfTypeDesctbl").hide();
+        $(_this).closest('tr').find("#lblVehTypeDesc").show();
+        $(_this).closest('tr').find("#btnUpdate").hide();
+        $(_this).closest('tr').find("#btnCancel").hide();
+        $(_this).closest('tr').find("#btnEdit").show();
+
+    }
+
+    function UpdateData(_this)
+    {
+        var vehicleDesc = $(_this).closest('tr').find("#txtProfTypeDesctbl").val();
+        var vehcleCode = $(_this).closest('tr').find("#hdnVehCode").val();
+        //alert(vehicleDesc);
+
+        SaveEnquiry(vehcleCode, vehicleDesc);
+
+    }
+
+    function Get_VehicleTypeDetailData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Profession/Select_ProfessionDetail")',
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        $("#VehicleTypeDetail tbody tr").remove()
+                        //ProductDetail
+                        if (item.length > 0) {
+
+                            $.each(item, function (value, item) {
+                                debugger;
+                                $("#VehicleTypeDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblVehTypeCode">' + item.ProfCode.trim() + ' </label></td>' +
+                                                        '<td> <label id="lblVehTypeDesc">' + item.ProfDesc.trim() + ' </label>' +
+                                                            '<input type="text" style="display:none;" class="form-control" id="txtProfTypeDesctbl"/></td>' +
+                                                        '<td style="text-align:center;">' +
+                                                        '<button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditVehType(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)" ><i class="fa fa-close fa-lg"></i></button>' +
+                                                        '<input type="hidden" id="hdnVehCode" value="' + item.ProfCode.trim() + '"/>' +
+                                                        '</td>' +
+                                                        '</tr>');
+
+                            });
+
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+    }
+
+    function SaveEnquiry(vehcode, vehdesc) {
+
+        var dto = {};
+        debugger;
+        var vehicleDesc = "";
+
+        if (vehdesc == "") {
+            vehicleDesc = $("#txtProfTypeDesc").val();
+        }
+        else {
+            
+            vehicleDesc = vehdesc;
+        }
+
+
+        dto.DealerCode = "COMON";
+        dto.ProfCode = vehcode;
+        dto.ProfDesc = vehicleDesc;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Profession/Insert_ProfessionType")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                Get_VehicleTypeDetailData();
+
+
+            },
+
+        });
+        $("#txtProfTypeDesc").val('');
+    }
+
+    // Vehicle Type Tab work End
+
+    //----------------------- Vehicle Reciept Type Tab work start -----------------------------
+
+    function EditRecieptType(value) {
+        $(value).closest('tr').find("#txtVehRecTypeDesctbl").show();
+        $(value).closest('tr').find("#lblVehRecTypeDesc").hide();
+        $(value).closest('tr').find("#btnUpdateReciept").show();
+        $(value).closest('tr').find("#btnCancelReciept").show();
+        $(value).closest('tr').find("#btnEditReciept").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblVehRecTypeDesc").text().trim();
+        $(value).closest('tr').find("#txtVehRecTypeDesctbl").val(lblVehDesc);
+    }
+
+    function CancelRecieptType(_this) {
+        $(_this).closest('tr').find("#txtVehRecTypeDesctbl").hide();
+        $(_this).closest('tr').find("#lblVehRecTypeDesc").show();
+        $(_this).closest('tr').find("#btnUpdateReciept").hide();
+        $(_this).closest('tr').find("#btnCancelReciept").hide();
+        $(_this).closest('tr').find("#btnEditReciept").show();
+
+    }
+
+    function UpdateRecieptType(_this) {
+        var RecDesc = $(_this).closest('tr').find("#txtVehRecTypeDesctbl").val();
+        var RecCode = $(_this).closest('tr').find("#hdnRecCode").val();
+        //alert(vehicleDesc);
+
+        InsertVehRecType(RecCode, RecDesc);
+
+    }
+
+    function Get_VehReceiptData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Select_ReceiptDetail")',
+            success: function (data) {
+                debugger;
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#VehRecTypeDetail tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            $("#VehRecTypeDetail tbody").append('<tr id="RecTypeRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblVehRecTypeCode">' + item.VehRecCode.trim() + ' </label></td>' +
+                                                    '<td> <label id="lblVehRecTypeDesc">' + item.VehRecDesc.trim() + ' </label>' +
+                                                         '<input type="text" style="display:none;" class="form-control" id="txtVehRecTypeDesctbl"></td>' +
+                                                    '<td style="text-align:center;">' +
+                                                        '<button type="button" class="btn btn-primary btn-xs" id="btnEditReciept" onclick="EditRecieptType(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdateReciept" style="display:none;" onclick="UpdateRecieptType(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancelReciept" style="display:none;margin-left:5px;" onclick="CancelRecieptType(this)" ><i class="fa fa-close fa-lg"></i></button>' +
+                                                        '<input type="hidden" id="hdnRecCode" value="' + item.VehRecCode.trim() + '"/>' +
+                                                        '</td>' +
+                                                    '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    function InsertVehRecType(reccode, recdesc) {
+
+        var dto = {};
+        debugger;
+
+        var recieptDesc = "";
+        var recieptCode = "";
+
+        if (recdesc == "") {
+            recieptDesc = $("#txtVehRecDesc").val();
+        }
+        else {
+            recieptDesc = recdesc;
+        }
+
+
+        dto.DealerCode = "COMON";
+        dto.VehRecCode = reccode;
+        dto.VehRecDesc = recieptDesc;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_VehicleReceiptType")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                Get_VehReceiptData();
+
+            },
+
+        });
+        $("#txtVehRecDesc").val('');
+    }
+
+    // Vehicle Reciept Type Tab work End
+
+    //----------------------- Document Check List Tab work start -----------------------------
+
+    function EditDocType(value) {
+        $(value).closest('tr').find("#txtDocTypeDesctbl").show();
+        $(value).closest('tr').find("#lblDocTypeDesc").hide();
+        $(value).closest('tr').find("#btnUpdateDoc").show();
+        $(value).closest('tr').find("#btnCancelDoc").show();
+        $(value).closest('tr').find("#btnEditDoc").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblDocTypeDesc").text().trim();
+        $(value).closest('tr').find("#txtDocTypeDesctbl").val(lblVehDesc);
+    }
+
+    function CancelDocType(_this) {
+        $(_this).closest('tr').find("#txtDocTypeDesctbl").hide();
+        $(_this).closest('tr').find("#lblDocTypeDesc").show();
+        $(_this).closest('tr').find("#btnUpdateDoc").hide();
+        $(_this).closest('tr').find("#btnCancelDoc").hide();
+        $(_this).closest('tr').find("#btnEditDoc").show();
+
+    }
+
+    function UpdateDocType(_this) {
+        var RecDesc = $(_this).closest('tr').find("#txtDocTypeDesctbl").val();
+        var RecCode = $(_this).closest('tr').find("#hdnDocCode").val();
+        //alert(vehicleDesc);
+
+        InsertDocType(RecCode, RecDesc);
+
+    }
+
+    function Get_DocChkListData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Select_DocumentDetail")',
+            success: function (data) {
+                debugger;
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#DocTypeDetail tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            $("#DocTypeDetail tbody").append('<tr id="DocTypeRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblDocTypeCode">' + item.DocChkListCode.trim() + ' </label></td>' +
+                                                    '<td> <label id="lblDocTypeDesc">' + item.DocChkListDesc.trim() + ' </label>' +
+                                                        '<input type="text" style="display:none;" class="form-control" id="txtDocTypeDesctbl"></td>' +
+                                                    '<td style="text-align:center;">' +
+                                                        '<button type="button" class="btn btn-primary btn-xs" id="btnEditDoc" onclick="EditDocType(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdateDoc" style="display:none;" onclick="UpdateDocType(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancelDoc" style="display:none;margin-left:5px;" onclick="CancelDocType(this)" ><i class="fa fa-close fa-lg"></i></button>' +
+                                                        '<input type="hidden" id="hdnDocCode" value="' + item.DocChkListCode.trim() + '"/>' +
+                                                        '</td>' +
+                                                    '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    function InsertDocType(doccode,docdesc) {
+
+        var dto = {};
+        debugger;
+
+        var docDesc = "";
+        var docCode = "";
+
+        if (docdesc == "") {
+            docDesc = $("#txtDocDesc").val();
+        }
+        else {
+            docDesc = docdesc;
+        }
+
+        dto.DealerCode = "COMON";
+        dto.DocChkListCode = doccode;
+        dto.DocChkListDesc = docDesc;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_DocumentType")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                Get_DocChkListData();
+
+
+            },
+
+        });
+        $("#txtDocDesc").val('');
+    }
+
+    // Document Check List Tab work End
+
+    //----------------------- Vehicle Location Tab work start -----------------------------
+
+    function EditVehLoc(value) {
+        $(value).closest('tr').find("#txtVehLocDesctbl").show();
+        $(value).closest('tr').find("#lblVehLocDesc").hide();
+        $(value).closest('tr').find("#btnUpdateVehLoc").show();
+        $(value).closest('tr').find("#btnCancelVehLoc").show();
+        $(value).closest('tr').find("#btnEditVehLoc").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblVehLocDesc").text().trim();
+        $(value).closest('tr').find("#txtVehLocDesctbl").val(lblVehDesc);
+    }
+
+    function CancelVehLoc(_this) {
+        $(_this).closest('tr').find("#txtVehLocDesctbl").hide();
+        $(_this).closest('tr').find("#lblVehLocDesc").show();
+        $(_this).closest('tr').find("#btnUpdateVehLoc").hide();
+        $(_this).closest('tr').find("#btnCancelVehLoc").hide();
+        $(_this).closest('tr').find("#btnEditVehLoc").show();
+
+    }
+
+    function UpdateVehLoc(_this) {
+        var VehLocDesc = $(_this).closest('tr').find("#txtVehLocDesctbl").val();
+        var VehLocCode = $(_this).closest('tr').find("#hdnVehLocCode").val();
+        //alert(vehicleDesc);
+
+        InsertVehLoc(VehLocCode, VehLocDesc);
+
+    }
+
+    function Get_VehLocationData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Select_LocationDetail")',
+            success: function (data) {
+                debugger;
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#VehLocDetail tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            $("#VehLocDetail tbody").append('<tr id="LocRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblVehLocCode">' + item.VehLocCode.trim() + ' </label></td>' +
+                                                    '<td> <label id="lblVehLocDesc">' + item.VehLocDesc.trim() + ' </label>' +
+                                                        '<input type="text" style="display:none;" class="form-control" id="txtVehLocDesctbl"></td>' +
+                                                    '<td style="text-align:center;">' +
+                                                        '<button type="button" class="btn btn-primary btn-xs" id="btnEditVehLoc" onclick="EditVehLoc(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdateVehLoc" style="display:none;" onclick="UpdateVehLoc(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancelVehLoc" style="display:none;margin-left:5px;" onclick="CancelVehLoc(this)" ><i class="fa fa-close fa-lg"></i></button>' +
+                                                        '<input type="hidden" id="hdnVehLocCode" value="' + item.VehLocCode.trim() + '"/>' +
+                                                    '</td>' +
+                                                    '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    function InsertVehLoc(vehloccode,vehlocdesc) {
+
+        var dto = {};
+        debugger;
+
+        var vehLocDesc = "";
+        var vehLocCode = "";
+
+        if (vehlocdesc == "") {
+            vehLocDesc = $("#txtLocDesc").val();
+        }
+        else {
+            vehLocDesc = vehlocdesc;
+        }
+
+        dto.DealerCode = "COMON";
+        dto.VehLocCode = vehloccode;
+        dto.VehLocDesc = vehLocDesc;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_VehLocation")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                Get_VehLocationData();
+
+
+            },
+
+        });
+        $("#txtLocDesc").val('');
+    }
+
+
+</script>
+
+
+
+
+
+

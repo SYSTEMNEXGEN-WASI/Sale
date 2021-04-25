@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8440338B-A644-462A-8664-6BBBA7916253}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.CRM</RootNamespace>
+    <AssemblyName>Core.CRM</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ADO\AdvSerChargMethods.cs" />
+    <Compile Include="ADO\BookingOrderMethods.cs" />
+    <Compile Include="ADO\BuyingCusVehicleMethods.cs" />
+    <Compile Include="ADO\CashSaleInvoiceMethods.cs" />
+    <Compile Include="ADO\CreditSaleInvoiceMethods.cs" />
+    <Compile Include="ADO\CustomerMethods.cs" />
+    <Compile Include="ADO\DashboardMethods.cs" />
+    <Compile Include="ADO\DealerMethods.cs" />
+    <Compile Include="ADO\DeliveryOrderMethods.cs" />
+    <Compile Include="ADO\DetailEvaluationMethods.cs" />
+    <Compile Include="ADO\EnquiryMethods.cs" />
+    <Compile Include="ADO\EventMethods.cs" />
+    <Compile Include="ADO\FullAndFinalMethods.cs" />
+    <Compile Include="ADO\GeneralMethods.cs" />
+    <Compile Include="ADO\HoldVehicleMethods.cs" />
+    <Compile Include="ADO\InstallmentReceiptMethods.cs" />
+    <Compile Include="ADO\InstallmentSaleInvoiceMethods.cs" />
+    <Compile Include="ADO\MasterMethods.cs" />
+    <Compile Include="ADO\MonthlyCommisionMethods.cs" />
+    <Compile Include="ADO\PendingVoucherMethods.cs" />
+    <Compile Include="ADO\PriceOfferNegotiationMethods.cs" />
+    <Compile Include="ADO\ProfessionMethods.cs" />
+    <Compile Include="ADO\ReversalMethods.cs" />
+    <Compile Include="ADO\SaleOrderMethods.cs" />
+    <Compile Include="ADO\SaleQuotMethods.cs" />
+    <Compile Include="ADO\SupplierMethods.cs" />
+    <Compile Include="ADO\TaskMethods.cs" />
+    <Compile Include="ADO\VehicleExchangeMethods.cs" />
+    <Compile Include="ADO\VehicleMethods.cs" />
+    <Compile Include="ADO\VehicleUpdateMethods.cs" />
+    <Compile Include="ADO\VehLocTransMethods.cs" />
+    <Compile Include="ADO\VehReceiptMethods.cs" />
+    <Compile Include="ADO\VendorMethods.cs" />
+    <Compile Include="ADO\ViewModel\AccountTransactionVM.cs" />
+    <Compile Include="ADO\ViewModel\AccountVM.cs" />
+    <Compile Include="ADO\ViewModel\BookingReceiptInstrumentDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\BookOrdMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\BookOrdVehDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\BuyingCusVehicleVM.cs" />
+    <Compile Include="ADO\ViewModel\BuyingPaymentVM.cs" />
+    <Compile Include="ADO\ViewModel\CommisionVM.cs" />
+    <Compile Include="ADO\ViewModel\CrdSIVM.cs" />
+    <Compile Include="ADO\ViewModel\CSIVehicleGridDataVM.cs" />
+    <Compile Include="ADO\ViewModel\CSIVoucherVM.cs" />
+    <Compile Include="ADO\ViewModel\CustomerInstallmentScheduleVM.cs" />
+    <Compile Include="ADO\ViewModel\CustomerVM.cs" />
+    <Compile Include="ADO\ViewModel\DailyExpenseDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\DaliyExpenseMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\DealerInfoVM.cs" />
+    <Compile Include="ADO\ViewModel\DealerSupplierVM.cs" />
+    <Compile Include="ADO\ViewModel\DealerVM.cs" />
+    <Compile Include="ADO\ViewModel\DeliveryCheckListVM.cs" />
+    <Compile Include="ADO\ViewModel\DocumentCheckList.cs" />
+    <Compile Include="ADO\ViewModel\EmployeeVM.cs" />
+    <Compile Include="ADO\ViewModel\EventVM.cs" />
+    <Compile Include="ADO\ViewModel\EnquiryDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\EnquiryMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\ExpenseHeadVM.cs" />
+    <Compile Include="ADO\ViewModel\FollowUpDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\GetCustomerSpVM.cs" />
+    <Compile Include="ADO\ViewModel\GetProductSpVM .cs" />
+    <Compile Include="ADO\ViewModel\GetRegNoRecVM.cs" />
+    <Compile Include="ADO\ViewModel\GetVehicleDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\GetVehicleGridDataVM.cs" />
+    <Compile Include="ADO\ViewModel\GuarantorVM.cs" />
+    <Compile Include="ADO\ViewModel\GVouMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\HoldVehicleVM.cs" />
+    <Compile Include="ADO\InstallmentPlanMethods.cs" />
+    <Compile Include="ADO\ViewModel\InstallmentPlanVM.cs" />
+    <Compile Include="ADO\ViewModel\IRGridVM.cs" />
+    <Compile Include="ADO\ViewModel\ISIDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\ISIInstallmentReceiptVM.cs" />
+    <Compile Include="ADO\ViewModel\ISIInstallmentVM.cs" />
+    <Compile Include="ADO\ViewModel\ISIVehicleDataVM.cs" />
+    <Compile Include="ADO\ViewModel\MonthlyCommisionVM.cs" />
+    <Compile Include="ADO\ViewModel\NameValueClass.cs" />
+    <Compile Include="ADO\ViewModel\PendingVoucherVM.cs" />
+    <Compile Include="ADO\ViewModel\PrdouctVM.cs" />
+    <Compile Include="ADO\ViewModel\ProdReceiptDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\ProdReceiptVM.cs" />
+    <Compile Include="ADO\ViewModel\ProfessionTypeVM.cs" />
+    <Compile Include="ADO\ViewModel\ProspectDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\QuickEnquiryVM.cs" />
+    <Compile Include="ADO\ViewModel\ReceiptDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\ReceiptMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\RequestDeliveryOrderVM.cs" />
+    <Compile Include="ADO\ViewModel\RequestEnquiryDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\RequestEnquiryMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\RequestEventDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\RequestFollowUpDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\RequestVehicleReceiptVM.cs" />
+    <Compile Include="ADO\ViewModel\ReversalVM.cs" />
+    <Compile Include="ADO\ViewModel\SaleQuotDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\SaleQuotMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\SalesPersonPerformanceVM.cs" />
+    <Compile Include="ADO\ViewModel\SecurityFormsVM.cs" />
+    <Compile Include="ADO\ViewModel\SecurityUserAccess.cs" />
+    <Compile Include="ADO\ViewModel\ServiceVM.cs" />
+    <Compile Include="ADO\ViewModel\TaskVM.cs" />
+    <Compile Include="ADO\ViewModel\UCS_EvaluationVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleDeliveryDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleDeliveryMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleExchangeVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleLocationVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleLocTransVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleReturnDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleReturnMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleSaleDataVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleSaleDetailReportVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleSaleDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleSaleMasterVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleStockVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleTaxDetailVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleTypeVM.cs" />
+    <Compile Include="ADO\ViewModel\VehicleVM.cs" />
+    <Compile Include="ADO\ViewModel\VehReceiptTypoVM.cs" />
+    <Compile Include="ADO\ViewModel\SupplierVM.cs" />
+    <Compile Include="ADO\ViewModel\VendorVM.cs" />
+    <Compile Include="ADO\ViewModel\VoucherVM.cs" />
+    <Compile Include="ADO\VoucherMethods.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Helper\AuthBase.cs" />
+    <Compile Include="Helper\CConnection.cs" />
+    <Compile Include="Helper\DataAccess.cs" />
+    <Compile Include="Helper\General.cs" />
+    <Compile Include="Helper\GlobalVar.cs" />
+    <Compile Include="Helper\SecurityBll.cs" />
+    <Compile Include="Helper\SQLHelper.cs" />
+    <Compile Include="Helper\SysFunction.cs" />
+    <Compile Include="Helper\Transaction.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Content\bootstrap-datepicker.css.map" />
+    <None Include="Content\bootstrap-datepicker.standalone.css.map" />
+    <None Include="Content\bootstrap-datepicker3.css.map" />
+    <None Include="Content\bootstrap-datepicker3.standalone.css.map" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker-en-CA.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ar-tn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.az.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bg.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.br.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bs.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ca.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.cs.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.cy.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.da.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.de.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.el.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-AU.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-CA.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-GB.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-IE.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-NZ.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-ZA.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.eo.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.es.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.et.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.eu.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fa.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fi.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fo.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fr-CH.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.gl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.he.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hi.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hu.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hy.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.id.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.is.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.it-CH.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.it.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ja.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ka.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kh.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.km.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ko.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.lt.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.lv.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.me.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.mk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.mn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ms.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nl-BE.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.no.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.oc.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pt-BR.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pt.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ro.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.rs-latin.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.rs.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.si.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sq.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sr-latin.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sv.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sw.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ta.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tg.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.th.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.uk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.uz-cyrl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.uz-latn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.vi.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

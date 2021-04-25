@@ -1,0 +1,1215 @@
+﻿
+@{
+    ViewBag.Title = "MasterSetup";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+    .rdoBtn {
+        cursor: pointer;
+        margin-right: 10px;
+        padding: 0px 10px;
+    }
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+  .add-scroll {
+  overflow-y: scroll;
+  height: 200px;
+
+}
+
+
+
+
+
+</style>
+
+
+        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
+
+
+        <!-- CORE CSS TEMPLATE - START -->
+        <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+        <!-- CORE CSS TEMPLATE - END -->
+
+<section class="wrapper main-wrapper row" style=''>
+   
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+
+
+                        <div class="col-lg-12">
+                            <section class="box ">
+                                <header class="panel_header">
+                                    <h2 class="title pull-left">Masters Setups</h2>
+                                    <div class="actions panel_actions pull-right">
+                                        <a class="box_toggle fa fa-chevron-down"></a>
+                                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                        <a class="box_close fa fa-times"></a>*@
+                                    </div>
+                                </header>
+                                <div class="content-body">
+                                    <div class="row">
+
+                                        <div class="col-xs-12">
+
+                                            <ul class="nav nav-tabs  primary"  style="border-radius:0px; ">
+                                                <li class="active">
+                                                    <a href="#home-7" data-toggle="tab" style="border-radius:0px;">
+                                                        <i class="fa fa-car"></i> Vehicle Type
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#profile-7" data-toggle="tab" style="border-radius:0px;">
+                                                        <i class="fa fa-car"></i> Vehicle Receipt Type
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#messages-7" data-toggle="tab" style="border-radius:0px;">
+                                                        <i class="fa fa-event"></i> Document Check List
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#settings-7" data-toggle="tab" style="border-radius:0px;">
+                                                        <i class="fa fa-car"></i> Vehicle Location
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tabService" data-toggle="tab" style="border-radius:0px;">
+                                                        <i class="fa fa-car"></i> Vehicle Services
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                            <div class="tab-content primary">
+                                                <div class="tab-pane fade in active" id="home-7">
+
+                                                    <div>
+                                                        @* WORK TODO:  *@
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Vehicle Description</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-car"></i>
+                                                                    </span>
+                                                                    <input type="text" class="form-control" id="txtVehTypeDesc">                                                                    
+
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Voucher Category</label>
+                                                                <div class="input-group">
+                                                                    <label class="rdoBtn">
+                                                                        HCV
+                                                                        <input type="radio" name="frequency" id="minimal-radio-1" value="HCV" checked style="margin-left: 5px;" />
+                                                                    </label>
+                                                                    <label class="rdoBtn">
+                                                                        LCV<input type="radio" name="frequency" id="minimal-radio-2" value="LCV" style="margin-left: 5px;" />
+                                                                    </label>
+                                                                </div>
+                                                                <div class="makespace"></div>
+                                                            </div>
+
+                                                            <div class="col-md-4 pull-right">
+                                                                <div class="input-group">
+                                                                    <button type="button" class="btn btn-success" id="addVehType" onclick="SaveEnquiry('','','')" style="margin-top:25px;width:100%;margin-right:245px;border-radius:0px;">Add</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">                                                              
+                                                                <table id="VehicleTypeDetail" class="table table-striped dt-responsive display">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>S/N</th>
+                                                                            <th>Vehicle Code</th>
+                                                                            <th>Vehicle Description</th>
+                                                                            <th>Category</th>
+                                                                            <th style="text-align:center;">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr id="fixedRow1" data-tr-count="0"></tr>                                                                       
+                                                                    </tbody>
+                                                                </table>
+
+                                                                </div>
+                                                            </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="tab-pane fade" id="profile-7">
+
+                                                    <div class="row">
+
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Vehicle Receipt Description</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-car"></i>
+                                                                </span>
+                                                                <input type="text" class="form-control" id="txtVehRecDesc">
+
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+
+                                                        <div class="col-md-4 pull-right">
+                                                            <div class="input-group">
+                                                                <button type="button" class="btn btn-success" id="addVehRecType" onclick="InsertVehRecType('', '')" style="margin-top:25px;width:100%;margin-right: 245px;border-radius:0px;">Add</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+
+
+                                                            <table id="VehRecTypeDetail" class="table table-striped dt-responsive display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>S/N</th>
+                                                                        <th>Receipt Code</th>
+                                                                        <th>Receipt Description</th>
+                                                                        <th style="text-align:center;">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr id="RecTypeRow1" data-tr-count="0"></tr>
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="tab-pane fade" id="messages-7">
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Document Description</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-car"></i>
+                                                                </span>
+                                                                <input type="text" class="form-control" id="txtDocDesc">
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-4 pull-right">
+                                                            <div class="input-group">
+                                                                <button type="button" class="btn btn-success" id="addDocType" onclick="InsertDocType('','')" style="margin-top:25px;width:100%;margin-right: 245px;border-radius:0px;">Add</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <table id="DocTypeDetail" class="table table-striped dt-responsive display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>S/N</th>
+                                                                        <th>Document Code</th>
+                                                                        <th>Document Description</th>
+                                                                        <th style="text-align:center;">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr id="DocTypeRow1" data-tr-count="0"></tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="tab-pane fade" id="settings-7">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Location Description</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-car"></i>
+                                                                </span>
+                                                                <input type="text" class="form-control" id="txtLocDesc">
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-4 pull-right">
+                                                            <div class="input-group">
+                                                                <button type="button" class="btn btn-success" id="addVehLoc" onclick="InsertVehLoc('','')" style="margin-top:25px;width:100%;margin-right: 245px;border-radius:0px;">Add</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <table id="VehLocDetail" class="table table-striped dt-responsive display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>S/N</th>
+                                                                        <th>Location Code</th>
+                                                                        <th>Location Description</th>
+                                                                        <th style="text-align:center;">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr id="LocRow1" data-tr-count="0"></tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="tab-pane fade" id="tabService">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">Service Description</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-car"></i>
+                                                                </span>
+                                                                <input type="text" class="form-control" id="txtServiceDesc">
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label class="form-label">Ammount</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-car"></i>
+                                                                </span>
+                                                                <input type="text" class="form-control" id="txtDefaultValue">
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">Account</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><a data-toggle="modal" data-target="#AccountModal" style="color:blue"><i class="fa fa-search" onclick=""></i></a></div>
+                                                                <input type="text" class="form-control" id="txtAccount">
+                                                            </div>
+                                                            <div class="makespace"></div>
+                                                        </div>
+                                                        <div class="col-md-2 pull-right">
+                                                            <div class="input-group">
+                                                                <button type="button" class="btn btn-success"  id="addVehLoc" onclick="InsertService('','')" style="margin-top:25px;width:100%;margin-right: 70px;border-radius:0px;">Add</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12" id="result">
+                                                            <div class="table-responsive add-scroll">
+                                                               <table id="VehServiceDetail" class="table-responsive" style="width:100%" cellspacing="0" >
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>S/N</th>
+                                                                            <th>Service Code</th>
+                                                                            <th>Service</th>
+                                                                            <th>Default Value</th>
+                                                                            <th>Account</th>
+                                                                            <th style="text-align:center;">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                   
+                                                                    <tbody>
+                                                                        <tr id="LocRow1" data-tr-count="0"></tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        </div>
+                                </div>
+                            </section>
+                        </div>
+
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- Bank modal start -->
+    <div class="modal" tabindex="-1" id="AccountModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin-top:60px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="modal123Label">Search Account</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputuname" class="col-md-2">Search :</label>
+                        <div class="col-md-10">
+                            <input type="text" id="txtAccSearch" class="form-control" aria-controls="AccountTable" placeholder="Search . . . ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="table-responsive" style="height:300px;">
+                            <table id="AccountTable" class="table table-striped table-hover responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Account Code</th>
+                                        <th>Account Title </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:12px; text-transform: uppercase">
+
+                                    @{ int j = 1; }
+                                    @if (ViewBag.Get_AccDesc != null)
+                                    {
+
+                                        foreach (var item in ViewBag.Get_AccDesc)
+                                        {
+                                            <tr style="text-align: left" onclick="Set_Account('@item.AcCode','@item.AcTitle')">
+
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.AcCode</a>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <a href="#" style="color:black">@item.AcTitle</a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="text-transform: uppercase;" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- modal end -->
+    </section>
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<script src="~/assets/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+       // $("#VehServiceDetail").DataTable();
+        //$('#VehServiceDetail').DataTable({
+        //    "scrollY": "50vh",
+        //    "scrollCollapse": true,
+        //});
+        //$('.dataTables_length').addClass('bs-select');
+    });
+    $(document).ready(function () {
+
+        var VehExpCode = "";
+        Get_VehicleTypeDetailData();
+        Get_VehReceiptData();
+        Get_DocChkListData();
+        Get_VehLocationData();
+        Get_ServiceData();
+
+        //$.noConflict();
+        //$('#VehicleTypeDetail').DataTable();
+
+        $("#VehicleTypeDetail").on('click', '#selectData', function () {
+             
+            var id = $(this).closest('tr').find("#hdnVehCode").val();
+
+            alert(id);
+            //window.location.href = "/Enquiry/EnquiryDetail?leadId="+id;
+        })
+
+
+
+    })
+    $(document).ready(function () {
+        if ($('#VehServiceDetail tr').length >= 5) {
+            $('#result').addClass('add-scroll');
+        }
+    });
+
+    $("#VehicleTypeDetail > tr").click(function () {
+         
+        var i = $(this).index();
+    })
+    Set_Account = function (AccCode, AccDesc) {
+        debugger;
+        document.getElementById('txtAccount').value = AccCode;
+      //  document.getElementById('txtAccDesc').value = AccDesc;
+        //document.getElementById('txtCoseofSaleCode').value = AccCode;
+        //document.getElementById('txtCostofSaleDesc').value = AccDesc;
+        //document.getElementById('txtRevenueCode').value = AccCode;
+        //document.getElementById('txtRevenueDesc').value = AccDesc;
+        $("#AccountModal").modal("hide");
+    }
+
+
+
+    //----------------------- Vehicle Type Tab work start -----------------------------
+    function EditVehType(value) {
+        $(value).closest('tr').find("#txtVehTypeDesctbl").show();
+        $(value).closest('tr').find("#lblVehTypeDesc").hide();
+        $(value).closest('tr').find("#btnUpdate").show();
+        $(value).closest('tr').find("#btnCancel").show();
+        $(value).closest('tr').find("#btnEdit").hide();
+        $(value).closest('tr').find("#btnDelete").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblVehTypeDesc").text().trim();
+        $(value).closest('tr').find("#txtVehTypeDesctbl").val(lblVehDesc);
+    }
+
+    function CancelEvent(_this)
+    {
+        $(_this).closest('tr').find("#txtVehTypeDesctbl").hide();
+        $(_this).closest('tr').find("#lblVehTypeDesc").show();
+        $(_this).closest('tr').find("#btnUpdate").hide();
+        $(_this).closest('tr').find("#btnCancel").hide();
+        $(_this).closest('tr').find("#btnEdit").show();
+        $(_this).closest('tr').find("#btnDelete").show();
+
+    }
+
+    function UpdateData(_this)
+    {
+        var vehicleDesc = $(_this).closest('tr').find("#txtVehTypeDesctbl").val();
+        var vehcleCode = $(_this).closest('tr').find("#hdnVehCode").val();
+        var vehCategory = $(_this).closest('tr').find("#lblVehCategory").text();
+        //alert(vehicleDesc);
+
+        SaveEnquiry(vehcleCode, vehicleDesc, vehCategory);
+
+    }
+
+    function Get_VehicleTypeDetailData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Master/Select_VehicleDetail")',
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        $("#VehicleTypeDetail tbody tr").remove()
+                        //ProductDetail
+                        if (item.length > 0) {
+
+                            $.each(item, function (value, item) {
+                                
+                                $("#VehicleTypeDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblVehTypeCode">' + item.VehTypeCode.trim() + ' </label></td>' +
+                                                        '<td> <label id="lblVehTypeDesc">' + item.VehTypeDesc.trim() + ' </label>'+
+                                                            '<input type="text" style="display:none;" class="form-control" id="txtVehTypeDesctbl"/></td>' +
+                                                        '<td><label id="lblVehCategory">' + item.VehCategory.trim() + ' </label></td>' +
+                                                        '<td style="text-align:center;">' +
+                                                        '<button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditVehType(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)" ><i class="fa fa-close fa-lg"></i></button>' +
+                                                        '<input type="hidden" id="hdnVehCode" value="' + item.VehTypeCode.trim() + '"/>' +
+                                                        '<button type="button" style="margin-left: 5px;" class="btn btn-danger btn-xs" id="btnDelete" onclick="removeVehicleType(this)"><i class="fa fa-minus fa-lg"></i></button>' +
+                                                        '</td>' +
+                                                        '</tr>');
+
+                            });
+
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+    }
+
+    function removeVehicleType(value) {
+
+        debugger
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        var ColumnCode = $(value).closest('tr').find("#hdnVehCode").val();
+
+        var Column = 'VehTypeCode';
+        var table = 'VehicleType'
+
+        DeleteEnquiry(table, Column, ColumnCode);
+
+        //$("#" + tempRow).find('.remove').show();
+        //$(value).parent().parent().remove();
+
+        //dataCount--;
+        //rowCount--;
+        //SNo--;
+    }
+
+    function DeleteEnquiry(table, Column, ColumnCode) {
+
+        var DealerCode = "@Session["DealerCode"].ToString()";
+       
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Delete_VehicleType")',
+            data: { 'table': table, 'Column': Column, 'ColumnCode': ColumnCode, 'DealerCode': DealerCode },
+            success: function (data) {
+                debugger
+                if (data.Success == false) {
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                }
+            },
+            complete: function () {
+                Get_VehicleTypeDetailData();
+                Get_VehReceiptData();
+                Get_DocChkListData();
+                Get_VehLocationData();
+
+            },
+
+        });
+        $("#txtVehTypeDesc").val('');
+    }
+
+    function SaveEnquiry(vehcode, vehdesc,vehCategory) {
+
+
+        debugger
+        var dto = {};
+         
+        var vehicleDesc = "";
+        var radioValue = "";
+
+        if (vehdesc == "") {
+            vehicleDesc = $("#txtVehTypeDesc").val();
+            radioValue = $("input[name='frequency']:checked").val();
+        }
+        else {
+            vehicleDesc = vehdesc;
+            radioValue = vehCategory;
+        }
+
+        
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.VehTypeCode = vehcode;
+        dto.VehTypeDesc = vehicleDesc;
+        dto.VehCategory = radioValue;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_VehicleType")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                Get_VehicleTypeDetailData();
+
+
+            },
+
+        });
+        $("#txtVehTypeDesc").val('');
+    }
+
+    // Vehicle Type Tab work End
+
+    //----------------------- Vehicle Reciept Type Tab work start -----------------------------
+
+    function EditRecieptType(value) {
+        $(value).closest('tr').find("#txtVehRecTypeDesctbl").show();
+        $(value).closest('tr').find("#lblVehRecTypeDesc").hide();
+        $(value).closest('tr').find("#btnUpdateReciept").show();
+        $(value).closest('tr').find("#btnCancelReciept").show();
+        $(value).closest('tr').find("#btnEditReciept").hide();
+        $(value).closest('tr').find("#btnDelete").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblVehRecTypeDesc").text().trim();
+        $(value).closest('tr').find("#txtVehRecTypeDesctbl").val(lblVehDesc);
+    }
+
+    function CancelRecieptType(_this) {
+        $(_this).closest('tr').find("#txtVehRecTypeDesctbl").hide();
+        $(_this).closest('tr').find("#lblVehRecTypeDesc").show();
+        $(_this).closest('tr').find("#btnUpdateReciept").hide();
+        $(_this).closest('tr').find("#btnCancelReciept").hide();
+        $(_this).closest('tr').find("#btnEditReciept").show();
+        $(value).closest('tr').find("#btnDelete").hide();
+
+    }
+
+    function UpdateRecieptType(_this) {
+        var RecDesc = $(_this).closest('tr').find("#txtVehRecTypeDesctbl").val();
+        var RecCode = $(_this).closest('tr').find("#hdnRecCode").val();
+        //alert(vehicleDesc);
+
+        InsertVehRecType(RecCode, RecDesc);
+
+    }
+
+    function Get_VehReceiptData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Select_ReceiptDetail")',
+            success: function (data) {
+                 
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#VehRecTypeDetail tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            $("#VehRecTypeDetail tbody").append('<tr id="RecTypeRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblVehRecTypeCode">' + item.VehRecCode.trim() + ' </label></td>' +
+                                                    '<td> <label id="lblVehRecTypeDesc">' + item.VehRecDesc.trim() + ' </label>' +
+                                                         '<input type="text" style="display:none;" class="form-control" id="txtVehRecTypeDesctbl"></td>' +
+                                                    '<td style="text-align:center;">' +
+                                                        '<button type="button" class="btn btn-primary btn-xs" id="btnEditReciept" onclick="EditRecieptType(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdateReciept" style="display:none;" onclick="UpdateRecieptType(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancelReciept" style="display:none;margin-left:5px;" onclick="CancelRecieptType(this)" ><i class="fa fa-close fa-lg"></i></button>' +
+                                                        '<input type="hidden" id="hdnRecCode" value="' + item.VehRecCode.trim() + '"/>' +
+                                                        '<button type="button" style="margin-left: 5px;" class="btn btn-danger btn-xs" id="btnDelete" onclick="removeVehRecType(this)"><i class="fa fa-minus fa-lg"></i></button>' +
+                                                        '</td>' +
+                                                    '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    function removeVehRecType(value) {
+
+        debugger
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        var ColumnCode = $(value).closest('tr').find("#hdnRecCode").val();
+
+        var Column = 'VehRecCode';
+        var table = 'VehicleReceiptType'
+
+        DeleteEnquiry(table, Column, ColumnCode);
+    }
+
+    function InsertVehRecType(reccode, recdesc) {
+
+        var dto = {};
+         ;
+
+        var recieptDesc = "";
+        var recieptCode = "";
+
+        if (recdesc == "") {
+            recieptDesc = $("#txtVehRecDesc").val();
+        }
+        else {
+            recieptDesc = recdesc;
+        }
+
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.VehRecCode = reccode;
+        dto.VehRecDesc = recieptDesc;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_VehicleReceiptType")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                Get_VehReceiptData();
+
+            },
+
+        });
+        $("#txtVehRecDesc").val('');
+    }
+
+    // Vehicle Reciept Type Tab work End
+
+    //----------------------- Document Check List Tab work start -----------------------------
+
+    function EditDocType(value) {
+        $(value).closest('tr').find("#txtDocTypeDesctbl").show();
+        $(value).closest('tr').find("#lblDocTypeDesc").hide();
+        $(value).closest('tr').find("#btnUpdateDoc").show();
+        $(value).closest('tr').find("#btnCancelDoc").show();
+        $(value).closest('tr').find("#btnEditDoc").hide();
+        $(value).closest('tr').find("#btnDelete").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblDocTypeDesc").text().trim();
+        $(value).closest('tr').find("#txtDocTypeDesctbl").val(lblVehDesc);
+    }
+
+    function CancelDocType(_this) {
+        $(_this).closest('tr').find("#txtDocTypeDesctbl").hide();
+        $(_this).closest('tr').find("#lblDocTypeDesc").show();
+        $(_this).closest('tr').find("#btnUpdateDoc").hide();
+        $(_this).closest('tr').find("#btnCancelDoc").hide();
+        $(_this).closest('tr').find("#btnEditDoc").show();
+        $(_this).closest('tr').find("#btnDelete").show();
+
+    }
+
+    function UpdateDocType(_this) {
+        var RecDesc = $(_this).closest('tr').find("#txtDocTypeDesctbl").val();
+        var RecCode = $(_this).closest('tr').find("#hdnDocCode").val();
+        //alert(vehicleDesc);
+
+        InsertDocType(RecCode, RecDesc);
+
+    }
+
+    function Get_DocChkListData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Select_DocumentDetail")',
+            success: function (data) {
+                 ;
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#DocTypeDetail tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            $("#DocTypeDetail tbody").append('<tr id="DocTypeRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblDocTypeCode">' + item.DocChkListCode.trim() + ' </label></td>' +
+                                                    '<td> <label id="lblDocTypeDesc">' + item.DocChkListDesc.trim() + ' </label>' +
+                                                        '<input type="text" style="display:none;" class="form-control" id="txtDocTypeDesctbl"></td>' +
+                                                    '<td style="text-align:center;">' +
+                                                        '<button type="button" class="btn btn-primary btn-xs" id="btnEditDoc" onclick="EditDocType(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdateDoc" style="display:none;" onclick="UpdateDocType(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancelDoc" style="display:none;margin-left:5px;" onclick="CancelDocType(this)" ><i class="fa fa-close fa-lg"></i></button>' +
+                                                        '<input type="hidden" id="hdnDocCode" value="' + item.DocChkListCode.trim() + '"/>' +
+                                                        '<button type="button" style="margin-left: 5px;" class="btn btn-danger btn-xs" id="btnDelete" onclick="removeDocType(this)"><i class="fa fa-minus fa-lg"></i></button>' +
+                                                        '</td>' +
+                                                    '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    function removeDocType(value) {
+
+        debugger
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        var ColumnCode = $(value).closest('tr').find("#hdnDocCode").val();
+
+        var Column = 'DocChkListCode';
+        var table = 'DocumentCheckList'
+
+        DeleteEnquiry(table, Column, ColumnCode);
+    }
+
+    function InsertDocType(doccode,docdesc) {
+
+        var dto = {};
+         ;
+
+        var docDesc = "";
+        var docCode = "";
+
+        if (docdesc == "") {
+            docDesc = $("#txtDocDesc").val();
+        }
+        else {
+            docDesc = docdesc;
+        }
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.DocChkListCode = doccode;
+        dto.DocChkListDesc = docDesc;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_DocumentType")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                Get_DocChkListData();
+
+
+            },
+
+        });
+        $("#txtDocDesc").val('');
+    }
+
+    // Document Check List Tab work End
+
+    //----------------------- Vehicle Location Tab work start -----------------------------
+
+    function EditVehLoc(value) {
+        $(value).closest('tr').find("#txtVehLocDesctbl").show();
+        $(value).closest('tr').find("#lblVehLocDesc").hide();
+        $(value).closest('tr').find("#btnUpdateVehLoc").show();
+        $(value).closest('tr').find("#btnCancelVehLoc").show();
+        $(value).closest('tr').find("#btnEditVehLoc").hide();
+        $(value).closest('tr').find("#btnDelete").hide();
+
+        var lblVehDesc = $(value).closest('tr').find("#lblVehLocDesc").text().trim();
+        $(value).closest('tr').find("#txtVehLocDesctbl").val(lblVehDesc);
+    }
+
+    function CancelVehLoc(_this) {
+        $(_this).closest('tr').find("#txtVehLocDesctbl").hide();
+        $(_this).closest('tr').find("#lblVehLocDesc").show();
+        $(_this).closest('tr').find("#btnUpdateVehLoc").hide();
+        $(_this).closest('tr').find("#btnCancelVehLoc").hide();
+        $(_this).closest('tr').find("#btnEditVehLoc").show();
+        $(_this).closest('tr').find("#btnDelete").show();
+
+    }
+
+    function UpdateVehLoc(_this) {
+        var VehLocDesc = $(_this).closest('tr').find("#txtVehLocDesctbl").val();
+        var VehLocCode = $(_this).closest('tr').find("#hdnVehLocCode").val();
+        //alert(vehicleDesc);
+
+        InsertVehLoc(VehLocCode, VehLocDesc);
+
+    }
+
+    function Get_VehLocationData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Select_LocationDetail")',
+            success: function (data) {
+                 ;
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#VehLocDetail tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            $("#VehLocDetail tbody").append('<tr id="LocRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblVehLocCode">' + item.VehLocCode.trim() + ' </label></td>' +
+                                                    '<td> <label id="lblVehLocDesc">' + item.VehLocDesc.trim() + ' </label>' +
+                                                        '<input type="text" style="display:none;" class="form-control" id="txtVehLocDesctbl"></td>' +
+                                                    '<td style="text-align:center;">' +
+                                                        '<button type="button" class="btn btn-primary btn-xs" id="btnEditVehLoc" onclick="EditVehLoc(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-success btn-xs" id="btnUpdateVehLoc" style="display:none;" onclick="UpdateVehLoc(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                        '<button type="button" class="btn btn-danger btn-xs" id="btnCancelVehLoc" style="display:none;margin-left:5px;" onclick="CancelVehLoc(this)" ><i class="fa fa-close fa-lg"></i></button>' +
+                                                        '<input type="hidden" id="hdnVehLocCode" value="' + item.VehLocCode.trim() + '"/>' +
+                                                        '<button type="button" style="margin-left: 5px;" class="btn btn-danger btn-xs" id="btnDelete" onclick="removeVehLoc(this)"><i class="fa fa-minus fa-lg"></i></button>' +
+                                                    '</td>' +
+                                                    '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    function removeVehLoc(value) {
+
+        debugger
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        var ColumnCode = $(value).closest('tr').find("#hdnVehLocCode").val();
+
+        var Column = 'VehLocCode';
+        var table = 'VehicleLocation'
+
+        DeleteEnquiry(table, Column, ColumnCode);
+    }
+
+    function InsertVehLoc(vehloccode,vehlocdesc) {
+
+        var dto = {};
+         ;
+
+        var vehLocDesc = "";
+        var vehLocCode = "";
+
+        if (vehlocdesc == "") {
+            vehLocDesc = $("#txtLocDesc").val();
+        }
+        else {
+            vehLocDesc = vehlocdesc;
+        }
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.VehLocCode = vehloccode;
+        dto.VehLocDesc = vehLocDesc;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_VehLocation")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                Get_VehLocationData();
+
+
+            },
+
+        });
+        $("#txtLocDesc").val('');
+    }
+    var VehExpCode;
+    function InsertService() {
+        debugger
+        var dto = {};
+        var vehcode="";
+
+
+        if (VehExpCode == "") {
+            vehcode = "";
+
+
+        }
+        else {
+
+            vehcode = VehExpCode;
+
+        }
+       
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.VehExpCode = vehcode;
+        dto.VehExpDesc = $("#txtServiceDesc").val();
+        dto.DefaultValue = $("#txtDefaultValue").val();;
+        dto.AccountCode = $("#txtAccount").val();;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Insert_Service")',
+            data: dto,
+            success: function (data) {
+
+            },
+            complete: function () {
+                 Get_ServiceData();
+
+
+            },
+
+        });
+        $("#txtServiceDesc").val('');
+        $("#txtDefaultValue").val('');
+        $("#txtAccount").val('');
+    }
+    function Get_ServiceData() {
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/Master/Select_ServiceDetail")',
+            success: function (data) {
+                ;
+                if (data.Success == true) {
+                    var item = JSON.parse(data.Response)
+                    $("#VehServiceDetail tbody tr").remove()
+                    //ProductDetail
+                    if (item.length > 0) {
+
+                        $.each(item, function (value, item) {
+
+                            $("#VehServiceDetail tbody").append('<tr id="LocRow1' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                    '<td>' + SNo++ + '</td>' +
+                                                    '<td> <label id="lblVehExpCode">' + item.VehExpCode.trim() + ' </label>' + '<input type="hidden" style="display:none;" class="form-control" id="txtSerCode" value="' + item.VehExpCode.trim() + '" ></td>' +
+                                                    '<td> <label id="lblVehExpDesc">' + item.VehExpDesc.trim() + ' </label>' + '<input type="text" style="display:none;" class="form-control" id="txtSerDesc" value="' + item.VehExpDesc.trim() + '" ></td>' +
+                                                     '<td> <label id="lblDefaultValue">' + item.DefaultValue.trim() + ' </label>' + '<input type="text" style="display:none;" class="form-control" id="txtDefault" value="' + item.DefaultValue.trim() + '" ></td>' +
+                                                      '<td> <label id="lblAccount">' + item.AccountCode.trim() + ' </label>' + ' </label>' + '<input type="text" style="display:none;" class="form-control" id="txtAcc" value="' + item.AccountCode.trim() + '"></td>' +
+                                                        
+                                                    '<td style="text-align:center;">' +
+                                                        '<a class="selectItem"><i class="fa fa-edit" style="color:blue"></i></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class= "deleteItem" style="color:blue" ><i class="fa fa-trash"></i></a></td>' +
+                                                    '</tr>');
+
+                        });
+
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+    function removeVehLoc(value) {
+
+        debugger
+        var tempRow = "fixedRow" + (parseInt($(value).parent().parent().attr("data-tr-count")) - 1);
+
+        var ColumnCode = $(value).closest('tr').find("#hdnVehExpCode").val();
+
+        var Column = 'VehExpCode';
+        var table = 'VehExpHead'
+
+        DeleteEnquiry(table, Column, ColumnCode);
+    }
+    $("table#VehServiceDetail").on('click', '.deleteItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        debugger
+        var ColumnCode = $(rIndex).closest('tr').find("#txtSerCode").val();
+        //$("#txtServiceDesc").val(service);
+        var service = $(rIndex).closest('tr').find("#txtSerDesc").val();
+        //$("#txtServiceDesc").val(service);
+        // $(rIndex).closest('tr').find("#lblVehExpDesc").hide();
+        var defaul = $(rIndex).closest('tr').find("#txtDefault").val();
+       // $("#txtDefaultValue").val(defaul);
+        // $(rIndex).closest('tr').find("#lblDefaultValue").hide();
+        var acc = $(rIndex).closest('tr').find("#txtAcc").val();
+       // $("#txtAccount").val(acc);
+        $(this).closest('tr').remove();
+        var Column = 'VehExpCode';
+        var table = 'VehExpHead'
+
+        DeleteEnquiry(table, Column, ColumnCode);
+
+    });
+    $("table#VehServiceDetail").on('click', '.selectItem', function () {
+        rIndex = $(this).closest('tr');
+        index = $(this).closest('tr')[0].rowIndex;
+        debugger
+        var ExpCode = $(rIndex).closest('tr').find("#txtSerCode").val();
+        var service = $(rIndex).closest('tr').find("#txtSerDesc").val();
+        $("#txtServiceDesc").val(service);
+       // $(rIndex).closest('tr').find("#lblVehExpDesc").hide();
+        var defaul = $(rIndex).closest('tr').find("#txtDefault").val();
+        $("#txtDefaultValue").val(defaul);
+       // $(rIndex).closest('tr').find("#lblDefaultValue").hide();
+        var acc = $(rIndex).closest('tr').find("#txtAcc").val();
+        $("#txtAccount").val(acc);
+        // UpdateVehService();
+        VehExpCode = ExpCode;
+        $(this).closest('tr').remove();
+
+
+    });
+  
+
+    function UpdateVehService(VehExpCode, VehExpDesc, Account, Default) {
+        debugger;
+        if (VehExpCode == "") {
+
+        }
+        else {
+            InsertService(VehExpCode, VehExpDesc, Account, Default);
+        }
+       
+
+    }
+
+</script>
+
+
+
+
+
+

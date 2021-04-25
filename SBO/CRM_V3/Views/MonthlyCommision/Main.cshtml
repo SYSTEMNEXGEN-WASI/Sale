@@ -1,0 +1,722 @@
+﻿
+@{
+    ViewBag.Title = "Main";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+<style>
+    /*.makespace {
+        margin-bottom: 20px;
+    }*/
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+
+<link href="../assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/animate.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+
+<link href="../assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen" />
+
+<!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
+<!-- CORE CSS TEMPLATE - START -->
+<link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/responsive.css" rel="stylesheet" type="text/css" />
+<!-- CORE CSS TEMPLATE - END -->
+<!-- START CONTENT -->
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+    <!-- MAIN CONTENT AREA STARTS -->
+    <form id="icon_validate" action="javascript:;" novalidate="novalidate">
+        <div class="col-lg-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Monthly Commision</h2>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                <label class="form-label">Transaction</label>
+                                <div class="input-group">
+
+                                    <span class="input-group-addon"><a data-toggle="modal" data-target="#MCModal" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                    <input type="text" class="form-control" id="txtTransaction" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Transaction Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control datepicker" id="txtTransDate" readonly="readonly">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Service</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                    @*<input type="text" class="form-control" id="" maxlength="3" onblur="" name="formfield1" onkeypress="return isNumberKey(event)" />*@
+                                    <select class="form-control m-bot15" id="ddlService" onchange="ChangeColor(this)">
+                                        <option value="0">Select</option>
+                                        <option value="BO">Booking Order</option>
+                                        <option value="TL">Technician Labor </option>
+                                        <option value="JC">JobCard</option>
+                                        <option value="EW">Extended Warranty</option>
+                                        <option value="UV">Used Vehicle Sales</option>
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Commision Month</label>
+                                <div class="input-group controls">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <select class="form-control m-bot15" id="ddlMonth" onchange="ChangeColor(this)">
+                                        <option value="0">Select</option>
+                                        <option value="01">012019</option>
+                                        <option value="02">022019</option>
+                                        <option value="03">032019</option>
+                                        <option value="04">042019</option>
+                                        <option value="04">052019</option>
+                                        <option value="06">062019</option>
+                                        <option value="07">072019</option>
+                                        <option value="08">082019</option>
+                                        <option value="09">092019</option>
+                                        <option value="10">102019</option>
+                                        <option value="11">112019</option>
+                                        <option value="12">122019</option>
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            
+                            <div class="col-md-6">
+                                <label class="form-label">Remarks</label>
+                                <div class="controls">
+                                    <textarea class="form-control autogrow" cols="5"  id="txtRemarks" onblur="ChangeColor(this)" style="overflow: hidden; word-wrap: break-word; resize: none; height: 50px;"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr style="border-top:1px solid blue;" />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="MCDetail" style="white-space: nowrap; font-weight: 400;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Employee</th>
+                                            <th>Brand</th>
+                                            <th>Product</th>
+                                            <th>Version</th>
+                                            <th>Color</th>
+                                            <th>Reference</th>
+                                            <th>Total Qty</th>
+                                            <th>Total Amount</th>
+                                            <th>Commision Code</th>
+                                            <th>Commision %</th>
+                                            <th>Commision Amount</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-default" id="btnClear" onclick="ClearFields()" style="margin-top:25px;">Clear</button>
+                                <button type="button" class="btn btn-primary" id="btnSave" style="margin-top:25px;">Save</button>
+                                @*<button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:25px;" disabled>Delete</button>*@
+                                <a class="btn btn-primary" id="btnPrint" style="margin-top:25px;" href="#">Print</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>                
+    </form>
+
+   @*-lookUp for SalesPerson-*@
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="MCModal" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 50px; height:600px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Monthly Commision</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="IssueNoSearch" class="form-control" aria-controls="MCTable" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="height:390px;">
+                        <table id="MCTable" class="table color-table info-table">
+                            <thead >
+                                <tr>
+                                    <th >Trans Code</th>
+                                    <th >Trans Date</th>
+                                    <th >Service</th>
+                                    <th >Commision Month</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.MonthlyComm != null)
+                                {
+                                    foreach (var item in ViewBag.MonthlyComm)
+                                    {
+                                        <tr style="text-align: left" onclick="RevClick2('@item.TransCode','@item.TransDate','@item.Service','@item.CommMonth','@item.Remarks')">
+                                            <td class="tdDiv">
+                                                <label id="lblTransCode">@item.TransCode</label>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <label id="lblTransDate">@item.TransDate</label>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <label id="lblService">@item.Service</label>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <label id="lblCommMonth" >@item.CommMonth</label>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveMasterEnquiry()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- MAIN CONTENT AREA ENDS -->
+</section>
+
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+
+<script>
+
+    $(document).ready(function () {
+        //Get_DelChkListData();
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtTransDate").val(today);
+
+    })
+
+    $("#IssueNoSearch").on("keyup", function () {
+
+        var val = $(this).val();
+        var value = val.toUpperCase();
+
+        $("#MCTable tbody tr").each(function () {
+
+            $row = $(this);
+            var transCode = $(this).closest('tr').find('#lblTransCode').text();
+            var transDate = $(this).closest('tr').find('#lblTransDate').text();
+            var service = $(this).closest('tr').find('#lblService').text();
+            var commMonth = $(this).closest('tr').find('#lblCommMonth').text();
+
+            if (transCode.indexOf(value) !== 0 && transDate.indexOf(value) !== 0 && service.indexOf(value) !== 0 && commMonth.indexOf(value) !== 0) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+
+        });
+    });
+
+    RevClick2 = function (TransCode,TransDate,Service,CommMonth,Remarks) {
+
+        document.getElementById('txtTransaction').value = TransCode;
+        document.getElementById('txtTransDate').value = TransDate;
+        document.getElementById('ddlService').value = Service;
+        document.getElementById('ddlMonth').value = CommMonth;
+        document.getElementById('txtRemarks').value = Remarks;
+
+        getDetailData(TransCode)
+        $("#MCModal").modal("hide");
+    }
+
+    function ChangeColor(value) {
+
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    function ShowModal(type) {
+        if (type == 'Customer') {
+            $('#CustomerModal').modal("show");
+        } else
+            if (type == 'AccountOf') {
+                $('#AccountOfModal').modal("show");
+            } else if (type == 'BookRefNo') {
+                $('#BookRefNoModal').modal("show");
+            } else {
+                $('#EnquiryNoModal').modal("show");
+            }
+    }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+    $("#ddlMonth").change(function () {
+
+        var service = $("#ddlService").val();
+        var month = $("#ddlMonth").val();
+        getMonthlyCommision(service, month)
+
+    });
+
+    function getMonthlyCommision(service, month) {
+        var dealerCode = "@Session["DealerCode"].ToString()";
+
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        if (month != "") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/MonthlyCommision/Get_MonthlyCommision")',
+                data: { 'Service': service, 'Month': month,'DealerCode': dealerCode },
+                success: function (data) {
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        $("#MCDetail tbody tr").remove();
+
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+                                $("#MCDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblEmployee">' + item.EmpName + ' </label><input type="hidden" id="hdnEmpCode" value="' + item.EmpCode + '"/></td>' +
+                                                        '<td> <label id="lblBrand">' + item.BrandDesc + ' </label><input type="hidden" id="hdnBrandCode" value="' + item.BrandCode + '"/></td>' +
+                                                        '<td> <label id="lblProduct">' + item.ProdDesc + ' </label><input type="hidden" id="hdnProdCode" value="' + item.ProdCode + '"/></td>' +
+                                                        '<td> <label id="lblVersion">' + item.VersionCode + ' </label></td>' +
+                                                        '<td> <label id="lblColor">' + item.ColorDesc + ' </label><input type="hidden" id="hdnColorCode" value="' + item.ColorCode + '"/></td>' +
+                                                        '<td> <label id="lblReference">' + item.ReferenceNo + ' </label></td>' +
+                                                        '<td> <label id="lblTotalQty">' + item.TotalQty + ' </label></td>' +
+                                                        '<td> <label id="lblTotalAmt">' + item.TotalAmount + ' </label></td>' +
+                                                        '<td> <label id="lblCommCode">' + item.CommisionCode + ' </label></td>' +
+                                                        '<td> <label id="lblCommPerc">' + item.CommPerc + ' </label> <input type="text" style="display:none;" class="form-control" id="txtCommPerctbl" onchange="GetAmount(this)" maxlength="5"/></td>' +
+                                                        '<td> <label id="lblCommAmt">' + item.CommisionAmount + ' </label><input type="text" style="display:none;" class="form-control" id="txtCommAmttbl"  onchange="GetPercentage(this)" maxlength="8" /></td>' +
+                                                        '<td><button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditData(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                             '<button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                             '<button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                        '</tr>');
+
+                            });
+                        }
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function EditData(value) {
+
+        $(value).closest('tr').find("#txtCommPerctbl").show();
+        $(value).closest('tr').find("#txtCommAmttbl").show();
+
+        $(value).closest('tr').find("#lblCommPerc").hide();
+        $(value).closest('tr').find("#lblCommAmt").hide();
+
+        $(value).closest('tr').find("#btnUpdate").show();
+        $(value).closest('tr').find("#btnCancel").show();
+        $(value).closest('tr').find("#btnEdit").hide();
+
+        var lblCommPerc = $(value).closest('tr').find("#lblCommPerc").text().trim();
+        var lblCommAmt = $(value).closest('tr').find("#lblCommAmt").text().trim();
+
+        $(value).closest('tr').find("#txtCommPerctbl").val(lblCommPerc);
+        $(value).closest('tr').find("#txtCommAmttbl").val(lblCommAmt);
+
+    }
+
+    function CancelEvent(_this) {
+        $(_this).closest('tr').find("#txtCommPerctbl").hide();
+        $(_this).closest('tr').find("#txtCommAmttbl").hide();
+
+        $(_this).closest('tr').find("#lblCommPerc").show();
+        $(_this).closest('tr').find("#lblCommAmt").show();
+
+        $(_this).closest('tr').find("#btnUpdate").hide();
+        $(_this).closest('tr').find("#btnCancel").hide();
+        $(_this).closest('tr').find("#btnEdit").show();
+
+    }
+
+    function UpdateData(_this) {
+
+        var amount = $(_this).closest('tr').find("#lblTotalAmt").text();
+
+        var commPerc = $(_this).closest('tr').find("#txtCommPerctbl").val();
+
+        var commAmt = $(_this).closest('tr').find("#txtCommAmttbl").val();
+       
+
+        $(_this).closest('tr').find("#txtCommPerctbl").hide();
+        $(_this).closest('tr').find("#txtCommAmttbl").hide();
+
+        $(_this).closest('tr').find("#lblCommPerc").text(commPerc);
+        $(_this).closest('tr').find("#lblCommAmt").text(commAmt);
+
+        $(_this).closest('tr').find("#lblCommPerc").show();
+        $(_this).closest('tr').find("#lblCommAmt").show();
+
+        $(_this).closest('tr').find("#btnUpdate").hide();
+        $(_this).closest('tr').find("#btnCancel").hide();
+        $(_this).closest('tr').find("#btnEdit").show();
+    }
+
+
+    function GetPercentage(_this) {
+
+        debugger
+
+        var amount = $(_this).closest('tr').find("#lblTotalAmt").text();
+
+        var commPerc = $(_this).closest('tr').find("#txtCommPerctbl").val();
+
+        var commAmt = $(_this).closest('tr').find("#txtCommAmttbl").val();
+
+        if (commAmt != '') {
+            commPerc = commAmt * 100 / amount;
+        }
+
+        $(_this).closest('tr').find('#txtCommPerctbl').val(Number((commPerc).toFixed(2)));
+    }
+
+    function GetAmount(_this) {
+
+        debugger
+
+        var amount = $(_this).closest('tr').find("#lblTotalAmt").text();
+
+        var commPerc = $(_this).closest('tr').find("#txtCommPerctbl").val();
+
+        var commAmt = $(_this).closest('tr').find("#txtCommAmttbl").val();
+
+        if (commPerc != '') {
+            commAmt = commPerc * amount / 100;
+        }
+
+        $(_this).closest('tr').find('#txtCommAmttbl').val(Number((commAmt).toFixed(2)));
+    }
+
+    $("#btnSave").click(function () {
+
+        if (!PageValidation()) {
+            return false;
+        }
+
+        $("#section-confirm").modal("show");
+    })
+
+    function PageValidation() {
+
+
+        var count = 0;
+
+        if ($("#ddlService").val() == '' || $("#ddlService").val() == null) {
+            $("#ddlService").css("border-color", "red");
+            $("#ddlService").focus();
+            count++;
+        }
+        if ($("#ddlMonth").val() == '0' || $("#ddlMonth").val() == null) {
+            $("#ddlMonth").css("border-color", "red");
+            $("#ddlMonth").focus();
+            count++;
+        }
+
+        if (count > 0) {
+
+            $("#lblMessage").html("Please fill the Required feilds");
+            $("#section-message").modal("show");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    function SaveMasterEnquiry() {
+
+        var dto = {};
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.TransCode = $("#txtTransaction").val();
+        dto.TransDate = $("#txtTransDate").val();
+        dto.Service = $("#ddlService").val();
+        dto.CommMonth = $("#ddlMonth").val();
+        dto.Remarks = $("#txtRemarks").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/MonthlyCommision/Insert_MonthlyCommisionMaster")',
+            data: dto,
+            success: function (data) {
+
+                if (data.Success == true) {
+                    saveMonthlyCommisionDetail();
+                }
+                else {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                }
+
+
+            },
+            complete: function () {
+
+            },
+
+        });
+
+    }
+
+
+    function insertDetailRecord() {
+        var obj = [];
+
+        $("#MCDetail tbody tr").each(function () {
+            var dto = {};
+            dto.DealerCode = "@Session["DealerCode"].ToString()";
+            dto.TransCode = $("#txtTransaction").val();
+            dto.EmpCode = $(this).closest('tr').find('#hdnEmpCode').val();
+            dto.BrandCode = $(this).closest('tr').find('#hdnBrandCode').val();
+            dto.ProdCode = $(this).closest('tr').find('#hdnProdCode').val();
+            dto.VersionCode = $(this).closest('tr').find('#lblVersion').text().trim();
+            dto.ColorCode = $(this).closest('tr').find('#hdnColorCode').val();
+            dto.ReferenceNo = $(this).closest('tr').find('#lblReference').text().trim();
+            dto.TotalQty = $(this).closest('tr').find('#lblTotalQty').text().trim();
+            dto.TotalAmount = $(this).closest('tr').find('#lblTotalAmt').text().trim();
+            dto.CommisionCode = $(this).closest('tr').find('#lblCommCode').text().trim();
+            dto.CommPerc = $(this).closest('tr').find('#lblCommPerc').text().trim();
+            dto.CommisionAmount = $(this).closest('tr').find('#lblCommAmt').text().trim();
+            dto.Service = $("#ddlService").val();
+            dto.CommMonth = $("#ddlMonth").val();
+
+            obj.push(dto);
+        });
+
+        return obj;
+    }
+
+    function saveMonthlyCommisionDetail() {
+
+        var objects = [];
+
+        objects = JSON.stringify({ 'objects': insertDetailRecord() });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            type: 'POST',
+            url: '@Url.Content("~/MonthlyCommision/Insert_MonthlyCommisionDetail")',
+            data: objects,
+            success: function (data) {
+
+                if (data.Success == true) {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#64c344");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+                    setTimeout(function () {
+                        $('#section-message').modal('hide');
+                        location.reload();
+                    }, 4000);
+                    ClearFields();
+                }
+                else {
+                    $("#section-confirm").modal("hide")
+                    $("#modalMessage").css("background-color", "#e46457");
+                    $("#lblMessage").text(data.Message)
+                    $("#section-message").modal('show');
+
+                }
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+    function getDetailData(id) {
+        var rowCount = 1;
+        var dataCount = 1;
+        var SNo = 1;
+
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/MonthlyCommision/Select_MCDetail")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+                        $("#MCDetail tbody tr").remove()
+                        //ProductDetail
+                        if (item.length > 0) {
+                            $.each(item, function (value, item) {
+                                $("#MCDetail tbody").append('<tr id="fixedRow' + (rowCount++) + '" data-tr-count="' + (dataCount++) + '">' +
+                                                        '<td>' + SNo++ + '</td>' +
+                                                        '<td> <label id="lblEmployee">' + item.EmpName + ' </label><input type="hidden" id="hdnEmpCode" value="' + item.EmpCode + '"/></td>' +
+                                                        '<td> <label id="lblBrand">' + item.BrandDesc + ' </label><input type="hidden" id="hdnBrandCode" value="' + item.BrandCode + '"/></td>' +
+                                                        '<td> <label id="lblProduct">' + item.ProdDesc + ' </label><input type="hidden" id="hdnProdCode" value="' + item.ProdCode + '"/></td>' +
+                                                        '<td> <label id="lblVersion">' + item.VersionCode + ' </label></td>' +
+                                                        '<td> <label id="lblColor">' + item.ColorDesc + ' </label><input type="hidden" id="hdnColorCode" value="' + item.ColorCode + '"/></td>' +
+                                                        '<td> <label id="lblReference">' + item.ReferenceNo + ' </label></td>' +
+                                                        '<td> <label id="lblTotalQty">' + item.TotalQty + ' </label></td>' +
+                                                        '<td> <label id="lblTotalAmt">' + item.TotalAmount + ' </label></td>' +
+                                                        '<td> <label id="lblCommCode">' + item.CommisionCode + ' </label></td>' +
+                                                        '<td> <label id="lblCommPerc">' + item.CommPerc + ' </label> <input type="text" style="display:none;" class="form-control" id="txtCommPerctbl" maxlength="5" /></td>' +
+                                                        '<td> <label id="lblCommAmt">' + item.CommisionAmount + ' </label><input type="text" style="display:none;" class="form-control" id="txtCommAmttbl" maxlength="8" /></td>' +
+                                                        '<td><button type="button" class="btn btn-primary btn-xs" id="btnEdit" onclick="EditData(this)"><i class="fa fa-plus fa-lg"></i></button>' +
+                                                             '<button type="button" class="btn btn-success btn-xs" id="btnUpdate" style="display:none;" onclick="UpdateData(this)"><i class="fa fa-check fa-lg"></i></button>' +
+                                                             '<button type="button" class="btn btn-danger btn-xs" id="btnCancel" style="display:none;margin-left:5px;" onclick="CancelEvent(this)"><i class="fa fa-minus fa-lg"></i></button></td>' +
+                                                        '</tr>');
+
+                            });
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    function ClearFields() {
+
+        $("#txtTransaction").val('');
+        $("#txtRemarks").val('');
+        $("#ddlService").val('0');
+        $("#ddlMonth").val('0');
+        $("#MCDetail tbody tr").remove();
+    }
+
+    $("#btnPrint").click(function () {
+
+        var baseurl = '@Url.Action("Export")';
+        var url = baseurl + '?EnquiryId=' + $('#txtTransaction').val() + '&DealerCode=@Session["DealerCode"].ToString()';
+        window.open(url, '_blank');
+
+    })
+</script>
+

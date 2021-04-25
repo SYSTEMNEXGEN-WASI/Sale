@@ -1,0 +1,564 @@
+﻿
+@{
+    ViewBag.Title = "Commision";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+
+
+
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+
+    @* Main Body Starts *@
+    <form method="post">
+
+
+        <div class="col-lg-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Commision Master</h2>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label class="form-label">Commision Code</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                        <input type="text" class="form-control" id="txtCommCode" readonly>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Commision Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control datepicker" id="txtCommDate" readonly="readonly">
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Service</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                    <select class="form-control m-bot15" id="ddlService" onchange="ChangeColor(this)">
+                                        <option value="0">Select</option>
+                                        <option value="BO">Booking Order</option>
+                                        <option value="TL">Technician Labor </option>
+                                        <option value="JC">JobCard</option>
+                                        <option value="EW">Extended Warranty</option>
+                                        <option value="UV">Used Vehicle Sales</option>
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Employee</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><a data-toggle="modal" data-target="#POModalSP" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                        <input type="text" class="form-control" id="txtEmpCode" onblur="ChangeColor(this)" style="width:30%" readonly/>
+                                        <input type="text" class="form-control" id="txtEmpDesc" onblur="ChangeColor(this)"  style="width:70%" readonly/>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Designation</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                        <input type="text" class="form-control" id="txtEmpDesig" readonly>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Product</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><a data-toggle="modal" data-target="#POModalProd" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                        
+                                        <input type="text" class="form-control" id="txtProdCode" onblur="ChangeColor(this)" style="width:30%" readonly/>
+                                        <input type="text" class="form-control" id="txtProdDesc" onblur="ChangeColor(this)" style="width:70%" readonly/>
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Brand</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    <input type="text" class="form-control" id="txtBrandCode" onblur="ChangeColor(this)" style="width:30%" readonly />
+                                    <input type="text" class="form-control" id="txtBrandDesc" onblur="ChangeColor(this)" style="width:70%" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Color</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    <input type="text" class="form-control" id="txtColorCode" onblur="ChangeColor(this)" style="width:30%" readonly />
+                                    <input type="text" class="form-control" id="txtColorDesc" onblur="ChangeColor(this)" style="width:70%" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Version</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    <input type="text" class="form-control" id="txtVersionCode" onblur="ChangeColor(this)" readonly />
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Commision Percentage</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><a id="IssueClick" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                        <input type="text" class="form-control" id="txtCommPerc" onblur="ChangeColor(this)" />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Commision Amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><a id="IssueClick" style="color:blue"><i class="fa fa-search"></i></a></span>
+                                        <input type="text" class="form-control" id="txtCommAmt" onblur="ChangeColor(this)" />
+                                    </div>
+                                    <div class="makespace"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="input-group pull-right">
+                                        <button type="button" class="btn btn-default" id="btnCancel" onclick="ClearFields()" style="margin-top:25px;">Clear</button>
+                                        <button type="button" class="btn btn-primary" id="btnSave" style="margin-top:25px;">Save</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="CommisionDetail" class="table table-striped dt-responsive display">
+                                <thead>
+                                    <tr>
+                                        <th>Commision Code</th>
+                                        <th>Commision Date</th>
+                                        <th>Employee Code</th>
+                                        <th>Product</th>
+                                        <th>Commision %</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.Commision != null)
+                                    {
+                                        foreach (var item in ViewBag.Commision)
+                                        {
+                                            <tr style="text-align: left" onclick="RevClick4('@item.CommisionCode','@item.CommisionDate','@item.EmpCode','@item.EmpDesc','@item.DesigDesc','@item.ProdCode','@item.ProdDesc','@item.BrandCode','@item.BrandDesc','@item.VersionCode','@item.CommPerc','@item.CommAmount','@item.ColorCode','@item.ColorDesc')">
+
+                                                <td class="tdDiv">
+                                                    <label >@item.CommisionCode</label>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <label >@item.CommisionDate</label>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <label >@item.EmpDesc</label>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <label>@item.ProdDesc</label>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <label >@item.CommPerc</label>
+                                                </td>
+                                                <td class="tdDiv">
+                                                    <label >@item.CommAmount</label>
+                                                </td>
+                                                
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </section>
+        </div>
+
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+
+
+</section>
+
+@*-lookUp for SalesPerson-*@
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalSP" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 50px; height:600px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">SalesPerson Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchSP" class="form-control" aria-controls="AccountTableSP" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;">
+                        <table id="AccountTableSP" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+
+                                    <th class="tdDiv" style="text-align:left" >Code</th>
+                                    <th class="tdDiv" style="text-align:left" >Name</th>
+                                    <th class="tdDiv" style="text-align:left" >Designation</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.AssignTo != null)
+                                {
+                                    foreach (var item in ViewBag.AssignTo)
+                                    {
+                                <tr style="text-align: left" onclick="RevClick2('@item.EmpCode','@item.EmpName','@item.DesigDesc')">
+                                    <td class="tdDiv">
+                                        <a href="#" style="color:black">@item.EmpCode</a>
+                                    </td>
+                                    <td class="tdDiv">
+                                        <a href="#" style="color:black">@item.EmpName</a>
+                                    </td>
+                                    <td class="tdDiv">
+                                        <a href="#" style="color:black">@item.DesigDesc</a>
+                                    </td>
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@*-lookUp for SalesPerson-*@
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="POModalProd" role="dialog" aria-labelledby="modal123Label" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin-top: 50px; ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal123Label">Product Detail</h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="form-group row">
+                    <label for="exampleInputuname" class="col-md-2">Search :</label>
+                    <div class="col-md-9">
+                        <input type="text" id="AccountSearchPro" class="form-control" aria-controls="AccountTablePro" placeholder="Search . . . ">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-left:10px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:390px;">
+                        <table id="AccountTablePro" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" >Brand</th>
+                                    <th class="tdDiv" style="text-align:left" >Product</th>                                    
+                                    <th class="tdDiv" style="text-align:left" >Product Desc</th>
+                                    <th class="tdDiv" style="text-align:left" >Model</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase">
+                                @if (ViewBag.Product != null)
+                                {
+                                    foreach (var item in ViewBag.Product)
+                                    {
+                                        <tr style="text-align: left" onclick="RevClick3('@item.BrandCode','@item.BrandDesc','@item.ProdCode','@item.VersionCode','@item.ProdDesc','@item.ColorCode','@item.ColorDesc')">
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.BrandDesc</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.ProdCode</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.ProdDesc</a>
+                                            </td>
+                                            <td class="tdDiv">
+                                                <a href="#" style="color:black">@item.VersionCode</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- Popup box modal start -->
+<div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog animated bounceInDown">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>Are you sure want to save ?</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-success" type="button" onclick="SaveEnquiry()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal end -->
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script>
+
+    $(document).ready(function () {
+        //Get_DelChkListData();
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtCommDate").val(today);
+
+    })
+
+    RevClick2 = function (code, name, designation) {
+
+        document.getElementById('txtEmpCode').value = code;
+        document.getElementById('txtEmpDesc').value = name;
+        document.getElementById('txtEmpDesig').value = designation;
+        $("#POModalSP").modal("hide");
+        $('#txtEmpCode').css("border-color", "#e1e1e1");
+    }
+
+    RevClick3 = function (BrandCode,BrandDesc,ProdCode,VersionCode,ProdDesc,ColorCode,ColorDesc) {
+        debugger
+        document.getElementById('txtProdCode').value = ProdCode;
+        document.getElementById('txtProdDesc').value = ProdDesc;
+        document.getElementById('txtBrandCode').value = BrandCode;
+        document.getElementById('txtBrandDesc').value = BrandDesc;
+        document.getElementById('txtVersionCode').value = VersionCode;
+        document.getElementById('txtColorCode').value = ColorCode;
+        document.getElementById('txtColorDesc').value = ColorDesc;
+        $('#txtProdCode').css("border-color", "#e1e1e1");
+        $("#POModalProd").modal("hide");
+    }
+
+    RevClick4 = function (CommisionCode, CommisionDate, EmpCode, EmpName, designation, ProdCode, ProdDesc, BrandCode, BrandDesc, VersionCode, CommPerc, CommAmount, ColorCode, ColorDesc) {
+
+        document.getElementById('txtCommCode').value = CommisionCode;
+        document.getElementById('txtCommDate').value = CommisionDate;
+        document.getElementById('txtEmpCode').value = EmpCode;
+        document.getElementById('txtEmpDesc').value = EmpName;
+        document.getElementById('txtEmpDesig').value = designation;
+        document.getElementById('txtProdCode').value = ProdCode;
+        document.getElementById('txtProdDesc').value = ProdDesc;
+        document.getElementById('txtBrandCode').value = BrandCode;
+        document.getElementById('txtBrandDesc').value = BrandDesc;
+        document.getElementById('txtVersionCode').value = VersionCode;
+        document.getElementById('txtCommPerc').value = CommPerc;
+        document.getElementById('txtCommAmt').value = CommAmount;
+        document.getElementById('txtColorCode').value = ColorCode;
+        document.getElementById('txtColorDesc').value = ColorDesc;
+    }
+
+    function ChangeColor(value) {
+
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    $("#btnSave").click(function () {
+
+        if (!PageValidation()) {
+            return false;
+        }
+
+        $("#section-confirm").modal("show");
+    })
+
+    function PageValidation() {
+
+
+        var count = 0;
+
+        if ($("#txtEmpCode").val() == '' || $("#txtEmpCode").val() == null) {
+            $("#txtEmpCode").css("border-color", "red");
+            $("#txtEmpCode").focus();
+            count++;
+        }
+        //if ($("#txtProdCode").val() == '' || $("#txtProdCode").val() == null) {
+        //    $("#txtProdCode").css("border-color", "red");
+        //    $("#txtProdCode").focus();
+        //    count++;
+        //}
+        if ($("#txtCommPerc").val() == '' && $("#txtCommAmt").val() == '') {
+            $("#txtCommPerc").css("border-color", "red");
+            $("#txtCommAmt").css("border-color", "red");
+            $("#txtCommPerc").focus();
+            count++;
+        }
+
+        if (count > 0) {
+
+            $("#lblMessage").html("Please fill the Required feilds");
+            $("#section-message").modal("show");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    function SaveEnquiry() {
+
+        var dto = {};
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.CommisionCode = $("#txtCommCode").val();
+        dto.CommisionDate = $("#txtCommDate").val();
+        dto.EmpCode = $("#txtEmpCode").val();
+        dto.ProdCode = $("#txtProdCode").val()
+        dto.CommPerc = $("#txtCommPerc").val();
+        dto.CommAmount = $("#txtCommAmt").val();
+        dto.ColorCode = $("#txtColorCode").val();
+        dto.BrandCode = $("#txtBrandCode").val();
+        dto.VersionCode = $("#txtVersionCode").val();
+        dto.Service = $("#ddlService").val();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/Master/Insert_Commision")',
+            data: dto,
+            success: function (data) {
+
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        setTimeout(function () {
+                            $('#section-message').modal('hide');
+                            location.reload();
+                        }, 4000);
+                        ClearFields();
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                    
+                
+            },
+            complete: function () {
+                //Get_VehicleTypeDetailData();
+
+            },
+
+        });
+
+    }
+
+    function ClearFields() {
+        $("#txtCommCode").val('');
+        $("#txtEmpCode").val('');
+        $("#txtProdCode").val('');
+        $("#txtProdDesc").val('');
+        $("#txtCommPerc").val('');
+        $("#txtCommAmt").val('');
+        $("#txtEmpDesig").val('');
+        $("#txtEmpCode").val('');
+        $("#txtEmpDesc").val('');
+        $("#txtBrandCode").val('');
+        $("#txtBrandDesc").val('');
+        $("#txtColorCode").val('');
+        $("#txtColorDesc").val('');
+        $("#txtVersionCode").val('');
+    }
+</script>

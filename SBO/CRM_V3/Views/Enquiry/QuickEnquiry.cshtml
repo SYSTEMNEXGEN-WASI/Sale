@@ -1,0 +1,511 @@
+﻿
+@{
+    ViewBag.Title = "QuickEnquiry";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+    .rdoBtn {
+        cursor: pointer;
+        margin-right: 10px;
+        padding: 0px 10px;
+    }
+
+    .mandatory{
+        color: red;
+    }
+</style>
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class='col-xs-12'>
+        <div class="page-title">
+
+            <div class="pull-left">
+                <!-- PAGE HEADING TAG - START --><h1 class="title">Quick Enquiry</h1><!-- PAGE HEADING TAG - END -->
+            </div>
+
+            @*<div class="pull-right hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html"><i class="fa fa-home"></i>Home</a>
+                        </li>
+
+                        <li class="active">
+                            <strong>CRM Admin</strong>
+                        </li>
+                    </ol>
+                </div>*@
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- MAIN CONTENT AREA STARTS -->
+
+    <form method="post">
+        <!-- LEAD INFORMATION STARTS -->
+        <div class="col-xs-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Enquiry Information</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                    </div>
+                </header>
+
+                <div class="content-body">
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Salutation</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-male"></i></span>
+                                <select class="form-control m-bot15" id="ddlSalutation">
+                                    <option value="0">Mr.</option>
+                                    <option value="1">Ms.</option>
+                                    <option value="2">Mrs.</option>
+                                    <option value="3">M/S</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Name <span class="mandatory">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input type="text" required class="form-control" id="txtCustName" maxlength="100" onblur="ChangeColor(this)">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Cell No.<span class="mandatory">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                                <input type="tel" required class="form-control" id="txtCustCellNo" maxlength="12" onblur="ChangeColor(this)">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Assign To</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-users"></i>
+                                </span>
+                                @Html.DropDownList("ddlAssignTo", new SelectList((IEnumerable<SelectListItem>)ViewBag.AssignTo, "Value", "Text", Session["EmpCode"].ToString()), new { @class = "form-control m-bot15", @id = "ddlAssignTo" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Brand</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                @Html.DropDownList("ddlBrandCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.BrandCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlBrandCode" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Product <span class="mandatory">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                @Html.DropDownList("ddlProdCode", new SelectList((IEnumerable<SelectListItem>)ViewBag.ProdCode, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlProdCode" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4" style="display:none">
+                            <label class="form-label">Version</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-sitemap"></i>
+                                </span>
+                                <input type="text" class="form-control" id="txtVersion">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Color <span class="mandatory">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-pie-chart"></i></span>
+                                @Html.DropDownList("ddlColor", new SelectList((IEnumerable<SelectListItem>)ViewBag.Color, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlColor" , @change = "ChangeColor(this.value)" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Quantity <span class="mandatory">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-filter"></i>
+                                </span>
+                                <input type="text" class="form-control" id="txtQuantity" onkeypress="return isNumberKey(event)" maxlength="4" required onblur="ChangeColor(this)">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Procedure</label>
+                            <div class="input-group">
+                                
+                                <label class="rdoBtn">Cash<input type="radio" name="payment" id="minimal-radio-1" value="0" class="icheck-minimal-blue" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%;
+                                        height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" checked />
+                                </label>
+
+                                <label class="rdoBtn">Finance<input type="radio" name="payment" id="minimal-radio-2" value="1" class="icheck-minimal-blue" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%;
+                                        height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" />
+                                </label>
+                                
+                                <label class="rdoBtn">Lease
+                                    <input type="radio" name="payment" id="minimal-radio-3" class="icheck-minimal-blue" value="2" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%;
+                                        height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" />
+                                </label>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        
+                        <div class="col-xs-12">
+                            <div class="pull-left">
+                                <button type="reset" class="btn btn-default" id="btnCancel" style="margin-top:25px;">Cancel</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-primary" id="btnSave" style="margin-top:25px;" >Save</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveEnquiry()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Alert Message</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+</section>
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script> 
+<script src="../assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        // $(".select2").select2();
+
+        $("input[type='checkbox'], input[type='radio']").iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+    })
+
+    function ChangeColor(value) {
+        debugger
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    function isNumberKey(evt) {
+        
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+
+    
+
+    $("#btnSave").click(function () {
+
+        if (!validiadtor()) {
+            return false;
+        }
+        
+        //$("#txtCustName").css("border-color", "#ccc");
+        //$("#txtCustCellNo").css("border-color", "#ccc");
+        //$("#txtQuantity").css("border-color", "#ccc");
+        //$("#ddlColor").css("border-color", "#ccc");
+        //$("#ddlProdCode").css("border-color", "#ccc");
+        //$("#ddlAssignTo").css("border-color", "#ccc");
+
+        //var name = $("#txtCustName").val();
+        //var mobile = $("#txtCustCellNo").val();
+        //var quantity = $("#txtQuantity").val();
+        //var assignTo = $("#ddlAssignTo").val();
+        //var color = $("#ddlColor").val();
+        //var prodCode = $("#ddlProdCode").val();
+
+        //if (name == "" || name == " ")
+        //{
+        //    $("#txtCustName").css("border-color", "red");
+        //    return;
+        //}
+        //if (mobile == "" || mobile == " ")
+        //{
+        //    $("#txtCustCellNo").css("border-color", "red");
+        //    return;
+        //}
+        //if (assignTo == "0") {
+        //    $("#ddlAssignTo").css("border-color", "red");
+        //    return;
+        //}
+        //if (prodCode == "0") {
+        //    $("#ddlProdCode").css("border-color", "red")
+        //    return;
+        //}
+        //if (color == "0") {
+        //    $("#ddlColor").css("border-color", "red");
+        //    return;
+        //}
+        //if (quantity == "" || quantity == "0" || quantity.includes("-") || quantity.includes(".")) {
+        //    $("#txtQuantity").css("border-color", "red");
+        //    return;
+        //}
+
+        $("#section-confirm").modal("show");
+    })
+
+    function SaveEnquiry()
+    {
+
+        var dto = {};
+        var isFinance = "N";
+        var CashFinanced = "N";
+        var checkRadiobtn = $("input[name='payment']:checked").val();
+        if (checkRadiobtn == "0")
+        { isFinance = "N"; CashFinanced = "Y" }
+        else if (checkRadiobtn == "1")
+        { isFinance = "Y"; CashFinanced = "N" }
+        else { isFinance = "N"; CashFinanced = "N"; }
+
+        var title = $("#ddlSalutation").val();
+        var name = $("#txtCustName").val();
+        var mobile = $("#txtCustCellNo").val();
+        var quantity = $("#txtQuantity").val();
+        var assignTo = $("#ddlAssignTo").val();
+        var color = $("#ddlColor").val();
+        var brandCode = $("#ddlBrandCode").val().trim();
+        var prodCode = $("#ddlProdCode").val().trim();
+        var username = $("#ddlAssignTo :selected").text();
+        var version = $("#txtVersion").val();
+
+        debugger
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.EmpCode = $("#ddlAssignTo").val();
+        dto.CashFinanced = CashFinanced;
+        dto.IsFinanced = isFinance;
+        dto.CreatedBy = username;
+        dto.BrandCode = brandCode;
+        dto.ProdCode = prodCode;
+        dto.ColorCode = color;
+        dto.Qty = quantity;
+        dto.ProspectTitle = title;
+        dto.Name = name;
+        dto.Mobile = mobile;
+        dto.VersionCode = version.trim();
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/Enquiry/Insert_QuickEnquiry")',
+            data: dto,
+            success: function (data) {
+                if (data) {
+                    if (data.Success == true)
+                    {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+                location.reload();
+            },
+            error: function(data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+    }
+
+    $("#ddlBrandCode").change(function () {
+        var brandCode = $("#ddlBrandCode").val();
+        if (brandCode == "0") {
+            location.reload();
+        } else {
+            getProduct(brandCode);
+
+        }
+    });
+
+    $("#ddlColor").change(function () {
+        var ColorCode = $("#ddlColor").val();
+        if (ColorCode != '') {
+            $("#ddlColor").css("border-color", "#e1e1e1");
+        }
+    });
+
+    $("#ddlProdCode").change(function () {
+
+        var skillsSelect = document.getElementById("ddlProdCode");
+        var selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
+
+        var prodCode = $("#ddlProdCode").val();
+
+        var version = selectedText.split('|', selectedText.length);
+
+        $("#txtVersion").val(version[1]);
+
+        if (prodCode != '') {
+            $("#ddlProdCode").css("border-color", "#e1e1e1");
+        }
+
+    });
+
+    function getProduct(id) {
+        var leadId = id;
+        var dealerCode = "@Session["DealerCode"].ToString()";
+        debugger
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Event/Select_BrandProduct")',
+                data: { 'EnquiryId': leadId, 'DealerCode': dealerCode },
+                success: function (data) {
+
+                    if (data.Success == true) {
+                        //var items = JSON.parse(data.Response)
+
+                        //$("#ddlProdCode").val(item[0].ProdCode.trim());
+                        $("#ddlProdCode").find('option').remove();
+
+                        // next iterate thru your object adding each option to the drop down\
+                        $(data.Response).each(function (index, item) { // GETTING ERROR HERE
+                            $("#ddlProdCode").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                        });
+
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+        }
+    }
+
+    function validiadtor() {
+
+        var count = 0;
+
+        if ($("#txtCustName").val() == '' || $("#txtCustName").val() == null) {            
+            $("#txtCustName").css("border-color", "red")
+            count++;
+        }
+            
+        if ($("#txtCustCellNo").val() == '' || $("#txtCustCellNo").val() == null) {
+            $("#txtCustCellNo").css("border-color", "red")
+            count++;
+        }
+        if ($("#ddlProdCode").val() == '' || $("#ddlProdCode").val() == null) {
+            $("#ddlProdCode").css("border-color", "red")
+            count++;
+        }
+        if ($("#ddlAssignTo").val() == '' || $("#ddlAssignTo").val() == null) {
+            $("#ddlAssignTo").css("border-color", "red")
+            count++;
+        }
+        if ($("#ddlColor").val() == '0' || $("#ddlColor").val() == null) {
+            $("#ddlColor").css("border-color", "red")
+            count++;
+        }
+        if ($("#txtQuantity").val() == '' || $("#txtQuantity").val() == null) {
+            $("#txtQuantity").css("border-color", "red")
+            count++;
+        }
+        debugger
+        //var input = control.val();
+        if (count > 0) {
+            //control.css("border-color", "red")
+            //control.focus();
+            //$("#section-confirm").modal("hide");
+            $("#lblMessage").text("Please select the Required feilds");
+            $("#section-message").modal("show");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    $('#txtCustCellNo').keypress(function (event) {
+        var keycode = event.which;
+        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+            event.preventDefault();
+        }
+    });
+</script>

@@ -1,0 +1,850 @@
+﻿
+@{
+    ViewBag.Title = "TaskDetail";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+    string leadID = ViewBag.UrlLeadId;
+}
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .rdoBtn {
+        cursor: pointer;
+        margin-right: 10px;
+        padding: 0px 10px;
+    }
+
+    .disable-item {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+</style>
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class='col-xs-12'>
+        <div class="page-title">
+
+            <div class="pull-left">
+                <!-- PAGE HEADING TAG - START --><h1 class="title">Task</h1><!-- PAGE HEADING TAG - END -->
+            </div>
+
+            @*<div class="pull-right hidden-xs">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html"><i class="fa fa-home"></i>Home</a>
+                        </li>
+
+                        <li class="active">
+                            <strong>CRM Admin</strong>
+                        </li>
+                    </ol>
+                </div>*@
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- MAIN CONTENT AREA STARTS -->
+
+    <form method="post">
+        <!-- TASK INFORMATION STARTS -->
+        <div class="col-xs-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Task Information</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        <input type="hidden" value="@leadID" id="txtLeadID" />
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                    </div>
+                </header>
+
+                <div class="content-body">
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Task ID</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tasks"></i></span>
+                                @Html.DropDownList("ddlTaskId", new SelectList((IEnumerable<SelectListItem>)ViewBag.Tasks, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlTaskId" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Assign To</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-users"></i>
+                                </span>
+                                @Html.DropDownList("ddlAssignTo", new SelectList((IEnumerable<SelectListItem>)ViewBag.AssignTo, "Value", "Text", Session["EmpCode"].ToString()), new { @class = "form-control m-bot15", @id = "ddlAssignTo" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Status</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                                @Html.DropDownList("ddlStatusType", new SelectList((IEnumerable<SelectListItem>)ViewBag.StatusType, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlStatusType", @onchange = "ChangeColor(this)" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Subject</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                                @Html.DropDownList("ddlSubjects", new SelectList((IEnumerable<SelectListItem>)ViewBag.Subjects, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlSubjects", @onchange = "ChangeColor(this)" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Customer*</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                @Html.DropDownList("ddlCustomerId", new SelectList((IEnumerable<SelectListItem>)ViewBag.Customers, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlCustomerId", @onchange = "ChangeColor(this)" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Due Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtDueDate" readonly onblur="ChangeColor(this)">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Related To</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-info"></i>
+                                </span>
+                                @Html.DropDownList("ddlRelatedTo", new SelectList((IEnumerable<SelectListItem>)ViewBag.RelatedTo, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlRelatedTo", @onchange = "ChangeColor(this)" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Phone</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                                <input type="tel" required class="form-control" id="txtPhone" maxlength="12" onblur="ChangeColor(this)">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Email*</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <input type="email" class="form-control" id="txtEmail" required maxlength="75">
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Task Type</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                @Html.DropDownList("ddlTaskType", new SelectList((IEnumerable<SelectListItem>)ViewBag.TaskType, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlTaskType", @onchange = "ChangeColor(this)" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Priority</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-bullhorn"></i></span>
+                                @*@Html.DropDownList("ddlPriority", new SelectList((IEnumerable<SelectListItem>)ViewBag.Priority, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlPriority", @onchange = "ChangeColor(this)" })*@
+                                <select id="ddlPriority" class="form-control m-bot15" onchange="ChangeColor(this)">
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Lead ID</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="arrow"></span>
+                                    <i class="fa fa-info"></i>
+                                </span>
+                                @Html.DropDownList("ddlLeadId", new SelectList((IEnumerable<SelectListItem>)ViewBag.LeadId, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlLeadId" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label">Comments</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-comments-o"></i>
+                                </span>
+                                <input type="text" required class="form-control" id="txtComments" maxlength="150">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- RECURRENCE INFORMATION STARTS -->
+        <div class="col-xs-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Recurrence</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                    </div>
+                </header>
+
+                <div class="content-body">
+                    <div class="row">
+
+                        
+                            <div class="col-md-6">
+                                <label class="form-label">Frequency</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                    <label class="rdoBtn">
+                                        Daily<input type="radio" name="frequency" id="minimal-radio-1" value="0" class="icheck-minimal-blue" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%;
+                                        height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" checked />
+                                    </label>
+
+                                    <label class="rdoBtn">
+                                        Weekly<input type="radio" name="frequency" id="minimal-radio-2" value="1" class="icheck-minimal-blue" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%;
+                                        height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" />
+                                    </label>
+
+                                    <label class="rdoBtn">
+                                        Monthly
+                                        <input type="radio" name="frequency" id="minimal-radio-3" class="icheck-minimal-blue" value="2" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%;
+                                        height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" />
+                                    </label>
+
+                                    <label class="rdoBtn">
+                                        Yearly
+                                        <input type="radio" name="frequency" id="minimal-radio-4" class="icheck-minimal-blue" value="3" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%;
+                                        height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" />
+                                    </label>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Frequency</label>
+                                    <div class="input-group">
+                                        <label class="rdoBtn">
+                                            <input type="radio" name="Everyday" id="rdoWeekDay" value="0" class="rdoDaily " checked />Every Weekday
+                                        </label>
+
+                                        <label class="rdoBtn">
+                                            <input type="radio" name="Everyday" id="rdoEveryday" value="1" class="irdoDaily " />Everyday
+                                        </label>
+
+                                        <input type="number" placeholder="Days" id="txtDays" class="form-control disable-item" maxlength="3" style="width : 35%; float:right;" />
+                                    </div>
+                                <div class="makespace"></div>
+                            </div>
+                            
+                        
+
+                        <div class="col-md-4">
+                            <label class="form-label">Start Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtStartDate" readonly onblur="ChangeColor(this)" >
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Start Time</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                <input type="text" class="form-control timepicker" id="txtStartTime" onblur="ChangeColor(this)"
+                                       data-template="dropdown" data-show-seconds="true" data-default-time="08:00 AM"
+                                       data-show-meridian="true" data-minute-step="5" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">End Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtEndDate" readonly  >
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">End Time</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                <input type="text" class="form-control timepicker" id="txtEndTime"
+                                       data-template="dropdown" data-show-seconds="true" data-default-time="08:00 AM"
+                                       data-show-meridian="true" data-minute-step="5" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <label></label>
+                            <div class="input-group">
+                                <label>
+                                    Ongoing
+                                    <input tabindex="5" type="checkbox" name="Ongoing" id="checkOngoing flat-checkbox-4" class="checkOngoing icheckbox_minimal-blue" style="position: absolute; opacity: 0;">
+                                </label>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                    </div>
+                    <hr style="border-top:1px solid blue;" />
+                    
+                    <h2 class="title pull-left" style="font-size: 19px; font-weight: 400;text-transform: uppercase;display: inline-block;">Reminder</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    Reminder at
+                                    @*<input tabindex="5" type="checkbox" name="Reminder" id="checkReminder flat-checkbox-4" class="checkReminder icheckbox_minimal-blue" style="position: absolute; opacity: 0;">*@
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-history"></i>
+                                    </span>
+                                    <select id="ddlReminder" class="form-control m-bot15" disabled>
+                                        <option value="0">Select</option>
+                                    </select>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">For each occurrence</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </span>
+                                    <input type="text" class="form-control timepicker" id="txtReminderTime" data-default-time="08:00 AM"
+                                           data-template="dropdown" data-show-seconds="true" readonly
+                                           data-show-meridian="true" data-minute-step="5" >
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+
+
+        <div class="col-xs-12">
+            <section class="box ">
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pull-left">
+
+                            </div>
+                            <div class="pull-right">
+                                <button type="reset" class="btn btn-default" id="btnCancel" style="margin-top:25px;">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="btnSave" style="margin-top:25px;">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveForm()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+    <!-- Popup box modal start -->
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Alert</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
+</section>
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/select2/select2.min.js")' type="text/javascript"></script>
+<script src="../assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        // $(".select2").select2();
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        $("#txtDueDate").val(getDueDate());
+        $("#txtEndDate").val(getDueDate());
+
+        $(".icheckbox_minimal-blue").iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+        //
+        $('input[name="Ongoing"]').on('ifClicked', function (ev) {
+            checkBank = $('input.checkOngoing').is(':checked'); //$('.chkBank').iCheck('update')[0].checked;
+
+            if (checkBank == true) {
+                $("#txtEndDate").removeClass('disable-item');
+                $("#txtEndTime").removeClass('disable-item');
+            }
+            else {
+                $("#txtEndDate").addClass('disable-item');
+                $("#txtEndTime").addClass('disable-item');
+            }
+        })
+
+        //$('input[name="Reminder"]').on('ifClicked', function (ev) {
+
+        //    checkReminder = $('input.checkReminder').is(':checked'); //$('.chkBank').iCheck('update')[0].checked;
+
+        //    if (checkReminder == true) {
+        //        $("#ddlReminder").prop("disabled", true);
+        //        $("#txtReminderTime").prop("disabled", true);
+        //    }
+        //    else {
+        //        $("#ddlReminder").prop("disabled", false);
+        //        $("#txtReminderTime").prop("disabled", false);
+        //        $("#txtReminderTime").prop("readonly", true);
+        //    }
+        //})
+
+        $('body').on('click', 'input[name="Daily"]', function () {
+            var valueDays = this.value;
+
+            if(valueDays == 1)
+            {
+                $("#txtDays").removeClass('disable-item');
+            }
+            else {
+                $("#txtDays").addClass('disable-item');
+            }
+        })
+
+        $('input[name="Daily"]').on('ifUnchecked', function (ev)
+            //$('#rdoDaily').on('ifChanged', function (event)
+            {
+            var value = $("input[name='Daily']:checked").val();
+            if (value == "1")
+            {
+                $("#txtDays").prop("disabled", false);
+            }
+            else
+            {
+                $("#txtDays").prop("disabled", true);
+            }
+
+        });
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = mm + '/' + dd + '/' + yyyy;
+        $("#ddlReminder").append('<option value="' + today + '">' + today + '</option> <option value="2">Set Occurrence date</option>')
+        $("#txtStartDate").val(today);
+        //$("#txtReminderTime").val('');
+
+
+        var leadID = $("#txtLeadID").val();
+        debugger
+        if (leadID != '') {
+            fillData(leadID);
+            $("#ddlTaskId").val(leadID);
+        }
+    })
+
+
+    $("#btnSave").click(function () {
+
+        if (!PageValidation()) {
+            return false;
+        }
+        $("#section-confirm").modal("show");
+    })
+
+    function PageValidation() {
+
+         
+        var count = 0;
+
+        if ($("#ddlStatusType").val() == '0' || $("#ddlStatusType").val() == null) {
+            $("#ddlStatusType").css("border-color", "red");
+            $("#ddlStatusType").focus();
+            count++;
+        }
+        if ($("#ddlSubjects").val() == null) {
+            $("#ddlSubjects").css("border-color", "red");
+            $("#ddlSubjects").focus();
+            count++;
+        }
+        if ($("#ddlCustomerId").val() == '0' || $("#ddlCustomerId").val() == null) {
+            $("#ddlCustomerId").css("border-color", "red");
+            $("#ddlCustomerId").focus();
+            count++;
+        }
+
+        if ( $("#ddlRelatedTo").val() == null) {
+            $("#ddlRelatedTo").css("border-color", "red");
+            $("#ddlRelatedTo").focus();
+            count++;
+        }
+
+        if ($("#txtPhone").val().trim() == '' || $("#txtPhone").val() == null) {
+            $("#txtPhone").css("border-color", "red");
+            $("#txtPhone").focus();
+            count++;
+        }
+
+        if ($("#ddlTaskType").val() == '0' || $("#ddlTaskType").val() == null) {
+            $("#ddlTaskType").css("border-color", "red");
+            $("#ddlTaskType").focus();
+            count++;
+        }
+        if ($("#ddlPriority").val() == '0' || $("#ddlPriority").val() == null) {
+            $("#ddlPriority").css("border-color", "red");
+            $("#ddlPriority").focus();
+            count++;
+        }
+
+        if ($("#txtDueDate").val().trim() == '' || $("#txtDueDate").val() == null) {
+            $("#txtDueDate").css("border-color", "red");
+            $("#txtDueDate").focus();
+            count++;
+        }
+        if ($("#txtStartDate").val().trim() == '' || $("#txtStartDate").val() == null) {
+            $("#txtStartDate").css("border-color", "red");
+            $("#txtStartDate").focus();
+            count++;
+        }
+        if ($("#txtStartTime").val().trim() == '' || $("#txtStartTime").val() == null) {
+            $("#txtStartTime").css("border-color", "red");
+            $("#txtStartTime").focus();
+            count++;
+        }
+        if ($("#txtReminderTime").val().trim() == '' || $("#txtReminderTime").val() == null) {
+            $("#txtReminderTime").css("border-color", "red");
+            $("#txtReminderTime").focus();
+            count++;
+        }
+
+
+        if (count > 0) {
+
+            $("#lblMessage").html("Please fill the Required feilds");
+            $("#section-message").modal("show");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+
+    $('#txtPhone').keypress(function (event) {
+        var keycode = event.which;
+        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+            event.preventDefault();
+        }
+    });
+
+    function SaveForm() {
+
+        var checkOngoing = $('input.checkOngoing').is(':checked');
+        var endTime = "";
+        var endDate = "";
+        if (!checkOngoing) {
+            checkOngoing = 'N';
+            endDate = $("#txtEndDate").val();
+            endTime = $("#txtEndTime").val();
+        } else {
+            checkOngoing = 'Y';
+        }
+         
+        //var checkReminder = $('input.checkReminder').is(':checked');
+        //var reminderTime = "";
+        //if (checkReminder) {
+        //    checkReminder = 'Y';
+        //    reminderTime = $("#txtReminderTime").val();
+        //} else {
+        //    checkReminder = 'N';
+        //}
+
+        var reminderTime = $("#txtReminderTime").val();
+
+        var dto = {};
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()",
+        dto.TaskID = $("#ddlTaskId").val();
+        dto.AssignTo = $("#ddlAssignTo").val();
+        dto.Prospect_ID = $("#ddlCustomerId").val();
+        dto.DueDate = $("#txtDueDate").val();
+        dto.LeadSourceID = $("#ddlRelatedTo").val();
+        dto.Contact = $("#txtPhone").val();
+        dto.Email = $("#txtEmail").val();
+        dto.Lead_ID = $("#ddlLeadId").val();
+        dto.Comments = $("#txtComments").val();
+        dto.Frequency = $('input[name="frequency"]:checked').closest('label').text().trim();
+        dto.FreqTrun = $('input[name="Daily"]:checked').closest('label').text().trim();
+        dto.StartDate = $("#txtStartDate").val();
+        dto.StartTime = $("#txtStartTime").val();
+        dto.EndDate = endDate;
+        dto.EndTime = endTime;
+        dto.Ongoing = checkOngoing;
+        dto.Reminder = '';
+        dto.ReminderTime = reminderTime;
+        dto.StatusTypeId = $("#ddlStatusType").val();
+        dto.StatusId = $("#ddlPriority").val();
+        dto.SubjectId = $("#ddlSubjects").val();
+        dto.TaskTypeId = $("#ddlTaskType").val();
+
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/Task/Insert_TaskDetail")',
+            data: dto,
+            success: function (data) {
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $(".modal-title").text('Success')
+                        $("#section-message").modal('show');
+                    }
+                    else {
+                        $(".modal-title").text('Failed')
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+
+                }
+            },
+            complete: function () {
+                window.location.href = window.location.href.split("?")[0];
+            },
+        });
+    }
+
+    $("#ddlTaskId").on('change', function () {
+
+        var _taskid = $("#ddlTaskId").val();
+
+        if (_taskid > 0 || _taskid != '0') {
+            fillData(_taskid);
+        }
+
+    })
+
+    function fillData(_id) {
+
+        var _taskId = _id;
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'POST',
+            url: '@Url.Content("~/Task/Get_TaskDetail")',
+            data: { 'TaskID': _taskId },
+            success: function (data) {
+                if (data) {
+
+                    if (data.Success == true) {
+                        if (data.Response) {
+                            var _data = JSON.parse(data.Response);
+
+                            $("#ddlAssignTo").val(_data[0].AssignTo);
+                            $("#ddlCustomerId").val(_data[0].Prospect_ID);
+                            $("#txtDueDate").val(_data[0].DueDate);
+                            $("#ddlRelatedTo").val(_data[0].LeadSourceID);
+                            $("#txtPhone").val(_data[0].Contact);
+                            $("#txtEmail").val(_data[0].Email);
+                            $("#ddlLeadId").val(_data[0].Lead_ID);
+                            $("#txtComments").val(_data[0].Comments);
+
+                             
+
+                            if (_data[0].Frequency == "Daily") {
+                                $('#minimal-radio-1').iCheck('check');
+                            } else if (_data[0].Frequency == "Weekly") {
+                                $('#minimal-radio-2').iCheck('check');
+                            } else if (_data[0].Frequency == "Monthly") {
+                                $('#minimal-radio-3').iCheck('check');
+                            } else{
+                                $('#minimal-radio-4').iCheck('check');
+                            }
+
+                            if (_data[0].FreqTrun == "Everyday") {
+                                $('#rdoEveryday').iCheck('check');
+                            } else {
+                                $('#rdoWeekDay').iCheck('check');
+                            }
+                            
+
+                            //$('input[name="Daily"]:checked').closest('label').text().trim();
+
+                            $("#txtStartDate").val(_data[0].StartDate);
+                            $("#txtStartTime").val(_data[0].StartTime);
+
+                            
+
+                            $("#ddlStatusType").val(_data[0].StatusTypeId);
+                            $("#ddlPriority").val(_data[0].StatusId);
+                            $("#ddlSubjects").val(_data[0].SubjectId);
+                            $("#ddlTaskType").val(_data[0].TaskTypeId);
+
+                            debugger
+                            $("txtReminderTime").val(_data[0].ReminderTime);
+
+                            if (_data[0].Ongoing == 'Y') {
+                                $('input[name="Ongoing"]').iCheck('check');
+
+                                $("#txtEndDate").addClass('disable-item');
+                                $("#txtEndTime").addClass('disable-item');
+
+
+                            } else {
+                                $('input[name="Ongoing"]').iCheck('uncheck');
+
+                                //$("#txtEndDate").removeClass('disable-item');
+                                //$("#txtEndTime").removeClass('disable-item');
+                                $("#txtEndDate").val(_data[0].EndDate);
+                                $("#txtEndTime").val(_data[0].EndTime);
+                            }
+
+                            //if (_data[0].Reminder == 'Y') {
+                            //    //$('input[name="Reminder"]').iCheck('check');
+                            //    $("#ddlReminder").prop("disabled", false);
+                            //    $("#ddlReminder").val(2);
+                            //    //$("#txtReminderTime").prop("disabled", false);
+                            //    //$("#txtReminderTime").prop("readonly", true);
+                            //    $("txtReminderTime").val(_data[0].ReminderTime);
+
+                            //} else {
+
+                            //    $("#ddlReminder").prop("disabled", true);
+                            //    //$("#txtReminderTime").prop("disabled", true);
+
+                            //}
+
+
+                            if (_data[0].Frequency == 'Daily') {
+                                $('input[name="Daily"]')
+                            }
+
+
+
+                        }
+                    }
+
+                }
+            },
+            complete: function () {
+
+            },
+        });
+    }
+
+    function ChangeColor(value) {
+
+        if ($(value).val() != '')
+            $(value).css("border-color", "#e1e1e1");
+    }
+
+    function getDueDate()
+    {
+         
+        var today = new Date();
+        var dd = today.getDate()+3;
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = dd + '-' + mm + '-' + yyyy;
+        //today = mm + '/' + dd + '/' + yyyy;
+
+        return today;
+    }
+</script>
+

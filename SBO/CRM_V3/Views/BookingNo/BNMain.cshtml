@@ -1,0 +1,313 @@
+﻿
+@{
+    ViewBag.Title = "BNMain";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+
+
+<style>
+    .makespace {
+        margin-bottom: 20px;
+    }
+
+    .icheckbox_minimal-blue {
+        top: 10px;
+    }
+</style>
+
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.css")' rel="stylesheet" />
+<link href='@Url.Content("~/assets/plugins/datatables/css/jquery.dataTables.min.css")' rel="stylesheet" />
+<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/select2/select2-bootstrap.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/css/chosen.css")' rel="stylesheet" type="text/css" />
+<link href='@Url.Content("~/assets/css/bootstrap-select.css")' rel="stylesheet" type="text/css" />
+
+<link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+<link href='@Url.Content("~/assets/plugins/daterangepicker/css/daterangepicker-bs3.css")' rel="stylesheet" type="text/css" media="screen" />
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="clearfix"></div>
+    <form method="post">
+        <div class="col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Update Booking Information</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="box_toggle fa fa-chevron-down"></a>
+                        @*<a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>*@
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label class="form-label">Booking Ref No</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>
+                                @Html.DropDownList("ddlBONo", new SelectList((IEnumerable<SelectListItem>)ViewBag.BONo, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddlBONo" })
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Booking No</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-th-list"></i></span>                               
+                                <input type="text" required class="form-control" id="txtBookingNo" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Booking Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtBookingDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tentative Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control datepicker" id="txtTentativeDate" readonly>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" id="btnUpdate" style="margin-top:25px;" href="#">Update</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+
+
+
+    <div class="modal" id="section-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5>Are you sure want to save ?</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-success" type="button" onclick="SaveMasterEnquiry()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header" id="modalMessage">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h5 id="lblMessage"></h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button" onclick="location.reload();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.js")' type="text/javascript"></script>
+@*<script src='@Url.Content("~/Scripts/bootstrap.js")'></script>
+    <script src='@Url.Content("~/Scripts/bootstrap.min.js")'></script>*@
+@*<script src='@Url.Content("~/assets/js/scripts.js")' type="text/javascript"></script>*@
+<script src='@Url.Content("~/assets/plugins/daterangepicker/js/moment.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/assets/plugins/daterangepicker/js/daterangepicker.js")' type="text/javascript"></script>
+
+
+@*<script src='@Url.Content("~/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js")' type="text/javascript"></script>*@
+
+<script>
+
+    $(document).ready(function () {
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        //today = mm + '/' + dd + '/' + yyyy;
+        today = dd + '-' + mm + '-' + yyyy;
+
+        $("#txtBookingDate").val(today);
+        $("#txtTentativeDate").val(today);
+
+    })
+
+    $("#ddlBONo").change(function () {
+        var leadId = $("#ddlBONo").val();
+        if (leadId == "0") {
+            location.reload();
+        }
+        else {
+            getData(leadId);
+        }
+
+    });
+
+    function getData(id) {
+        var leadId = id;
+        if (leadId != "0") {
+            $.ajax({
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/BookingNo/Select_BookingOrder")',
+                data: { 'EnquiryId': leadId },
+                success: function (data) {
+                    if (data.Success == true) {
+                        var item = JSON.parse(data.Response)
+
+                        $("#txtBookingNo").val(item[0].BookingNo);
+                        $("#txtBookingDate").val(item[0].BookingDate);
+                        $("#txtTentativeDate").val(item[0].TentativeDate);
+                    }
+                },
+                complete: function () {
+
+                },
+            });
+
+        }
+
+    }
+
+    $("#btnUpdate").click(function () {
+        debugger
+        var check = ValidateBO();
+        if (check == true) {
+            $("#section-confirm").modal("show");
+        }
+    })
+
+    function ValidateBO() {
+        var check = false;
+        check = Validate("#txtBookingNo");
+        check = Validate("#txtBookingDate");
+        check = Validate("#txtTentativeDate");
+        
+
+        return check;
+    }
+
+    function Validate(item) {
+        var val = $(item).val();
+        if (val == "0") {
+            $(item).css("border-color", "red");
+            $('html, body').animate({
+                scrollTop: $(item).scrollTop(500)
+            }, 800);
+            return false;
+        }
+        else {
+            $(item).css("border-color", "#ccc");
+            return true;
+        }
+    }
+
+    function SaveMasterEnquiry() {
+
+        var dto = {};
+
+
+        dto.DealerCode = "@Session["DealerCode"].ToString()";
+        dto.BookRefNo = $("#ddlBONo").val();
+        dto.BookingNo = $("#txtBookingNo").val();
+        dto.BookingDate = $("#txtBookingDate").val();
+        dto.TentativeDate = $("#txtTentativeDate").val();
+        
+
+        $.ajax({
+            dataType: "json",
+            async: true,
+            type: 'GET',
+            url: '@Url.Content("~/BookingNo/Update_BookingNo")',
+            data: dto,
+            success: function (data) {
+                debugger
+                if (data) {
+                    if (data.Success == true) {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#64c344");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                        clearFeilds();
+
+                    }
+                    else {
+                        $("#section-confirm").modal("hide")
+                        $("#modalMessage").css("background-color", "#e46457");
+                        $("#lblMessage").text(data.Message)
+                        $("#section-message").modal('show');
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (data) {
+                $("#section-confirm").modal("hide")
+                $("#modalMessage").css("background-color", "#e46457");
+                $("#lblMessage").text(data.Message)
+                $("#section-message").modal('show');
+            }
+        });
+    }
+
+    function clearFeilds(){
+
+        $("#ddlBONo").val("0");
+        $("#txtBookingNo").val("");
+        $("#txtBookingDate").val("");
+        $("#txtTentativeDate").val("");       
+
+
+    }
+
+</script>
+
+
+
+
+
+

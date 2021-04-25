@@ -1,0 +1,476 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VoucherReceipt</title>
+    <link rel="shortcut icon" href='@Url.Content("~/assets/images/Favicon365.png")' type="image/x-icon" />    <!-- Favicon -->
+    <link rel="apple-touch-icon-precomposed" href="../assets/images/apple-touch-icon-57-precomposed.png">	<!-- For iPhone -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/images/apple-touch-icon-114-precomposed.png">    <!-- For iPhone 4 Retina display -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/images/apple-touch-icon-72-precomposed.png">    <!-- For iPad -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/images/apple-touch-icon-144-precomposed.png">    <!-- For iPad Retina display -->
+    <!-- CORE CSS FRAMEWORK - START -->
+    <link href='@Url.Content("~/assets/plugins/pace/pace-theme-flash.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/bootstrap/css/bootstrap.min.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/plugins/bootstrap/css/bootstrap-theme.min.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/fonts/font-awesome/css/font-awesome.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/css/animate.min.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/plugins/perfect-scrollbar/perfect-scrollbar.css")' rel="stylesheet" type="text/css" />
+    <!-- CORE CSS FRAMEWORK - END -->
+    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START -->
+
+
+    <link href='@Url.Content("~/assets/plugins/morris-chart/css/morris.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/jquery-ui/smoothness/jquery-ui.min.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/assets/plugins/icheck/skins/futurico/futurico.css" rel="stylesheet" />
+    <link href='@Url.Content("~/assets/plugins/jvectormap/jquery-jvectormap-2.0.1.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/white.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/timepicker/css/bootstrap-timepicker.min.css")' rel="stylesheet" />
+    <link href='@Url.Content("~/assets/plugins/datepicker/css/datepicker.css")' rel="stylesheet" />
+    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
+    <!-- CORE CSS TEMPLATE - START -->
+    <link href='@Url.Content("~/assets/css/style.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/assets/css/responsive.css")' rel="stylesheet" type="text/css" />
+
+    <style>
+        .makespace {
+            margin-bottom: 20px;
+        }
+
+        .rdoBtn {
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 0px 10px;
+        }
+
+        .icheckbox_minimal-blue {
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="">
+        <div class="col-xs-12">
+            <section class="box">
+                <div class="content-body">
+                    <div class="row">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="form-label">Voucher Type</label>
+                                <div class="input-group">
+                                    <label class="rdoBtn">
+                                        Cash Receipt
+                                        <input type="radio" name="frequency" id="minimal-radio-1" value="CR" checked style="margin-left: 5px;" />
+                                    </label>
+                                    <label class="rdoBtn">
+                                        Cash Payment<input type="radio" name="frequency" id="minimal-radio-2" value="CP" style="margin-left: 5px;" />
+                                    </label>
+
+                                    <label class="rdoBtn">
+                                        Bank Receipt
+                                        <input type="radio" name="frequency" id="minimal-radio-3" class="icheck-minimal-blue" value="BR" style="margin-left: 5px;" />
+                                    </label>
+
+                                    <label class="rdoBtn">
+                                        Bank Payment
+                                        <input type="radio" name="frequency" id="minimal-radio-4" class="icheck-minimal-blue" value="BP" style="margin-left: 5px;" />
+                                    </label>
+                                    <label class="rdoBtn">
+                                        Journal Voucher
+                                        <input type="radio" name="frequency" id="minimal-radio-5" value="JV" checked style="margin-left: 5px;" />
+                                    </label>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="text-align: center;padding: 10px; border: 1px solid;">
+                                    <label class="form-label" id="lblText" style="font-size:large; color:blue; font-weight:bold; margin-bottom: 0px">@ViewBag.Text Mode</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">Journal No.</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    @Html.DropDownList("ddljournalNo", new SelectList((IEnumerable<SelectListItem>)ViewBag.Journal, "Value", "Text", "0"), new { @class = "form-control m-bot15", @id = "ddljournalNo", @onchange = "ChangeColor(this)" })
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Voucher No.</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    <input type="text" class="form-control" id="txtVouchNo" value="@ViewBag.VoucherNo">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Voucher Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    <input type="text" class="form-control datepicker" id="txtVouchDate" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+
+                        </div>
+                        @*<div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">Cheque No.</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    <input type="text" class="form-control" id="txtChqNo" value="@ViewBag.InstNo">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Cheque Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                    <input type="text" class="form-control datepicker" id="txtChqDate" value="@ViewBag.InstDate" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                        </div>*@
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="tblVoucher" style="white-space: nowrap; FONT-SIZE: 10px;">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Account Code</th>
+                                                <th>Account Title</th>
+                                                <th>Naration</th>
+                                                <th>Debit</th>
+                                                <th>Credit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @{ int i = 1; }
+                                            @if (ViewBag.lstAccount != null)
+                                            {
+                                                foreach (var item in ViewBag.lstAccount)
+                                                {
+                                                    <tr style="text-align: left">
+                                                        <td> @i</td> @{ i++; }
+                                                        <td class="tdDiv">
+                                                            <label id="lblAccCode" style="color:black">@item.AccountCode</label>
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            <label id="lblAccTitle" style="color:black">@item.AccountTitle</label>
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            <label id="lblNarration" style="color:black">@item.Narration</label>
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            <label id="lblDebit" style="color:black">@item.Debit</label>
+                                                        </td>
+                                                        <td class="tdDiv">
+                                                            <label id="lblCredit" style="color:black">@item.Credit</label>
+                                                        </td>
+                                                    </tr>
+                                                                }
+                                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td colspan="2">Are you sure you want to generate the voucher?</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%; float:right"><button type="button" class="btn btn-primary" id="btnSave" style="margin-top:25px;">Yes</button></td>
+                                        <td style="width:50%"><button type="button" class="btn btn-primary" style="margin-top:25px;" OnClientClick="javascript:window.close()"> No</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label ID="lblMsg" Width="100%" style="color:red"></label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td style="width:50%;padding-right:10px;text-align:right;">Total</td>
+                                        <td style="width:25%"><input type="text" class="form-control" id="txtDebit" value="@ViewBag.Debit" readonly></td>
+                                        <td style="width:25%"><input type="text" class="form-control" id="txtCredit" value="@ViewBag.Credit" readonly></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Popup box modal start -->
+        <div class="modal" id="section-message" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog animated bounceInDown">
+                <div class="modal-content">
+                    <div class="modal-header" id="modalMessage">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Alert Message</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5 id="lblMessage"></h5>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal end -->
+    </section>
+
+    <link href='@Url.Content("~/assets/plugins/select2/select2.css")' rel="stylesheet" type="text/css" media="screen" />
+    <link href='@Url.Content("~/assets/plugins/icheck/skins/minimal/blue.css")' rel="stylesheet" type="text/css" media="screen" />
+    <script src='@Url.Content("~/assets/js/jquery-1.11.2.min.js")' type="text/javascript"></script>
+    <script src='@Url.Content("~/assets/plugins/bootstrap/js/bootstrap.min.js")'></script>
+    <script src='@Url.Content("~/assets/plugins/datepicker/js/datepicker.js")'></script>
+    <script src="../assets/js/scripts.js" type="text/javascript"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            document.getElementById("minimal-radio-1").disabled = true;
+            document.getElementById("minimal-radio-2").disabled = true;
+            document.getElementById("minimal-radio-3").disabled = true;
+            document.getElementById("minimal-radio-4").disabled = true;
+
+            $(".datepicker").datepicker({
+                format : "dd-mm-yyyy"
+            });
+
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+
+
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+
+            today = dd + '-' + mm + '-' + yyyy;
+
+            $("#txtVouchDate").val(today);
+        })
+
+        function ChangeColor(value) {
+
+            if ($(value).val() != '')
+                $(value).css("border-color", "#e1e1e1");
+        }
+
+        //$("#ddljournalNo").change(function () {
+        //    var type = $("#ddljournalNo :selected").text();
+        //    debugger
+        //    var account = type.split(" | ")[0];
+
+        //    var accTitle = type.split(" | ")[1];
+
+        //    $("#lblAccCode").text(account);
+        //    $("#lblAccTitle").text(accTitle);
+        //    $("#lblMsg").text('');
+        //});
+
+        $("#btnSave").click(function () {
+
+            if (!PageValidation()) {
+                return false;
+            }
+
+            SaveMasterEnquiry();
+        })
+
+        function PageValidation() {
+
+
+            var count = 0;
+
+            if ($("#ddljournalNo").val() == '0' || $("#ddljournalNo").val() == null) {
+                $("#ddljournalNo").css("border-color", "red");
+                $("#ddljournalNo").focus();
+                count++;
+            }
+
+            if ($("#lblAccCode").text() == '' || $("#lblAccCode").text() == null) {
+                count++;
+            }
+
+            var row = $('#tblVoucher >tbody  >tr').length;
+
+
+            if (count > 0 || row == 0) {
+
+                $("#lblMsg").html("Please Select The Account Code");
+                return false;
+            }
+            else {
+                return true;
+            }
+
+        }
+
+
+
+        function insertRecord() {
+            var obj = [];
+            var journal = $("#ddljournalNo").val();
+            debugger
+        
+
+            $("#tblVoucher tbody tr").each(function () {
+                var dto = {};
+                debugger
+                var accountcode = $(this).closest('tr').find('#lblAccCode').text();
+
+                //var contAccCode = accountcode.substring(0, 2);
+                //var subCode = accountcode.substring(3, 2);
+                //var subSubCode = accountcode.substring(6, 2);
+                //var locCode = accountcode.substring(9, 2);
+                //var detailCode = accountcode.substring(12, 4);
+
+                dto.CompCode = "@Session["DealerCode"].ToString()";
+
+                var radioValue = $("input[name='frequency']:checked").val();
+
+                dto.Booktype = radioValue;
+                //dto.ContAccCode = contAccCode;
+                //dto.SubCode = subCode;
+                //dto.SubSubCode = subSubCode;
+                //dto.LocCode = locCode;
+                //dto.DetailCode = detailCode;
+                dto.Journalno = journal;
+                dto.VouchNo = $("#txtVouchNo").val();
+                dto.VouchDate = $("#txtVouchDate").val();
+                dto.Narration01 = $(this).closest('tr').find('#lblNarration').text().trim();
+                dto.ChqBillNo = $("#txtChqNo").val();
+                dto.ChqBillDate = $("#txtChqDate").val();
+                dto.DebitAmt = $(this).closest('tr').find('#lblDebit').text().trim();
+                dto.CreditAmt = $(this).closest('tr').find('#lblCredit').text().trim();
+                dto.DelFlag = 'N';
+                dto.BookNo = accountcode;
+                dto.AutoAcc = accountcode;
+                dto.Post = 'N';
+                dto.CSCode = "00/00000";
+
+                obj.push(dto);
+            });
+
+            return obj;
+        }
+
+        function SaveMasterEnquiry() {
+
+        var objects = [];
+        objects = JSON.stringify({ 'objects': insertRecord() });
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                async: true,
+                type: 'POST',
+                url: '@Url.Content("~/Voucher/Insert_GvoucherMaster")',
+                data: objects,
+                success: function (data) {
+
+                    debugger
+                    if (data) {
+                        debugger
+                        if (data.Success == true) {
+                            //$("#lblMsg").css("color", "green");
+                            //$("#lblMsg").text(data.Message);
+                            $("#modalMessage").css("background-color", "#64c344");
+                            $("#lblMessage").text(data.Message)
+                            $("#section-message").modal('show');
+                            setTimeout(function () {
+                                $('#section-message').modal('hide')
+                                //window.close();
+                                window.close("", "_blank", "width=1000,height=600");
+                            }, 2000);
+                        }
+                        else {
+                            $("#lblMsg").text(data.Message)
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    $("#lblMsg").text(data.Message)
+                }
+            });
+        }
+
+        $('input[type="radio"]').on('click change', function (e) {
+
+            debugger
+            var radioValue = $("input[name='frequency']:checked").val();
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                async: true,
+                type: 'GET',
+                url: '@Url.Content("~/Voucher/Select_VoucherType")',
+                data: { 'Type': radioValue },
+                success: function (data) {
+
+                    debugger
+                    if (data) {
+                        debugger
+                        if (data.Success == true) {
+                            $("#ddljournalNo").find('option').remove();
+                            $(data.Response).each(function (index, item) { // GETTING ERROR HERE
+                                $("#ddljournalNo").append($('<option value=' + item.Value + ' >' + item.Text + '</option>'));
+                            });
+
+                        }
+                        else {
+                            $("#lblMsg").text(data.Message)
+                        }
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    $("#lblMsg").text(data.Message)
+                }
+            });
+
+        });
+
+    </script>
+</body>
+
+
+</html>

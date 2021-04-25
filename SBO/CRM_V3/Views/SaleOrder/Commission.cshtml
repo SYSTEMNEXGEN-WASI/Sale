@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "Commission";
+    Layout = "~/Views/Shared/_LayoutV2.cshtml";
+}
+
+<form method="post" style="margin-top:7rem">
+    <div class="col-xs-12">
+        <section class="box">
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="text-align:center"><strong>Commission</strong></div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Commission Code</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><a data-toggle="modal" data-target="#POModal2" style="color:blue"><i class="fa fa-search" onclick="SetIds('BookNo1','AccountCodeID1', 'DetailDescID1')"></i></a></div>
+                               <input type="text" class="form-control" id="txtCommissionCode" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Commission Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control" id="txtCommissionDate" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Commission year</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                <select class="form-control input-md m-bot15" id="ddlCommissionYear">
+                                    <option>Select</option>
+                                    <option>1</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Commission Master</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                <select class="form-control input-md m-bot15" id="ddlCommissionMaster">
+                                    <option>Select</option>
+                                    <option>1</option>
+                                </select>
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Remarks</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-pinterest"></i></span>
+                               <input type="text" class="form-control" id="txtRemarks" />
+                            </div>
+                            <div class="makespace"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="form-label">Total Payable</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    <input type="text" class="form-control" id="txtTotalPayable">
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="form-label">Total Paid</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control" id="txtTotalPaid" readonly>
+                                </div>
+                                <div class="makespace"></div>
+                            </div>
+                        </div>
+
+                       
+                      
+                        </div>
+                       
+                        <!--copy till this-->
+                    </div>
+
+
+                <div class="form-group row" style="margin-left:15px;margin-right:15px;margin-top:20px">
+                    <div class="table-responsive table-Scroll" style="overflow: scroll; height:auto;width:auto">
+                        <table id="tblCommission" class="table color-table info-table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="tdDiv" style="text-align:left" width:"10%">Sr #</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Sale Person</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Brand</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Product</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Description</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Sale Qty</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Commission Amount</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Commission %</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Deduction</th>
+                                    <th class="tdDiv" style="text-align:left" width:"30%">Total</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px; text-transform: uppercase"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                    <!--Copy Till This-->
+                    <div class="row">
+                        <div class="pull-right" style="margin-right:30px;margin-bottom:20px">
+
+                            <button type="button" class="btn btn-info" id="btnSave" style="margin-top:27px; width:100px">Save</button>
+
+                            <button type="button" class="btn btn-danger" id="btnDelete" style="margin-top:27px; width:100px">Delete</button>
+
+                            <button type="button" class="btn btn-default" id="btnClear" style="margin-top:27px; width:100px">Clear</button>
+
+                            <button type="button" class="btn btn-success" id="btnPrint" style="margin-top:27px; width:100px">Print</button>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+</form>
+
